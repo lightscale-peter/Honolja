@@ -23,4 +23,12 @@ public class MainController {
 			mav.setViewName("/main/main");
 		return mav;
 	}
+	
+	@RequestMapping("/test.do")
+	public String main_test() {
+		
+		
+		return "/main/test";
+	}
+	
 }
