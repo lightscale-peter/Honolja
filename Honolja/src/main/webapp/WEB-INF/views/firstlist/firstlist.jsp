@@ -38,7 +38,8 @@
         </table>
       </div>
     </nav>
-    
+    <div style="position:fixed;">&nbsp;&nbsp;&nbsp;&nbsp;  달력 </div>
+    asd
       <!-- <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
@@ -95,6 +96,15 @@
       });
       
       </script>
+      <div>
+      <a href="detail.do">데이터 받아오기</a>
+      </div>
+      <div>
+      <a href="detail.do">데이터 받아오기</a>
+      </div>
+      <div>
+      <a href="detail.do">데이터 받아오기</a>
+      </div>
       
 	
 	<!-- <input type="button" value="뒤로가기" onclick="location.href='main.do'"/> -->
