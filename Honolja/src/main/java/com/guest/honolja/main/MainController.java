@@ -19,9 +19,16 @@ public class MainController {
 	
 	@RequestMapping("/main.do")
 	public ModelAndView main_page() {
-		//ss
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/WEB-INF/views/main.jsp");
+			mav.setViewName("/main/main");
 		return mav;
 	}
+	
+	@RequestMapping("/test.do")
+	public String main_test() {
+		
+		
+		return "/main/test";
+	}
+	
 }

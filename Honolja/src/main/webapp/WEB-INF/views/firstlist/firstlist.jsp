@@ -39,7 +39,6 @@
       </div>
     </nav>
     <div style="position:fixed;">&nbsp;&nbsp;&nbsp;&nbsp;  달력 </div>
-    asd
       <!-- <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
