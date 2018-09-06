@@ -26,7 +26,7 @@
  	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
  	<script>
  	var x= new Array();
- 	var y= new Array();
+ 	var y= new Array();//이부분
  	</script>
 </head>
 
