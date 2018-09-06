@@ -4,6 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="firstlist">
 
+	<select id="selectAll"  resultType="com.guest.honolja.list.ListDTO">
+		select rownum rn, g.* from guesthouse g where g_addr like '%강원%'
+	</select>
+
+	<select id="countAll" resultType="int">
+		select count(*) from guesthouse
+	</select>
 	
 
 </mapper>

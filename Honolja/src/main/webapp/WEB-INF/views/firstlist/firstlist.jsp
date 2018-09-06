@@ -19,15 +19,23 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- 달력 사용하기  -->
+	<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <!-- naver MAP API 받아오기 -->
  	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
- 
+ 	<script>
+ 	var x= new Array();
+ 	var y= new Array();
+ 	</script>
 </head>
 
 <body id="page-top">
 <!-- Navigation ===메인 상단고정 바( 내주변, 지역등등 상단배치시 필요한것들 + 달력) -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" >
-      <div class="container" style="position:fixed;margin-top:10px;">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="margin-bottom:0; border:0;width:100%;
+    background-color:white; height:70px" >
+      <div class="container" style="position:fixed;margin-bottom:0; border:0;width:100%;
+    background-color:white; height:60px">
       <table>
        <tr>
        <td colspan="5" width="100px"><a class="navbar-brand js-scroll-trigger" href="main.do">Main</a></td>
@@ -37,38 +45,81 @@
        <td width="100px"><a class="navbar-brand js-scroll-trigger" href="cast.do">캐스트</a></td></tr>
         </table>
       </div>
-    </nav>
-    <div style="position:fixed;">&nbsp;&nbsp;&nbsp;&nbsp;  달력 </div>
-      <!-- <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="list.do">주변</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="location.do">지역</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="search.do">숙소 검색</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="cast.do">캐스트</a>
-            </li>
-          </ul>
-        </div> -->
-        
-    <!-- 필터 담을것. 기본순/테마/가격대선택/예약가능/.......필터초기화-->
-    
+       </nav>
+   
+    <div style="position:fixed; background-color:#A6A6A6;" >
+    <input name="check_in" id="datepicker" width="200" /> 
+    </div>
+    <div style="position:fixed; background-color:#A6A6A6; margin-left:20%; margin-bottom:80%;">
+    <input name="check_out" id="datepicker1" width="200" />
+    </div>
+
+    <script>
+        $('#datepicker').datepicker({
+        	format: 'yyyy/mm/dd'
+        });
+        $('#datepicker1').datepicker({
+        	format: 'yyyy/mm/dd'
+        });
+    </script>
     
   <!-- Guest house 목록을 리스트로 뽑아주고  + 지도 우측배치로 고정 -->
 <br><br>
-	<div id="map"  style="width:500px;height:700px; float:right; position:fixed;margin-top:10px;"></div>
-    <script>
-      var map = new naver.maps.Map('map');
-      var myaddress = '불정로 6';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+
+<div style= "right:0; position:fixed;">
+	<div id="map" style= "width:600px;height:600px; margin-top:20px;"></div></div>
+    
+
+      <br><br>
+        <!-- 필터 담을것. 기본순/테마/가격대선택/예약가능/.......필터초기화-->
+	<div>
+    	<div><p>
+     		기본순  &nbsp;&nbsp;&nbsp;  테마&nbsp;&nbsp;&nbsp;    숙소특징 &nbsp;&nbsp;&nbsp;   가격대선택&nbsp;&nbsp;&nbsp;     예약가능  &nbsp;&nbsp;&nbsp;  필터 초기화
+    	</div>
+		<!-- 필터 끝-->
+
+      	<table width="700" border=1 cellpadding="0">
+      	<c:forEach var="list" items="${list}" varStatus="i">
+      	
+      	<tr align="left">
+      		<td rowspan="5" width="100"><a href="detail.do?idx=${list.g_no}">
+      		<img src = "${list.g_url}" width="200px" height="120px">
+      		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
+      		</a></td><!-- image불러올 때 .PNG대소문자 구분함. -->
+      		<td><a href="detail.do?idx=${list.g_no}"> ${list.g_name}</a></td>
+      	</tr>
+      		<tr><td>list.rating, reply count </td></tr>
+      		<tr><td>list.input time, price </td></tr>
+      		<tr><td>공백 </td></tr>
+      		<tr><td>공백 공백 공백 </td></tr>
+      		<script>
+      			x[i.index] = ${list.g_position_n};
+      			y[i.index] = ${list.g_position_e}; 
+  			</script>
+		</c:forEach>
+      	</table>
+      
+</div>
+	<script> alert("text="+x[0]);</script>
+	<!-- <input type="button" value="뒤로가기" onclick="location.href='main.do'"/> -->
+	
+	<script>
+    	var map = new naver.maps.Map('map', {
+        	center: new naver.maps.LatLng(37.4945220,127.0280080),
+       	 	zoom: 10
+    	});
+    	var marker = new naver.maps.Marker({
+    	    position: new naver.maps.LatLng(37.4945220,127.0280080),
+    	    map: map
+    	});
+
+      //var map = new naver.maps.Map('map');  //37.4945220,127.0280080
+      //var myaddress = '불정로 6';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
       naver.maps.Service.geocode({address: myaddress}, function(status, response) {
           if (status !== naver.maps.Service.Status.OK) {
               return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
           }
+          
           var result = response.result;
           // 검색 결과 갯수: result.total
           // 첫번째 결과 결과 주소: result.items[0].address
@@ -95,17 +146,5 @@
       });
       
       </script>
-      <div>
-      <a href="detail.do">데이터 받아오기</a>
-      </div>
-      <div>
-      <a href="detail.do">데이터 받아오기</a>
-      </div>
-      <div>
-      <a href="detail.do">데이터 받아오기</a>
-      </div>
-      
-	
-	<!-- <input type="button" value="뒤로가기" onclick="location.href='main.do'"/> -->
 </body>
 </html>

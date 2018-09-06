@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
-
 @Controller
 public class ListController {
 	
@@ -21,15 +19,14 @@ public class ListController {
 	ListDAO dao;
 	
 	@RequestMapping("/list.do")
-	public ModelAndView ghlist_select() {
+	public ModelAndView guest_select() { ///달력정보 받아오기, 게스트하우스 정보 생성 list로 띄워주기
 	  ModelAndView mav = new ModelAndView( );
-	  //int total=dao.dbCount();
-	  //List<ListDTO> list=dao.dbSelect();
-	  
-	  //mav.addObject("list", list);
-	  //mav.addObject("total",total);
-	  String url="/WEB-INF/views/firstlist/firstlist.jsp";
+	  int total=dao.dbCount();
+	  List<ListDTO> list=dao.dbSelect();
+	  mav.addObject("list", list);
+	 // mav.addObject("total",total);
+	  String url="firstlist/firstlist";
 	  mav.setViewName(url);
 	  return mav;
 	}//end
-}
+}//ListController class end
