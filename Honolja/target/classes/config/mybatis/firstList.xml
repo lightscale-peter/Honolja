@@ -11,9 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countAll" resultType="int">
 		select count(*) from guesthouse
 	</select>
+<<<<<<< HEAD
 	<select id="selectlo"  resultType="com.guest.honolja.list.ListDTO">
 		select rownum rn, g.* from guesthouse g 
 		where g_position_n like '%33%' and g_position_e like '%126%' and g_addr like '%제주%'
 	</select>
 
+=======
+	
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </mapper>
