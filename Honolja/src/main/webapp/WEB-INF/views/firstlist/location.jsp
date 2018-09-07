@@ -97,27 +97,27 @@
 		
 		<!-- Guest house 목록을 리스트로 뽑아주기 -->
       	<table width="700" border="1" cellpadding="1">
-      	<c:forEach var="list" items="${list}" varStatus="i">
+      	<c:forEach var="listlo" items="${listlo}" varStatus="i">
       	
       	<tr align="left">
-      		<td rowspan="8" width="100"><a href="detail.do?idx=${list.g_no}">
-      		<img src = "${list.g_url}" width="200px" height="120px">
+      		<td rowspan="8" width="100"><a href="detail.do?idx=${listlo.g_no}">
+      		<img src = "${listlo.g_url}" width="200px" height="120px">
       		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
       		</a></td><!-- image불러올 때 .PNG대소문자 구분함. -->
-      		<td><a href="detail.do?idx=${list.g_no}"> ${list.g_name}</a></td>
+      		<td><a href="detail.do?idx=${listlo.g_no}"> ${listlo.g_name}</a></td>
       	</tr>
-      		<tr><td>list.rating, reply count </td></tr>
-      		<tr><td>list.input time, price </td></tr>
+      		<tr><td>listlo.rating, reply count </td></tr>
+      		<tr><td>listlo.input time, price </td></tr>
       		<tr><td>공백 </td></tr>
       		<tr><td>쿠폰 및 테마 공백 </td></tr>
-      		<tr><td rowspan="3">&nbsp; </td></tr>
-      		<tr><td> &nbsp;</td></tr>
-      		<tr><td> &nbsp;</td></tr>
+      		<tr><td rowspan="3">&nbsp;</td></tr>
+      		<tr><td>&nbsp;</td></tr>
+      		<tr><td>&nbsp;</td></tr>
       		<script>
-      			x[${i.index}] = ${list.g_position_n};
-  				y[${i.index}] = ${list.g_position_e}; 
-  				name[${i.index}] = '${list.g_name}';
-  				url[${i.index}] = '${list.g_url}';
+      			x[${i.index}] = ${listlo.g_position_n};
+  				y[${i.index}] = ${listlo.g_position_e}; 
+  				name[${i.index}] = '${listlo.g_name}';
+  				url[${i.index}] = '${listlo.g_url}';
   			</script>
 		</c:forEach>
       	</table>
@@ -126,8 +126,8 @@
 	
  <script>
     var map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(37.4945220,127.0280080),
-       	zoom: 9
+        center: new naver.maps.LatLng(33.3795635,126.5586996), //제주도 정 가운데 지표임 추후 데이터 추가 및 수정 필요
+       	zoom: 5
     });
 
     var markers = [];

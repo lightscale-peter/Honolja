@@ -18,6 +18,11 @@ public class ListDAO {
 		return list;
 	}//end
 	
+	public List<ListDTO> dbSelectlo( ){
+		List<ListDTO> listlo=temp.selectList("firstlist.selectlo");
+		return listlo;
+	}//end
+	
 	public int dbCount() {
 		int cnt=(Integer)temp.selectOne("firstlist.countAll");
 		return cnt;
