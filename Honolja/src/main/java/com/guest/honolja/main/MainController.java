@@ -2,7 +2,9 @@ package com.guest.honolja.main;
 
 import java.io.PrintWriter;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 
 
@@ -22,9 +25,6 @@ public class MainController {
 
 	@Autowired
 	MainDAO dao;
-	
-	@Autowired
-	HttpSession session;
 	
 	@RequestMapping("/main.do")
 	public ModelAndView main_page(Model model) {
@@ -41,12 +41,15 @@ public class MainController {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		String host =  request.getParameter("host");
+
+		HttpSession session = request.getSession();
 		
 		if(id == null) {
 			id = "";
 		}			
 		
-		String scriptMsg;
+		String scriptMsg = null;
+		String alertMsg = null;
 		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/login_popup");
@@ -58,17 +61,33 @@ public class MainController {
 		if(id.equals("sky")) {
 			
 			model.addAttribute("checked", id);
+			
+			alertMsg = "로그인 성공!";
 				
-			//scriptMsg = "opener.opener.location.href = \"main.do\";";
 			scriptMsg = "opener.parent.location='"+host+"';";
-			scriptMsg += "alert('로그인 성공');";
 			scriptMsg += "self.close();";
 			
+			
+			
 		}else {	
-			scriptMsg = "alert('아이디 또는 비밀번호를 틀렸습니다.');";	
+			alertMsg = "아이디 또는 비밀번호를 틀렸습니다.";
 		}
 		
-			mav.addObject("script", scriptMsg);
+			//JavaScript 문장 전송
+			mav.addObject("scriptMsg", scriptMsg);
+			mav.addObject("alertMsg", alertMsg);
+			
+		//미 로그인 상태에서, 아이디 기억 저장 쿠키가 남아있을 경우 아이디 값 전송
+		if(session.getAttribute("checked") == null) {
+			try {
+				Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+				mav.addObject("loginCookie", loginCookie.getValue());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+			
+			
 		
 		return mav;
 	}
@@ -83,12 +102,23 @@ public class MainController {
 	}
 	
 	@RequestMapping("/logout.do")
-	public void common_logout(PrintWriter out) {
+	public String common_logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 	
-		out.println("<script>");
-		out.println("location.href = history.back();");
-		out.println("</script>");
 		
+		if(session.getAttribute("checked") != null) {
+			session.removeAttribute("checked");
+			session.invalidate();
+			
+			//Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			
+			//if(loginCookie != null) {
+			//	loginCookie.setMaxAge(0);
+			//response.addCookie(loginCookie);
+			
+			//}
+		}
+		
+		return "/main/logout";
 	}
 	
 	@RequestMapping("/test.do")

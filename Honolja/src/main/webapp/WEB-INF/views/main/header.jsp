@@ -39,9 +39,12 @@
 					<!-- 
 					<li class="active"><a href="#">공지사항</a></li>
 					 -->
-					<li ${notice}><a href="#">공지사항</a></li>
-					<li ${group}><a href="#">소모임</a></li>
-					<li ${test}><a href="test.do">TEST</a></li>
+					<li ${param.notice}><a href="#">공지사항</a></li>
+					<li ${param.group}><a href="#">소모임</a></li>
+					<li ${param.myplace}><a href="#">내주변</a></li>
+					<li ${param.area}><a href="#">지역</a></li>
+					<li ${param.cast}><a href="#">캐스트</a></li>
+					<li ${param.test}><a href="test.do">TEST</a></li>
 				</ul>
 				<c:choose>
 					<c:when test="${param.checked == ''}">
@@ -53,10 +56,16 @@
 					<c:otherwise>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="#"><span class="glyphicon glyphicon-user"></span>마이페이지</a></li>
-							<li onclick="popupwindow('popup.do', 'login', 350, 350)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
+							<li onclick="location.href = 'logout.do'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
+				<form class="navbar-form navbar-left" action="/action_page.php">
+					<div class="form-group">
+  						<input type="text" class="form-control" placeholder="게스트하우스 이름 입력">
+					</div>
+						<button type="submit" class="btn btn-primary">검색</button>
+				</form>
 			</div>
 		</nav>
 	</div>

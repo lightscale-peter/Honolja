@@ -16,9 +16,29 @@
 <body style="text-align: center;margin: 50px;">
 
 	
-	<c:if test="${param.id != null }">
+	<c:if test="${param.id != null }">	
+		<!-- Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+			
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal">&times;</button>
+					    <h4 class="modal-title">알림</h4>
+					</div>
+					<div class="modal-body">
+					    <p>${alertMsg}</p>
+					</div>
+					<div class="modal-footer">
+					    <button type="button" class="btn btn-default" data-dismiss="modal" onclick = "${scriptMsg}">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<script>
-			${script}
+			$('#myModal').modal('show');
 		</script>
 	</c:if>
 	
@@ -30,7 +50,7 @@
 			<div class="col-sm-10">
 			
 				<!-- 아이디 입력 -->
-				<input type="text" name = "id" class="form-control" id="id" placeholder="Enter id">
+				<input type="text" name = "id" class="form-control" id="id" placeholder="Enter id" value = "${loginCookie }">
 			</div>
 		</div>
 		<div class="form-group">
@@ -45,8 +65,17 @@
 			<div class="col-sm-offset-2 col-sm-10">
 				<div class="checkbox">
 				
+					<c:choose>
+						<c:when test="${loginCookie == null }">
+							<c:set var="check" value="" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="check" value="checked" />
+						</c:otherwise>
+					</c:choose>
+					
 					<!-- 아이디 기억 -->
-					<label><input type="checkbox"> Remember me</label>
+					<label><input type="checkbox" name="id_keep" value="true" ${check} >아이디 기억</label>
 				</div>
 			</div>
 		</div>
