@@ -53,7 +53,7 @@
 					<c:otherwise>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="#"><span class="glyphicon glyphicon-user"></span>마이페이지</a></li>
-							<li onclick="location.href = 'logout.do'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
+							<li onclick="popupwindow('popup.do', 'login', 350, 350)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
