@@ -12,7 +12,11 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<c:import url="header.jsp"></c:import>
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="test.do"></c:param>
+	</c:import>
+	
 	
 	<table border="1" cellspacing = 0>
 		<tr>
@@ -28,5 +32,8 @@
 			<td>상세 설명</td>
 		</tr>
 	</table>
+	${result }
+	
+	
 </body>
 </html>

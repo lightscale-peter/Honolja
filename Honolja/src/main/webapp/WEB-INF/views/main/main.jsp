@@ -67,11 +67,11 @@
 </head>
 <body style="margin-top: 70px;">
 	
-	
 	<!-- 상단 바 -->
-	<c:import url="header.jsp"></c:import>
-	
-
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="main.do"></c:param>
+	</c:import>
 
 	<!-- 카로셀 시작 -->
 	<div class="container" style = "width:100%; position: relative; padding: 0;">
@@ -195,6 +195,11 @@
 		</table>
 		
 	</div>
+	
+	${checked }
+	
+	<p>
+
     
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper eros sit amet lobortis accumsan. Cras in sagittis odio. Cras aliquet nunc ut ligula venenatis laoreet. Etiam vitae dolor eget urna fringilla aliquet vel quis est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc et massa metus. Cras eget vehicula dui. Donec eu neque justo. Vestibulum tempor in nulla at porttitor.
 

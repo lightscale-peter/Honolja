@@ -43,13 +43,25 @@
 					<li ${group}><a href="#">소모임</a></li>
 					<li ${test}><a href="test.do">TEST</a></li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>회원가입</a></li>
-					<li onclick="popupwindow('popup.do', 'login', 350, 350)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
-				</ul>
+				<c:choose>
+					<c:when test="${param.checked == ''}">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span>회원가입</a></li>
+							<li onclick="popupwindow('popup.do?host=${param.host}', 'login', 350, 350)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span>마이페이지</a></li>
+							<li onclick="location.href = 'logout.do'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
+						</ul>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</nav>
 	</div>
+
+	
 
 </body>
 </html>
