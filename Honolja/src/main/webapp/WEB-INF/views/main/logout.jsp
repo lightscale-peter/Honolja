@@ -8,7 +8,10 @@
 </head>
 <body>
 	<script type="text/javascript">
-		location.href = document.referrer;
+	
+		//location.href = document.referrer;
+		location.href = "${host}";
+		
 	</script>
 </body>
 </html>

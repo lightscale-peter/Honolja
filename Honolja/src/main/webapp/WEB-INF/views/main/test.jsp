@@ -33,8 +33,9 @@
 			<td>상세 설명</td>
 		</tr>
 	</table>
-	${result }
+	${access_token }
 	
+	${checked }
 	
 </body>
 </html>

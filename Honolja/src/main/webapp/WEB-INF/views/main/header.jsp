@@ -24,6 +24,28 @@
 			
 			return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
     	}
+		
+		function sendPost(url, name, value){
+			
+			var form = document.createElement("form");
+				form.setAttribute("charset", "UTF-8");
+				form.setAttribute("method", "Post");
+				form.setAttribute("action", url);
+
+			 
+			var hiddenField = document.createElement("input");
+				hiddenField.setAttribute("type", "hidden");
+				hiddenField.setAttribute("name", name);
+				hiddenField.setAttribute("value", value);
+				
+			form.appendChild(hiddenField);
+			
+			//form.target = url;
+			
+			document.body.appendChild(form);
+
+			form.submit();
+		}
     </script>
     
 </head>
@@ -44,19 +66,20 @@
 					<li ${param.myplace}><a href="#">내주변</a></li>
 					<li ${param.area}><a href="#">지역</a></li>
 					<li ${param.cast}><a href="#">캐스트</a></li>
-					<li ${param.test}><a href="test.do">TEST</a></li>
+					<li ${param.test}><a href="#" onclick="sendPost('test.do', 'access_token', '${param.access_token }');">TEST</a></li>
 				</ul>
+				<!-- 로그인 / 비 로그인, 버튼 전환 -->
 				<c:choose>
-					<c:when test="${param.checked == ''}">
+					<c:when test="${param.checked == '' || param.checked == null}">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="#"><span class="glyphicon glyphicon-user"></span>회원가입</a></li>
-							<li onclick="popupwindow('popup.do?host=${param.host}', 'login', 350, 350)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
+							<li onclick="popupwindow('popup.do?host=${param.host}', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="#"><span class="glyphicon glyphicon-user"></span>마이페이지</a></li>
-							<li onclick="location.href = 'logout.do'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
+							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
