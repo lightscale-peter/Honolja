@@ -15,7 +15,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    
+	<script src ="js/bootstrap.js"></script>
     <script type="text/javascript">
 		function popupwindow(url, title, w, h) {
 			
@@ -58,16 +58,27 @@
 					<a class="navbar-brand" href="main.do">Honolja</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<!-- 
-					<li class="active"><a href="#">공지사항</a></li>
-					 -->
 					<li ${param.notice}><a href="#">공지사항</a></li>
 					<li ${param.group}><a href="#">소모임</a></li>
-					<li ${param.myplace}><a href="#">내주변</a></li>
-					<li ${param.area}><a href="#">지역</a></li>
+					<li ${param.myplace}><a href="list.do?area=my">내주변</a></li>
+					<li ${param.area}><a href="location.do">지역</a></li>
 					<li ${param.cast}><a href="#">캐스트</a></li>
 					<li ${param.test}><a href="#" onclick="sendPost('test.do', 'access_token', '${param.access_token }');">TEST</a></li>
 				</ul>
+
+  				
+  				<form class="navbar-form navbar-left" action="list.do">
+     				<div class="form-group">
+     					<div class="col-xs-8">
+        					<input class="form-control" id="search" name="keyword" placeholder="Submit" value="${sval}" size="25">
+      					</div>
+      					<div class="col-xs-2">
+      					<button type="submit" class="btn btn-primary">검색</button>
+      					</div>
+      				</div>
+    			</form>
+    			
+
 				<!-- 로그인 / 비 로그인, 버튼 전환 -->
 				<c:choose>
 					<c:when test="${param.checked == '' || param.checked == null}">
@@ -83,12 +94,7 @@
 						</ul>
 					</c:otherwise>
 				</c:choose>
-				<form class="navbar-form navbar-left" action="/action_page.php">
-					<div class="form-group">
-  						<input type="text" class="form-control" placeholder="게스트하우스 이름 입력">
-					</div>
-						<button type="submit" class="btn btn-primary">검색</button>
-				</form>
+
 			</div>
 		</nav>
 	</div>

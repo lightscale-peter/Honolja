@@ -32,36 +32,23 @@
 	</script>
 </head>
 
-<body id="page-top">
-<!-- Navigation ===메인 상단고정 바( 내주변, 지역등등 상단배치시 필요한것들 + 달력) -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style="margin-bottom:0; border:0;width:100%;
-    background-color:white; height:70px" >
-      <div class="container" style="position:fixed;margin-bottom:0; border:0;width:100%;
-    background-color:white; height:60px">
-      <table>
-       <tr>
-       <td colspan="5" width="100px"><a class="navbar-brand js-scroll-trigger" href="main.do">Main</a></td>
-       <td width="100px"><a class="navbar-brand js-scroll-trigger" href="list.do">내 주변</a></td>
-       <!-- <td width="100px"><a class="navbar-brand js-scroll-trigger" href="list.do?...">내 주변</a></td> -->
-       <td width="100px"><a class="navbar-brand js-scroll-trigger" href="location.do">지역</a></td>
-       <!--<td width="100px"><a class="navbar-brand js-scroll-trigger" href="location.do?...">지역</a></td>  -->
-       <td width="100px"><a class="navbar-brand js-scroll-trigger" href="search.do">숙소검색</a></td>
-       <td width="100px"><a class="navbar-brand js-scroll-trigger" href="cast.do">캐스트</a></td></tr>
-        </table>
-      </div>
-       </nav>
-		<!-- 달력 시작 -->   
+<body id="page-top"style="margin-top: 65px;">
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="main.do"></c:param>
+	</c:import>
+		<!-- 달력 시작 -->    
 		
 <div style="background-color:#A6A6A6;width:100%;hright:300px;margin-bottom:0; border:0;">
 
     <div style="position:fixed;margin-left:2%;" >
-    	<input name="check_in" id="datepicker" width="150px" value="체크인"/> 
+    	<input name="check_in" id="datepicker" width="150px" placeholder="체크인"  value="${param.check_in}" /> 
     </div>
     
     <div style="position:fixed;margin-left:14%; margin-bottom:80%;" > ------->> </div>
     
     <div style="position:fixed; margin-left:18%; margin-bottom:80%;">
-    	<input name="check_out" id="datepicker1" width="150px"value="체크아웃"/>
+    	<input name="check_out" id="datepicker1" width="150px" placeholder="체크아웃" value="${param.check_in}"/>
     </div>
     
     <div style="position:fixed; margin-left:30%; margin-bottom:80%;">

@@ -18,7 +18,8 @@
     
     <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-	
+	<script src = "https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src ="js/bpptstrap.js"></script>
 	<script type="text/javascript">
 
 	
@@ -350,9 +351,10 @@
 					border-radius: 20px; 
 					text-align: center;">	
 					
+
 					
 			<!-- 지역 / 체크인 / 체크아웃 검색 창 시작 -->
-			<form id = "check_form" action="#">
+			<form id = "check_form" action="list.do">
 				<div class="form-group">
 					<label for="sel1">지역</label>
 					<select class="form-control" id="sel1" name="area" onchange="progress();">
@@ -381,8 +383,6 @@
 				
 				<div id = "progress"></div>
 
-				
-					
 				<br>
 				<div class="btn-group">
 					<input id = "nights" type="hidden" name = "nights">
@@ -394,13 +394,20 @@
 	</div>
 	
     <script>
-        $('#datepicker').datepicker({
-        	format: 'yyyy/mm/dd'
-        });
-        
-        $('#datepicker1').datepicker({
-        	format: 'yyyy/mm/dd'
-        });
+    $('#datepicker').datepicker({
+    	format: 'yyyy/mm/dd',
+    	selectOtherMonths: true,
+    	numberOfMonths: [2,1],
+	   	showCurrentAtPos: 1 
+    });
+    
+	   $('#datepicker1').datepicker({
+    	format: 'yyyy/mm/dd',
+    	selectOtherMonths: true ,
+    	numberOfMonths: [2,1],
+	   	showCurrentAtPos: 1
+    });
+
         
     </script>
     

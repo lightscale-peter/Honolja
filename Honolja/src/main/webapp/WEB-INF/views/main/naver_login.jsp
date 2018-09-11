@@ -4,12 +4,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>[index.jsp]</title>
-	<script type="text/javascript">
-		setTimeout("location.href='main.do'", 500);
-	</script>
+	<title>[naver_login.jsp]</title>
+	
+	
 </head>
-<body>
-	로딩중 입니다...
+<body onload="location.href = '${apiURL}';">
+
 </body>
 </html>
