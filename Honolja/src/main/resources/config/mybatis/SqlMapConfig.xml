@@ -3,13 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	
-	<typeAliases>
-	   <typeAlias alias="listdto" type="com.guest.honolja.list.ListDTO"/>
-	</typeAliases>
 	
 	<mappers>
 		<mapper resource="config/mybatis/main.xml"/>
-		<mapper resource="config/mybatis/firstList.xml"/>
 	</mappers>
 </configuration>
 	   

@@ -13,6 +13,7 @@
 </head>
 <body>
 	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="test" value="${test}"></c:param>
 		<c:param name="checked" value="${checked}"></c:param>
 		<c:param name="host" value="test.do"></c:param>
 	</c:import>
@@ -32,8 +33,9 @@
 			<td>상세 설명</td>
 		</tr>
 	</table>
-	${result }
+	${access_token }
 	
+	${checked }
 	
 </body>
 </html>

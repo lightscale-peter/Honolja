@@ -3,6 +3,7 @@ package com.guest.honolja.interceptor;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,11 +22,17 @@ public class HonoljaInterceptor extends HandlerInterceptorAdapter{
 		
 		HttpSession session = request.getSession();
 		Object checked = modelAndView.getModel().get("checked");
-		
-		PrintWriter out;
-		
+				
 		if(checked != null) {
 			session.setAttribute("checked", checked);
+			System.out.println("로그인 성공");
+			
+			if(request.getParameter("id_keep") != null) {
+				Cookie loginCookie = new Cookie("loginCookie", (String) session.getAttribute("checked"));
+					loginCookie.setMaxAge(60 * 60 * 24 * 7);
+				response.addCookie(loginCookie);
+			}
+			
 			//response.sendRedirect("main.do");
 		}
 	}
