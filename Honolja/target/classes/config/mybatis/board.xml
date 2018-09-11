@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+<select id="select" resultType="com.guest.honolja.board.BoardDTO">
+select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board
+</select>
+   <!-- ggugugu -->
+<select id="select2" resultType="com.guest.honolja.board.BoardDTO">
+select * from (
+select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board 
+) where rn between #{start} and #{end} 
+</select>
+   
+<select id="countAll" resultType="int">
+select  count(*)  from board
+where #{skey} like '%' || #{sval} || '%' 
+</select>
+
+<insert id="add" >
+insert into board values (
+board_seq.nextval, #{b_title}, #{b_content}, sysdate, 4,  1
+,#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , '01')
+</insert>   
+
+<select id="detail" resultType="com.guest.honolja.board.BoardDTO">
+select *from board where u_id=#{u_id}
+</select>
+    
+   
+</mapper>

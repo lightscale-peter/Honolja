@@ -11,6 +11,8 @@
 		<typeAlias alias="listdto" type="com.guest.honolja.list.ListDTO" />
 		<typeAlias alias="notice" type="com.guest.honolja.notice.NoticeDTO"/>
 		<typeAlias alias="msg" type="com.guest.honolja.message.MsgDTO"/>
+		<typeAlias alias="boarddto" type="com.guest.honolja.board.BoardDTO"/>
+		
 	</typeAliases>
 
 	<mappers>
@@ -21,6 +23,7 @@
 		<mapper resource="config/mybatis/review.xml" />
 		<mapper resource="config/mybatis/notice.xml"/>
 		<mapper resource="config/mybatis/message.xml"/>
+		<mapper resource="config/mybatis/board.xml"/>
 	</mappers>
 
 </configuration>
