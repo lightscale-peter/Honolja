@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>[index.jsp]</title>
 	<script type="text/javascript">
-		setTimeout("location.href='main.do'", 2000);
+		setTimeout("location.href='notice.do'", 2000);
 	</script>
 </head>
 <body>

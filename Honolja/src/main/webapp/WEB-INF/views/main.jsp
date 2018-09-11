@@ -8,5 +8,8 @@
 </head>
 <body>
 	메인 페이지 입니다.
+	
+	<p><br>
+	<a href="notice.do">공지사항 이동</a>
 </body>
 </html>

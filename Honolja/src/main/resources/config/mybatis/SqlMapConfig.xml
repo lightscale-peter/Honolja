@@ -2,7 +2,16 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+ 
+	<typeAliases>
+		<typeAlias alias="notice" type="com.guest.honolja.notice.NoticeDTO"/>
+		<typeAlias alias="msg" type="com.guest.honolja.message.MsgDTO"/>
+	</typeAliases>
+ 
 	<mappers>
 		<mapper resource="config/mybatis/main.xml"/>
+		<mapper resource="config/mybatis/notice.xml"/>
+		<mapper resource="config/mybatis/message.xml"/>
 	</mappers>
 </configuration>
