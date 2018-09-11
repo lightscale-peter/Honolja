@@ -20,18 +20,29 @@
 	<beans:import resource="classpath:/config/mybatis/dao-context.xml"/>
 
 
-<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
- -->
+
  
 	<!-- hobby사용할 파일 다운로드 라이브러리 기술 -->
 	<!-- 파일업로드 Commons -->
 	<beans:bean id="multipartResolver"
 	       class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
+	
+	<!-- 로그인 처리 인터셉터 설정 -->
+	<beans:bean id="HonoljaInterceptor" class="com.guest.honolja.interceptor.HonoljaInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/popup.do"/>
+			<mapping path="/naver_login.do"/>
+			<beans:ref bean="HonoljaInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	
 	<context:component-scan base-package="com.guest.*" />
 </beans:beans>
