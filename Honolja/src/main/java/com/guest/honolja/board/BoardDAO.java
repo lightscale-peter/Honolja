@@ -53,5 +53,6 @@ public class BoardDAO {
 	  public BoardDTO dbDetail(String data) {
 		  BoardDTO dto=temp.selectOne("board.detail",data);
 		  return dto;
+		  //dasf
 	  }
 }

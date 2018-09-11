@@ -18,6 +18,7 @@
 </script>
 <body>
 <label>제목</label>
+<!--asdf-->
 
 
     <form action="boardinsert.do" method="post"  enctype="multipart/form-data">

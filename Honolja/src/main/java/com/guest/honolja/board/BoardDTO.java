@@ -14,7 +14,7 @@ public class BoardDTO {
 	private MultipartFile b_uploadfilename2;
 	private String b_uploadfilename;
 	private String b_originalfilename;
-
+	//hi hihihi
 	private long b_filesize;
 	private String skey,sval;
 	private int cnt;

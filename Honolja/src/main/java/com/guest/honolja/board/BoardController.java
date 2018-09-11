@@ -97,7 +97,7 @@ public class BoardController {
 		dto.setB_originalfilename(img);
 		dto.setB_filesize(size);
 		dao.dbInsert(dto);
-		
+		//adsf
 		System.out.println("title="+dto.getB_title());
 		 System.out.println("content="+dto.getB_content());
 		 System.out.println("member="+dto.getB_member());

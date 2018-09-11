@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="select" resultType="com.guest.honolja.board.BoardDTO">
 select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board
 </select>
-   
+   <!-- ggugugu -->
 <select id="select2" resultType="com.guest.honolja.board.BoardDTO">
 select * from (
 select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board 

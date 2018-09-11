@@ -12,25 +12,77 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
+	<link rel="stylesheet" type="text/css" href="/include/css/pc/v2_member.css?180910">
+	
+	<style type="text/css">
+		.login-footcont p {
+		    margin-top: 30px;
+		    font-size: 15px;
+		    text-align: center;
+		}
+		.btn-naver-login a {
+		    display: block;
+		    width: 100%;
+		    padding: 20px 0 19px;
+		    font-size: 18px;
+		    color: #fff;
+		    text-align: center;
+		    background: #00c73c url(resources/main_images/naver_button.PNG) no-repeat 20px center;
+		}
+		
+		a:hover {
+			text-decoration: none;
+		}
+		
+	</style>
+	
+	<script type="text/javascript">
+		function close_and_move(address){
+			opener.location.href = address;
+			self.close();
+		}
+	
+	</script>
+	
 </head>
 <body style="text-align: center;margin: 50px;">
 
 	
-	<c:if test="${param.id != null }">
+	<c:if test="${param.id != null }">	
+		<!-- Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+			
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal">&times;</button>
+					    <h4 class="modal-title">알림</h4>
+					</div>
+					<div class="modal-body">
+					    <p>${alertMsg}</p>
+					</div>
+					<div class="modal-footer">
+					    <button type="button" class="btn btn-default" data-dismiss="modal" onclick = "${scriptMsg}">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<script>
-			${script}
+			$('#myModal').modal('show');
 		</script>
 	</c:if>
 	
 
 
-	<form class="form-horizontal" action="/honolja/popup.do" method = "get">
+	<form class="form-horizontal" action="/honolja/popup.do" method = "get" style="padding-bottom: 10px;">
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="email">Id:</label>
 			<div class="col-sm-10">
 			
 				<!-- 아이디 입력 -->
-				<input type="text" name = "id" class="form-control" id="id" placeholder="Enter id">
+				<input type="text" name = "id" class="form-control" id="id" placeholder="Enter id" value = "${loginCookie }">
 			</div>
 		</div>
 		<div class="form-group">
@@ -45,8 +97,18 @@
 			<div class="col-sm-offset-2 col-sm-10">
 				<div class="checkbox">
 				
+					<c:choose>
+						<c:when test="${loginCookie == null }">
+							<c:set var="check" value="" />
+						</c:when>
+						<c:otherwise>
+							<c:set var="check" value="checked" />
+						</c:otherwise>
+					</c:choose>
+					
 					<!-- 아이디 기억 -->
-					<label><input type="checkbox"> Remember me</label>
+					<label><input type="checkbox" name="id_keep" value="true" ${check} >아이디 기억</label>
+
 				</div>
 			</div>
 		</div>
@@ -61,5 +123,22 @@
 			</div>
 		</div>
 	</form>
+	
+	<label style="padding: 10px;">
+		<span onclick="close_and_move('address')"><a href="#">비밀번호 재설정 </a></span>/
+		<span onclick="close_and_move('address')"><a href="#"> 회원가입</a></span>
+		
+	</label>
+	
+	<div class="login-footcont">
+		<div class="btn-naver-login" id="social_link">
+			<a href="#" style="padding-left: 60px;" onclick="close_and_move('naver_login.do')">
+				네이버 아이디로 로그인
+			</a>
+		</div>
+    </div>
+	
+
+
 </body>
 </html>

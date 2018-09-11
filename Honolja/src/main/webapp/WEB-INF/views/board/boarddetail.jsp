@@ -16,7 +16,7 @@
 </script>
 <body>
 <label>제목</label>
-
+<!--asadf-->
 
    <input type="text"  value="${dto.b_title}">
        <p>

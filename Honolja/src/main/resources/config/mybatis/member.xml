@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<insert id="m_insert" parameterType="com.guest.honolja.member.MemberDTO">
+		insert into users(u_no, u_id, u_pwd, u_name, u_birth, u_gender, u_phn, u_img, u_email, u_member, u_date, u_update) 
+			 values(
+				users_seq.nextval, #{u_id}, #{u_pwd}, #{u_name}, #{u_birth}, #{u_gender}, #{u_phn}, #{u_img}, #{u_email}, #{u_member}, sysdate, sysdate
+				)
+	</insert>
+	
+	<select id="m_select" resultType="com.guest.honolja.member.MemberDTO"> 
+		select rownum rn, u_no, u_id, u_pwd, u_name, u_birth, u_gender, u_phn, u_img, u_email, u_member, u_date, u_update from users
+	</select>
+	
+	<select id="m_detail" resultType="com.guest.honolja.member.MemberDTO" parameterType="int">
+		select u_no, u_id, u_pwd, u_name, u_birth, u_gender, u_phn, u_img, u_email, u_member, u_date, u_update from users where u_no = #{u_no} 
+	</select>
+	
+	<select id="mypageDelete" resultType="com.guest.honolja.member.MemberDTO" parameterType="String">
+		select u_id, u_pwd from users where u_id = #{u_id}
+	</select>
+	
+	<select id="login" resultType="com.guest.honolja.member.MemberDTO" parameterType="com.guest.honolja.member.MemberDTO">
+		select count(*) as u_cnt from users where u_id = #{u_id}
+	</select>
+	
+	<select id="idCheck" resultType="int" parameterType="String">
+		select count(*) as u_cnt from users where u_id = #{u_id}
+	</select>
+	
+	<delete id="m_delete" parameterType="com.guest.honolja.member.MemberDTO">
+		delete from users where u_id = #{u_id}
+	</delete>
+	
+	<update id="emailkey" parameterType="com.guest.honolja.member.MemberDTO">
+		update users set u_emailkey = #{u_emailkey}, u_emailcheck = 'false' where u_email = #{u_email}
+	</update>
+	
+	<update id="emailcheck" parameterType="String">
+		update users set u_emailcheck = 'true' where u_email = #{u_email}
+	</update>
+</mapper>

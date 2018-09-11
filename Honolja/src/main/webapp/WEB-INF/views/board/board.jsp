@@ -10,7 +10,7 @@
 </head>
 <body>
 
-
+<!-- dfdjasjfa -->
 <table border="1" width=900>
 <tr>
 <td colspan="6" align="center">공지사항 ${dd}</td>
