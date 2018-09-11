@@ -23,7 +23,7 @@ public class DetailController {
 	@Autowired
 	ReviewDAO dao1;
 
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	private static final Logger logger = LoggerFactory.getLogger(DetailController.class);
 
 	@RequestMapping("/detail.do")
 	public ModelAndView guest_detail(HttpServletRequest request) {
