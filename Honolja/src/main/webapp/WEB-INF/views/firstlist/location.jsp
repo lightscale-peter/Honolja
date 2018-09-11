@@ -239,11 +239,11 @@ body, h1, h2, h3, h4, h5, h6, input, textarea, select, button, table {
       	<c:forEach var="listlo" items="${listlo}" varStatus="i">
       	<tr align="left" >
       		<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
-      		<a href="detail.do?idx=${listlo.g_no}&check_in=${param.check_in}&check_out=${param.check_out}">
+      		<a href="guestdetail.do?idx=${listlo.g_no}&check_in=${param.check_in}&check_out=${param.check_out}">
       		<img src = "${listlo.g_url}" width="90%" height="180px">
       		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
       		</a></td><!-- image불러올 때 .PNG대소문자 구분함. -->
-      		<td style="font-size:24px;padding-top:10px;"><a href="detail.do?idx=${listlo.g_no}&check_in=${param.check_in}&check_out=${param.check_out}"> ${listlo.g_name}</a></td>
+      		<td style="font-size:24px;padding-top:10px;"><a href="guestdetail.do?idx=${listlo.g_no}&check_in=${param.check_in}&check_out=${param.check_out}"> ${listlo.g_name}</a></td>
       	</tr>
       		<tr><td>listlo.rating, reply count </td></tr>
       		<tr><td>listlo.input time, price </td></tr>
@@ -286,7 +286,7 @@ body, h1, h2, h3, h4, h5, h6, input, textarea, select, button, table {
 	    
 	   // 마크 클릭시 인포윈도우 오픈
 	    var infowindow = new naver.maps.InfoWindow({
-	    	content: '<h6>'+name[i]+'</h6><div align="center"><a href="detail.do" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
+	    	content: '<h6>'+name[i]+'</h6><div align="center"><a href="guestdetail.do" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
 	    	 maxWidth: 140,
 	    	    backgroundColor: "#eee",
 	    	    borderColor: "#2db400",

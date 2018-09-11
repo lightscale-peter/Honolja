@@ -1,6 +1,5 @@
 package com.guest.honolja.list;
 
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,8 +20,8 @@ public class ListController {
 	@Autowired
 	ListDAO dao;
 	
-	@RequestMapping("/list.do")
-	public ModelAndView guest_select(HttpServletRequest request) { ///달력정보 받아오기
+	@RequestMapping("/guestlist.do")
+	public ModelAndView guest_select(HttpServletRequest request) { ///�떖�젰�젙蹂� 諛쏆븘�삤湲�
 		ModelAndView mav = new ModelAndView( );
 		String skey="", sval="" , returnpage="";
 		skey=request.getParameter("keyfield");
@@ -47,8 +45,8 @@ public class ListController {
 	}//end
 	
 	
-	@RequestMapping("/location.do")
-	public ModelAndView guest_selectloc(ListDTO dto) {//게스트하우스 정보 생성 list로 띄워주기
+	@RequestMapping("/guestlocation.do")
+	public ModelAndView guest_selectloc(ListDTO dto) {//寃뚯뒪�듃�븯�슦�뒪 �젙蹂� �깮�꽦 list濡� �쓣�썙二쇨린
 	  ModelAndView mav = new ModelAndView( );
 	  List<ListDTO> listlo=dao.dbSelectlo(dto);
 	  mav.addObject("listlo", listlo);

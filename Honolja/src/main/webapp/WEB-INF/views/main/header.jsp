@@ -59,14 +59,14 @@
 				<ul class="nav navbar-nav">
 					<li ${param.notice}><a href="#">공지사항</a></li>
 					<li ${param.group}><a href="#">소모임</a></li>
-					<li ${param.myplace}><a href="list.do?area=my">내주변</a></li>
-					<li ${param.area}><a href="location.do">지역</a></li>
+					<li ${param.myplace}><a href="guestlist.do?area=my">내주변</a></li>
+					<li ${param.area}><a href="guestlocation.do">지역</a></li>
 					<li ${param.cast}><a href="#">캐스트</a></li>
 					<li ${param.test}><a href="#" onclick="sendPost('test.do', 'access_token', '${param.access_token }');">TEST</a></li>
 				</ul>
 
   				
-  				<form class="navbar-form navbar-left" action="list.do">
+  				<form class="navbar-form navbar-left" action="guestlist.do">
      				<div class="form-group">
      					<div class="col-xs-8">
         					<input class="form-control" id="search" name="keyword" placeholder="Submit" value="${sval}" size="25">

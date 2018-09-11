@@ -3,23 +3,21 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-<typeAliases>
-      <typeAlias alias="main"
-         type="com.guest.honolja.main.MainDTO" />
-      <typeAlias alias="detail"
-         type="com.guest.honolja.detail.DetailDTO" />
-      <typeAlias alias="review"
-         type="com.guest.honolja.review.ReviewDTO" />
-      <typeAlias alias="listdto"
-         type="com.guest.honolja.list.ListDTO" />
-   </typeAliases>
+	<typeAliases>
+		<typeAlias alias="main" type="com.guest.honolja.main.MainDTO" />
+		<typeAlias alias="mto" type="com.guest.honolja.member.MemberDTO"/>
+		<typeAlias alias="detail" type="com.guest.honolja.detail.DetailDTO" />
+		<typeAlias alias="review" type="com.guest.honolja.review.ReviewDTO" />
+		<typeAlias alias="listdto" type="com.guest.honolja.list.ListDTO" />
+	</typeAliases>
 
-   <mappers>
-      <mapper resource="config/mybatis/main.xml" />
-      <mapper resource="config/mybatis/firstList.xml" />
-      <mapper resource="config/mybatis/detail.xml" />
-      <mapper resource="config/mybatis/review.xml" />
-   </mappers>
-   
+	<mappers>
+		<mapper resource="config/mybatis/main.xml" />
+		<mapper resource="config/mybatis/member.xml"/>
+		<mapper resource="config/mybatis/firstList.xml" />
+		<mapper resource="config/mybatis/detail.xml" />
+		<mapper resource="config/mybatis/review.xml" />
+	</mappers>
+
 </configuration>
 	   

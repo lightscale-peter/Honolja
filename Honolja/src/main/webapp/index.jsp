@@ -10,6 +10,14 @@
 	</script>
 </head>
 <body>
-	로딩중 입니다...
+	<!-- index.jsp -->
+	<div align="center">
+		<img src="./resources/images/a1.png"><br>
+		<font size=7 color=blue family="Comic Sans MS">
+		 <b>
+		 	Hobby...Waiting...Loading...
+		 </b>
+		</font>
+	</div>
 </body>
 </html>
