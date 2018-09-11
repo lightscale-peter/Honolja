@@ -35,11 +35,20 @@
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
 					alert("data = " + data);
-					alert("u_cnt = " + data.u_cnt);
-					alert("u_id = " + data.u_id);
-					if(data.u_cnt == "2"){
+					//alert("u_cnt = " + data.u_cnt);
+					//alert("u_id = " + data.u_id);
+/* 					if(data.u_cnt == "2"){
 						alert("이미 사용중인 아이디입니다.");
 					}else{
+						alert("사용 가능한 아이디입니다.");
+					}  */
+					
+					if(data == "true")
+					{
+						alert("이미 사용중인 아이디입니다.");
+					}
+					else
+					{
 						alert("사용 가능한 아이디입니다.");
 					}
 				},
@@ -185,7 +194,7 @@
 			<tr>
 				<td colspan="2"><input type="radio" name="u_gender"
 					id="u_gender" value="남자">남자 <input type="radio"
-					name="u_gender2" id="u_gender2" value="girl">여자</td>
+					name="u_gender2" id="u_gender2" value="여자">여자</td>
 			</tr>
 			<tr>
 				<td colspan="2">이메일 <input type="text" name="u_email"

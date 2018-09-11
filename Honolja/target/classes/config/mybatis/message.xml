@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="message">
+
+ <insert id="msgSend" parameterType="msg">
+  insert into message values (message_seq.nextval, #{m_title}, #{m_content}, #{m_id}, sysdate, #{u_id}, 'false')
+ </insert>
+
+ <select id="msgSelectR" resultType="msg" parameterType="msg">
+  select * from message where m_id = #{m_id} order by m_date desc
+ </select>
+ 
+ <select id="msgSelectS" resultType="msg" parameterType="msg">
+  select * from message where u_id = #{u_id} order by m_date desc
+ </select>
+ 
+ <select id="msgselect" resultType="int" parameterType="String">
+ 	select count(*) as cnt from message where m_check = 'false' and m_id = #{m_id}
+ </select>
+ 
+ <select id="msgDetail" parameterType="int" resultType="msg">
+  select rownum rn, m.* from message m where m_no = #{m_no}
+ </select>
+ 
+ <update id="msgCheck" parameterType="int">
+  update message set m_check = 'true' where m_no = #{m_no}
+ </update>
+ 
+ <delete id="msgDelete" parameterType="int">
+  delete from message where m_no = #{m_no}
+ </delete>
+ 
+ <delete id="msgCancel" parameterType="msg">
+  delete from message where m_check = #{m_check} and m_no = #{m_no} 
+ </delete>
+</mapper>

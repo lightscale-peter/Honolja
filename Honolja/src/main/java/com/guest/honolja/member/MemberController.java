@@ -49,13 +49,13 @@ public class MemberController {
 		return "member/join";
 	}// end
 
-	//�쉶�썝媛��엯
+	//회원가입
 	@RequestMapping("/insert.do")
 	public String member_insert(MemberDTO mto) throws Exception {
 		mto.setU_birth(mto.getYear() + mto.getMonth() + mto.getDay());
 		String gender = mto.getU_gender2();
 		System.out.println("gender2 = " + mto.getU_gender2());
-		if(gender.equals("girl")) {
+		if(gender.equals("여자")) {
 			mto.setU_gender(gender);
 		}
 		System.out.println("gender = " + mto.getU_gender());
@@ -74,27 +74,27 @@ public class MemberController {
 
 		dao.m_insert(mto);
 		
-		String key = new TempKey().getKey(50, false); //�씤利앺궎 �깮�꽦
+		String key = new TempKey().getKey(50, false); //인증키 생성
 		mto.setU_emailkey(key);
 		dao.m_emailcheck(mto);
 		
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[Honolja email test]");
-		sendMail.setText(new StringBuffer().append("<h1>email</h1>").append("<a href='http://localhost:8080/honolja/emailcheck.do?u_email=").append(mto.getU_email()).append("&u_emailkey=").append(key).append("' target='_blenk'>email</a>").toString());
+		sendMail.setSubject("[Honolja 이메일 인증 test]");
+		sendMail.setText(new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:8080/honolja/emailcheck.do?u_email=").append(mto.getU_email()).append("&u_emailkey=").append(key).append("' target='_blenk'>이메일 인증 확인</a>").toString());
 		sendMail.setFrom("aa01088921067@gmail.com", "Honolja");
 		sendMail.setTo(mto.getU_email());
 		sendMail.send();
 		return "member/emailcheck";
 	}// end
 	
-	//�씠硫붿씪 �씤利�
+	//이메일 인증
 	@RequestMapping(value="/emailcheck.do", method = RequestMethod.GET)
 	public String m_emailcheck(String u_email, Model model) throws Exception {
 		dao.m_Auth(u_email);
 		return "member/member";
 	}//end
 
-	// �쉶�썝紐⑸줉
+	// 회원목록
 	@RequestMapping("/list.do")
 	public ModelAndView member_list() {
 		List<MemberDTO> list = dao.m_select();
@@ -104,7 +104,7 @@ public class MemberController {
 		return mav;
 	}// end
 
-	// �쉶�썝�긽�꽭�젙蹂�
+	// 회원상세정보
 	@RequestMapping("/detail.do")
 	public ModelAndView member_detail(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
@@ -116,7 +116,7 @@ public class MemberController {
 		return mav;
 	}// end
 
-	// 留덉씠�럹�씠吏� �쉶�썝�깉�눜
+	// 마이페이지 회원탈퇴
 	@RequestMapping("/mypageDelete.do")
 	public ModelAndView mypage_delete(HttpServletRequest request) {
 		String data = request.getParameter("idx");
@@ -129,33 +129,45 @@ public class MemberController {
 		return mav;
 	}// end
 
-	// �쉶�썝�깉�눜
+	// 회원탈퇴
 	@RequestMapping("/delete.do")
 	public String m_delete(MemberDTO mto) {
 		dao.m_delete(mto);
 		return "redirect:list.do";
 	}// end
 
-	// 濡쒓렇�씤�솕硫�
+	// 로그인화면
 	@RequestMapping("/login.do")
 	public String m_login() {
 		return "member/login";
 	}// end
 
-	// �븘�씠�뵒 以묐났泥댄겕
+	// 아이디 중복체크
 	@ResponseBody
 	@RequestMapping("/idcheck.do")
-	public  ModelAndView idcheck(@RequestBody String u_id) {
+	public String idcheck(@RequestBody String u_id) {
 		System.out.println("u_id = " + u_id);
-		ModelAndView mav = new ModelAndView();
-		//Map<String, String> map = new HashMap<String, String>();
-		String u_cnt = Integer.toString(dao.idCheck(u_id));
+		int u_cnt = dao.idCheck(u_id);
 		System.out.println("u_cnt = " + u_cnt);
-		mav.addObject("u_cnt", u_cnt);
-		mav.addObject("u_id", u_id);
-		mav.setViewName(new String());
-		//map.put("u_id", u_id);
-		return mav;
+		
+		String retVal = "";
+		
+		if(u_cnt > 0) { retVal = "true"; }
+		else { retVal = "false"; }
+		
+		return retVal;
 	}//end
+//	public  ModelAndView idcheck(@RequestBody String u_id) {
+//	System.out.println("u_id = " + u_id);
+//	ModelAndView mav = new ModelAndView();
+//	//Map<String, String> map = new HashMap<String, String>();
+//	String u_cnt = Integer.toString(dao.idCheck(u_id));
+//	System.out.println("u_cnt = " + u_cnt);
+//	mav.addObject("u_cnt", u_cnt);
+//	mav.addObject("u_id", u_id);
+//	mav.setViewName(new String());
+//	//map.put("u_id", u_id);
+//	return mav;
+//}//end
 	
 }//MemberController Class END

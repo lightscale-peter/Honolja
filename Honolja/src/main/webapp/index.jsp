@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>[index.jsp]</title>
+
 	<script type="text/javascript">
 		setTimeout("location.href='main.do'", 500);
 	</script>
