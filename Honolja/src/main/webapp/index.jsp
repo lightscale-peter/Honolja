@@ -6,7 +6,9 @@
 	<meta charset="UTF-8">
 	<title>[index.jsp]</title>
 	<script type="text/javascript">
-		setTimeout("location.href='join.do'", 1500);
+
+		setTimeout("location.href='main.do'", 500);
+
 	</script>
 </head>
 <body>

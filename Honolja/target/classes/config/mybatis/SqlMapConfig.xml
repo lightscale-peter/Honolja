@@ -6,9 +6,13 @@
 	<typeAliases>
 	   <typeAlias alias="mto" type="com.guest.honolja.member.MemberDTO"/>
 	   <typeAlias alias="dto" type="com.guest.honolja.main.MainDTO"/>
+		<typeAlias type="com.guest.honolja.list.ListDTO" alias="listdto"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="config/mybatis/member.xml"/>
+		<mapper resource="config/mybatis/main.xml"/>
+		<mapper resource="config/mybatis/firstList.xml"/>
 	</mappers>
 </configuration>
+	   

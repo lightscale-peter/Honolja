@@ -4,9 +4,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>[main.jsp]</title>
+	<title>[naver_login.jsp]</title>
+	
+	
 </head>
-<body>
-	메인 페이지 입니다.
+<body onload="location.href = '${apiURL}';">
+
 </body>
 </html>

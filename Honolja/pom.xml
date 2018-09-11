@@ -229,7 +229,15 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<!-- json 함수 사용 -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20160810</version>
+		</dependency>
+
 	</dependencies>
     <build>
         <plugins>

@@ -46,7 +46,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/join.do", method = RequestMethod.GET)
 	public String member(Locale locale, Model model) {
-		return "/WEB-INF/views/join.jsp";
+		return "member/join";
 	}// end
 
 	//회원가입
@@ -84,14 +84,14 @@ public class MemberController {
 		sendMail.setFrom("aa01088921067@gmail.com", "Honolja");
 		sendMail.setTo(mto.getU_email());
 		sendMail.send();
-		return "/WEB-INF/views/emailcheck.jsp";
+		return "member/emailcheck";
 	}// end
 	
 	//이메일 인증
 	@RequestMapping(value="/emailcheck.do", method = RequestMethod.GET)
 	public String m_emailcheck(String u_email, Model model) throws Exception {
 		dao.m_Auth(u_email);
-		return "/WEB-INF/views/member.jsp";
+		return "member/member";
 	}//end
 
 	// 회원목록
@@ -100,7 +100,7 @@ public class MemberController {
 		List<MemberDTO> list = dao.m_select();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
-		mav.setViewName("/WEB-INF/views/memberList.jsp");
+		mav.setViewName("member/memberList");
 		return mav;
 	}// end
 
@@ -112,7 +112,7 @@ public class MemberController {
 		MemberDTO mto = dao.m_detail(data);
 
 		mav.addObject("mto", mto);
-		mav.setViewName("/WEB-INF/views/memberDetail.jsp");
+		mav.setViewName("member/memberDetail");
 		return mav;
 	}// end
 
@@ -124,7 +124,7 @@ public class MemberController {
 		MemberDTO mto = dao.mypageDelete(data);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("mto", mto);
-		mav.setViewName("/WEB-INF/views/mypageDelete.jsp");
+		mav.setViewName("member/mypageDelete");
 
 		return mav;
 	}// end
@@ -139,7 +139,7 @@ public class MemberController {
 	// 로그인화면
 	@RequestMapping("/login.do")
 	public String m_login() {
-		return "/WEB-INF/views/login.jsp";
+		return "member/login";
 	}// end
 
 	// 아이디 중복체크

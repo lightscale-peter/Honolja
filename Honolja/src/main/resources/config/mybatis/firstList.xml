@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="firstlist">
+
+	<select resultType="com.guest.honolja.list.ListDTO" id="selectAll">
+	select * from (	select rownum rn, g_no, g_name, g_addr, g_position_n, g_detail, g_url, g_position_e 
+	from( select * from guesthouse where g_name like '%'|| #{sval} || '%')) 
+	</select>
+
+	<select resultType="com.guest.honolja.list.ListDTO" id="selectlo">
+		select rownum rn, g.* from guesthouse gwhere g_addr like '%제주%' 
+	</select>
+
+	<select resultType="int" id="countAll" parameterType="com.guest.honolja.list.ListDTO">
+ 		select count(*) from guesthouse where g_name like '%' || #{sval} || '%' 
+ 	</select>
+
+</mapper>
