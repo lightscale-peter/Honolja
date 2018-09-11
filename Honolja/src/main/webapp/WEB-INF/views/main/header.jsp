@@ -15,7 +15,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    
+	<script src ="js/bootstrap.js"></script>
     <script type="text/javascript">
 		function popupwindow(url, title, w, h) {
 			
@@ -36,13 +36,23 @@
 					<a class="navbar-brand" href="main.do">Honolja</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<!-- 
-					<li class="active"><a href="#">공지사항</a></li>
-					 -->
-					<li ${notice}><a href="#">공지사항</a></li>
-					<li ${group}><a href="#">소모임</a></li>
+					<li ${notice}><a href="list.do?area=my">내 주변</a></li>
+					<li ${group}><a href="location.do">지역</a></li>
+					<li ${group}><a href="#">캐스트</a></li>
 					<li ${test}><a href="test.do">TEST</a></li>
 				</ul>
+  				
+  				<form class="navbar-form navbar-left" action="list.do">
+     				<div class="form-group">
+     					<div class="col-xs-8">
+        					<input class="form-control" id="search" name="keyword" placeholder="Submit" value="${sval}" size="25">
+      					</div>
+      					<div class="col-xs-2">
+      					<button type="submit" class="btn btn-primary">검색</button>
+      					</div>
+      				</div>
+    			</form>
+    			
 				<c:choose>
 					<c:when test="${param.checked == ''}">
 						<ul class="nav navbar-nav navbar-right">

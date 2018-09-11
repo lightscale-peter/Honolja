@@ -18,7 +18,8 @@
     
     <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-	
+	<script src = "https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src ="js/bpptstrap.js"></script>
 	<script type="text/javascript">
 	
 		//지역 + Check-IN + Check-OUT 입력시, 퍼센트 증가.
@@ -130,21 +131,21 @@
 					border-radius: 20px; 
 					text-align: center;">	
 					
-			<form action="#">
+			<form action="list.do">
 				<div class="form-group">
 					<label for="sel1">지역</label>
 					<select class="form-control" id="sel1" name="area" onchange="progress(30, 'progress-bar-danger');">
 						<option>선택</option>
-						<option>서울</option>
-						<option>경기</option>
-						<option>강원</option>
-						<option>충북</option>
-						<option>충남</option>
-						<option>전북</option>
-						<option>전남</option>
-						<option>경북</option>
-						<option>경남</option>
-						<option>제주</option>
+						<option name= "서울" value = "서울">서울</option>
+						<option name= "경기" value = "경기">경기</option>
+						<option name= "강원" value = "강원">강원</option>
+						<option name= "충북" value = "충북">충북</option>
+						<option name= "충남" value = "충남">충남</option>
+						<option name= "전북" value = "전북">전북</option>
+						<option name= "전남" value = "전남">전남</option>
+						<option name= "경북" value = "경북">경북</option>
+						<option name= "경남" value = "경남">경남</option>
+						<option name= "제주" value = "제주">제주</option>
 					</select>
 				</div>
 				<label for="sel1">Check-IN</label>							
@@ -157,11 +158,9 @@
 				
 				<div id = "progress"></div>
 
-				
-					
 				<br>
 				<div class="btn-group">
-					<button type="submit" class="btn btn-primary">CHECK</button>
+					<button type="submit" class="btn btn-primary" >CHECK</button>
 					<button type="reset" class="btn btn-primary" onclick = "init();">RESET</button>
 				</div>				
 			</form>
@@ -169,13 +168,20 @@
 	</div>
 	
     <script>
-        $('#datepicker').datepicker({
-        	format: 'yyyy/mm/dd'
-        });
-        
-        $('#datepicker1').datepicker({
-        	format: 'yyyy/mm/dd'
-        });
+    $('#datepicker').datepicker({
+    	format: 'yyyy/mm/dd',
+    	selectOtherMonths: true,
+    	numberOfMonths: [2,1],
+	   	showCurrentAtPos: 1 
+    });
+    
+	   $('#datepicker1').datepicker({
+    	format: 'yyyy/mm/dd',
+    	selectOtherMonths: true ,
+    	numberOfMonths: [2,1],
+	   	showCurrentAtPos: 1
+    });
+
         
     </script>
     
