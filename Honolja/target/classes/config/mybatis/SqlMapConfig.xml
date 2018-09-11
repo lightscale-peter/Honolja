@@ -2,7 +2,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+	<typeAliases>
+	   <typeAlias alias="mto" type="com.guest.honolja.member.MemberDTO"/>
+	   <typeAlias alias="dto" type="com.guest.honolja.main.MainDTO"/>
+	</typeAliases>
+
 	<mappers>
-		<mapper resource="config/mybatis/main.xml"/>
+		<mapper resource="config/mybatis/member.xml"/>
 	</mappers>
 </configuration>
