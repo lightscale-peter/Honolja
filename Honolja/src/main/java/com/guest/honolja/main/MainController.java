@@ -139,7 +139,6 @@ public class MainController {
 			scriptMsg += "self.close();";
 			
 			
-			
 		}else {	
 			alertMsg = "아이디 또는 비밀번호를 틀렸습니다.";
 		}
@@ -204,12 +203,16 @@ public class MainController {
 		return "/main/footer";
 	}
 	
+	
+	
 	@RequestMapping("/logout.do")
 	public ModelAndView common_logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		
 	
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/logout");
 
+		//로그아웃 후, 다시 돌아갈 주소 기억	
 		if(request.getParameter("host")  != null) {
 			mav.addObject("host", request.getParameter("host"));
 		}
