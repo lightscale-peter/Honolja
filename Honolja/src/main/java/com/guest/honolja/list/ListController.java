@@ -21,7 +21,7 @@ public class ListController {
 	ListDAO dao;
 	
 	@RequestMapping("/guestlist.do")
-	public ModelAndView guest_select(HttpServletRequest request) { ///�떖�젰�젙蹂� 諛쏆븘�삤湲�
+	public ModelAndView guest_select(HttpServletRequest request) { //占쎈뼎占쎌젾占쎌젟癰귨옙 獄쏆룇釉섓옙�궎疫뀐옙
 		ModelAndView mav = new ModelAndView( );
 		String skey="", sval="" , returnpage="";
 		skey=request.getParameter("keyfield");
@@ -46,7 +46,7 @@ public class ListController {
 	
 	
 	@RequestMapping("/guestlocation.do")
-	public ModelAndView guest_selectloc(ListDTO dto) {//寃뚯뒪�듃�븯�슦�뒪 �젙蹂� �깮�꽦 list濡� �쓣�썙二쇨린
+	public ModelAndView guest_selectloc(ListDTO dto) {//野껊슣�뮞占쎈뱜占쎈릭占쎌뒭占쎈뮞 占쎌젟癰귨옙 占쎄문占쎄쉐 list嚥∽옙 占쎌뱽占쎌뜖雅뚯눊由�
 	  ModelAndView mav = new ModelAndView( );
 	  List<ListDTO> listlo=dao.dbSelectlo(dto);
 	  mav.addObject("listlo", listlo);

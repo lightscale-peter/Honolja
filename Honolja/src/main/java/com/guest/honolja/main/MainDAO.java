@@ -10,8 +10,8 @@ public class MainDAO {
 	@Autowired
 	SqlSessionTemplate temp;
 	
-	public void dbSelect() {
-		
+	public int dbSelect(MainDTO dto) {
+		return temp.selectOne("main.selectIdPwd", dto);
 	}
 
 }

@@ -40,13 +40,14 @@ public class MainController {
 		
 		if(request.getParameter("code") != null) {
 			
-				String clientId = "KhHvxQuRC4gDkDcMKUBF";//애플리케이션 클라이언트 아이디값";
-			    String clientSecret = "zIRvSbAaRp";//애플리케이션 클라이언트 시크릿값";
+				String clientId = "KhHvxQuRC4gDkDcMKUBF";//Application Client ID Value
+			    String clientSecret = "zIRvSbAaRp";//Application Client Secret Value
 			    String code = request.getParameter("code");
 			    String state = request.getParameter("state");
     
 			    String redirectURI = null;
 				try {
+					//Address going to back
 					redirectURI = URLEncoder.encode("http://localhost:8080/honolja/main.do", "UTF-8");
 				} catch (UnsupportedEncodingException e1) {
 					e1.printStackTrace();
@@ -70,13 +71,13 @@ public class MainController {
 			      
 			      System.out.print("responseCode = "+responseCode);
 			      
-			      if(responseCode==200) { // 정상 호출
+			      if(responseCode==200) { //Login Success
 			    	br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			    	System.out.println("네이버 로그인 성공!!!!!!!!!");
+			    	System.out.println("NAVER Login Success !!!!");
 			    	
-			      } else {  // 에러 발생	    	  
+			      } else {  //error occurred	    	  
 			        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			        System.out.println("네이버 로그인 에러발생!!!!!!!!!");
+			        System.out.println("NAVER Login Fail !!!!");
 			      }
 			      String inputLine;
 			      StringBuffer res = new StringBuffer();
@@ -85,19 +86,19 @@ public class MainController {
 			      }
 			      br.close();
 			      if(responseCode==200) {
-			        System.out.println("StringBuffer = " + res.toString());
+			    	  //res.toString(); --> Enumerate naver_login_token_informations as JSON type
+			    	  System.out.println("StringBuffer = " + res.toString());
 			        
-			        JSONObject obj = new JSONObject(res.toString());
-			        access_token = obj.getString("access_token");
-    
+			    	  //get access_token from naver_login JSON data
+			    	  JSONObject obj = new JSONObject(res.toString());
+			    	  access_token = obj.getString("access_token");
 			      }
 			    } catch (Exception e) {
 			      System.out.println(e);
 			    }
 			
 		}
-		
-		
+
 		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/main");
@@ -106,48 +107,50 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping("/popup.do")
+	@RequestMapping("/login_popup.do")
 	public ModelAndView main_login_popup(HttpServletRequest request, Model model) {
 		
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
+		String u_id = request.getParameter("id");
+		String u_pwd = request.getParameter("pwd");
 		String host =  request.getParameter("host");
-
-		HttpSession session = request.getSession();
+		int idCheck = 0;
 		
-		if(id == null) {
-			id = "";
-		}			
+		HttpSession session = request.getSession();
 		
 		String scriptMsg = null;
 		String alertMsg = null;
 		
+		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/login_popup");
-		
-		int idCheck = 1; //0 으로 바꿀 것 현재 테스트 중 1;
-		//int idCheck = dao.dbSelect 아이디 체크 ;
-		
-		//if(idCheck > 0) {
-		if(id.equals("sky")) {
 			
-			model.addAttribute("checked", id);
+		if(u_id != null || u_pwd != null) {
+			MainDTO dto = new MainDTO();
+			dto.setU_id(u_id);
+			dto.setU_pwd(u_pwd);
 			
-			alertMsg = "로그인 성공!";
+			idCheck = dao.dbSelect(dto);
+		}
+		
+		if(idCheck > 0) {
+
+			model.addAttribute("checked", u_id);
+			
+			alertMsg = "Login Success!!";
 				
 			scriptMsg = "opener.parent.location='"+host+"';";
 			scriptMsg += "self.close();";
 			
 			
 		}else {	
-			alertMsg = "아이디 또는 비밀번호를 틀렸습니다.";
+			alertMsg = "Id or Password is wrong.";
 		}
 		
-			//JavaScript 문장 전송
+			//JavaScript sentence send
 			mav.addObject("scriptMsg", scriptMsg);
 			mav.addObject("alertMsg", alertMsg);
 			
-		//미 로그인 상태에서, 아이디 기억 저장 쿠키가 남아있을 경우 아이디 값 전송
+		//if I'm NonLogin and there is Cookie saving login_id then Send id_value to page
 		if(session.getAttribute("checked") == null) {
 			try {
 				Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
@@ -163,8 +166,8 @@ public class MainController {
 	@RequestMapping("/naver_login.do")
 	public ModelAndView common_naver_login(Model model) {
 		
-		//네이버 API 로그인
-	    String clientId = "KhHvxQuRC4gDkDcMKUBF";//애플리케이션 클라이언트 아이디값";
+		//NAVER API Login
+	    String clientId = "KhHvxQuRC4gDkDcMKUBF";//Application Client ID Value
 	    String redirectURI = null;
 		try {
 			redirectURI = URLEncoder.encode("http://localhost:8080/honolja/main.do", "UTF-8");
@@ -212,7 +215,7 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/logout");
 
-		//로그아웃 후, 다시 돌아갈 주소 기억	
+		//Memory address to go back After logout
 		if(request.getParameter("host")  != null) {
 			mav.addObject("host", request.getParameter("host"));
 		}
@@ -239,14 +242,13 @@ public class MainController {
 	public ModelAndView main_test(HttpServletRequest request) {
 		
 		
-		
 		String token = "";
 		
 		if(request.getParameter("access_token") != null) {
-			token = request.getParameter("access_token");// 네이버 로그인 접근 토큰;
+			token = request.getParameter("access_token");//NAVER Login access_token;
 		}
 		
-        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        String header = "Bearer " + token; //Add gap after Bearer;
         try {
         	
             String apiURL = "https://openapi.naver.com/v1/nid/me";   
@@ -260,12 +262,12 @@ public class MainController {
             
             BufferedReader br;
             
-            if(responseCode==200) { // 정상 호출
+            if(responseCode==200) { // Success calling
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                System.out.println("개인정보 접근 성공!!!!");
-            } else {  // 에러 발생
+                System.out.println("Success to Private Information Access!!!!");
+            } else {  //Occurred error
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-                System.out.println("개인정보 접근 실패!!!!");
+                System.out.println("Fail to Private Information Access!!!!");
             }
             
             String inputLine;
@@ -276,12 +278,16 @@ public class MainController {
             }
             
             br.close();
+            
+            //response.toString() is to enumerate NAVER_PRIVATE_VALUES of JSON Type
             System.out.println(response.toString());
+            	
+//            Below Example is to get String value of Private Information from JSON data.
             
 //            String temp = response.toString();
 //            JSONObject obj = new JSONObject(temp);
 //            String temp2 = obj.getJSONObject("response").getString("id");
-//            System.out.println("이거다!!!!!!!!!!" + temp2);
+//            System.out.println("this is !!!!!" + temp2);
             
             
             
