@@ -1,11 +1,19 @@
 package com.guest.honolja.main;
 
 import java.net.HttpURLConnection;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.Buffer;
 import java.security.SecureRandom;
+import java.util.List;
+import java.util.Vector;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import javax.servlet.http.Cookie;
@@ -13,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Server;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +78,7 @@ public class MainController {
 			      int responseCode = con.getResponseCode();
 			      BufferedReader br;
 			      
-			      System.out.print("responseCode = "+responseCode);
+			      System.out.print("responseCode = " + responseCode + "\n");
 			      
 			      if(responseCode==200) { //Login Success
 			    	br = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -98,6 +107,31 @@ public class MainController {
 			    }
 			
 		}
+		
+		//Chatting Server ON
+		ServerSocket serverSocket;
+		Vector<ChatHandle> inwon;
+		int port = 8000;
+		
+		inwon = new Vector<ChatHandle>();
+ 		try {
+ 			serverSocket = new ServerSocket(port);
+			System.out.println("서버ON");
+			
+			while(true) {
+				Socket socket = serverSocket.accept();
+				String users = socket.getInetAddress().getHostAddress();
+				System.out.println(users + "님이 입장하셨습니다.");
+				
+				ChatHandle chatHandle = new ChatHandle(inwon, socket);
+				inwon.add(chatHandle);
+				chatHandle.start();
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 
 		
 		ModelAndView mav = new ModelAndView();
@@ -106,6 +140,61 @@ public class MainController {
 			
 		return mav;
 	}
+	
+	//Server Thread
+	class ChatHandle extends Thread{
+		
+		Vector<ChatHandle> inwon;
+		Socket socket;
+		BufferedReader br;
+		PrintWriter pw;
+		
+		public ChatHandle(Vector<ChatHandle> inwon, Socket socket) {
+			this.inwon = inwon;
+			this.socket = socket;
+			
+			try {
+				br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void run() {
+			String nickName;
+			try {
+				nickName = br.readLine();
+				System.out.println(nickName + "님이 입장하셨습니다.");
+				
+				broadCast("상담사 :> 문의해주세요.");
+				
+				while(true) {
+					String text = br.readLine();
+					System.out.println(nickName + " :> " + text);
+					broadCast(nickName + " :> " + text);
+				}
+				
+				
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public void broadCast(String msg) {
+			int temp = inwon.size();
+			
+			for(int i=0; i<temp; i++) {
+				ChatHandle ch = (ChatHandle) inwon.elementAt(i);
+				ch.pw.println(msg);
+				ch.pw.flush();
+			}
+		}
+		
+		
+	}//ChatHandle Class END
 	
 	@RequestMapping("/login_popup.do")
 	public ModelAndView main_login_popup(HttpServletRequest request, Model model) {
@@ -119,11 +208,11 @@ public class MainController {
 		
 		String scriptMsg = null;
 		String alertMsg = null;
-		
-		
+
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/login_popup");
 			
+		//if params have id_value and pwd_value, progress dto/dao
 		if(u_id != null || u_pwd != null) {
 			MainDTO dto = new MainDTO();
 			dto.setU_id(u_id);
@@ -237,6 +326,36 @@ public class MainController {
 		
 		return mav;
 	}
+	
+	int rn = 0;
+	
+	@RequestMapping("/main_notice.do")
+	public ModelAndView main_notice() {
+		
+		List<MainDTO> notices = dao.dbSelectFixedNotice();
+		
+		rn++;
+		if(rn == notices.size()) rn = 0;
+
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main/main_notice");
+			mav.addObject("notice", notices.get(rn).getN_title());
+			
+		return mav;
+	}
+	
+	
+	
+	@RequestMapping("/chatting.do")
+	public ModelAndView common_chatting() {		
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main/chatting");
+			
+		return mav;
+	}
+	
+	
 	
 	@RequestMapping("/test.do")
 	public ModelAndView main_test(HttpServletRequest request) {

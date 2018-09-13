@@ -144,9 +144,55 @@
 			
 			notice_num++;
 			
-			if(notice_num == 3)notice_num = 0;
+			if(notice_num == 3)notice_num = 0;	
+			
 		}
 		
+		//공지사항 노출 기능 - JavaScript Ajax
+		function chgNotice_ajax(){
+			
+			var xhr = new XMLHttpRequest();
+			
+				xhr.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200){
+						document.getElementById("notice").innerHTML = this.responseText;
+					}
+				};
+				
+				xhr.open("GET", "http://localhost:8080/honolja/main_notice.do", true);
+				xhr.send();
+				
+		}		
+		
+		//공지사항 노출 기능 - jQuery Ajax	
+		$(function(){
+			$('#notice_btn').click(function(){
+				$.ajax({
+					"url" : "http://localhost:8080/honolja/main_notice.do",
+					"type" : "get",
+					"data" : {test : $('#notice').val(), test2 :$('#notice').val()},
+					"beforeSend" : function(){
+						$('#notice').show();
+						$('#notice').empty();
+						$('#notice').html("Loading...");
+						$('#notice').css("opacity", "0.2").stop().animate({opacity:1},300);
+					},
+					"success" : function(data){
+						setTimeout(function(){
+							//$('#notice').fadeOut();
+							//$('#notice').empty();
+							$('#notice').html(data);
+						}, 300);
+					},
+					"error" : function(){
+						$('#notice').fadeOut();
+					}
+				});
+			});
+		});
+		
+	
+		//메인 검색 눌 체크
 		function nullCheck(){
 			
 			var selector = document.getElementById("sel1");
@@ -559,9 +605,8 @@
         
     </script>
     
-    	<!-- 공지사항 노출 부 -->
-
-	<div class="alert" style="margin: 0; background-color: #fff;">
+   	<!-- 공지사항 노출 부 -->
+	<div id = "main_notice" class="alert" style="margin: 0; background-color: #fff;">
 		<table style="width: 100%;">
 			<tr>
 				<td width="95%">
@@ -569,11 +614,10 @@
 					<span id="notice">카카오 서비스 운영정책 변경 안내</span>
 				</td>
 				<td> 
-					<input class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="chgNotice()">
+					<input id = "notice_btn" class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="">
 				</td>
 			</tr>
 		</table>
-		
 	</div>
 	
 	<c:import url="http://localhost:8080/honolja/footer.do"></c:import>

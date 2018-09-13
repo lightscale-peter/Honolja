@@ -37,7 +37,7 @@
 	<beans:bean id="HonoljaInterceptor" class="com.guest.honolja.interceptor.HonoljaInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
-			<mapping path="/popup.do"/>
+			<mapping path="/login_popup.do"/>
 			<mapping path="/naver_login.do"/>
 			<beans:ref bean="HonoljaInterceptor"/>
 		</interceptor>

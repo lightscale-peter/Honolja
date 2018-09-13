@@ -121,14 +121,15 @@
 				<c:choose>
 					<c:when test="${param.checked == '' || param.checked == null}">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="join.do"><span class="glyphicon glyphicon-user"></span>회원가입</a></li>
-							<li onclick="popupWindow('login_popup.do?host=${param.host}', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
+							<li><a href="join.do"><span class="glyphicon glyphicon-user"></span>&nbsp;회원가입</a></li>
+							<li onclick="popupWindow('login_popup.do?host=${param.host}', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그인</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#"><span class="glyphicon glyphicon-user"></span>마이페이지</a></li>
-							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
+							<li onclick="popupWindow('chatting.do', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;고객센터</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
+							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
