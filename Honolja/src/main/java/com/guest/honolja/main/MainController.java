@@ -47,6 +47,7 @@ public class MainController {
 		
 		String access_token = "";
 		
+		//NAVER API Login part
 		if(request.getParameter("code") != null) {
 			
 				String clientId = "KhHvxQuRC4gDkDcMKUBF";//Application Client ID Value
@@ -107,94 +108,17 @@ public class MainController {
 			    }
 			
 		}
-		
-		//Chatting Server ON
-		ServerSocket serverSocket;
-		Vector<ChatHandle> inwon;
-		int port = 8000;
-		
-		inwon = new Vector<ChatHandle>();
- 		try {
- 			serverSocket = new ServerSocket(port);
-			System.out.println("서버ON");
 			
-			while(true) {
-				Socket socket = serverSocket.accept();
-				String users = socket.getInetAddress().getHostAddress();
-				System.out.println(users + "님이 입장하셨습니다.");
-				
-				ChatHandle chatHandle = new ChatHandle(inwon, socket);
-				inwon.add(chatHandle);
-				chatHandle.start();
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 
+ 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/main/main");
+		mav.addObject("access_token", access_token);
 		
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/main");
-			mav.addObject("access_token", access_token);
 			
 		return mav;
 	}
 	
-	//Server Thread
-	class ChatHandle extends Thread{
-		
-		Vector<ChatHandle> inwon;
-		Socket socket;
-		BufferedReader br;
-		PrintWriter pw;
-		
-		public ChatHandle(Vector<ChatHandle> inwon, Socket socket) {
-			this.inwon = inwon;
-			this.socket = socket;
-			
-			try {
-				br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
 
-		@Override
-		public void run() {
-			String nickName;
-			try {
-				nickName = br.readLine();
-				System.out.println(nickName + "님이 입장하셨습니다.");
-				
-				broadCast("상담사 :> 문의해주세요.");
-				
-				while(true) {
-					String text = br.readLine();
-					System.out.println(nickName + " :> " + text);
-					broadCast(nickName + " :> " + text);
-				}
-				
-				
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		public void broadCast(String msg) {
-			int temp = inwon.size();
-			
-			for(int i=0; i<temp; i++) {
-				ChatHandle ch = (ChatHandle) inwon.elementAt(i);
-				ch.pw.println(msg);
-				ch.pw.flush();
-			}
-		}
-		
-		
-	}//ChatHandle Class END
 	
 	@RequestMapping("/login_popup.do")
 	public ModelAndView main_login_popup(HttpServletRequest request, Model model) {
@@ -215,8 +139,8 @@ public class MainController {
 		//if params have id_value and pwd_value, progress dto/dao
 		if(u_id != null || u_pwd != null) {
 			MainDTO dto = new MainDTO();
-			dto.setU_id(u_id);
-			dto.setU_pwd(u_pwd);
+				dto.setU_id(u_id);
+				dto.setU_pwd(u_pwd);
 			
 			idCheck = dao.dbSelect(dto);
 		}
