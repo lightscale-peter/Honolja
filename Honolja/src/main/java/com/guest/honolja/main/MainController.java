@@ -7,6 +7,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.Buffer;
 import java.security.SecureRandom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import java.io.BufferedReader;
@@ -44,6 +47,10 @@ public class MainController {
 	
 	@RequestMapping("/main.do")
 	public ModelAndView main_page(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main/main");
+		
 		
 		String access_token = "";
 		
@@ -102,23 +109,97 @@ public class MainController {
 			    	  //get access_token from naver_login JSON data
 			    	  JSONObject obj = new JSONObject(res.toString());
 			    	  access_token = obj.getString("access_token");
+			    	  
+			    	  
+			    	  
+			    	  //start to insert info into users DB table.
+			    	  String token = access_token;//NAVER Login access_token;
+			  		
+			          String header = "Bearer " + token; //Add gap after Bearer;
+			          try {
+			          	
+			              apiURL = "https://openapi.naver.com/v1/nid/me";   
+			              url = new URL(apiURL);
+			              
+			              con = (HttpURLConnection)url.openConnection();
+			  	            con.setRequestMethod("GET");
+			  	            con.setRequestProperty("Authorization", header);
+			  	            
+			              responseCode = con.getResponseCode();
+			              
+			              if(responseCode==200) { // Success calling
+			                  br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			                  System.out.println("Success to Private Information Access!!!!");
+			              } else {  //Occurred error
+			                  br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			                  System.out.println("Fail to Private Information Access!!!!");
+			              }
+
+			              StringBuffer response = new StringBuffer();
+			              
+			              while ((inputLine = br.readLine()) != null) {
+			                  response.append(inputLine);
+			              }
+			              
+			              br.close();
+			              
+			              //response.toString() is to enumerate NAVER_PRIVATE_VALUES of JSON Type
+			              System.out.println(response.toString());
+			              	
+//			              Below Example is to get String value of Private Information from JSON data.
+			              
+			              String temp = response.toString();
+			              obj = new JSONObject(temp);
+			              
+			              String u_id = obj.getJSONObject("response").getString("id");
+			              String u_img = obj.getJSONObject("response").getString("profile_image");
+			              String u_gender = obj.getJSONObject("response").getString("gender");
+			              String u_email = obj.getJSONObject("response").getString("email");
+			              String u_name = obj.getJSONObject("response").getString("name");
+			              String u_birth = obj.getJSONObject("response").getString("birthday");
+       
+			              //progress, if Id is not in users table
+			              if(dao.dbSelectIdCheck(u_id) == 0) {
+
+			              MainDTO dto = new MainDTO();
+			              	dto.setU_id(u_id);
+			              	dto.setU_img(u_img);
+			              	dto.setU_gender(u_gender);
+			              	dto.setU_email(u_email);
+			              	dto.setU_name(u_name);
+			              	dto.setU_birth(u_birth);
+			              	  	
+			              dao.dbInsertUsersInfo(dto);
+			              System.out.println("users Info insert success!!");
+			              
+//			              System.out.println("u_id " + u_id);
+//			              System.out.println("u_img " + u_img);
+//			              System.out.println("u_gender " + u_gender);
+//			              System.out.println("u_email " + u_email);
+//			              System.out.println("u_name " + u_name);
+//			              System.out.println("u_birth " + u_birth);
+			              
+			              mav.addObject("u_id", u_id);
+			              	
+			              }else {
+			            	  System.out.println("user Id already exist!!");
+			              }
+			          } catch (Exception e) {
+			              System.out.println(e);
+			          }
 			      }
 			    } catch (Exception e) {
 			      System.out.println(e);
 			    }
 			
 		}
-			
 
- 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/main/main");
-		mav.addObject("access_token", access_token);
+ 		
 		
 			
 		return mav;
 	}
 	
-
 	
 	@RequestMapping("/login_popup.do")
 	public ModelAndView main_login_popup(HttpServletRequest request, Model model) {
@@ -204,10 +285,11 @@ public class MainController {
 		
 		return mav;
 	}
+
 	
 	@RequestMapping("/header.do")
 	public ModelAndView common_header() {
-			
+
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/header");
 
@@ -218,8 +300,6 @@ public class MainController {
 	public String common_footer() {
 		return "/main/footer";
 	}
-	
-	
 	
 	@RequestMapping("/logout.do")
 	public ModelAndView common_logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
@@ -268,76 +348,94 @@ public class MainController {
 		return mav;
 	}
 	
+	@RequestMapping("/img_board.do")
+	public ModelAndView main_img_board(HttpServletRequest request) {
+		
+		int page = 1;
+		
+		//board list print with page_number
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int list_start = 1 + 10 * (page-1);
+		int list_end = list_start + 9;
+		
+		//list table print 
+		MainDTO dto = new MainDTO();
+			dto.setList_start(list_start);
+			dto.setList_end(list_end);
+		
+		List<MainDTO> list = dao.dbSelectImgBoard(dto);
+		
 	
-	
-	@RequestMapping("/chatting.do")
-	public ModelAndView common_chatting() {		
+		
+//		for(int i=0; i<list.size(); i++) {
+//			String i_date = list.get(i).getI_date();
+//			Date date = null;
+//			try {
+//				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(i_date);
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
+//			i_date = new SimpleDateFormat("yyyy-MM-dd").format(date);
+//
+//		}
+					
+			
+		//page button print with page_number
+		int page_btn_start = page - (page - 1) % 10;
+		int page_btn_end = page_btn_start + 9;
+		
+		int total_page = dao.dbCountImgBoard();
+		boolean page_end_flag = true;
+
+		if(total_page % 10 == 0) {
+			if(page_btn_end > total_page / 10) {
+				page_btn_end = total_page /10;
+				page_end_flag = false;
+			}else {
+				page_end_flag = true;
+			}
+		}else {
+			if(page_btn_end > total_page / 10 + 1) {
+				page_btn_end = total_page /10 + 1;
+				page_end_flag = false;
+			}else {
+				page_end_flag = true;
+			}
+		}
+		
+		
 		
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/chatting");
+			mav.setViewName("/main/img_board");
+			mav.addObject("img_board", "class='active'");
+			mav.addObject("list", list); //out image board list
+			mav.addObject("page", page); //for pager button clicked
+			mav.addObject("page_btn_start", page_btn_start);
+			mav.addObject("page_btn_end", page_btn_end);
+			mav.addObject("total_page", total_page);
+			mav.addObject("page_end_flag", page_end_flag);
 			
 		return mav;
 	}
 	
 	
 	
+	
+
+	
+
+	
 	@RequestMapping("/test.do")
 	public ModelAndView main_test(HttpServletRequest request) {
 		
+		String[] hobbies = request.getParameterValues("hobbies");
 		
-		String token = "";
-		
-		if(request.getParameter("access_token") != null) {
-			token = request.getParameter("access_token");//NAVER Login access_token;
+		for(int i=0; i<hobbies.length; i++) {
+			System.out.println("sdfdfdfsaafd  : " + hobbies[i]);
 		}
-		
-        String header = "Bearer " + token; //Add gap after Bearer;
-        try {
-        	
-            String apiURL = "https://openapi.naver.com/v1/nid/me";   
-            URL url = new URL(apiURL);
-            
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-	            con.setRequestMethod("GET");
-	            con.setRequestProperty("Authorization", header);
-	            
-            int responseCode = con.getResponseCode();
-            
-            BufferedReader br;
-            
-            if(responseCode==200) { // Success calling
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                System.out.println("Success to Private Information Access!!!!");
-            } else {  //Occurred error
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-                System.out.println("Fail to Private Information Access!!!!");
-            }
-            
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            
-            br.close();
-            
-            //response.toString() is to enumerate NAVER_PRIVATE_VALUES of JSON Type
-            System.out.println(response.toString());
-            	
-//            Below Example is to get String value of Private Information from JSON data.
-            
-//            String temp = response.toString();
-//            JSONObject obj = new JSONObject(temp);
-//            String temp2 = obj.getJSONObject("response").getString("id");
-//            System.out.println("this is !!!!!" + temp2);
-            
-            
-            
-       
-        } catch (Exception e) {
-            System.out.println(e);
-        }
 		
 		
 		ModelAndView mav = new ModelAndView();

@@ -1,0 +1,113 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>[img_board.jsp]</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<style type="text/css">
+	
+		.board_box{
+			width: 80%;
+			margin: 0 auto;
+			margin-top : 70px;
+			text-align: center;
+		}
+	
+		.grid{
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;	
+		}
+		
+		.grid_img{
+   			width: 250px; 
+   			height: 250px;
+   			margin: 20px 0 20px 0;
+   			border-radius: 5px;
+		}
+		
+		.pagination{
+			padding-top: 10px;
+		}
+	</style>
+	
+</head>
+<body style="margin-top: 50px;">
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="img_board" value="${img_board}"></c:param>
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="img_board.do"></c:param>
+	</c:import>
+	
+	<div class = "board_box">
+		<div class = "grid">
+		
+			<!-- 게시물 리스트 출력 -->
+			<c:forEach var="list" items="${list}">
+				<div style="text-align: center;">
+			 	  	<img class = "grid_img" src="resources/main_images/1.jpg">
+					<div style="margin-bottom: 5px;">${list.i_title}</div>
+					<div style="padding: 0 30px 0 30px;">
+						<span style="float: left;">작성자 : ${list.u_id }</span>
+						<span style="float: right;">
+							작성시간 : <fmt:formatDate value="${list.i_date }" pattern="yyyy-MM-dd"/>
+						</span>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+		
+		<!-- 페이징 버튼 -->
+		<ul class="pagination pagination-lg">
+		
+			<!-- 이전 버튼 -->
+			<c:if test="${page > 10 }">
+				<li><a style="background-color: #eee;" href="img_board.do?page=${page_btn_start -10 }">이전</a></li>
+			</c:if>
+			
+			<!-- 페이징 버튼 출력 -->	
+			<c:forEach varStatus="i" begin="${page_btn_start }" end="${page_btn_end }" >
+				<c:choose>
+					<c:when test="${page == i.index}">
+						<li class="active"><a href="img_board.do?page=${i.index}">${i.index}</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="img_board.do?page=${i.index}">${i.index}</a></li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			<!-- 다음 버튼 -->
+			<c:if test="${page_end_flag == true }">
+				<li><a style="background-color: #eee;" href="img_board.do?page=${page_btn_start +10 }">다음</a></li>
+			</c:if>
+			<button style="position: absolute; right: 11%;" type="button" class="btn btn-success btn-lg">글 작성</button>
+		</ul>
+		
+		<!-- 검색 버튼 -->
+		<form action="">
+			<select class="form-control input-lg" id="sel1" style="width: 100px; display: inline; vertical-align: top;">
+				<option>선택</option>
+				<option>제목</option>
+				<option>내용</option>
+				<option>작성자</option>
+			</select>
+			<input type="text" placeholder="Search" class="form-control input-lg" id="usr" style="display: inline; width: 200px;">
+			<button type="button" class="btn btn-primary btn-lg" style="vertical-align: top;">
+				<i class="glyphicon glyphicon-search"></i>
+			</button>	
+		</form>
+	</div>
+
+	
+	${total_page }개
+</body>
+</html>

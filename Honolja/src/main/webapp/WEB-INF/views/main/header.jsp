@@ -100,7 +100,7 @@
 					<li ${param.group}><a href="#" onclick="sendPost('board.do', 'access_token', '${param.access_token }');">소모임</a></li>
 					<li ${param.myplace}><a href="#" onclick="sendPostPlus('guestlist.do', 'access_token', '${param.access_token }', 'area', 'my');">내주변</a></li>
 					<li ${param.area}><a href="#" onclick="sendPost('guestlocation.do', 'access_token', '${param.access_token }');">지역</a></li>
-					<li ${param.cast}><a href="#" onclick="sendPost('test.do', 'access_token', '${param.access_token }');">캐스트</a></li>
+					<li ${param.img_board}><a href="#" onclick="sendPost('img_board.do', 'access_token', '${param.access_token }');">갤러리</a></li>
 					<li ${param.test}><a href="#" onclick="sendPost('test.do', 'access_token', '${param.access_token }');">TEST</a></li>
 				</ul>
 
@@ -127,7 +127,6 @@
 					</c:when>
 					<c:otherwise>
 						<ul class="nav navbar-nav navbar-right">
-							<li onclick="popupWindow('chatting.do', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;고객센터</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>

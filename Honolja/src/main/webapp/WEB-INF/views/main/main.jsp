@@ -467,6 +467,13 @@
 	
 	<!-- Modal(== alert) 기능 구현 시 필요 -->
 	<jsp:include page="modal.jsp" />
+	
+	<!-- 네이버 로그인 후, 최초 회원가입 일때 회원가입 페이지로 이동 -->
+	<c:if test="${u_id != null}">
+		<script>
+			location.href = "join.do?u_id=${u_id}";
+		</script>
+	</c:if>
 
 	<!-- 카로셀 시작 -->
 	<div class="container" style = "width:100%; position: relative; padding: 0;">
@@ -606,7 +613,7 @@
     </script>
     
    	<!-- 공지사항 노출 부 -->
-	<div id = "main_notice" class="alert" style="margin: 0; background-color: #fff;">
+	<div id = "main_notice" class="alert" style="margin: 0; background-color: #f8f8f8;">
 		<table style="width: 100%;">
 			<tr>
 				<td width="95%">
@@ -614,15 +621,16 @@
 					<span id="notice">카카오 서비스 운영정책 변경 안내</span>
 				</td>
 				<td> 
-					<input id = "notice_btn" class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="">
+					<input id = "notice_btn" class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="" >
 				</td>
 			</tr>
 		</table>
 	</div>
-	
+
 	<c:import url="http://localhost:8080/honolja/footer.do"></c:import>
 		
 	${checked }<br>
 	${access_token}<br>
+
 </body>
 </html>
