@@ -76,7 +76,7 @@
 	
 
 
-	<form class="form-horizontal" action="/honolja/popup.do" method = "get" style="padding-bottom: 10px;">
+	<form class="form-horizontal" action="/honolja/login_popup.do" method = "get" style="padding-bottom: 10px;">
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="email">Id:</label>
 			<div class="col-sm-10">
@@ -126,7 +126,7 @@
 	
 	<label style="padding: 10px;">
 		<span onclick="close_and_move('address')"><a href="#">비밀번호 재설정 </a></span>/
-		<span onclick="close_and_move('address')"><a href="#"> 회원가입</a></span>
+		<span onclick="close_and_move('join.do')"><a href="#"> 회원가입</a></span>
 		
 	</label>
 	

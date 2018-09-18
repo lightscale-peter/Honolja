@@ -4,11 +4,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>[naver_login.jsp]</title>
-	
-	
+	<title>[main_notice.jsp]</title>
 </head>
-<body onload="location.href = '${apiURL}';">
-
+<body>
+	${notice }
 </body>
 </html>

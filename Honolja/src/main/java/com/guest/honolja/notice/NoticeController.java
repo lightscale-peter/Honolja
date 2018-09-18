@@ -38,7 +38,7 @@ public class NoticeController {
 		int start=1, end=1, temp=1, startpage=1, endpage=1, pagecount=1; //pagecount 珥� �럹�씠吏� 媛쒖닔
 		String pnum="0", returnpage="";
 		String skey="", sval="";
-		int reversecnt= 0; // �솕硫� �럹�씠吏��뿉�꽌 �뿭�닚 �떆�옉踰덊샇
+		int reversecnt= 0; // 테스트
 		
 		skey=request.getParameter("keyfield");
 		sval=request.getParameter("keyword");

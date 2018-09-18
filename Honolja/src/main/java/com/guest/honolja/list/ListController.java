@@ -21,6 +21,7 @@ public class ListController {
 	@Autowired
 	ListDAO dao;	
 	@RequestMapping("/guestlist.do")
+
 	public ModelAndView guest_select(HttpServletRequest request,ListDTO dto) {
 		ModelAndView mav = new ModelAndView( );
 		String skey="", sval="" , returnpage="";
@@ -121,7 +122,6 @@ public class ListController {
 		List<ListDTO> listlo=dao.dbSelectlo(g_addr,startprice,endprice);
 		mav.addObject("check_in",check_in);
 		mav.addObject("check_out",check_out);
-		mav.addObject("low_price",low_price);
 		
 		mav.addObject("low_price",low_price);
 		mav.addObject("startprice",startprice);
