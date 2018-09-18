@@ -96,19 +96,11 @@
 					<a class="navbar-brand" href="main.do">Honolja</a>
 				</div>
 				<ul class="nav navbar-nav">
-<<<<<<< HEAD
-					<li ${param.notice}><a href="#">공지사항</a></li>
-					<li ${param.group}><a href="#">소모임</a></li>
-					<li ${param.myplace}><a href="guestlist.do?area=my?check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">내주변</a></li>
-					<li ${param.area} data-popover-children="true" id="toggle"><a href="#">지역</a></li>
-					<li ${param.cast}><a href="#">캐스트</a></li>
-=======
 					<li ${param.notice}><a href="#" onclick="sendPost('notice.do', 'access_token', '${param.access_token }');">공지사항</a></li>
 					<li ${param.group}><a href="#" onclick="sendPost('board.do', 'access_token', '${param.access_token }');">소모임</a></li>
-					<li ${param.myplace}><a href="#" onclick="sendPostPlus('guestlist.do', 'access_token', '${param.access_token }', 'area', 'my');">내주변</a></li>
-					<li ${param.area}><a href="#" onclick="sendPost('guestlocation.do', 'access_token', '${param.access_token }');">지역</a></li>
+					<li ${param.myplace}><a href="guestlist.do?area=my?check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}" onclick="sendPostPlus('guestlist.do', 'access_token', '${param.access_token }', 'area', 'my');">내주변</a></li>
+					<li ${param.area}><a href="guestlocation.do" onclick="sendPost('guestlocation.do', 'access_token', '${param.access_token }');">지역</a></li>
 					<li ${param.img_board}><a href="#" onclick="sendPost('img_board.do', 'access_token', '${param.access_token }');">여행지 정보</a></li>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 					<li ${param.test}><a href="#" onclick="sendPost('test.do', 'access_token', '${param.access_token }');">TEST</a></li>
 				</ul>
 
@@ -162,13 +154,10 @@
 			<li class="area-item" value="부산"><a href="guestlocation.do?g_addr=busan">부산</a></li>
 			<li class="area-item" value="전남"><a href="guestlocation.do?g_addr=junnam">전남</a></li>
 			<li class="area-item" value="전주/전북"><a href="guestlocation.do?g_addr=junju">전주/전북</a></li>
-=======
-	
+
 	<!-- Modal(== alert) 기능 구현 시 필요 -->
 	<jsp:include page="modal.jsp" />
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
-
-
+	
 			</ul>
 			<div class="subarea-cnt">
 			<div class="inner">
