@@ -139,9 +139,6 @@
 			<li class="area-item" value="전남"><a href="guestlocation.do?g_addr=junnam">전남</a></li>
 			<li class="area-item" value="전주/전북"><a href="guestlocation.do?g_addr=junju">전주/전북</a></li>
 
-	<!-- Modal(== alert) 기능 구현 시 필요 -->
-	<jsp:include page="modal.jsp" />
-	
 			</ul>
 			<div class="subarea-cnt">
 			<div class="inner">
