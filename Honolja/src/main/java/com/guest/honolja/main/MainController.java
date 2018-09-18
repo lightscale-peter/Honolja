@@ -11,14 +11,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.Vector;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +38,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
 
@@ -44,6 +53,9 @@ public class MainController {
 
 	@Autowired
 	MainDAO dao;
+	
+	@Autowired
+	ServletContext application;
 	
 	@RequestMapping("/main.do")
 	public ModelAndView main_page(HttpServletRequest request) {
@@ -258,7 +270,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/naver_login.do")
-	public ModelAndView common_naver_login(Model model) {
+	public RedirectView common_naver_login(Model model) {
 		
 		//NAVER API Login
 	    String clientId = "KhHvxQuRC4gDkDcMKUBF";//Application Client ID Value
@@ -278,12 +290,11 @@ public class MainController {
 	    
 	    model.addAttribute("checked", state);
 	    //session.setAttribute("state", state);
-	    
-	    ModelAndView mav = new ModelAndView();
-	    	mav.addObject("apiURL", apiURL);
-	    	mav.setViewName("main/naver_login");
+	    	
+    	RedirectView redirectView = new RedirectView();
+    		redirectView.setUrl(apiURL);
 		
-		return mav;
+		return redirectView;
 	}
 
 	
@@ -304,16 +315,10 @@ public class MainController {
 	@RequestMapping("/logout.do")
 	public ModelAndView common_logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		
-	
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/logout");
 
-		//Memory address to go back After logout
-		if(request.getParameter("host")  != null) {
-			mav.addObject("host", request.getParameter("host"));
-		}
-		
-		
+		//Host is an address to go back After logout
+		mav.setViewName("redirect:/" + request.getParameter("host"));
 		
 		if(session.getAttribute("checked") != null) {
 			session.removeAttribute("checked");
@@ -353,7 +358,7 @@ public class MainController {
 		
 		int page = 1;
 		
-		//board list print with page_number
+		//Print list every 10 lines according to page_num
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
@@ -361,33 +366,28 @@ public class MainController {
 		int list_start = 1 + 10 * (page-1);
 		int list_end = list_start + 9;
 		
-		//list table print 
+		//Get the search key&value from view
+		String skey = request.getParameter("skey");
+		String sval = request.getParameter("sval");
+	
 		MainDTO dto = new MainDTO();
 			dto.setList_start(list_start);
 			dto.setList_end(list_end);
+			dto.setSkey(skey);
+			dto.setSval(sval);
 		
+		//Get the list from DB 
 		List<MainDTO> list = dao.dbSelectImgBoard(dto);
-		
-	
-		
-//		for(int i=0; i<list.size(); i++) {
-//			String i_date = list.get(i).getI_date();
-//			Date date = null;
-//			try {
-//				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(i_date);
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-//			i_date = new SimpleDateFormat("yyyy-MM-dd").format(date);
-//
-//		}
 					
 			
-		//page button print with page_number
+		//Print page_button according to page_num
 		int page_btn_start = page - (page - 1) % 10;
 		int page_btn_end = page_btn_start + 9;
 		
-		int total_page = dao.dbCountImgBoard();
+		
+		//Get the total count
+		int total_page = dao.dbCountImgBoard(dto);
+		
 		boolean page_end_flag = true;
 
 		if(total_page % 10 == 0) {
@@ -407,7 +407,6 @@ public class MainController {
 		}
 		
 		
-		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/img_board");
 			mav.addObject("img_board", "class='active'");
@@ -421,21 +420,120 @@ public class MainController {
 		return mav;
 	}
 	
+	@RequestMapping("/img_board_detail.do")
+	public ModelAndView main_img_board_detail(HttpServletRequest request) {
+		
+		String i_no = request.getParameter("i_no");
+		
+		MainDTO dto = dao.dbSelectImgBoardDetail(i_no);
+		
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main/img_board_detail");
+			mav.addObject("img_board", "class='active'");
+			mav.addObject("dto", dto);
+			
+		return mav;
+	}
 	
+	@RequestMapping("/img_board_write.do")
+	public ModelAndView main_img_board_write(HttpServletRequest request) {
 	
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main/img_board_write");
+			mav.addObject("img_board", "class='active'");
+			
+		return mav;
+	}
 	
-
+	@RequestMapping("/img_board_write_backend.do")
+	public ModelAndView main_img_board_write_backend(MultipartHttpServletRequest request) {
+		
+		String i_title = request.getParameter("title");
+		String i_content = request.getParameter("content");
+		String u_id = request.getParameter("id");
+		MultipartFile mf = request.getFile("upload_f");
+			
+		//start to save file
+		
+		//set save_path
+		String path = application.getRealPath("/resources/info_images");
+			System.out.println("application.getRealPath : " + path);
+			
+		//set uploadFileName
+		UUID random_path = UUID.randomUUID();
+			System.out.println("random_path : " + random_path.toString());
+			
+		String i_originalFilename = mf.getOriginalFilename();
+			System.out.println("i_originalFilename : " + i_originalFilename);
+			
+		String i_uploadFileName = random_path + "_" + i_originalFilename;
+			System.out.println("i_uploadFileName : " + i_uploadFileName);
+			
+		//get file_size
+		String i_fileSize = String.valueOf(mf.getSize()) + "byte";
+			System.out.println("i_fileSizee : " + i_fileSize);
+			
+		//set File
+		File file = new File(path, i_uploadFileName);
+		
+		//try to save file
+		try {
+			mf.transferTo(file); // 변환 시도			
+		}catch(Exception e) {}
+		
+		MainDTO dto = new MainDTO();	
+			dto.setI_title(i_title);
+			dto.setI_content(i_content);
+			dto.setI_originalFileName(i_originalFilename);
+			dto.setI_uploadFileName(i_uploadFileName);
+			dto.setI_fileSize(i_fileSize);
+			dto.setU_id(u_id);
+			
+		dao.dbInsertImgBoard(dto);
+			
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirect:/img_board.do");
+			
+		return mav;
+	}
 	
-
+	@RequestMapping("/img_board_detail_download.do")
+	public ModelAndView main_img_board_detail_download(HttpServletRequest request, HttpServletResponse response) {
+		
+		String i_no = request.getParameter("i_no");
+		String path = application.getRealPath("/resources/info_images");
+		
+		MainDTO dto = dao.dbSelectImgBoardDetail(i_no);
+		
+		String i_uploadFileName = dto.getI_uploadFileName();
+		
+		try {
+			response.setHeader("Content-Disporition", 
+								"attachment;filename=" 
+								+ new String(i_uploadFileName.getBytes("UTF-8"), "ISO-8859-1")
+						);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		File file = new File(path, i_uploadFileName);
+		
+		InputStream is = null;
+		OutputStream os = null;
+		byte[] b = null;
+		
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirect:/img_board_detail.do?i_no=" + i_no);
+			
+		return mav;
+	}
+	
 	
 	@RequestMapping("/test.do")
 	public ModelAndView main_test(HttpServletRequest request) {
-		
-		String[] hobbies = request.getParameterValues("hobbies");
-		
-		for(int i=0; i<hobbies.length; i++) {
-			System.out.println("sdfdfdfsaafd  : " + hobbies[i]);
-		}
 		
 		
 		ModelAndView mav = new ModelAndView();

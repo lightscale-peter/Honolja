@@ -13,13 +13,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectImageBoard" parameterType="main" resultType="main">
+
 		select * from(
-		select rownum as rn, i.* from img_board i
-		) where rn between #{list_start} and #{list_end}
+		select rownum as rn, i.* from (
+		select * from img_board order by i_no desc) i
+
+		<if test="skey != null">
+			<if test="skey == 'title'">
+				where i.i_title like '%' || #{sval} || '%'
+			</if>
+			<if test="skey == 'content'">
+				where i.i_content like '%' || #{sval} || '%'
+			</if>
+			<if test="skey == 'writer'">
+				where i.u_id like '%' || #{sval} || '%'
+			</if>
+		</if>
+	
+		)  where rn between #{list_start} and #{list_end}
 	</select>
 	
-	<select id="CountImageBoard" resultType="int">
-		select count(*) from img_board
+	<select id="CountImageBoard" resultType="int" parameterType="main">
+		select count(*) from img_board i
+		
+		<if test="skey != null">
+			<if test="skey == 'title'">
+				where i.i_title like '%' || #{sval} || '%'
+			</if>
+			<if test="skey == 'content'">
+				where i.i_content like '%' || #{sval} || '%'
+			</if>
+			<if test="skey == 'writer'">
+				where i.u_id like '%' || #{sval} || '%'
+			</if>
+		</if>
 	</select>
 	
 	<insert id="insertUsersInfo">
@@ -32,4 +59,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from users where u_id like '%' || #{u_id} || '%'
 	</select>
 	
+	<select id="selectImageBoardDetail" resultType="main" parameterType="String">
+		select * from img_board where i_no = #{i_no}	
+	</select>
+	
+	<insert id="insertImageBoard" parameterType="main">
+		insert into img_board values ( 
+			img_board_seq.nextval, 
+			#{i_title}, #{i_content}, sysdate, 0, 0, #{i_originalFileName}, 
+			#{i_uploadFileName}, #{i_fileSize}, #{u_id} 
+			)
+	</insert>
 </mapper>

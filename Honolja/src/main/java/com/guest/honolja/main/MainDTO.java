@@ -2,6 +2,8 @@ package com.guest.honolja.main;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MainDTO {
 	
 	String u_id;
@@ -19,10 +21,13 @@ public class MainDTO {
 	String i_title;
 	String i_content;
 	Date i_date;
-	String i_viewcnt;
+	int i_viewcnt;
+	int i_starcnt;
 	String i_originalFileName;
 	String i_uploadFileName;
 	String i_fileSize;
+	
+	MultipartFile upload_f;
 	
 	int ir_no;
 	String ir_content;
@@ -31,7 +36,16 @@ public class MainDTO {
 	int list_start;
 	int list_end;
 	
+	String skey;
+	String sval;
 	
+	
+	public MultipartFile getUpload_f() {
+		return upload_f;
+	}
+	public void setUpload_f(MultipartFile upload_f) {
+		this.upload_f = upload_f;
+	}
 	public String getU_id() {
 		return u_id;
 	}
@@ -110,11 +124,17 @@ public class MainDTO {
 	public void setI_date(Date i_date) {
 		this.i_date = i_date;
 	}
-	public String getI_viewcnt() {
+	public int getI_viewcnt() {
 		return i_viewcnt;
 	}
-	public void setI_viewcnt(String i_viewcnt) {
+	public void setI_viewcnt(int i_viewcnt) {
 		this.i_viewcnt = i_viewcnt;
+	}
+	public int getI_starcnt() {
+		return i_starcnt;
+	}
+	public void setI_starcnt(int i_starcnt) {
+		this.i_starcnt = i_starcnt;
 	}
 	public String getI_originalFileName() {
 		return i_originalFileName;
@@ -164,6 +184,20 @@ public class MainDTO {
 	public void setList_end(int list_end) {
 		this.list_end = list_end;
 	}
+	public String getSkey() {
+		return skey;
+	}
+	public void setSkey(String skey) {
+		this.skey = skey;
+	}
+	public String getSval() {
+		return sval;
+	}
+	public void setSval(String sval) {
+		this.sval = sval;
+	}
+	
+	
 	
 	
 

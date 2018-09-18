@@ -32,6 +32,7 @@
 	</servlet-mapping>
     
 	
+	<!-- 한글이름 파일 업로드에 필요한 한글 처리용 필터 -->
 	<filter>
 		<filter-name>encoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

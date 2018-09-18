@@ -100,7 +100,7 @@
 					<li ${param.group}><a href="#" onclick="sendPost('board.do', 'access_token', '${param.access_token }');">소모임</a></li>
 					<li ${param.myplace}><a href="#" onclick="sendPostPlus('guestlist.do', 'access_token', '${param.access_token }', 'area', 'my');">내주변</a></li>
 					<li ${param.area}><a href="#" onclick="sendPost('guestlocation.do', 'access_token', '${param.access_token }');">지역</a></li>
-					<li ${param.img_board}><a href="#" onclick="sendPost('img_board.do', 'access_token', '${param.access_token }');">갤러리</a></li>
+					<li ${param.img_board}><a href="#" onclick="sendPost('img_board.do', 'access_token', '${param.access_token }');">여행지 정보</a></li>
 					<li ${param.test}><a href="#" onclick="sendPost('test.do', 'access_token', '${param.access_token }');">TEST</a></li>
 				</ul>
 

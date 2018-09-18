@@ -28,12 +28,12 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
- 
-	<!-- hobby사용할 파일 다운로드 라이브러리 기술 -->
+
 	<!-- 파일업로드 Commons -->
 	<beans:bean id="multipartResolver"
 	       class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
+	
 	
 	<!-- 로그인 처리 인터셉터 설정 -->
 	<beans:bean id="HonoljaInterceptor" class="com.guest.honolja.interceptor.HonoljaInterceptor"></beans:bean>
