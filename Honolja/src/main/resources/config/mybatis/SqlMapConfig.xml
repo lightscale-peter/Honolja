@@ -12,7 +12,7 @@
 		<typeAlias alias="notice" type="com.guest.honolja.notice.NoticeDTO"/>
 		<typeAlias alias="msg" type="com.guest.honolja.message.MsgDTO"/>
 		<typeAlias alias="boarddto" type="com.guest.honolja.board.BoardDTO"/>
-		
+		<typeAlias alias="info" type="com.guest.honolja.info.InfoDTO"/>
 	</typeAliases>
 
 	<mappers>
@@ -24,6 +24,7 @@
 		<mapper resource="config/mybatis/notice.xml"/>
 		<mapper resource="config/mybatis/message.xml"/>
 		<mapper resource="config/mybatis/board.xml"/>
+		<mapper resource="config/mybatis/info.xml"/>
 	</mappers>
 
 </configuration>

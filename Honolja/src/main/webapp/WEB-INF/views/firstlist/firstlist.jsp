@@ -140,6 +140,13 @@ body, h1, h2, h3, h4, h5, h6, input, textarea, select, button, table {
 	<c:import url="http://localhost:8080/honolja/header.do">
 		<c:param name="checked" value="${checked}"></c:param>
 		<c:param name="host" value="main.do"></c:param>
+		
+		<c:param name="area" value="${param.area}"></c:param>
+		<c:param name="adult" value="${param.adult}"></c:param>
+		<c:param name="child" value="${param.child}"></c:param>
+		<c:param name="check_in" value="${param.check_in}"></c:param>
+		<c:param name="check_out" value="${param.check_out}"></c:param>
+		<c:param name="nights" value="${param.nights}"></c:param>
 	</c:import>
 			<!-- 달력 시작 -->  
 		  

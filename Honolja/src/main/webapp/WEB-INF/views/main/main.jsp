@@ -537,6 +537,7 @@
 			<!-- 지역 / 체크인 / 체크아웃 검색 창 시작 -->
 			<form id = "check_form" action="guestlist.do">
 				<div class="form-group">
+				
 					<label for="sel1">지역</label>
 					<select class="form-control" id="sel1" name="area" onchange="progress();">
 						<option>선택</option>
@@ -631,6 +632,5 @@
 		
 	${checked }<br>
 	${access_token}<br>
-
 </body>
 </html>

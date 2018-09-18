@@ -1,10 +1,10 @@
-package com.guest.honolja.main;
+package com.guest.honolja.info;
 
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class MainDTO {
+public class InfoDTO {
 	
 	String u_id;
 	String u_pwd;

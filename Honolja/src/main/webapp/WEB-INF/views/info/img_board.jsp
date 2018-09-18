@@ -77,7 +77,7 @@
 	</c:import>
 	
 	<!-- Modal(== alert) 기능 구현 시 필요 -->
-	<jsp:include page="modal.jsp" />
+	<jsp:include page="../main/modal.jsp" />
 	
 	<div class = "board_box">
 		<div class = "grid">
