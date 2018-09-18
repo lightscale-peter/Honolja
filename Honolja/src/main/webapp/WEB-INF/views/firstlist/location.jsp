@@ -12,6 +12,10 @@
     <meta name="author" content="">
     
 	<title>[firstlist.jsp]</title>
+	
+	<link href="css/slidebtn.css" type="text/css" rel="stylesheet">
+ 	<link href="css/filter.css" type="text/css" rel="stylesheet">
+ 	<link href="css/header.css" type="text/css" rel="stylesheet">
  	
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -25,108 +29,7 @@
     
     <!-- naver MAP API 받아오기 -->
  	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
- 	<style>
- 	.filter-icon__refresh {
-    width: 18px;
-    height: 18px;
-    background: url(https://yaimg.yanolja.com/joy/pw/search/filter-icon__refresh.svg) 50%;
-	}
-	.filter-icon {
-    display: inline-block;
-    overflow: hidden;
-    font-size: 0;
-    line-height: 0;
-    text-indent: -9999px;
-    vertical-align: middle;
-	}
-	i, em, address {
-    font-style: normal;
-	}
-	i, cite, em, var, address, dfn {
-    font-style: italic;
-}
-.filter__refresh-btn {
-    font-size: 14px;
-    color: #aaa;
-}
-button {
-    outline: none;
-    border: 0 none;
-    background-color: transparent;
-    cursor: pointer;
-}
-button, input, textarea, select, td, th {
-    font-family: "Apple SD Gothic Neo", "Nanum Barun Gothic", "NanumBarunGothic", sans-serif !important;
-}
-label, button, a {
-    cursor: pointer;
-    text-decoration: none;
-}
-body, h1, h2, h3, h4, h5, h6, input, textarea, select, button, table {
-    font-family: "Apple SD Gothic Neo", "Nanum Barun Gothic", "NanumBarunGothic", sans-serif !important;
-    color: #666666;
-    font-size: 16px;
-    -webkit-text-size-adjust: none;
-    -ms-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-}
-user agent stylesheet
-input[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {
-    align-items: flex-start;
-    text-align: center;
-    cursor: default;
-    color: buttontext;
-    background-color: buttonface;
-    box-sizing: border-box;
-    padding: 2px 6px 3px;
-    border-width: 2px;
-    border-style: outset;
-    border-color: buttonface;
-    border-image: initial;
-}
-user agent stylesheet
-input, textarea, select, button {
-    text-rendering: auto;
-    color: initial;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-}
-user agent stylesheet
-input, textarea, select, button, meter, progress {
-    -webkit-writing-mode: horizontal-tb !important;
-}
-body {
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-body {
-    min-width: 1280px;
-    margin: 0 auto;
-    -ms-word-break: break-all;
-    word-break: break-all;
-    -webkit-text-size-adjust: none;
-    -moz-text-size-adjust: none;
-    -ms-text-size-adjust: none;
-}
-body, h1, h2, h3, h4, h5, h6, input, textarea, select, button, table {
-    font-family: "Apple SD Gothic Neo", "Nanum Barun Gothic", "NanumBarunGothic", sans-serif !important;
-    color: #666666;
-    font-size: 16px;
-    -webkit-text-size-adjust: none;
-    -ms-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
-}
- 	</style>
+ 	
  	<script>
 	 	var x= new Array();
 		var y= new Array();
@@ -142,125 +45,276 @@ body, h1, h2, h3, h4, h5, h6, input, textarea, select, button, table {
 		<c:param name="host" value="main.do"></c:param>
 	</c:import>
 			<!-- 달력 시작 -->  
-		  
+<%-- <input type = "hidden" name = "date" value = "${param.check_in}&${param.check_out}&${param.nights}"> --%>
 <div style="position:fixed; background-color:#D5D5D5;width:100%;height:50px;margin-bottom:0;margin-top:0; border:0;">
 	<div style="margin-top:10px;">
     	<div style="position:fixed;margin-left:1%;" >
-    		<input type="text" aria-label="YYYY-MM-DD" name="startDate" id="startDate" width="150px" placeholder="YYYY-MM-DD" value="${param.check_in}" 
-    		autoComplete="off" aria-describedby="DateInput_screen-reader-message-startDate" style="color:black;" /> 
+    		<input type="text" aria-label="YYYY-MM-DD" name="startDate"  id="startDate" value="${param.check_in}"
+    		 width="150px" placeholder="YYYY-MM-DD"  style="color:black;" /> 
     	</div>
    
    		<div class="DateRangePickerInput__arrow" aria-hidden="true" role="presentation"><span></span></div> 
    
     	<div style="position:fixed; margin-left:12%; margin-bottom:80%;">
-    		<input type="text" aria-label="YYYY-MM-DD" name="endDate" id="endDate" width="150px" placeholder="YYYY-MM-DD" value="${param.check_out}"
-    	 	aria-describedby="DateInput_screen-reader-message-endDate" style="color:black;" />
+    		<input type="text" aria-label="YYYY-MM-DD" name="endDate" id="endDate"value="${param.check_out}"
+    		 width="150px" placeholder="YYYY-MM-DD"  style="color:black;" />
     	</div>
     
     	<div style="position:fixed; margin-left:22%; margin-bottom:80%;">
-    		<img src="https://yaimg.yanolja.com/joy/pw/place/bullet-datepicker-check.svg" alt>
-    		<span>${date}박 ${date}일</span>
+    		<img src="https://yaimg.yanolja.com/joy/pw/place/bullet-datepicker-check.svg" >
+    		<span>${param.nights}박 ${param.nights+1}일</span>
 		</div>
     </div>
 </div>
 	<script type="text/javascript">
-	/* $(function(){
-		$('#form2').datepicker(
-		{
-			numberOfMonths : 1,
-			firstDay : 1,
-			dateFormat : 'yy/mm/dd',
-			minDate : '0',
-			maxDate : '+2y',
-			showMonthAfterYear : true,
-			monthNames : ['1월', '2월', '3월', '4월', '5월', '6월', '7월'
-				, '8월' ,'9월', '10월', '11월', '12월' ],
-			monthNamesShort : ['1월', '2월', '3월', '4월', '5월', '6월', '7월'
-				, '8월' ,'9월', '10월', '11월', '12월' ],
-			dayNames : ['일','월','화','수','목','금','토'],
-			dayNamesShort : ['일','월','화','수','목','금','토'],
-			dayNamesMin : ['일','월','화','수','목','금','토'],
-			onSelect : function(dateStr){
-				var min = $(this).datepicker('getDate');
-				$('#to2').datepicker('option','minDate', min || '0');
-				datrpicked();
-			}
-		});
-	}); */
-		 $('#startDate').datepicker({ 
+		
+		$('#startDate').datepicker({ 
 			showOn:"both",
 			buttonImageOnly:true,
 			buttonText:"Select date",
-			format: 'yyyy-mm-dd',
-			onSelect : function(dateStr){
-				var min = $(this).datepicker('getDate');
-				$('#endDate').datepicker('option','minDate', min || '0');
-				datrpicked();
-			}
-			
+			format: 'yyyy-mm-dd'
 		}); 
+		
 		$('#endDate').datepicker({ 
 			showOn:"both",
 			buttonImageOnly:true,
 			buttonText:"Select date",
-			format: 'yyyy-mm-dd',
-			onSelect : function(dateStr){
-				var min = $(this).datepicker('getDate');
-				$('#startDate').datepicker('option','minDate', min || '0');
-				datrpicked();
-			}
+			format: 'yyyy-mm-dd'
 		});  
     </script>
-       <br>
-       <div style="padding-top:40px">
+	<br>
+	<div style="padding-top:40px; ">
    	<!-- 지도 우측배치로 고정 -->
-	<div style= "right:0; position:fixed;width:40%;height:100%;">	
-		<div id="map" style="width:100%;height:100%;margin-top:10px;"></div>
-		</div>
+		<div style= "right:0; position:fixed;width:40%;height:100%;">	
+			<div id="map" style="width:100%;height:100%;margin-top:10px;"></div>
+			</div>
+		<!-- 지도 끝-->
+		
         <!-- 필터 담을것. 기본순/테마/가격대선택/예약가능/.......필터초기화-->
-	<div style="left:0; width:50% padding-left: 30px; padding-right:30px;padding-left:30px;">
+	<div style="left:0; width:60%; padding-left: 30px; padding-right:30px;padding-left:30px;">
     	<div style="padding-top: 13px;padding-bottom: 12px;"><p>
-     		<input type="button" name="basic" value="기본순">
-     		<input type="button" name="basic" value="테마">
-     		<input type="button" name="basic" value="숙소특징">
-     		<input type="button" name="basic" value="가격대선택">
-     		<input type="button" name="basic" value="예약가능">
-     		<button type="button" class="filter__refresh-btn f-right">
-     		<i class="filter-icon filter-icon__refresh"></i>
-     		<!-- react-text: 390 --> <!-- /react-text -->
-     		<em>필터 초기화</em>
+     		<button type="button" class="filter__item" name="popoverButton" style="margin-right:27px;"id="firstfilter">
+     			<span class="filter__option">기본순</span>
+     			<i class="filter-icon filter-icon__arrow_bottom"></i>
+     		</button> 
+     		
+     		<button type="button" class="filter__item" name="popoverButton"style="margin-right:27px;" id="secondfilter">
+     			<span class="filter__option">가격대선택</span>
+     			<i class="filter-icon filter-icon__arrow_bottom"></i>
+     		</button> 
+     		 
+     		<button type="button" class="filter__refresh-btn f-right" style="margin-left: 50%;padding-top: 0;"id="refresh">
+     			<i class="filter-icon filter-icon__refresh"></i>
+     			<em>필터 초기화</em>
      		</button>
-    	</div>
+     	</div>
+     		<script>
+     		$(document).ready(function(){
+     			jQuery('#refresh').click(function(){
+     				location.href="guestlocation.do?g_addr=${param.g_addr}";
+     			});
+     		});
+     		</script>
+     	<form name= "filter" action="guestlocation.do" method="get">
+     	<input type = "hidden" name = "g_addr" value = "${param.g_addr}&${param.low_price}">
+     	<div data-popover-content="true" id="firstfilt" 
+     	style="box-sizing: border-box;
+     	width:150px;
+     	height:90px;
+     	position:absolute;
+    	box-shadow: 0 3px 7px rgba(0,0,0,.2);
+    	border-top: 2px solid #ff2d60;
+    	background-color: #fff;
+    	padding: 20px;
+    	display: table;
+    	clear: both;">
+    	
+ 	    	<div>
+ 	      		<div>
+ 	      			<div>
+ 	      				<input type="radio" id="basic" name="sortFilter" value="basic"> <!-- onClick="alert('asdf');" -->
+ 	      				<label for="basic">기본순</label>
+ 	      			</div>
+ 	      			<div>
+ 	      				<input type="radio" id="like" name="sortFilter" value="like">
+ 	      				<label for="like">인기순</label>
+ 	      			</div>
+ 	      			<div>
+ 	      				<input type="radio" id="reply" name="sortFilter" value="reply">
+ 	      				<label for="reply">댓글 많은 순</label>
+ 	      			</div>
+ 	      		</div>
+ 	      	</div>
+		</div>
+		</form>
+		<script type="text/javascript">
+		//기본순
+		$(document).ready(function(){
+	    	$("#basic").change(function(){
+	        	if($("#basic").is(":checked")){
+	        		location.href="guestlocation.do?g_addr=${param.g_addr}&basic=true";
+	        	}else{
+	        		$("#basic").is(":unchecked")
+	        	}
+	   		});
+		});
+		
+		//인기순
+		$(document).ready(function(){
+	    	$("#like").change(function(){
+	        	if($("#like").is(":checked")){
+	        		location.href="guestlocation.do?g_addr=${param.g_addr}&islike=true";
+	        	}else{
+	        		$("#like").is(":unchecked")
+	        	}
+	   		});
+		});
+		
+		//댓글 많은 순
+		$(document).ready(function(){
+	    	$("#reply").change(function(){
+	        	if($("#reply").is(":checked")){
+	        		location.href="guestlocation.do?g_addr=${param.g_addr}&reply=true";
+	        	}else{
+	        		$("#reply").is(":unchecked")
+	        	}
+	   		});
+		});
+		</script>
+		<!-- 가격대 선택 -->
+		<form action="guestlocation.do" method="get">
+		<input type = "hidden" name = "g_addr" value = "${param.g_addr}&${param.filt}">
+		<div id="secondfilt" data-popover-content="true"
+     	style="box-sizing: border-box;
+     	width:180px;
+     	height:90px;
+     	position:absolute;
+    	box-shadow: 0 3px 7px rgba(0,0,0,.2);
+    	border-top: 2px solid #ff2d60;
+    	background-color: #fff;
+    	padding: 20px;
+    	display: table;
+    	clear: both;
+    	margin-left: 5%;">
+ 	    	<div id="checkbox" >
+ 	      		<div>
+ 	      			<div>
+ 	      				<input type="checkbox" id="zero" name="sortFilter" value="a">
+ 	      				<!-- <a href="guestlist.do?r_price=a"> -->
+ 	      				<label for="zero">0~20000</label>
+ 	      			</div>
+ 	      			
+ 	      			<div>
+ 	      				<input type="checkbox" id="one" name="sortFilter" value="b">
+ 	      				<!-- <a href="guestlist.do?r_price=b"> -->
+ 	      				<label for="one">20000~40000</label>
+ 	      			</div>
+ 	      			
+ 	      			<div>
+ 	      				<input type="checkbox" id="two" name="sortFilter" value="c">
+ 	      				<!-- <a href="guestlist.do?r_price=c"> -->
+ 	      				<label for="two">40000~60000</label>
+ 	      			</div>
+ 	      			
+ 	      			<div>
+ 	      				<input type="checkbox" id="three" name="sortFilter" value="d">
+ 	      				<!-- <a href="guestlist.do?r_price=d"> -->
+ 	      				<label for="three">60000~80000</label>
+ 	      			</div>
+ 	      			
+					<div>
+ 	      				<input type="checkbox" id="four" name="sortFilter" value="e">
+ 	      				<!-- <a href="guestlist.do?r_price=e"> -->
+ 	      				<label for="four">80000~2800000</label>
+ 	      			</div>
+ 	      			<div style="margin-left:60%;">
+ 	      				<button type="submit" id="secondbtn" style = "width:60px;background-color:#ff2d60; color:white;">
+ 	      				<em>확인</em>
+ 	      				</button> 
+ 	      			</div>
+ 	      		</div>
+ 	      	</div>
+		</div>
+		</form>	
+		<!-- 해당 필터 클릭 시 이벤트 -->
+		<script>
+			jQuery('#firstfilt').css("display", "none"); 
+ 	      	jQuery('#secondfilt').css("display", "none"); 
+ 	      		
+ 	      	jQuery('#firstfilter').click(function () {  
+ 	      	 	  if($("#firstfilt").css("display") == "table"){
+ 	      	       	 jQuery('#firstfilt').css("display", "none");
+ 	      	     	 jQuery('#secondfilt').css("display", "none"); 
+ 	      	    } else {  
+ 	      	        jQuery('#firstfilt').css("display", "table");
+ 	      	     	jQuery('#secondfilt').css("display", "none"); 
+ 	      	    } 
+ 	      	});
+ 	      	
+			jQuery('#secondfilter').click(function () {  
+		 		if($("#secondfilt").css("display") == "table"){
+		       		jQuery('#secondfilt').css("display", "none");
+		       		jQuery('#firstfilt').css("display", "none");
+		    	} else {  
+		        	jQuery('#secondfilt').css("display", "table");
+		        	jQuery('#firstfilt').css("display", "none");
+				} 
+			});
+		</script>
+		<!-- 해당 필터 클릭 시 이벤트 끝-->
+		
+    </div>
 		<!-- 필터 끝-->
-		
 		<!-- Guest house 목록을 리스트로 뽑아주기 -->
-		
       	<table id="ajaxTable" width="60%" height="10%" border="0" cellpadding="1">
-      	<c:forEach var="listlo" items="${listlo}" varStatus="i">
-      	<tr align="left" >
+      	<c:forEach var="list" items="${listlo}" varStatus="i">
+      		<tr align="left" >
       		<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
-      		<a href="guestdetail.do?idx=${listlo.g_no}&check_in=${param.check_in}&check_out=${param.check_out}">
-      		<img src = "${listlo.g_url}" width="90%" height="180px">
-      		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
-      		</a></td><!-- image불러올 때 .PNG대소문자 구분함. -->
-      		<td style="font-size:24px;padding-top:10px;"><a href="guestdetail.do?idx=${listlo.g_no}&check_in=${param.check_in}&check_out=${param.check_out}"> ${listlo.g_name}</a></td>
-      	</tr>
-      		<tr><td>listlo.rating, reply count </td></tr>
-      		<tr><td>listlo.input time, price </td></tr>
+      			<a href="guestdetail.do?g_no=${list.g_no} &check_in=${list.check_in}&check_out=${list.check_out}">
+      			<img src = "${list.g_url}" width="90%" height="180px"></a>
+      			<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
+      		</td>
+      		
+      		<td style="font-size:24px;padding-top:10px;">
+      			<a href="guestdetail.do?g_no=${list.g_no} &check_in=${list.check_in}&check_out=${list.check_out}">
+      			${list.g_name}</a>
+      			 <button type="button" class="filter__refresh-btn"style = "font-size:16px;"><em>좋아요</em></button>
+      		</td>
+      		</tr>
+      		<tr><td>list.rating, reply count</td></tr>
+      		<tr>
+      			<td>
+      				<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
+      				<i>14:00~&nbsp;</i>
+      				<i style="width:15px; height: 15px; background-color:#ff2d60; color:white;">기본</i> 
+      				<i style="font-size:18px;font-weight:bold;color:black;">&nbsp;&nbsp;${list.low_price} 원</i>
+      			</td>
+      		</tr>
       		<tr><td>쿠폰 및 테마 공백 </td></tr>
       		<tr><td style="padding-bottom:30px;">&nbsp;</td></tr>
-      		<tr><td colspan="2"><hr color="#D5D5D5" align="center" WIDTH=97%></hr></td></tr>
+      		<tr><td colspan="2"><hr color="#D5D5D5" align="center" width=97%></hr></td></tr>
       		<script>
-      			x[${i.index}] = ${listlo.g_position_n};
-  				y[${i.index}] = ${listlo.g_position_e}; 
-  				name[${i.index}] = '${listlo.g_name}';
-  				url[${i.index}] = '${listlo.g_url}';
+      			x[${i.index}] = ${list.g_position_n};
+  				y[${i.index}] = ${list.g_position_e}; 
+  				name[${i.index}] = '${list.g_name}';
+  				url[${i.index}] = '${list.g_url}';
   				area = '${param.area}';
   			</script>
 		</c:forEach>
+		<!-- <script>
+				jQuery('#like').css("display", "none"); 
+				jQuery('#like').click(function () {  
+			 	   if($("#like").css("display") == "block"){
+			       	 	jQuery('#like').css("display", "none");   
+			    	} else {  
+			        	jQuery('#like').css("display", "block");   
+			    	} 
+				});  redirect:???.???//???
+			</script> -->
+			
       	</table>
-	</div>
-	</div>
+      	</div>
+
  <script>
  	var map;
  	if(area=='my'){
