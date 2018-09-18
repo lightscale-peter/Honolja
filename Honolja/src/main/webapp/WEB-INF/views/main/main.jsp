@@ -352,13 +352,14 @@
 
 					
 			<!-- 지역 / 체크인 / 체크아웃 검색 창 시작 -->
-			<form id = "check_form" action="guestlist.do">
+			<form id = "check_form" action="guestlocation.do">
 				<div class="form-group">
 					<label for="sel1">지역</label>
-					<select class="form-control" id="sel1" name="area" onchange="progress();">
+					<select class="form-control" id="sel1" name="g_addr" onchange="progress();">
 						<option>선택</option>
 						<option value="seoul">서울</option>
 						<option value="gyeonggi">경기</option>
+						<option value="inchun">인천</option>
 						<option value="gangwon">강원</option>
 						<option value="chungbuk">충북</option>
 						<option value="chungnam">충남</option>
@@ -392,19 +393,13 @@
 	</div>
 	
     <script>
-    $('#datepicker').datepicker({
-    	format: 'yyyy/mm/dd',
-    	selectOtherMonths: true,
-    	numberOfMonths: [2,1],
-	   	showCurrentAtPos: 1 
-    });
+    	$('#datepicker').datepicker({
+    		format: 'yyyy/mm/dd'
+    	});
     
-	   $('#datepicker1').datepicker({
-    	format: 'yyyy/mm/dd',
-    	selectOtherMonths: true ,
-    	numberOfMonths: [2,1],
-	   	showCurrentAtPos: 1
-    });
+		$('#datepicker1').datepicker({
+    		format: 'yyyy/mm/dd'
+    	});
 
         
     </script>

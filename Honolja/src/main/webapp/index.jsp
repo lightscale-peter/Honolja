@@ -7,16 +7,15 @@
 	<title>[index.jsp]</title>
 
 	<script type="text/javascript">
-		setTimeout("location.href='main.do'", 500);
+		 setTimeout("location.href='guestlist.do'", 500); 
 	</script>
 </head>
 <body>
 	<!-- index.jsp -->
 	<div align="center">
-		<img src="./resources/images/a1.png"><br>
 		<font size=7 color=blue family="Comic Sans MS">
 		 <b>
-		 	Hobby...Waiting...Loading...
+		 	Waiting...Loading...
 		 </b>
 		</font>
 	</div>
