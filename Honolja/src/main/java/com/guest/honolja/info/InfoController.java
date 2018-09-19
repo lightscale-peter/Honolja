@@ -46,6 +46,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
+import com.guest.honolja.main.MainDTO;
+
 
 
 @Controller
@@ -130,8 +132,15 @@ public class InfoController {
 	@RequestMapping("/img_board_detail.do")
 	public ModelAndView info_img_board_detail(HttpServletRequest request) {
 		
+		
+		
+		String u_id = "";
+		
+		if(request.getSession().getAttribute("checked") != null) {
+			u_id = request.getSession().getAttribute("checked").toString();
+		}
+		
 		int i_no = 0;
-		String u_id = request.getSession().getAttribute("checked").toString();
 		
 		if(request.getParameter("i_no") != null) {
 			i_no = Integer.parseInt( request.getParameter("i_no"));
@@ -152,6 +161,7 @@ public class InfoController {
 			
 		dao.dbUpdateImgBoardViewCnt(dto2);
 		
+		//send info of clicked like_btn or not.
 		InfoDTO likeCheck = dao.dbSelectImgBoardLike(dto2);
 		
 		ModelAndView mav = new ModelAndView();
@@ -159,6 +169,7 @@ public class InfoController {
 			mav.addObject("img_board", "class='active'");
 			mav.addObject("dto", dto);
 			mav.addObject("likeCheck", likeCheck);
+			mav.addObject("u_id", u_id);
 			
 		return mav;
 	}
@@ -166,10 +177,25 @@ public class InfoController {
 	@RequestMapping("/img_board_write.do")
 	public ModelAndView info_img_board_write(HttpServletRequest request) {
 	
+		String u_id = "";
+		
+		if(request.getSession().getAttribute("checked") != null) {
+			u_id = request.getSession().getAttribute("checked").toString();
+		}
+		
+		int i_no = 0;
+		InfoDTO dto = new InfoDTO();
+		
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+			dto = dao.dbSelectImgBoardDetail(i_no);
+		}
 		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/info/img_board_write");
 			mav.addObject("img_board", "class='active'");
+			mav.addObject("dto", dto);
+			mav.addObject("u_id", u_id);
 			
 		return mav;
 	}
@@ -182,41 +208,43 @@ public class InfoController {
 		String u_id = request.getParameter("id");
 		MultipartFile mf = request.getFile("upload_f");
 			
-		//start to save file
-		
-		//set save_path
-		String path = application.getRealPath("/resources/info_images");
-			System.out.println("application.getRealPath : " + path);
-			
-		//set uploadFileName
-		UUID random_path = UUID.randomUUID();
-			System.out.println("random_path : " + random_path.toString());
-			
-		String i_originalFilename = mf.getOriginalFilename();
-			System.out.println("i_originalFilename : " + i_originalFilename);
-			
-		String i_uploadFileName = random_path + "_" + i_originalFilename;
-			System.out.println("i_uploadFileName : " + i_uploadFileName);
-			
-		//get file_size
-		String i_fileSize = String.valueOf(mf.getSize()) + "byte";
-			System.out.println("i_fileSizee : " + i_fileSize);
-			
-		//set File
-		File file = new File(path, i_uploadFileName);
-		
-		//try to save file
-		try {
-			mf.transferTo(file); // 변환 시도			
-		}catch(Exception e) {}
-		
 		InfoDTO dto = new InfoDTO();	
 			dto.setI_title(i_title);
 			dto.setI_content(i_content);
-			dto.setI_originalFileName(i_originalFilename);
-			dto.setI_uploadFileName(i_uploadFileName);
-			dto.setI_fileSize(i_fileSize);
 			dto.setU_id(u_id);
+		//start to save file
+		
+		if(mf != null) {
+			//set save_path
+			String path = application.getRealPath("/resources/info_images");
+				System.out.println("application.getRealPath : " + path);
+				
+			//set uploadFileName
+			UUID random_path = UUID.randomUUID();
+				System.out.println("random_path : " + random_path.toString());
+				
+			String i_originalFilename = mf.getOriginalFilename();
+				System.out.println("i_originalFilename : " + i_originalFilename);
+				dto.setI_originalFileName(i_originalFilename);
+				
+			String i_uploadFileName = random_path + "_" + i_originalFilename;
+				System.out.println("i_uploadFileName : " + i_uploadFileName);
+				dto.setI_uploadFileName(i_uploadFileName);
+				
+			//get file_size
+			String i_fileSize = String.valueOf(mf.getSize()) + "byte";
+				System.out.println("i_fileSizee : " + i_fileSize);
+				dto.setI_fileSize(i_fileSize);
+				
+			//set File
+			File file = new File(path, i_uploadFileName);
+			
+			//try to save file
+			try {
+				mf.transferTo(file); // 변환 시도			
+			}catch(Exception e) {}
+		}
+		
 			
 		dao.dbInsertImgBoard(dto);
 			
@@ -225,6 +253,81 @@ public class InfoController {
 			
 		return mav;
 	}
+	
+	@RequestMapping("/img_board_update_backend.do")
+	public ModelAndView info_img_board_update_backend(MultipartHttpServletRequest request) {
+	
+		String i_title = request.getParameter("title");
+		String i_content = request.getParameter("content");
+		String u_id = request.getParameter("id");
+		MultipartFile mf = request.getFile("upload_f");
+		
+		int i_no = 0;
+		
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+		
+		InfoDTO dto = new InfoDTO();
+			dto.setI_no(i_no);
+			dto.setI_title(i_title);
+			dto.setI_content(i_content);
+		
+		if(mf != null) {
+			//set save_path
+			String path = application.getRealPath("/resources/info_images");
+				System.out.println("application.getRealPath : " + path);
+				
+			//set uploadFileName
+			UUID random_path = UUID.randomUUID();
+				System.out.println("random_path : " + random_path.toString());
+				
+			String i_originalFileName = mf.getOriginalFilename();
+				System.out.println("i_originalFilename : " + i_originalFileName);
+				dto.setI_originalFileName(i_originalFileName);
+				
+			String i_uploadFileName = random_path + "_" + i_originalFileName;
+				System.out.println("i_uploadFileName : " + i_uploadFileName);
+				dto.setI_uploadFileName(i_uploadFileName);
+				
+			//get file_size
+			String i_fileSize = String.valueOf(mf.getSize()) + "byte";
+				System.out.println("i_fileSizee : " + i_fileSize);
+				dto.setI_fileSize(i_fileSize);
+				
+			//set File
+			File file = new File(path, i_uploadFileName);
+			
+			//try to save file
+			try {
+				mf.transferTo(file); // 변환 시도			
+			}catch(Exception e) {}
+		}
+		
+		dao.dbUpdateImgBoardDetail(dto);
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirect:/img_board_detail.do?i_no="+i_no);
+			
+			return mav;
+	}
+	
+	@RequestMapping("/img_board_delete_backend.do")
+	public ModelAndView info_img_board_delete_backend(HttpServletRequest request) {
+		int i_no = 0;
+		
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+		
+		dao.dbDeleteImgBoard(i_no);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/img_board.do");
+		
+		return mav;
+	}
+	
 	
 	@RequestMapping("/img_board_detail_download.do")
 	public ModelAndView info_img_board_detail_download(HttpServletRequest request, HttpServletResponse response) {
@@ -328,7 +431,7 @@ public class InfoController {
 		
 		
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/info/like_btn");
+			mav.setViewName("/info/ajax_like_btn");
 			
 		return mav;
 	}

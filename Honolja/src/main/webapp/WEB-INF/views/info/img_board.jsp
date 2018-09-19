@@ -67,7 +67,7 @@
 	}
 	
 	</script>
-	
+
 </head>
 <body style="margin-top: 50px;">
 	<c:import url="http://localhost:8080/honolja/header.do">
@@ -85,7 +85,9 @@
 			<!-- 게시물 리스트 출력 -->
 			<c:forEach var="list" items="${list}">
 				<div style="text-align: center;">
-			 	  	<a href="img_board_detail.do?i_no=${list.i_no }"><img class = "grid_img" src="resources/main_images/1.jpg"></a>
+			 	  	<a href="img_board_detail.do?i_no=${list.i_no }">
+			 	  		<img class = "grid_img" src="resources/main_images/1.jpg">
+		 	  		</a>
 					<div style="margin-bottom: 5px;">${list.i_title}</div>
 					<div style="padding: 0 30px 0 30px;">
 						<span style="float: left;">작성자 : ${list.u_id }</span>

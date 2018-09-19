@@ -59,10 +59,18 @@ public class InfoDAO {
 		return temp.insert("info.updateImageBoardLike", dto);
 	}
 	
-	
+	//select img_like for checking like or not. and send img_board_detail
 	public InfoDTO dbSelectImgBoardLike(InfoDTO dto) {
 		return temp.selectOne("info.selectImgBoardLike", dto);
 	}
 	
+	//update img_board_detail
+	public void dbUpdateImgBoardDetail(InfoDTO dto) {
+		temp.update("info.updateImgBoardDetail", dto);
+	}
+	
+	public void dbDeleteImgBoard(int i_no) {
+		temp.delete("info.deleteImgBoardDetail", i_no);
+	}
 	
 }

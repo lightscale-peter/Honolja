@@ -221,6 +221,7 @@ public class MainController {
 		String u_id = request.getParameter("id");
 		String u_pwd = request.getParameter("pwd");
 		String host =  request.getParameter("host");
+		
 		int idCheck = 0;
 		
 		HttpSession session = request.getSession();
@@ -349,7 +350,7 @@ public class MainController {
 		if(rn == notices.size()) rn = 0;
 
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/main_notice");
+			mav.setViewName("/main/ajax_main_notice");
 			mav.addObject("notice", notices.get(rn).getN_title());
 			
 		return mav;
