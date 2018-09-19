@@ -31,7 +31,7 @@ public class InfoDTO {
 	
 	int ir_no;
 	String ir_content;
-	String ir_date;
+	Date ir_date;
 	
 	int list_start;
 	int list_end;
@@ -41,27 +41,6 @@ public class InfoDTO {
 	
 	int il_no;
 	String il_like;
-	
-	
-	
-	public int getIl_no() {
-		return il_no;
-	}
-	public void setIl_no(int il_no) {
-		this.il_no = il_no;
-	}
-	public String getIl_like() {
-		return il_like;
-	}
-	public void setIl_like(String il_like) {
-		this.il_like = il_like;
-	}
-	public MultipartFile getUpload_f() {
-		return upload_f;
-	}
-	public void setUpload_f(MultipartFile upload_f) {
-		this.upload_f = upload_f;
-	}
 	public String getU_id() {
 		return u_id;
 	}
@@ -170,6 +149,12 @@ public class InfoDTO {
 	public void setI_fileSize(String i_fileSize) {
 		this.i_fileSize = i_fileSize;
 	}
+	public MultipartFile getUpload_f() {
+		return upload_f;
+	}
+	public void setUpload_f(MultipartFile upload_f) {
+		this.upload_f = upload_f;
+	}
 	public int getIr_no() {
 		return ir_no;
 	}
@@ -182,10 +167,10 @@ public class InfoDTO {
 	public void setIr_content(String ir_content) {
 		this.ir_content = ir_content;
 	}
-	public String getIr_date() {
+	public Date getIr_date() {
 		return ir_date;
 	}
-	public void setIr_date(String ir_date) {
+	public void setIr_date(Date ir_date) {
 		this.ir_date = ir_date;
 	}
 	public int getList_start() {
@@ -212,9 +197,17 @@ public class InfoDTO {
 	public void setSval(String sval) {
 		this.sval = sval;
 	}
-	
-	
-	
-	
+	public int getIl_no() {
+		return il_no;
+	}
+	public void setIl_no(int il_no) {
+		this.il_no = il_no;
+	}
+	public String getIl_like() {
+		return il_like;
+	}
+	public void setIl_like(String il_like) {
+		this.il_like = il_like;
+	}	
 
 }

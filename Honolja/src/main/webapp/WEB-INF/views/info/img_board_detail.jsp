@@ -54,6 +54,25 @@
 			
 			return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
     	}
+		
+		$(function(){
+			$('#reply_btn').click(function(){
+				alert("ddd");
+				$.ajax({
+					"url" : "http://localhost:8080/honolja/img_board_reply.do",
+					"type" : "get",
+					"data" : {i_no : $('#i_no').val(), u_id :$('#u_id').val() , ir_content :$('#ir_content').val()},
+					"success" : function(data){
+						setTimeout(function(){
+							//$('#ajax_img_reply').fadeOut();
+							//$('#ajax_img_reply').empty();
+							$('#ajax_img_reply').html(data);
+						}, 300);
+					}
+				});
+			});
+		});
+		
 	</script>
 </head>
 <body style="margin-top: 50px;">
@@ -112,9 +131,11 @@
 						</tr>
 						<tr>
 							<!-- 게시물 내용 -->
-							<td colspan="4" style="height: 500px;">
+							<td colspan="4" style="height: 500px; padding: 20px;">
 								<c:if test="${dto. i_originalFileName != null }">
-									<img style="display: block; margin: auto;" src="resources/info_images/${dto. i_originalFileName}">
+									<div style="margin-bottom: 20px;">
+										<img style="display: block; margin: auto; border-radius: 5px; width: 1000px;" src="resources/info_images/${dto. i_originalFileName}">
+									</div>
 								</c:if>
 								${dto.i_content}
 							</td>
@@ -152,7 +173,7 @@
 						        </span>
 						        <!-- 글 수정 버튼 -->
 						        &nbsp;
-								<button type="button" class="btn btn-info" onclick = "location.href = 'img_board_write.do?i_no=${param.i_no}'">글 수정</button>
+								<button type="button" class="btn btn-success" onclick = "location.href = 'img_board_write.do?i_no=${param.i_no}'">글 수정</button>
 								
 								<!-- 글 삭제 버튼 -->
 								&nbsp;
@@ -162,6 +183,16 @@
 					</tbody>
 				</table>
 			</div>
+			<div id="ajax_img_reply">
+				<c:import url="http://localhost:8080/honolja/img_board_reply.do">
+					<c:param name="i_no" value="${param.i_no }" />
+					<c:param name="checked" value="${checked }"/>
+				</c:import>
+			</div>
+			
+			
+			
+			
 		</c:otherwise>
 	</c:choose>
 	

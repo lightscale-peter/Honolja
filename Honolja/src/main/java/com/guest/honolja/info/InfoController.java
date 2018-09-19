@@ -31,6 +31,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.MidiDevice.Info;
 
 import org.apache.catalina.Server;
 import org.json.JSONObject;
@@ -435,6 +436,49 @@ public class InfoController {
 			
 		return mav;
 	}
+	
+	@RequestMapping("/img_board_reply.do")
+	public ModelAndView img_board_reply(HttpServletRequest request) {
+		
+		int i_no = 0;
+		
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+
+		List<InfoDTO> list = dao.dbSelectImgReply(i_no);	
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/info/ajax_img_reply");
+			mav.addObject("list", list);
+			
+		return mav;
+	}
+	
+	@RequestMapping("/img_reply_insert.do")
+	public ModelAndView img_reply_insert(HttpServletRequest request) {
+		
+		int i_no = 0;
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+		
+		String u_id = request.getParameter("u_id");
+		String ir_content = request.getParameter("ir_content");
+		
+		InfoDTO dto = new InfoDTO();
+			dto.setI_no(i_no);
+			dto.setU_id(u_id);
+			dto.setIr_content(ir_content);
+			
+		dao.dbInsertImgReply(dto);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/img_board_detail.do?i_no=" + i_no);
+		
+	return mav;
+	}
+	
 	
 
 	

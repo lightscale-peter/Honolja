@@ -40,7 +40,34 @@
 		var name= new Array();
 		var url= new Array();
 		var area;
+		
+		function sendValue(){
+			
+			var url = "guestlist.do";
+			var name = "marong";
+			var value = "dddd"
+
+			var form = document.createElement("form");
+				form.setAttribute("charset", "UTF-8");
+				form.setAttribute("method", "get");
+				form.setAttribute("action", url);
+
+			var hiddenField = document.createElement("input");
+				hiddenField.setAttribute("type", "hidden");
+				hiddenField.setAttribute("name", name);
+				hiddenField.setAttribute("value", value);
+				
+			form.appendChild(hiddenField);
+			document.body.appendChild(form);
+	
+			form.submit();
+		}
+		
+		
+		
 	</script>
+	
+	
 </head>
 
 <body id="page-top" style="margin-top:51px;" >
@@ -56,27 +83,28 @@
 		<c:param name="nights" value="${param.nights}"></c:param>
 	</c:import>
 			<!-- 달력 시작 -->  
-
-<div style="position:fixed; background-color:#D5D5D5;width:100%;height:50px;margin-bottom:0;margin-top:0; border:0;">
-	<div style="margin-top:10px;">
-    	<div style="position:fixed;margin-left:1%;" >
-    		<input type="text" aria-label="YYYY-MM-DD" name="startDate"  id="startDate" width="150px" placeholder="YYYY-MM-DD" value="${param.check_in}" 
-    		autoComplete="off" aria-describedby="DateInput_screen-reader-message-startDate" style="color:black;" /> 
-    	</div>
-   
-   		<div class="DateRangePickerInput__arrow" aria-hidden="true" role="presentation"><span></span></div> 
-   
-    	<div style="position:fixed; margin-left:12%; margin-bottom:80%;">
-    		<input type="text" aria-label="YYYY-MM-DD" name="endDate" onchange="nullCheck()" id="endDate" width="150px" placeholder="YYYY-MM-DD" value="${param.check_out}"
-    	 	aria-describedby="DateInput_screen-reader-message-endDate" style="color:black;" />
-    	</div>
-    
-    	<div style="position:fixed; margin-left:22%; margin-bottom:80%;">
-    		<img src="https://yaimg.yanolja.com/joy/pw/place/bullet-datepicker-check.svg" alt>
-    		<span>${param.nights}박 ${param.nights+1}일</span>
-		</div>
-    </div>
-</div>
+<form>
+	<div style="position:fixed; background-color:#D5D5D5;width:100%;height:50px;margin-bottom:0;margin-top:0; border:0;">
+		<div style="margin-top:10px;">
+	    	<div style="position:fixed;margin-left:1%;" >
+	    		<input type="text" aria-label="YYYY-MM-DD" name="startDate"  id="startDate" width="150px" placeholder="YYYY-MM-DD" value="${param.check_in}" 
+	    		autoComplete="off" aria-describedby="DateInput_screen-reader-message-startDate" style="color:black;" onchange="sendValue();" /> 
+	    	</div>
+	   
+	   		<div class="DateRangePickerInput__arrow" aria-hidden="true" role="presentation"><span></span></div> 
+	   
+	    	<div style="position:fixed; margin-left:12%; margin-bottom:80%;">
+	    		<input type="text" aria-label="YYYY-MM-DD" name="endDate" onchange="nullCheck()" id="endDate" width="150px" placeholder="YYYY-MM-DD" value="${param.check_out}"
+	    	 	aria-describedby="DateInput_screen-reader-message-endDate" style="color:black;" />
+	    	</div>
+	    
+	    	<div style="position:fixed; margin-left:22%; margin-bottom:80%;">
+	    		<img src="https://yaimg.yanolja.com/joy/pw/place/bullet-datepicker-check.svg" alt>
+	    		<span>${param.nights}박 ${param.nights+1}일</span>
+			</div>
+	    </div>
+	</div>
+</form>
 	<script type="text/javascript">
 		 $('#startDate').datepicker({ 
 			showOn:"both",

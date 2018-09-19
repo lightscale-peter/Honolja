@@ -69,8 +69,18 @@ public class InfoDAO {
 		temp.update("info.updateImgBoardDetail", dto);
 	}
 	
+	//delete img_baord_detail
 	public void dbDeleteImgBoard(int i_no) {
 		temp.delete("info.deleteImgBoardDetail", i_no);
+	}
+	
+	//select img_reply_list
+	public List<InfoDTO> dbSelectImgReply(int i_no){
+		return temp.selectList("info.selectImgBoardReply", i_no);
+	}
+	
+	public void dbInsertImgReply(InfoDTO dto) {
+		temp.insert("info.insertImgBoardReply", dto);
 	}
 	
 }

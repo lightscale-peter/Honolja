@@ -105,5 +105,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteImgBoardDetail" parameterType="int">
 		delete from img_board where i_no = #{i_no}
 	</delete>
+	
+	<select id="selectImgBoardReply" parameterType="int" resultType="info">
+		select * from img_reply where i_no = #{i_no} order by ir_no desc
+	</select>
+	
+	<insert id="insertImgBoardReply" parameterType="info">
+		insert into img_reply values(
+			img_reply_seq.nextval, 
+			#{ir_content}, 
+			sysdate, 
+			#{i_no}, 
+			#{u_id}
+			)
+	</insert>
 </mapper>
 
