@@ -8,6 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>[img_board_detail.jsp]</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
 	<script type="text/javascript">
 	
@@ -57,21 +58,66 @@
 		
 		$(function(){
 			$('#reply_btn').click(function(){
-				alert("ddd");
 				$.ajax({
-					"url" : "http://localhost:8080/honolja/img_board_reply.do",
+					"url" : "http://localhost:8080/honolja/img_reply_insert.do",
 					"type" : "get",
 					"data" : {i_no : $('#i_no').val(), u_id :$('#u_id').val() , ir_content :$('#ir_content').val()},
-					"success" : function(data){
-						setTimeout(function(){
-							//$('#ajax_img_reply').fadeOut();
-							//$('#ajax_img_reply').empty();
-							$('#ajax_img_reply').html(data);
-						}, 300);
+					"success" : function(data){	
+						$('#ir_content').val("");
+						$('#ajax_img_reply').html(data);	
 					}
 				});
+				
 			});
 		});
+		
+		function update_reload_reply(ir_no_val){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/img_reply_update.do",
+				"type" : "get",
+				"data" : {i_no : ${param.i_no}, ir_no : ir_no_val, ir_content : $('#ir_content_update').val()},
+				"success" : function(data){			
+					$('#ajax_img_reply').html(data);	
+				}
+			});
+		}
+		
+		function delete_reload_reply(ir_no_val){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/img_reply_delete.do",
+				"type" : "get",
+				"data" : {i_no : ${param.i_no}, ir_no : ir_no_val, checked : '${checked}'},
+				"success" : function(data){			
+					$('#ajax_img_reply').html(data);	
+				}
+			});
+		}
+		
+		function delete_reply_confirm(ir_no_val){
+			$(document).ready(function(){
+				$('#alertbox').ready(function(){
+					$("#error").html("정말 삭제 하시겠습니까?");
+					$('#myModal').modal("show");
+					$('#check_btn').click(function(){
+						delete_reload_reply(ir_no_val);
+					});
+				});
+			});
+		}
+		
+		function insert_reload_ror(ir_no_val){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/insert_ror.do",
+				"type" : "get",
+				"data" : {i_no : ${param.i_no}, irr_content : $('#irr_content').val(), ir_no : ir_no_val },
+				"success" : function(data){			
+					$('#ajax_img_reply').html(data);	
+				}
+			});
+		}
+		
+		
+
 		
 	</script>
 </head>
@@ -81,7 +127,7 @@
 		<c:param name="checked" value="${checked}"></c:param>
 		<c:param name="host" value="img_board.do"></c:param>
 	</c:import>
-	
+
 	<!-- Modal(== alert) 기능 구현 시 필요 -->
 	<jsp:include page="modal_confirm.jsp"/>
 	
@@ -180,6 +226,20 @@
 								<button type="button" class="btn btn-danger" onclick = "modal_confirm();">글 삭제</button>
 							</td>
 						</tr>
+						<tr>
+							<td colspan="4" style="padding-bottom: 0;">
+								<!-- 댓글 입력 란 -->
+								<div class="form-group" style="margin: 10px 0 10px 0;">
+									<label style="margin-left: 110px;">Comment:</label>
+									<textarea id = "ir_content" name="ir_content" style="width: 80%; margin: auto; resize: none;" class="form-control" rows="5" id="comment"></textarea>
+									<div style="margin-top: 15px; text-align: right; margin-right: 110px;">
+										<input id = "i_no" type="hidden" name="i_no" value="${param.i_no }">
+										<input id = "u_id" type="hidden" name="u_id" value="${checked }">
+										<button id = "reply_btn" type="button" class="btn btn-default">작성 완료</button>
+									</div>
+								</div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -190,14 +250,7 @@
 				</c:import>
 			</div>
 			
-			
-			
-			
 		</c:otherwise>
 	</c:choose>
-	
-	
-	
-	
 </body>
 </html>

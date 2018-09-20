@@ -41,6 +41,32 @@ public class InfoDTO {
 	
 	int il_no;
 	String il_like;
+	
+	
+    int irr_no; 
+    String irr_content;
+    Date irr_date; 
+    
+    
+	
+	public Date getIrr_date() {
+		return irr_date;
+	}
+	public void setIrr_date(Date irr_date) {
+		this.irr_date = irr_date;
+	}
+	public int getIrr_no() {
+		return irr_no;
+	}
+	public void setIrr_no(int irr_no) {
+		this.irr_no = irr_no;
+	}
+	public String getIrr_content() {
+		return irr_content;
+	}
+	public void setIrr_content(String irr_content) {
+		this.irr_content = irr_content;
+	}
 	public String getU_id() {
 		return u_id;
 	}

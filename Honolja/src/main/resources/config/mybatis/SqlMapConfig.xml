@@ -11,7 +11,7 @@
 		<typeAlias alias="listdto" type="com.guest.honolja.list.ListDTO" />
 		<typeAlias alias="notice" type="com.guest.honolja.notice.NoticeDTO"/>
 		<typeAlias alias="msg" type="com.guest.honolja.message.MsgDTO"/>
-		<typeAlias alias="boarddto" type="com.guest.honolja.board.BoardDTO"/>
+		<typeAlias alias="board" type="com.guest.honolja.board.BoardDTO"/>
 		<typeAlias alias="info" type="com.guest.honolja.info.InfoDTO"/>
 	</typeAliases>
 

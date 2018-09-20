@@ -474,10 +474,110 @@ public class InfoController {
 		dao.dbInsertImgReply(dto);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/img_board_detail.do?i_no=" + i_no);
+		mav.setViewName("redirect:/img_board_reply.do?i_no=" + i_no);
 		
 	return mav;
 	}
+	
+	@RequestMapping("/img_reply_update.do")
+	public ModelAndView img_reply_update(HttpServletRequest request) {
+		
+		int i_no = 0;
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+		
+		int ir_no = 0;
+		if(request.getParameter("ir_no") != null) {
+			ir_no = Integer.parseInt(request.getParameter("ir_no"));
+		}
+		
+		String ir_content = request.getParameter("ir_content");
+		
+		InfoDTO dto = new InfoDTO();
+			dto.setIr_no(ir_no);
+			dto.setIr_content(ir_content);
+		
+		dao.dbUpdateImgReply(dto);
+		
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/img_board_reply.do?i_no=" + i_no);
+		
+	return mav;
+	}
+	
+	@RequestMapping("/img_reply_delete.do")
+	public ModelAndView img_reply_delete(HttpServletRequest request) {
+		
+		int i_no = 0;
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+		
+		int ir_no = 0;
+		if(request.getParameter("ir_no") != null) {
+			ir_no = Integer.parseInt(request.getParameter("ir_no"));
+		}
+		
+		String checked = request.getParameter("checked");
+		
+		dao.dbDeleteImgReply(ir_no);
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("redirect:/img_board_reply.do?i_no=" + i_no);
+			mav.addObject("checked", checked);
+		
+	return mav;
+	}
+	
+	@RequestMapping("/img_reply_of_reply.do")
+	public ModelAndView img_reply_of_reply_select(HttpServletRequest request) {
+		
+		int ir_no = 0;
+		if(request.getParameter("ir_no") != null) {
+			ir_no = Integer.parseInt(request.getParameter("ir_no"));
+		}
+		
+		List<InfoDTO> list_rr = dao.dbSelectImgReplyOfReply(ir_no);
+		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/info/img_reply_of_reply");
+			mav.addObject("list_rr", list_rr);
+	
+		return mav;
+	}
+	
+	@RequestMapping("/insert_ror.do")
+	public ModelAndView insert_ror(HttpServletRequest request) {
+		
+		int i_no = 0;
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+		
+		int ir_no = 0;
+		if(request.getParameter("ir_no") != null) {
+			ir_no = Integer.parseInt(request.getParameter("ir_no"));
+		}
+		
+		String u_id = request.getSession().getAttribute("checked").toString();
+		String irr_content = request.getParameter("irr_content");
+		
+		InfoDTO dto = new InfoDTO();
+			dto.setU_id(u_id);
+			dto.setIrr_content(irr_content);
+			dto.setIr_no(ir_no);
+		
+		dao.dbInsertImgReplyOfReply(dto);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/img_board_reply.do?i_no=" + i_no);
+
+	return mav;
+	}
+	
+	
 	
 	
 

@@ -265,7 +265,6 @@
 		    	out_array[i] = parseInt(out_string_array[i]);
 		    }
 		   
-		    		
     		//체크인 연 <= 체크아웃 연
     		if(in_array[0] <= out_array[0]){
     			

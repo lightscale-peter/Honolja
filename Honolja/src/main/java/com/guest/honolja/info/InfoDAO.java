@@ -79,8 +79,29 @@ public class InfoDAO {
 		return temp.selectList("info.selectImgBoardReply", i_no);
 	}
 	
+	//insert img_reply
 	public void dbInsertImgReply(InfoDTO dto) {
 		temp.insert("info.insertImgBoardReply", dto);
+	}
+	
+	//update img_reply
+	public void dbUpdateImgReply(InfoDTO dto) {
+		temp.update("info.updateImgBoardReply", dto);
+	}
+	
+	//delete img_reply
+	public void dbDeleteImgReply(int ir_no) {
+		temp.delete("info.deleteImgBoardReply", ir_no);
+	}
+	
+	//select img_reply_of_reply
+	public List<InfoDTO> dbSelectImgReplyOfReply(int ir_no) {
+		return temp.selectList("info.selectImgBoardReplyOfReply", ir_no);
+	}
+	
+	//insert img_reply_of_reply
+	public void dbInsertImgReplyOfReply(InfoDTO dto) {
+		temp.insert("info.insertImgBoardROR", dto);
 	}
 	
 }

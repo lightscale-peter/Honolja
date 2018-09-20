@@ -2,32 +2,114 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="board">
 
-<select id="select" resultType="com.guest.honolja.board.BoardDTO">
-select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board
-</select>
-   <!-- ggugugu -->
-<select id="select2" resultType="com.guest.honolja.board.BoardDTO">
-select * from (
-select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board 
-) where rn between #{start} and #{end} 
-</select>
+	<select id="select" resultType="board">
+		select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board 
+	</select>
+	
+	<!-- ggugugu -->
+	<select id="select_paging_23" resultType="board">
+		select * from (
+		select rownum rn,u_id, b_no, b_title,b_content,b_date,b_member,b_viewcnt from board 
+		) where rn between #{start} and #{end}  
+	</select>
    
-<select id="countAll" resultType="int">
-select  count(*)  from board
-where #{skey} like '%' || #{sval} || '%' 
-</select>
+	<select id="replycount_cnt_22" resultType="int">
+		select b.b_no,(select count(*) from boardreply r where r.b_no=b.b_no) as rcnt from board b
+	</select>
+   
+   
+	<select id="selectAll" resultType="board" parameterType="board">
+		select * from (
+ 	    select rownum rn,b_no,b_title,b_content,b_date,b_viewcnt,b_member,u_id from  board
+		where ${skey} like '%' || #{sval} || '%'  
+		) where rn between #{start} and #{end}  
+	</select>   
 
-<insert id="add" >
-insert into board values (
-board_seq.nextval, #{b_title}, #{b_content}, sysdate, 4,  1
-,#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , '01')
-</insert>   
+   
+	<select id="countAll" resultType="int">
+		select  count(*)  from board
+		where ${skey} like '%' || #{sval} || '%' 
+		</select>
 
-<select id="detail" resultType="com.guest.honolja.board.BoardDTO">
-select *from board where u_id=#{u_id}
-</select>
+	<select id="value_board_19" resultType="board" parameterType="board">
+		select *from board where ${skey} like  '%' || #{sval} || '%' 
+	</select>
+
+	<select id="count2_cnt_18" parameterType="int">
+		select count(*) from boardreply where b_no=#{b_no}
+	</select>
+
+	<insert id="add_addd_17" >
+		insert into board values (
+		board_seq.nextval, #{b_title}, #{b_content}, sysdate, 4,  0
+		,#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , 'hb')
+	</insert>   
+
+	<select id="detail_det_16" resultType="board" parameterType="int">
+		select *from board where b_no=#{b_no}
+	</select>
+
+	<delete id="del_e_15" parameterType="int">
+		delete from boardreply where b_no=#{b_no}
+	</delete>
+
+	<delete id="del2_dd_14" parameterType="int">
+		delete from board where b_no=#{b_no}
+	</delete>
     
-   
+	<update id="edit_13" parameterType="board">
+	    update board set b_title=#{b_title} , b_content=#{b_content} where b_no=#{b_no}
+	</update>
+
+	<update id="viewcnt_12" parameterType="int">
+		update board set b_viewcnt=b_viewcnt+1 where b_no=#{b_no}
+	</update>
+	
+		<!-- 댓글조회 -->
+	<select id="replyselect_11" resultType="board" parameterType="int">
+		select *from boardreply where b_no=#{b_no}
+	</select> 
+
+	<select id="replycount_10" resultType="int" parameterType="int">
+		select count(*) as rcnt from boardreply where b_no=#{b_no}
+	</select>
+
+	<select id="replydetail_8" resultType="board" parameterType="int">
+		select *from boardreply where br_no=#{br_no}
+	</select>
+
+	<select id="replydetail2_7" resultType="board" parameterType="int">
+		select *from boardreply where b_no=#{b_no}
+	</select>
+
+	<select id="replycount2_6" resultType="board" parameterType="int">
+		select count(*) as rcnt from boardreply where b_no=#{b_no}
+	</select>
+
+	<insert id="replyadd_5" parameterType="board">
+		insert into boardreply values (
+		boardreply_seq.nextval, #{br_content}, sysdate, #{b_no} , 'hb' )
+	</insert> 
+
+	<update id="replyupdate_4" parameterType="board">
+		update boardreply set
+		br_content = #{br_content} where br_no = #{br_no}
+	</update>
+
+	<delete id="replydelete_3" parameterType="int" >
+		delete from boardreply where br_no=#{br_no}
+	</delete>
+	
+	<select id="select_2" parameterType="String" resultType="board">
+		select *from boardrreply where br_no=#{br_no}
+	</select>
+
+	<insert id="insert_1" parameterType="board" >
+		insert into boardrreply values
+		(boardrreply_seq.nextval, #{brr_content}, sysdate, #{br_no}, 'hb', 1)
+	</insert> 
+
 </mapper>
