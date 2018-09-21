@@ -13,8 +13,11 @@
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+
 	<resources mapping="/css/**" location="/WEB-INF/views/css/" />
+	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/smarteditor/**" location="/smarteditor/" />
 
 	<!-- 빈스 임포트 입력 필!!! -->
 	<beans:import resource="classpath:/config/mybatis/dao-context.xml"/>
@@ -37,7 +40,7 @@
 	<beans:bean id="HonoljaInterceptor" class="com.guest.honolja.interceptor.HonoljaInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
-			<mapping path="/popup.do"/>
+			<mapping path="/login_popup.do"/>
 			<mapping path="/naver_login.do"/>
 			<beans:ref bean="HonoljaInterceptor"/>
 		</interceptor>

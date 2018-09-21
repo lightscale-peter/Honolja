@@ -44,27 +44,23 @@ public class MemberController {
 
 	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-	@RequestMapping(value = "/join.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/m_join.do", method = RequestMethod.GET)
 	public String member(Locale locale, Model model) {
 		return "member/join";
 	}// end
 
 	//회원가입
-	@RequestMapping("/insert.do")
+	@RequestMapping("/m_insert.do")
 	public String member_insert(MemberDTO mto) throws Exception {
 		mto.setU_birth(mto.getYear() + mto.getMonth() + mto.getDay());
-		String gender = mto.getU_gender2();
-		System.out.println("gender2 = " + mto.getU_gender2());
-		if(gender.equals("여자")) {
-			mto.setU_gender(gender);
-		}
-		System.out.println("gender = " + mto.getU_gender());
-
-		String path = application.getRealPath("/resources/upload");
+		mto.setU_email(mto.getU_email()+"@"+mto.getU_email2());
+		mto.setU_guestjuso(mto.u_guestjuso + " " + mto.u_guestjuso1);
+		String path = "C:\\Users\\bit-user\\git\\Honolja\\Honolja\\src\\main\\webapp\\image\\";
 		MultipartFile mf = mto.getUpload_img();
 		String img = mf.getOriginalFilename();
 		img = URLEncoder.encode(img, "UTF-8");
 		File file = new File(path, img);
+		mto.setU_imgpath(path+img);
 
 		try {
 			mto.getUpload_img().transferTo(file);
@@ -74,38 +70,83 @@ public class MemberController {
 
 		dao.m_insert(mto);
 		
-		String key = new TempKey().getKey(50, false); //인증키 생성
+		String key = new TempKey().getKey(50, false); //이메일인증 키값
 		mto.setU_emailkey(key);
 		dao.m_emailcheck(mto);
 		
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[Honolja 이메일 인증 test]");
-		sendMail.setText(new StringBuffer().append("<h1>메일인증</h1>").append("<a href='http://localhost:8080/honolja/emailcheck.do?u_email=").append(mto.getU_email()).append("&u_emailkey=").append(key).append("' target='_blenk'>이메일 인증 확인</a>").toString());
+		sendMail.setSubject("[Honolja 이메일인증 test]");
+		sendMail.setText(new StringBuffer().append("<h1>이메일 인증입니다.</h1>").append("<a href='http://localhost:8080/honolja/emailcheck.do?u_id="+mto.getU_id()).append("&u_emailkey=").append(key).append("' target='_blenk'>이메일 인증 테스트</a>").toString());
 		sendMail.setFrom("aa01088921067@gmail.com", "Honolja");
 		sendMail.setTo(mto.getU_email());
 		sendMail.send();
 		return "member/emailcheck";
 	}// end
 	
-	//이메일 인증
+	//이메일체크
 	@RequestMapping(value="/emailcheck.do", method = RequestMethod.GET)
-	public String m_emailcheck(String u_email, Model model) throws Exception {
-		dao.m_Auth(u_email);
+	public String m_emailcheck(HttpServletRequest request, Model model) throws Exception {
+		String u_id = request.getParameter("u_id");
+		System.out.println("u_id@222222 = " + u_id);
+		dao.m_Auth(u_id);
 		return "member/member";
 	}//end
 
-	// 회원목록
-	@RequestMapping("/list.do")
-	public ModelAndView member_list() {
-		List<MemberDTO> list = dao.m_select();
+	//회원목록
+	@RequestMapping("/m_list.do")
+	public ModelAndView member_list(HttpServletRequest request) {
+		MemberDTO mto = new MemberDTO();
+		int pageNUM=1, pagecount=1;
+		int start=1, end=1, temp=1, startpage=1, endpage=1;
+		String pnum="", returnpage="";
+		String skey="", sval="";
+		skey = request.getParameter("keyfield");
+		sval = request.getParameter("keyword");
+	
+		if( skey == null || skey.equals("") || sval == null || sval.equals("")) {
+			skey = "u_id";
+			sval = "";
+		}
+		
+		returnpage="&keyfield="+skey+"&keyword="+sval;		
+		
+		pnum=request.getParameter("pageNum");
+		if(pnum == null || pnum == "") { pageNUM=1;	}
+		else { pageNUM=Integer.parseInt(pnum); }
+		
+		mto.setSkey(skey);
+		mto.setSval(sval);
+
+		int cnt = dao.m_count(mto);
+		
+		if(cnt%10 == 0 ) { pagecount=cnt; }
+		else { pagecount = (cnt/10)+1; }
+		
+		start=((pageNUM-1)*10)+1;
+		end=pageNUM*10;
+		
+		temp=(pageNUM-1)%10;
+		startpage=pageNUM - temp;
+		endpage=startpage+9; 
+		if(endpage > pagecount) { endpage=pagecount; }
+		
+		mto.setStart(start);
+		mto.setEnd(end);
+
+		List<MemberDTO> list = dao.m_select(mto);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("cnt", cnt);
 		mav.addObject("list", list);
+		mav.addObject("startpage", startpage);
+		mav.addObject("endpage", endpage);
+		mav.addObject("pagecount", pagecount);
+		mav.addObject("pageNUM", pageNUM);
 		mav.setViewName("member/memberList");
 		return mav;
 	}// end
 
-	// 회원상세정보
-	@RequestMapping("/detail.do")
+	//회원상세
+	@RequestMapping("/m_detail.do")
 	public ModelAndView member_detail(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		int data = Integer.parseInt(request.getParameter("idx"));
@@ -116,40 +157,17 @@ public class MemberController {
 		return mav;
 	}// end
 
-	// 마이페이지 회원탈퇴
-	@RequestMapping("/mypageDelete.do")
-	public ModelAndView mypage_delete(HttpServletRequest request) {
-		String data = request.getParameter("idx");
-
-		MemberDTO mto = dao.mypageDelete(data);
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("mto", mto);
-		mav.setViewName("member/mypageDelete");
-
-		return mav;
-	}// end
-
-	// 회원탈퇴
-	@RequestMapping("/delete.do")
-	public String m_delete(MemberDTO mto) {
-		dao.m_delete(mto);
-		return "redirect:list.do";
-	}// end
-
-	// 로그인화면
-	@RequestMapping("/login.do")
+	//로그인
+	@RequestMapping("/m_login.do")
 	public String m_login() {
-		return "member/login";
+		return "member/m_login";
 	}// end
 
-	// 아이디 중복체크
+	//아이디 중복체크
 	@ResponseBody
 	@RequestMapping("/idcheck.do")
 	public String idcheck(@RequestBody String u_id) {
-		System.out.println("u_id = " + u_id);
 		int u_cnt = dao.idCheck(u_id);
-		System.out.println("u_cnt = " + u_cnt);
-		
 		String retVal = "";
 		
 		if(u_cnt > 0) { retVal = "true"; }
@@ -157,17 +175,5 @@ public class MemberController {
 		
 		return retVal;
 	}//end
-//	public  ModelAndView idcheck(@RequestBody String u_id) {
-//	System.out.println("u_id = " + u_id);
-//	ModelAndView mav = new ModelAndView();
-//	//Map<String, String> map = new HashMap<String, String>();
-//	String u_cnt = Integer.toString(dao.idCheck(u_id));
-//	System.out.println("u_cnt = " + u_cnt);
-//	mav.addObject("u_cnt", u_cnt);
-//	mav.addObject("u_id", u_id);
-//	mav.setViewName(new String());
-//	//map.put("u_id", u_id);
-//	return mav;
-//}//end
 	
 }//MemberController Class END

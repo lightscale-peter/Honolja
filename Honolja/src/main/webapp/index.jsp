@@ -9,6 +9,8 @@
 	<script type="text/javascript">
 		setTimeout("location.href='main.do'", 500);
 	</script>
+	
+	
 </head>
 <body>
 	<!-- index.jsp -->

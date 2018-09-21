@@ -8,21 +8,37 @@ public class BoardDTO {
 	private String b_title;
 	private String b_content;
 	private Date b_date;
-	private String b_member;
+	private int b_member;
+	private int b_member2;
 	private String b_viewcnt;
 	private String u_id;
 	private MultipartFile b_uploadfilename2;
 	private String b_uploadfilename;
 	private String b_originalfilename;
-	//hi hihihi
 	private long b_filesize;
 	private String skey,sval;
 	private int cnt;
-
 	private int rn;
 	private int start;
 	private int end;
+	private int b_no;
+	private int rcnt;
+
 	
+	
+	
+	public int getRcnt() {
+		return rcnt;
+	}
+	public void setRcnt(int rcnt) {
+		this.rcnt = rcnt;
+	}
+	public int getB_no() {
+		return b_no;
+	}
+	public void setB_no(int b_no) {
+		this.b_no = b_no;
+	}
 	
 	public MultipartFile getB_uploadfilename2() {
 		return b_uploadfilename2;
@@ -100,11 +116,17 @@ public class BoardDTO {
 	public void setB_date(Date b_date) {
 		this.b_date = b_date;
 	}
-	public String getB_member() {
+	public int getB_member() {
 		return b_member;
 	}
-	public void setB_member(String b_member) {
+	public void setB_member(int b_member) {
 		this.b_member = b_member;
+	}
+	public int getB_member2() {
+		return b_member2;
+	}
+	public void setB_member2(int b_member2) {
+		this.b_member2 = b_member2;
 	}
 	public String getB_viewcnt() {
 		return b_viewcnt;
@@ -124,8 +146,6 @@ public class BoardDTO {
 	public void setB_originalfilename(String b_originalfilename) {
 		this.b_originalfilename = b_originalfilename;
 	}
-
-	
 	
 	
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardreply">
+
+<!-- 댓글조회 -->
+   <select id="replyselect" resultType="com.guest.honolja.boardreply.BoardReplyDTO" parameterType="int">
+select *from boardreply where b_no=#{b_no}
+</select> 
+
+<select id="replycount" resultType="int" parameterType="int">
+select count(*) as rcnt from boardreply where b_no=#{b_no}
+</select>
+
+<select id="replydetail" resultType="com.guest.honolja.boardreply.BoardReplyDTO" parameterType="int">
+select *from boardreply where br_no=#{br_no}
+</select>
+
+<select id="replycount2" resultType="com.guest.honolja.board.BoardDTO" parameterType="int">
+select count(*) as rcnt from boardreply where b_no=#{b_no}
+</select>
+
+ <insert id="replyadd" parameterType="com.guest.honolja.boardreply.BoardReplyDTO">
+insert into boardreply values (
+boardreply_seq.nextval, #{br_content}, sysdate, #{b_no} , 'hb' )
+</insert> 
+
+<update id="replyupdate" parameterType="com.guest.honolja.boardreply.BoardReplyDTO">
+update boardreply set
+br_content = #{br_content} where br_no = #{br_no}
+</update>
+
+<delete id="replydelete" parameterType="int" >
+ delete from boardreply where br_no=#{br_no}
+</delete>
+
+</mapper>

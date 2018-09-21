@@ -1,17 +1,22 @@
 package com.guest.honolja.board;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -21,12 +26,14 @@ public class BoardController {
 	@Inject
 	BoardDAO dao;
 	
+	
 	@Autowired
 	ServletContext application;
 	
 	@RequestMapping("/board.do")
 	public ModelAndView board_list(HttpServletRequest request) {
 		ModelAndView mav=new ModelAndView();
+		BoardDTO dto=new BoardDTO();
 	
 		int pageNUM=1, pagecount=1;
 		int start=1,end=1,startpage=1,endpage=1,temp=1;
@@ -39,6 +46,10 @@ public class BoardController {
 		if(skey==null||skey=="" || sval==null||sval=="") {
 			skey="b_title"; sval="";
 		}
+		
+		
+		dao.dbSelect2(skey, sval);
+	
 		pnum=request.getParameter("pageNum");
 		if(pnum==null || pnum=="") {pnum="1";} //비어있으면1p
 		else{pageNUM=Integer.parseInt(pnum);}
@@ -56,18 +67,20 @@ public class BoardController {
 		
 		if(endpage>pagecount) {endpage=pagecount;}
 		
-	/*	System.out.println("start = " + start);
-		System.out.println("end = " + end);
-		System.out.println("startpage = " + startpage);
-		System.out.println("endpage = " + endpage);*/
 		
-		List<BoardDTO> LB=dao.dbSelect(start,end);
+		int rcnt=dto.getRcnt();
+		dao.dbSelect(start,end);
+		List<BoardDTO> LB=dao.dbSelect(start,end,skey,sval);
+		dao.dbSelect2(skey, sval);
 		mav.addObject("pagecount",pagecount);
 		mav.addObject("LB",LB);
 		mav.addObject("Gtotal", Gtotal);
 		mav.addObject("startpage",startpage);
 		mav.addObject("endpage",endpage);
 		mav.addObject("pageNUM", pageNUM);
+		mav.addObject("rcnt",rcnt);
+		mav.addObject("sval",sval);
+		mav.addObject("skey",skey);
 		mav.setViewName("/board/board");
 		return mav;
 	}//board_list end
@@ -78,13 +91,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardinsert.do")
-	public String board_insert(BoardDTO dto)  throws Exception { 
+	public String board_insert(HttpSession session, BoardDTO dto)  throws Exception { 
 		
+	dto.setU_id(session.getAttribute("checked").toString());
 	long size=dto.getB_uploadfilename2().getSize();
 		
 		String path=application.getRealPath("/resources/upload"); //경로지정
 		System.out.println(path); //경로출력
-		MultipartFile mf=dto.getB_uploadfilename2(); //mf=upload 파일
+		MultipartFile mf= dto.getB_uploadfilename2(); //mf=upload 파일
 		String img=mf.getOriginalFilename(); //진짜이름 -> img에
 		
 		
@@ -95,31 +109,94 @@ public class BoardController {
 			
 		} catch (Exception e) {e.printStackTrace(); }
 		dto.setB_originalfilename(img);
-		dto.setB_filesize(size);
+		
 		dao.dbInsert(dto);
 		//adsf
-		System.out.println("title="+dto.getB_title());
-		 System.out.println("content="+dto.getB_content());
-		 System.out.println("member="+dto.getB_member());
-		 System.out.println("viewcnt="+dto.getB_viewcnt());
-		 System.out.println("filename="+dto.getB_originalfilename());
-		 System.out.println("filename2="+dto.getB_uploadfilename2());
-		 System.out.println("uploadfilename="+dto.getB_uploadfilename());
-		 System.out.println("filesize="+dto.getB_filesize());
-		 System.out.println("uid="+dto.getU_id());
 		 
 		return "redirect:/board.do";
 	}//board_insert end
 	    
+	
 	@RequestMapping("/boarddetail.do")
-	public ModelAndView board_detail(HttpServletRequest request) {
+	public ModelAndView board_detail(@RequestParam("idx") int data) throws Exception {
 		ModelAndView mav=new ModelAndView();
-		String data=request.getParameter("idx");
-		
 		BoardDTO dto=dao.dbDetail(data);
+		
+		if(dto.getB_originalfilename() != null) {
+		    mav.addObject("img_file_name", URLEncoder.encode(dto.getB_originalfilename(),"UTF-8"));
+		}
 		
 		mav.addObject("dto",dto);
 		mav.setViewName("/board/boarddetail");
 		return mav;
+		
 	}
+	
+	@RequestMapping("/boarddelete.do")
+	public String board_delete(@RequestParam("idx") int b_no) {
+		dao.dbDelete(b_no);
+		return "redirect:/board.do";
+	}
+	
+	@RequestMapping("/boardedit.do")
+	public ModelAndView board_edit(@RequestParam("idx") int b_no) {
+		ModelAndView mav=new ModelAndView();
+		BoardDTO dto=dao.dbDetail(b_no);
+		
+		mav.addObject("dto",dto);
+		mav.setViewName("board/boardedit");
+		return mav;
+	}
+	
+	@RequestMapping("/boardupdate.do")
+	public String board_update(BoardDTO dto) {
+		dao.dbUpdate(dto);
+	return "redirect:/board.do";
+	}
+	
+	//방 참여
+	@ResponseBody
+	@RequestMapping("/boardmember.do")
+	public String boardmember(BoardDTO dto, HttpSession session) {
+		String u_id2 = session.getAttribute("checked").toString();
+		String result = null;
+		if(u_id2.equals(dto.getU_id())) {
+			result = "false";
+		}else {
+			dto.setB_member2(dto.getB_member2()+1);
+			dao.boardmember(dto);
+			result = "success";
+		}
+		return result;
+	}//end
+	
+	@RequestMapping("/board_file.do")
+	public String boardfile() {
+		return "board/board_file";
+	}//파일 업로드 팝업 화면
+	
+	@RequestMapping("/board_fileup.do")
+	public String boardfileupload(BoardDTO dto) throws Exception {
+		long size=dto.getB_uploadfilename2().getSize();
+		
+		String path=application.getRealPath("/resources/upload"); //경로지정
+		System.out.println(path); //경로출력
+		MultipartFile mf= dto.getB_uploadfilename2(); //mf=upload 파일
+		String img=mf.getOriginalFilename(); //진짜이름 -> img에
+		
+		
+		URLEncoder.encode(img,"UTF-8"); //한글화
+		File file=new File(path,img);
+		try {
+			dto.getB_uploadfilename2().transferTo(file);
+			
+		} catch (Exception e) {e.printStackTrace(); }
+		dto.setB_originalfilename(img);
+		
+		dao.dbInsert(dto);
+		 
+		return "redirect:/board.do";
+
+	}//파일 업로드 기능
+
 }//class end

@@ -6,8 +6,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>[notice_detail.jsp]</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  	 <link href="css/user_menu.css" rel="stylesheet" type="text/css">
+  	 <link href="css/styles.css" rel="stylesheet" type="text/css">
+  	 
+  	    
+  	 <style type="text/css">
+  	 
+  	 td { 
+    padding: 10px;
+	}
+	
+	table { 
+    border-spacing: 10px;
+    border-collapse: separate;
+	}
+  	 </style>
+  	 
 </head>
 
 <script type="text/javascript">
@@ -18,25 +39,45 @@
 		
 		if ( msg == true ){
 			alert("공지사항이 삭제되었습니다.");
-		}else { return false; }
+			location.href='notice_delete.do?idx='+${dto.n_no};
+		}
+		
 	}//삭제 확인
 
 </script>
 
-<body>
-
+<body id="page-top" style="margin-top:51px;" >
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="main.do"></c:param>
+	</c:import>
 <h1>공지사항 상세</h1>
 <p>
 <br>
 
-<table border="2" align="center" width=900 height=1000 cellpadding="10">
- <tr>
-  <td colspan="2"> 제목: ${dto.n_title}</td>
+<div class="container">
+<table border="2" align="center" class="table table-bordered" style="width: 70%">
+ <tr> 
+  <td><b>Title:</b> ${dto.n_title}</td>
+  <td style="color: grey" align="center">
+  	<fmt:parseDate value="${dto.n_date}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
+      <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/></td>
  </tr>
  
  <tr>
-  <td width="500">작성자: 관리자 </td>
-  <td>작성일: ${dto.n_date}</td>
+	<td colspan="2"><b>Writer:</b> 
+
+<div id='cssmenu'>
+<ul>
+   <li class='active has-sub'><a href='#'><span>${dto.u_id}</span></a>
+      <ul>
+         <li class='has-sub'><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><span>쪽지 보내기</span></a></li>
+      </ul>
+   </li>
+</ul>
+</div>
+	
+	</td>
  </tr>
  
  <%pageContext.setAttribute("newLineChar", "\n");%>
@@ -46,15 +87,16 @@
  
  <tr align="right">
   <td colspan="2">
-   <input type="button" value="목록으로" onclick="location.href='notice.do'">
-   <input type="button" value="수정" onclick="location.href='notice_preEdit.do?idx=${dto.n_no}'">
-   <input type="button" value="삭제" onclick="location.href='notice_delete.do?idx=${dto.n_no}'">
+   <input type="button" class="btn btn-primary" value="목록으로" onclick="location.href='notice.do'"> &nbsp;&nbsp;
+    <c:if test="${checked eq 'test'}">
+      <input type="button" class="btn btn-primary" value="수정" onclick="location.href='notice_preEdit.do?idx=${dto.n_no}'"> &nbsp;&nbsp;
+      <input type="button" class="btn btn-primary" value="삭제" onclick="delete_check(); return false;"> &nbsp;&nbsp;
+   </c:if>
   </td>
  </tr> 
 
 </table>
-
-<p>
+</div>
 
 
 </body>
