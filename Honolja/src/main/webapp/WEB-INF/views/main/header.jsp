@@ -9,7 +9,7 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link href="css/header.css" type="text/css" rel="stylesheet"> 
+	<link href="./resources/css/header.css" type="text/css" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -76,15 +76,12 @@
 
 					<li ${param.notice}><a href="notice.do" >공지사항</a></li>
 					<li ${param.group}><a href="board.do" >소모임</a></li>
-					<li ${param.myplace}><a href="guestlist.do?area=my" >내주변</a></li>
-					<li ${param.area}>
-						<a href="guestlocation.do
-							?area=${param.area}
-							&adult=${param.adult}
-							&child=${param.child}
-							&check_in=${param.check_in}
-							&check_out=${param.check_out}
-							&nights=${param.nights}" >지역</a>
+					<li ${param.myplace}>
+						<a href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}
+						&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">내주변
+						</a>
+					</li>
+					<li ${param.area} id = "toggle"><a href="#">지역</a></li>
 					</li>
 					<li ${param.img_board}><a href="img_board.do" >여행 정보</a></li>
 					<li ${param.test}><a href="test.do">TEST</a></li>
