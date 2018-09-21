@@ -268,8 +268,6 @@ $(document).ready(function() {
 								map : map
 							});
 
-					
-
 					/*// 마커 클릭 이벤트 처리 ( 클릭할 경우 infowindow에 등록된 이미지와 이름이 뜸 )
 					naver.maps.Event.addListener(marker, "click", function(e) {
 						if (infowindow.getMap()) {

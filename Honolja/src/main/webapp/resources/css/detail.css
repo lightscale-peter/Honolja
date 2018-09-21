@@ -218,10 +218,23 @@ label, button, a {
 
 .badge-live {
 	color: #fff;
-	/*display: inline-block;*/
+	display: inline-block;
 	font-size: 12px;
 	padding: 3px 5px 2px;
 	margin-right: 5px;
+	background-color: #18d0c5;
+}
+
+.place-room__message {
+	min-height: 22px;
+	margin-top: 30px;
+	padding: 18px 20px 14px;
+	background-color: #f1fcfc;
+	border: 1px solid #e3eded;
+	font-size: 13px;
+}
+
+.badge-live {
 	background-color: #18d0c5;
 }
 
@@ -252,7 +265,7 @@ label, button, a {
 }
 
 .DateRangePicker {
-	font-size: 18px;
+	font-size: 20px;
 	color: #ff777a;
 	box-sizing: border-box;
 	margin: 10px 0 20px;
