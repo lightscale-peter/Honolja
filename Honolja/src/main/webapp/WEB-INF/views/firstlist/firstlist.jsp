@@ -259,6 +259,7 @@ a:visited{color: #212121; text-decoration: none;}
 
 </form>
 	<script type="text/javascript">
+	//datepicker 생성 및 날짜 수정시 이벤트
 	$(function() {
 		$("#startDate").datepicker({ format: 'yyyy/mm/dd',minDate: 0}).val();
 		$("#endDate").datepicker({ format: 'yyyy/mm/dd', minDate: 0}).val();
@@ -282,7 +283,6 @@ a:visited{color: #212121; text-decoration: none;}
 			document.body.appendChild(form);
 	}
 	function date2(){
-		
 		var url = "guestlist.do";
     	var name1 = "check_out";
     	var value1 = $("#endDate").datepicker({ format: 'yyyy/mm/dd'}).val();
@@ -301,6 +301,7 @@ a:visited{color: #212121; text-decoration: none;}
 		document.body.appendChild(form);
 	}
    </script>   
+   <!-- 달력 끝 -->  
 	<br>
 	<div style="padding-top:40px; ">
    	<!-- 지도 우측배치로 고정 -->
@@ -313,13 +314,33 @@ a:visited{color: #212121; text-decoration: none;}
 	<div style="left:0; width:60%; padding-left: 30px; padding-right:30px;padding-left:30px;">
     	<div style="padding-top: 13px;padding-bottom: 12px;"><p>
      		<button type="button" class="filter__item" name="popoverButton" style="margin-right:27px;"id="firstfilter">
-     			<span class="filter__option" id = "basics">기본순</span>
+     			<span class="filter__option"id="basics">기본순</span>
      			<i style="width: 17px;height: 16px;	background: url(https://yaimg.yanolja.com/joy/pw/search/filter-icon__arrow_bottom.svg) 50%;
    				display: inline-block;overflow: hidden;font-size: 0;line-height: 0;text-indent: -9999px; vertical-align: middle;"></i>
      		</button> 
      		
      		<button type="button" class="filter__item" name="popoverButton"style="margin-right:27px;" id="secondfilter">
-     			<span class="filter__option" id ="priceselect">가격대선택</span>
+				<c:choose>
+  					<c:when test="${low_price=='a'}">
+   						<span class="filter__option">0~20000</span>
+					</c:when>
+					<c:when test="${low_price=='b'}">
+						<span class="filter__option">20000~40000</span>
+					</c:when>
+					<c:when test="${low_price=='c'}">
+						<span class="filter__option">40000~60000</span>
+					</c:when>
+					<c:when test="${low_price=='d'}">
+						<span class="filter__option">60000~80000</span>
+					</c:when>
+					<c:when test="${low_price=='e'}">
+						<span class="filter__option">60000~80000</span>
+					</c:when>
+					<c:otherwise>
+						<span class="filter__option">가격대선택</span>
+					</c:otherwise>
+					</c:choose>   
+     			<!-- <span class="filter__option"id="priceselect">가격대선택</span> -->
      			<i style="width: 17px;height: 16px; background: url(https://yaimg.yanolja.com/joy/pw/search/filter-icon__arrow_bottom.svg) 50%;
    				display: inline-block;overflow: hidden;font-size: 0;line-height: 0;text-indent: -9999px; vertical-align: middle;"></i>
      		</button> 
@@ -351,7 +372,7 @@ a:visited{color: #212121; text-decoration: none;}
 		        jQuery('#firstfilt').css("display", "none");
 			}
 		});
-		//필터 초기화
+	//필터 초기화 이벤트
 		$(document).ready(function(){
  			jQuery('#refresh').click(function(){
  				location.href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}"
@@ -360,8 +381,8 @@ a:visited{color: #212121; text-decoration: none;}
  		});
 	</script>
 	<!-- 해당 필터 클릭 시 이벤트 끝-->
-	
-     	<form action="guestlist.do" method="get">
+	<!-- 기본순 필터 -->
+     <form action="guestlist.do" method="get">
      	<input type="hidden" name="g_addr"value="my">
 		<input type="hidden" name="adult"value="${param.adult}">
 		<input type="hidden" name="child"value="${param.child}">
@@ -370,6 +391,7 @@ a:visited{color: #212121; text-decoration: none;}
 		<input type="hidden" name="nights"value="${param.nights}">
 		<input type="hidden" name="sortFilter"value="${param.sortFilter}">
 		<input type="hidden" id ="a" name="a" value="${basic}">
+		
      	<div data-popover-content="true" id="firstfilt" 
      	style="box-sizing: border-box;
      	width:150px;
@@ -407,27 +429,24 @@ a:visited{color: #212121; text-decoration: none;}
  	      		</div>
  	      	</div>
 		</div>
-
-		</form>
+	</form>
 		<script type="text/javascript">
 		//버튼 span에 지정된 값 가져오기
 		$(document).ready(function(){
-			var span = document.getElementById("basics").value;
 			var basic1 = document.getElementById("a").value;
-			if(basic1=="basic"){$('#basics').html('기본순');}
-			else if(basic1=="like"){$('#basics').html('인기순');}
-			else if(basic1=="reply"){$('#basics').html('댓글 많은 순');}
-			else if(basic1=="priceup"){$('#basics').html('가격 낮은 순');}
-			else if(basic1=="pricedown"){$('#basics').html('가격 높은 순');}
+			if(basic1=="basic"){$('#basics').html('기본순');$('#basic').is(":checked");}
+			else if(basic1=="like"){$('#basics').html('인기순');$('#basic').is(":checked");}
+			else if(basic1=="reply"){$('#basics').html('댓글 많은 순');$('#basic').is(":checked");}
+			else if(basic1=="priceup"){$('#basics').html('가격 낮은 순');$('#basic').is(":checked");}
+			else if(basic1=="pricedown"){$('#basics').html('가격 높은 순');$('#basic').is(":checked");}
 		});
 		//기본순
 		$(document).ready(function(){
-			var check = $('#basic').is(":checked");
 	    	$("#basic").change(function(){
 	        	if($("#basic").is(":checked")){
 	        		location.href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}"
 	        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=basic";
-	    	    }return check;
+	    	    }
 		    });
 		});
 		
@@ -436,7 +455,7 @@ a:visited{color: #212121; text-decoration: none;}
 	    	$("#like").change(function(){
 	        	if($("#like").is(":checked")){
 	        		location.href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}"
-		        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=like";
+		        	+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=like";
 	    	    }
 		    });
 		});
@@ -471,8 +490,8 @@ a:visited{color: #212121; text-decoration: none;}
 		    });
 		});
 		</script>
-		<!-- 가격대 선택 -->
-		<form action="guestlist.do" method="get">
+		<!-- 가격대 선택 필터-->
+		<form id="priceform" action="guestlist.do" method="get">
 		<input type="hidden" name="g_addr"value="my">
 		<input type="hidden" name="adult"value="${param.adult}">
 		<input type="hidden" name="child"value="${param.child}">
@@ -517,7 +536,7 @@ a:visited{color: #212121; text-decoration: none;}
  	      				<label for="five">80000~100000</label>
  	      			</div>
  	      			<div style="margin-left:60%;">
- 	      				<button type="submit" id ="pricebtn"style = "width:60px;background-color:#ff2d60; color:white;">
+ 	      				<button type="submit" id="pricebtn" style = "width:60px;background-color:#ff2d60; color:white;">
  	      				<em>확인</em>
  	      				</button> 
  	      			</div>
@@ -525,20 +544,6 @@ a:visited{color: #212121; text-decoration: none;}
  	      	</div>
 		</div>	
 		</form>
-		<script>
-		//버튼 span에 지정된 값 가져오기
-		$(document).ready(function(){
-			$('#pricebtn').click(function(){
-			var span = document.getElementById("priceselect").value;
-			var price1 = document.getElementById("price1").value;
-			if(price1=="one"){$('#priceselect').html('0~20000');}
-			else if(price1=="two"){$('#priceselect').html('20000~40000');}
-			else if(price1=="three"){$('#priceselect').html('40000~60000');}
-			else if(price1=="four"){$('#priceselect').html('60000~80000');}
-			else if(price1=="five"){$('#priceselect').html('80000~100000');}
-			});
-		});
-		</script>
     </div>
 		<!-- 필터 끝-->
 		<!-- Guest house 목록을 리스트로 뽑아주기 -->
@@ -593,7 +598,6 @@ a:visited{color: #212121; text-decoration: none;}
 		    } 
 		});
 	</script> -->
-
     </table>
    	</div>
  <script>
@@ -618,7 +622,7 @@ a:visited{color: #212121; text-decoration: none;}
 	    	map: map,
 	    	position: new naver.maps.LatLng(x[i],y[i]),
 	    });
-	    /* &adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='+check_out+' */
+	   
 	   // 마크 클릭시 인포윈도우 오픈
 	    var infowindow = new naver.maps.InfoWindow({
 	    	content: '<h6>'+name[i]+'</h6><div align="center"><a href="guestdetail.do?g_no='
@@ -689,9 +693,6 @@ a:visited{color: #212121; text-decoration: none;}
     for (var i=0, ii=markers.length; i<ii; i++) {
         naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
     };
-
- 	
    </script>
-   
 </body>
 </html>
