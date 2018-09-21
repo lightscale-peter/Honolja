@@ -36,6 +36,27 @@ public class MypageController {
 		return mav;
 	}//end
 	
+<<<<<<< HEAD
+=======
+	//회원수정
+	@RequestMapping("/useredit.do")
+	public ModelAndView useredit(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String u_id = (String)session.getAttribute("checked");
+		MemberDTO mto = dao.useredit(u_id);
+		mav.addObject("mto", mto);
+		mav.setViewName("mypage/useredit");
+		return mav;
+	}//end
+	
+	//회원수정 저장
+	@RequestMapping("/usereditsave.do")
+	public String usereditsave(MemberDTO mto) {
+		dao.usereditsave(mto);
+		return "redirect:useredit.do";
+	}//end
+	
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	//회원탈퇴
 	@RequestMapping("/mypageDelete.do")
 	public ModelAndView mypage_delete(HttpSession session) {

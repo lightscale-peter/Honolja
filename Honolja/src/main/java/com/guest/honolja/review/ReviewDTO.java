@@ -10,10 +10,15 @@ public class ReviewDTO {
 	private String re_like;
 	private String re_score;
 	private Date re_date;
-	private String i_name;
+	private String r_name;
 	private String re_img;
 	private String u_id;
 	private int g_no;
+	private int a_no;
+	private String u_guestname;
+	private String a_content;
+	private Date a_date;
+	private int ansCnt;
 
 	public int getRe_no() {
 		return re_no;
@@ -63,12 +68,12 @@ public class ReviewDTO {
 		this.re_date = re_date;
 	}
 
-	public String getI_name() {
-		return i_name;
+	public String getR_name() {
+		return r_name;
 	}
 
-	public void setI_name(String i_name) {
-		this.i_name = i_name;
+	public void setR_name(String r_name) {
+		this.r_name = r_name;
 	}
 
 	public String getRe_img() {
@@ -93,6 +98,46 @@ public class ReviewDTO {
 
 	public void setG_no(int g_no) {
 		this.g_no = g_no;
+	}
+
+	public int getA_no() {
+		return a_no;
+	}
+
+	public void setA_no(int a_no) {
+		this.a_no = a_no;
+	}
+
+	public String getU_guestname() {
+		return u_guestname;
+	}
+
+	public void setU_guestname(String u_guestname) {
+		this.u_guestname = u_guestname;
+	}
+
+	public String getA_content() {
+		return a_content;
+	}
+
+	public void setA_content(String a_content) {
+		this.a_content = a_content;
+	}
+
+	public Date getA_date() {
+		return a_date;
+	}
+
+	public void setA_date(Date a_date) {
+		this.a_date = a_date;
+	}
+
+	public int getAnsCnt() {
+		return ansCnt;
+	}
+
+	public void setAnsCnt(int ansCnt) {
+		this.ansCnt = ansCnt;
 	}
 
 }

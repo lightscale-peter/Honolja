@@ -10,6 +10,10 @@ public class BoardDTO {
 	private Date b_date;
 	private int b_member;
 	private int b_member2;
+<<<<<<< HEAD
+=======
+	private String b_users;
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	private String b_viewcnt;
 	private String u_id;
 	private MultipartFile b_uploadfilename2;
@@ -27,6 +31,16 @@ public class BoardDTO {
 	
 	
 	
+<<<<<<< HEAD
+=======
+	
+	public String getB_users() {
+		return b_users;
+	}
+	public void setB_users(String b_users) {
+		this.b_users = b_users;
+	}
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	public int getRcnt() {
 		return rcnt;
 	}

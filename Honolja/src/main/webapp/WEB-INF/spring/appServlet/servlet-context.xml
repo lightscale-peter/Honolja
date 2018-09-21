@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -15,9 +17,13 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 
 	<resources mapping="/css/**" location="/WEB-INF/views/css/" />
+<<<<<<< HEAD
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/smarteditor/**" location="/smarteditor/" />
+=======
+	<resources mapping="/image/**" location="/WEB-INF/views/image/" />
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
 	<!-- 빈스 임포트 입력 필!!! -->
 	<beans:import resource="classpath:/config/mybatis/dao-context.xml"/>
@@ -29,12 +35,12 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
- 
-	<!-- hobby사용할 파일 다운로드 라이브러리 기술 -->
+
 	<!-- 파일업로드 Commons -->
 	<beans:bean id="multipartResolver"
 	       class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
+	
 	
 	<!-- 로그인 처리 인터셉터 설정 -->
 	<beans:bean id="HonoljaInterceptor" class="com.guest.honolja.interceptor.HonoljaInterceptor"></beans:bean>
@@ -45,6 +51,7 @@
 			<beans:ref bean="HonoljaInterceptor"/>
 		</interceptor>
 	</interceptors>
+
 	
 	
 	<context:component-scan base-package="com.guest.*" />

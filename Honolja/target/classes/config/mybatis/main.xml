@@ -15,5 +15,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectFixedNotice" resultType="main">
 		select rownum rn, n_title, n_fix from noticeboard where n_fix = 'true'	
 	</select>
+<<<<<<< HEAD
 
+=======
+	
+	<insert id="insertUsersInfo">
+		insert into users (u_no, u_id, u_name, u_birth, u_gender, u_img, u_email, u_date) values(
+			users_seq.nextval, #{u_id}, #{u_name}, #{u_birth}, #{u_gender}, #{u_img}, #{u_email}, sysdate	
+		)
+	</insert>
+	
+	<select id="selectIdCheck" parameterType="String" resultType="int">
+		select count(*) from users where u_id like '%' || #{u_id} || '%'
+	</select>
+	
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </mapper>

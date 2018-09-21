@@ -61,8 +61,17 @@ delete from board where b_no=#{b_no}
  update board set b_viewcnt=b_viewcnt+1 where b_no=#{b_no}
 </update>
 
+<<<<<<< HEAD
 <update id="boardmember" parameterType="int">
 	update board set b_member2 = #{b_member2} where b_no = #{b_no}
+=======
+<select id="selectusers" parameterType="int" resultType="String">
+	select b_users from board where b_no = #{b_no}
+</select>
+
+<update id="boardmember" parameterType="com.guest.honolja.board.BoardDTO">
+	update board set b_member2 = #{b_member2}, b_users = #{b_users} where b_no = #{b_no}
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </update>
 
 </mapper>

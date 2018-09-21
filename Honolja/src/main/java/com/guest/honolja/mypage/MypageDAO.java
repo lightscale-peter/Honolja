@@ -17,8 +17,24 @@ public class MypageDAO {
 		MemberDTO mto = new MemberDTO();
 		mto = temp.selectOne("mypage.mypageselect", u_id);
 		return mto;
+<<<<<<< HEAD
 		
 	}//end
+=======
+	}//end
+	
+	//회원수정
+	public MemberDTO useredit(String u_id) {
+		MemberDTO mto = new MemberDTO();
+		mto = temp.selectOne("mypage.useredit", u_id);
+		return mto;
+	}//end
+	
+	//회원수정 저장
+	public void usereditsave(MemberDTO mto) {
+		temp.update("mypage.usereditsave", mto);
+	}
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	
 	//회원탈퇴
 	public String mypageDelete(String u_id) {

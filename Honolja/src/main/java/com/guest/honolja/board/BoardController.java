@@ -19,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.guest.honolja.message.MsgDAO;
+import com.guest.honolja.message.MsgDTO;
+
 @Controller
 public class BoardController {
 	
@@ -158,6 +161,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping("/boardmember.do")
 	public String boardmember(BoardDTO dto, HttpSession session) {
+<<<<<<< HEAD
 		String u_id2 = session.getAttribute("checked").toString();
 		String result = null;
 		if(u_id2.equals(dto.getU_id())) {
@@ -198,5 +202,22 @@ public class BoardController {
 		return "redirect:/board.do";
 
 	}//파일 업로드 기능
+=======
+		String u_id = session.getAttribute("checked").toString();
+		String result = null;
+		
+		MsgDAO dao = new MsgDAO();
+		MsgDTO mto = new MsgDTO();
+		mto.setU_id(u_id);
+		mto.setM_title("모집인원 참여 요청 쪽지입니다");
+		mto.setM_content("모집인원 참여 요청 쪽지입니다");
+		mto.setM_id(dto.getU_id());
+		dao.db_insert(mto);
+		
+			
+		
+		return result;
+	}//end
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
 }//class end

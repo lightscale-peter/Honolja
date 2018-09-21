@@ -4,14 +4,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>[logout.jsp]</title>
+	<title>[main_notice.jsp]</title>
 </head>
 <body>
-	<script type="text/javascript">
-	
-		//location.href = document.referrer;
-		location.href = "${host}";
-		
-	</script>
+	${notice }
 </body>
 </html>

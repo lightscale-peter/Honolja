@@ -53,11 +53,23 @@ public class MemberController {
 	@RequestMapping("/m_insert.do")
 	public String member_insert(MemberDTO mto) throws Exception {
 		mto.setU_birth(mto.getYear() + mto.getMonth() + mto.getDay());
+<<<<<<< HEAD
 		mto.setU_email(mto.getU_email()+"@"+mto.getU_email2());
+=======
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		mto.setU_guestjuso(mto.u_guestjuso + " " + mto.u_guestjuso1);
 		String path = "C:\\Users\\bit-user\\git\\Honolja\\Honolja\\src\\main\\webapp\\image\\";
 		MultipartFile mf = mto.getUpload_img();
 		String img = mf.getOriginalFilename();
+		
+		if(img.equals("") || img == null) {
+			if(mto.getU_gender().equals("남자")) {
+				img = "boy.jpg"; 
+			}else if(mto.getU_gender().equals("여자")) {
+				img = "girl.jpg";
+			}
+		}//if end
+		
 		img = URLEncoder.encode(img, "UTF-8");
 		File file = new File(path, img);
 		mto.setU_imgpath(path+img);
