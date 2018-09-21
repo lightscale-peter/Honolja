@@ -35,6 +35,7 @@ public class DetailController {
 		List<ReviewDTO> review = dao1.dbreviewSelect(g_no);
 
 		int sum = 0;
+<<<<<<< HEAD
 		int avg = 0;
 
 //		for (int i = 0; i < review.size(); i++) {
@@ -45,6 +46,20 @@ public class DetailController {
 //		avg = sum / count;
 //		System.out.println("별점 평균 : " + avg);
 
+=======
+		double avg = 0;
+
+		for (int i = 0; i < review.size(); i++) {
+			sum += Integer.parseInt(review.get(i).getRe_score());
+			System.out.println("별점 합계 : " + sum);
+		}
+
+		if (count > 0) {
+			avg = (double) (sum / count);
+			System.out.println("별점 평균 : " + avg);
+		}
+		
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		mav.addObject("info", info);
 		mav.addObject("avg", avg);
 		mav.addObject("g_no", g_no);

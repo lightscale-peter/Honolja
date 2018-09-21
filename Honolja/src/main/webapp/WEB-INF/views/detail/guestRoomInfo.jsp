@@ -17,6 +17,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
+<<<<<<< HEAD
 <style type="text/css">
 #detail-info {
 	margin-top: 20px;
@@ -55,6 +56,9 @@ i, em, address {
 	margin-top: 20px;
 }
 </style>
+=======
+<link rel="stylesheet" href="./resources/css/detail.css">
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </head>
 <body>
 	<c:forEach var="list" items="${list}">

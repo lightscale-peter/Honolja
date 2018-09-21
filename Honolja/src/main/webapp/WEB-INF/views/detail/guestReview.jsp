@@ -22,6 +22,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
+<<<<<<< HEAD
 <style type="text/css">
 .review-info-title {
 	margin-bottom: 20px;
@@ -161,12 +162,16 @@ label, button, a {
 	text-decoration: none;
 }
 </style>
+=======
+<link rel="stylesheet" href="./resources/css/detail.css">
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </head>
 <body>
 	<!--Modal: modalConfirmDelete-->
 	<div class="container-fluid" id="review-All">
 		<label for="content">comment</label>
 		<form id="reviewForm" action="reviewAdd.do" method="post">
+<<<<<<< HEAD
 			<input type="hidden" name="g_no" value="${g_no}">
 			<div class="review-userinfo">
 				<div class="col">
@@ -174,6 +179,16 @@ label, button, a {
 						src="http://member.yanolja.com/include/img/picture/default_picture.png"
 						class="img-circle" alt="프로필사진" width="34px;" /><span
 						class="nicname">송규광</span>
+=======
+			<input type="hidden" name="g_no" value="${g_no}"> <input
+				type="hidden" name="u_id" value="${u_id}">
+			<div class="review-userinfo">
+				<div class="col">
+					<img
+						src="http://member.yanolja.com/include/img/picture/default_picture.png"
+						class="img-circle" alt="프로필사진" width="34px;" /><span
+						class="nicname">로그인섹션값</span>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 				</div>
 			</div>
 			<div class="form-group">
@@ -197,8 +212,12 @@ label, button, a {
 			</div>
 			<div class="form-group col-md-3">
 				<select class="form-control" id="re_score" name="re_score">
+<<<<<<< HEAD
 					<option selected="selected">별점</option>
 					<option value="1">★</option>
+=======
+					<option value="1" selected="selected">★</option>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 					<option value="2">★★</option>
 					<option value="3">★★★</option>
 					<option value="4">★★★★</option>

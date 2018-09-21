@@ -39,7 +39,23 @@ public class MainDTO {
 	String skey;
 	String sval;
 	
+	int il_no;
+	String il_like;
 	
+	
+	
+	public int getIl_no() {
+		return il_no;
+	}
+	public void setIl_no(int il_no) {
+		this.il_no = il_no;
+	}
+	public String getIl_like() {
+		return il_like;
+	}
+	public void setIl_like(String il_like) {
+		this.il_like = il_like;
+	}
 	public MultipartFile getUpload_f() {
 		return upload_f;
 	}

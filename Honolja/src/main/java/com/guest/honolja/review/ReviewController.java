@@ -37,6 +37,7 @@ public class ReviewController {
 	@ResponseBody
 	public ModelAndView guest_reviewAdd(ReviewDTO dto) {
 		ModelAndView mav = new ModelAndView();
+<<<<<<< HEAD
 		dto.setI_name("소방");
 		dto.setU_id("송규광");
 		dao.dbreivewAdd(dto);
@@ -77,6 +78,43 @@ public class ReviewController {
 		ModelAndView mav = new ModelAndView();
 		dto.setI_name("도방");
 		dto.setU_id("이경수");
+=======
+		dao.dbreivewAdd(dto);
+		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
+		mav.addObject("g_no", dto.getG_no());
+		mav.addObject("review", review);
+		mav.setViewName("/detail/guestReview");
+		return mav;
+	}
+
+	@RequestMapping("/reviewDel.do")
+	@ResponseBody
+	public ModelAndView guest_reviewDel(ReviewDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		dao.dbreviewDel(dto.getRe_no());
+		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
+		mav.addObject("g_no", dto.getG_no());
+		mav.addObject("review", review);
+		mav.setViewName("/detail/guestReview");
+		return mav;
+	}
+
+	@RequestMapping("/reviewPremod.do")
+	@ResponseBody
+	public ModelAndView guest_reviewPremod(ReviewDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		ReviewDTO review = dao.dbreviewPremodify(dto.getRe_no());
+		mav.addObject("g_no", dto.getG_no());
+		mav.addObject("review", review);
+		mav.setViewName("/detail/guestReviewModify");
+		return mav;
+	}
+
+	@RequestMapping("/reviewModify.do")
+	@ResponseBody
+	public ModelAndView guest_reviewMod(ReviewDTO dto) {
+		ModelAndView mav = new ModelAndView();
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		dao.dbreviewModify(dto);
 		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
 		mav.addObject("re_no", dto.getRe_no());

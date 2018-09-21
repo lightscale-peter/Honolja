@@ -23,16 +23,6 @@ public class MainDAO {
 		return temp.selectList("main.selectFixedNotice");
 	}
 	
-	//Print img_board List
-	public List<MainDTO> dbSelectImgBoard(MainDTO dto){
-		return temp.selectList("main.selectImageBoard", dto);
-	}
-	
-	//Count img_board total number
-	public int dbCountImgBoard(MainDTO dto) {
-		return temp.selectOne("main.CountImageBoard", dto);
-	}
-	
 	//Insert id when guest try to login as NAVER API
 	public void dbInsertUsersInfo(MainDTO dto){
 		temp.insert("main.insertUsersInfo", dto);
@@ -43,12 +33,4 @@ public class MainDAO {
 		return temp.selectOne("main.selectIdCheck", u_id);
 	}
 	
-	//Print img_board_detail according to i_no primary key of the table
-	public MainDTO dbSelectImgBoardDetail(String i_no){
-		return temp.selectOne("main.selectImageBoardDetail", i_no);
-	}
-	
-	public void dbInsertImgBoard(MainDTO dto) {
-		temp.insert("main.insertImageBoard", dto);
-	}
 }

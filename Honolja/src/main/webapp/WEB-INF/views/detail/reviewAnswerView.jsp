@@ -22,6 +22,10 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="./resources/css/detail.css">
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </head>
 <body>
 	<div class="container-fluid">

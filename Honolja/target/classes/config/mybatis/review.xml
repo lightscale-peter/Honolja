@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and r.hobby_idx = #{h.hobby_idx} order by rrn -->
 		<!-- select * from review where g_no = #{g_no} order by re_no desc -->
 
+<<<<<<< HEAD
 		select r.*,
 		(select count(*) from answer where re_no = r.re_no) as
 		ansCnt
@@ -17,6 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		review r
 		where
 		r.g_no = #{g_no} order by re_no desc
+=======
+		select * from review where g_no = #{g_no} order by re_no desc
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	</select>
 
 	<select id="answerView" parameterType="int"
@@ -34,8 +38,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{re_like},
 		#{re_score},
 		sysdate,
+<<<<<<< HEAD
 		#{i_name},
 		#{re_img}, #{u_id}, #{g_no})
+=======
+		#{re_img},
+		#{u_id}, #{g_no})
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	</insert>
 
 	<insert id="answerAdd"

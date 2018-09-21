@@ -22,6 +22,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
+<<<<<<< HEAD
 <style type="text/css">
 .review-info-title {
 	margin-bottom: 20px;
@@ -229,6 +230,87 @@ p {
 								class="roomtype">${review.i_name}</span><i class="bar"></i><span
 								class="date"><fmt:formatDate value="${review.re_date}"
 									pattern="yyyy-MM-dd" /></span>
+=======
+<link rel="stylesheet" href="./resources/css/detail.css">
+</head>
+<body>
+	<div class="container-fluid">
+		<form id="modifyForm" method="post">
+			<input type="hidden" value="${review.re_no}" name="re_no"> <input
+				type="hidden" value="${review.u_id}" name="u_id"> <input
+				type="hidden" value="${review.i_name}" name="i_name"> <input
+				type="hidden" value="${review.g_no}" name="g_no">
+			<div class="row">
+				<c:if test="${review.re_img != null}">
+					<div class="col-sm-4">
+						<div class="place-review__image"
+							style="background-image: url(./resources/images/${review.re_img}.jpg); background-size: cover; background-position: center center;"></div>
+					</div>
+				</c:if>
+				<br>
+				<div class="col" class="review-info">
+					<div class="review-info__title">
+						<div class="form-group">
+							<span class="badge-rap"><i class="badge-best"><em>${review.re_like}</em></i></span>
+							<c:if test="${review.re_score == 5 }">
+								<span class="score-rap pull-right"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i></span>
+							</c:if>
+							<c:if test="${review.re_score == 4 }">
+								<span class="score-rap pull-right"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:if>
+							<c:if test="${review.re_score == 3 }">
+								<span class="score-rap pull-right"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:if>
+							<c:if test="${review.re_score == 2 }">
+								<span class="score-rap pull-right"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:if>
+							<c:if test="${review.re_score == 1 }">
+								<span class="score-rap pull-right"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:if>
+						</div>
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="text" name="re_title"
+							value="${review.re_title}">
+					</div>
+					<div class="form-group">
+						<textarea class="form-control" rows="4" cols="100%"
+							name="re_content">${review.re_content}</textarea>
+					</div>
+					<div class="review-userinfo">
+						<div class="form-group col-md-4">
+							<img
+								src="//member.yanolja.com/include/img/picture/default_picture.png"
+								class="img-circle" alt="프로필사진" width="34px;" /> <span
+								class="nicname">${review.u_id}</span><i class="bar"></i><i
+								class="bar"></i><span class="date"><fmt:formatDate
+									value="${review.re_date}" pattern="yyyy-MM-dd" /></span>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 						</div>
 						<div class="form-group col-md-3">
 							<select class="form-control sm-3" id="re_like" name="re_like">

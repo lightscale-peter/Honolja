@@ -265,7 +265,6 @@
 		    	out_array[i] = parseInt(out_string_array[i]);
 		    }
 		   
-		    		
     		//체크인 연 <= 체크아웃 연
     		if(in_array[0] <= out_array[0]){
     			
@@ -537,6 +536,7 @@
 			<!-- 지역 / 체크인 / 체크아웃 검색 창 시작 -->
 			<form id = "check_form" action="guestlocation.do">
 				<div class="form-group">
+				
 					<label for="sel1">지역</label>
 					<select class="form-control" id="sel1" name="g_addr" onchange="progress();">
 						<option>선택</option>
@@ -626,6 +626,5 @@
 		
 	${checked }<br>
 	${access_token}<br>
-
 </body>
 </html>

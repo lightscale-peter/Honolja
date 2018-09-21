@@ -10,7 +10,7 @@ public class ReviewDTO {
 	private String re_like;
 	private String re_score;
 	private Date re_date;
-	private String i_name;
+	private String r_name;
 	private String re_img;
 	private String u_id;
 	private int g_no;
@@ -68,12 +68,12 @@ public class ReviewDTO {
 		this.re_date = re_date;
 	}
 
-	public String getI_name() {
-		return i_name;
+	public String getR_name() {
+		return r_name;
 	}
 
-	public void setI_name(String i_name) {
-		this.i_name = i_name;
+	public void setR_name(String r_name) {
+		this.r_name = r_name;
 	}
 
 	public String getRe_img() {

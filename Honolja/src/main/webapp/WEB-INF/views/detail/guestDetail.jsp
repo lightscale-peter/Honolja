@@ -16,6 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
 <script src="./resources/js/detail.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -95,6 +96,24 @@ i, em, address {
 	font-size: 15px;
 }
 </style>
+=======
+<!-- 달력 사용하기  -->
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"
+	type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css"
+	rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script src="./resources/js/detail.js"></script>
+<link rel="stylesheet" href="./resources/css/detail.css">
+<script type="text/javascript">
+$(document).ready(function() {
+	var g_no = <c:out value='${g_no}'/>;
+	$("#roominfos").tab('show');
+	roominfo(g_no);
+})
+</script>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </head>
 <body>
 	<c:import url="http://localhost:8080/honolja/header.do">
@@ -130,6 +149,7 @@ i, em, address {
 						<div></div>
 					</div>
 					<div class="detail-info__score">
+<<<<<<< HEAD
 						<span class="score-rap"><i
 							class="icon-staylist icon-staylist-score score10"></i><i
 							class="icon-staylist icon-staylist-score score10"></i><i
@@ -137,6 +157,91 @@ i, em, address {
 							class="icon-staylist icon-staylist-score score10"></i><i
 							class="icon-staylist icon-staylist-score score05"></i></span><em>
 							후기 ${rcnt}개 </em>
+=======
+						<c:choose>
+							<c:when test="${avg == 5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i></span>
+							</c:when>
+							<c:when test="${5 > avg && avg >= 4.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i></span>
+							</c:when>
+							<c:when test="${4.5 > avg && avg > 4}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${4 > avg && avg >= 3.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${3.5 > avg && avg >= 3}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${3 > avg && avg >= 2.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${2.5 > avg && avg >= 2}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${2 > avg && avg >= 1.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${1.5 > avg && avg >= 1}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:otherwise>
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:otherwise>
+						</c:choose>
+						<em> 후기 ${rcnt}개 </em>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 					</div>
 					<br>
 				</section>
@@ -160,13 +265,97 @@ i, em, address {
 				</section>
 			</div>
 			<div class="col-sm-4">
+				<div class="datepicker-content">
+					<div class="DateRangePicker-top">
+						<span class="f-left">체크인</span><span class="f-right">체크아웃</span>
+					</div>
+					<div class="DateRangePicker">
+						<div class="container-fluid DateInput">
+							<div class="row">
+								<div class="col-md-5">
+									<input type="text" name="startDate" id="startDate"
+										value="2018-09-20" />
+								</div>
+								<div class="col-md-2">
+									<span class="glyphicon glyphicon-arrow-right"
+										aria-hidden="true"></span>
+								</div>
+								<div class="col-md-5">
+									<input type="text" name="endDate" id="endDate"
+										value="2018-09-20" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="DateRangePicker-bottom">
+						<span class="f-right">1박</span>
+					</div>
+				</div>
 				<div id="map" style="width: 400px; height: 400px;" align="center"></div>
+<<<<<<< HEAD
 				<script>
+=======
+			</div>
+		</div>
+		<script type="text/javascript">
+		$(function() {
+		 $('#startDate').datepicker({ 
+				showOn:"both",
+				buttonImageOnly:true,
+				buttonText:"날짜 선택",
+				format: 'yyyy-mm-dd',
+				numberOfMonths : 1,
+				firstDay : 1,
+				minDate : '0',
+				maxDate: '+2Y',
+				showMonthAfterYear : true,
+				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+					'8월', '9월', '10월', '11월', '12월'],
+				monthNamesShort : ['1월', '2월', '3월', '4월', '5월', '6월',
+					'7월', '8월', '9월', '10월', '11월', '12월'],
+				dayNames : [ '일', '월', '화', '수', '목', '금', '토'],
+				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토'],
+				dayNamesMin : ['일', '월', '화', '수', '목', '금', '토'],
+			}); 
+		 
+			$('#endDate').datepicker({ 
+				showOn:"both",
+				buttonImageOnly:true,
+				buttonText:"날짜 선택",
+				format: 'yyyy-mm-dd',
+				numberOfMonths : 1,
+				firstDay : 1,
+				minDate : '0',
+				maxDate: '+2Y',
+				showMonthAfterYear : true,
+				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+					'8월', '9월', '10월', '11월', '12월'],
+				monthNamesShort : ['1월', '2월', '3월', '4월', '5월', '6월',
+					'7월', '8월', '9월', '10월', '11월', '12월'],
+				dayNames : [ '일', '월', '화', '수', '목', '금', '토'],
+				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토'],
+				dayNamesMin : ['일', '월', '화', '수', '목', '금', '토'],
+				onSelect : function(dateStr){
+					var min = $(this).datepicker('getDate');
+					$('#startDate').datepicker('option','minDate', min || '0');
+					datrpicked();
+				}
+			});
+		})
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 					var x = <c:out value='${info.g_position_n}'/>;
 					var y = <c:out value='${info.g_position_e}'/>;
 					var map = new naver.maps.Map('map', {
 						center : new naver.maps.LatLng(x, y),
+<<<<<<< HEAD
 						zoom : 10
+=======
+						zoomControl: true,
+				        zoomControlOptions: {
+				            style: naver.maps.ZoomControlStyle.SMALL,
+				            position: naver.maps.Position.TOP_RIGHT
+				        }
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 					});
 
 					var marker = new naver.maps.Marker(
@@ -174,6 +363,10 @@ i, em, address {
 								position : new naver.maps.LatLng(x, y),
 								map : map
 							});
+<<<<<<< HEAD
+=======
+					
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 					/*// 마커 클릭 이벤트 처리 ( 클릭할 경우 infowindow에 등록된 이미지와 이름이 뜸 )
 					naver.maps.Event.addListener(marker, "click", function(e) {
 						if (infowindow.getMap()) {
@@ -189,9 +382,27 @@ i, em, address {
 								content : '<a href="http://bitcamp.co.kr/index.php?main_page=home"><h4>[비트캠프 서초센터]</h4></a>'
 							}); */
 				</script>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-notify modal-info">
+			<div class="modal-content">
+				<div class="modal-header" id="modal_title">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body" id="modal_body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
 	<!-- Modal -->
 	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"
 		aria-hidden="true">
@@ -211,6 +422,8 @@ i, em, address {
 		</div>
 	</div>
 
+=======
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	<div class="modal fade" id="reviewDelete" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">

@@ -36,9 +36,23 @@ function review(g_no) {
 
 function reviewBtn() {
 
+<<<<<<< HEAD
 	if ($.trim($("#re_content").val()) == "") {
 		$('#modal_title').html("확인").css("background-color", "red");
 		$('#modal_body').html("댓글 내용을 입력해주세요.");
+=======
+	if ($.trim($("#re_content").val()) == ""
+			|| $.trim($("#re_content").val()) == null) {
+		$('#modal_title').html("확인").css("background-color", "red");
+		$('#modal_body').html("댓글 내용을 입력해주세요.");
+		$("#messageModal").modal("show");
+		return false;
+	}
+
+	if ($("re_score").val() == null || $("re_score").val() == "") {
+		$('#modal_title').html("확인").css("background-color", "red");
+		$('#modal_body').html("별점을 선택해 주세요.");
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		$("#messageModal").modal("show");
 		return false;
 	}
