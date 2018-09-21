@@ -69,9 +69,7 @@
 						</div>
 						<div class="form-group col-md-3">
 							<select class="form-control" id="re_score" name="re_score">
-
 								<option value="1" selected="selected">★</option>
-
 								<option value="2">★★</option>
 								<option value="3">★★★</option>
 								<option value="4">★★★★</option>
