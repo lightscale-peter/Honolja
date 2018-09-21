@@ -15,6 +15,8 @@ import java.util.UUID;
 import java.util.Vector;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -219,6 +221,7 @@ public class MainController {
 		String u_id = request.getParameter("id");
 		String u_pwd = request.getParameter("pwd");
 		String host =  request.getParameter("host");
+		
 		int idCheck = 0;
 		
 		HttpSession session = request.getSession();
@@ -347,186 +350,8 @@ public class MainController {
 		if(rn == notices.size()) rn = 0;
 
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/main_notice");
+			mav.setViewName("/main/ajax_main_notice");
 			mav.addObject("notice", notices.get(rn).getN_title());
-			
-		return mav;
-	}
-	
-	@RequestMapping("/img_board.do")
-	public ModelAndView main_img_board(HttpServletRequest request) {
-		
-		int page = 1;
-		
-		//Print list every 10 lines according to page_num
-		if(request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		}
-		
-		int list_start = 1 + 10 * (page-1);
-		int list_end = list_start + 9;
-		
-		//Get the search key&value from view
-		String skey = request.getParameter("skey");
-		String sval = request.getParameter("sval");
-	
-		MainDTO dto = new MainDTO();
-			dto.setList_start(list_start);
-			dto.setList_end(list_end);
-			dto.setSkey(skey);
-			dto.setSval(sval);
-		
-		//Get the list from DB 
-		List<MainDTO> list = dao.dbSelectImgBoard(dto);
-					
-			
-		//Print page_button according to page_num
-		int page_btn_start = page - (page - 1) % 10;
-		int page_btn_end = page_btn_start + 9;
-		
-		
-		//Get the total count
-		int total_page = dao.dbCountImgBoard(dto);
-		
-		boolean page_end_flag = true;
-
-		if(total_page % 10 == 0) {
-			if(page_btn_end > total_page / 10) {
-				page_btn_end = total_page /10;
-				page_end_flag = false;
-			}else {
-				page_end_flag = true;
-			}
-		}else {
-			if(page_btn_end > total_page / 10 + 1) {
-				page_btn_end = total_page /10 + 1;
-				page_end_flag = false;
-			}else {
-				page_end_flag = true;
-			}
-		}
-		
-		
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/img_board");
-			mav.addObject("img_board", "class='active'");
-			mav.addObject("list", list); //out image board list
-			mav.addObject("page", page); //for pager button clicked
-			mav.addObject("page_btn_start", page_btn_start);
-			mav.addObject("page_btn_end", page_btn_end);
-			mav.addObject("total_page", total_page);
-			mav.addObject("page_end_flag", page_end_flag);
-			
-		return mav;
-	}
-	
-	@RequestMapping("/img_board_detail.do")
-	public ModelAndView main_img_board_detail(HttpServletRequest request) {
-		
-		String i_no = request.getParameter("i_no");
-		
-		MainDTO dto = dao.dbSelectImgBoardDetail(i_no);
-		
-		
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/img_board_detail");
-			mav.addObject("img_board", "class='active'");
-			mav.addObject("dto", dto);
-			
-		return mav;
-	}
-	
-	@RequestMapping("/img_board_write.do")
-	public ModelAndView main_img_board_write(HttpServletRequest request) {
-	
-		
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/img_board_write");
-			mav.addObject("img_board", "class='active'");
-			
-		return mav;
-	}
-	
-	@RequestMapping("/img_board_write_backend.do")
-	public ModelAndView main_img_board_write_backend(MultipartHttpServletRequest request) {
-		
-		String i_title = request.getParameter("title");
-		String i_content = request.getParameter("content");
-		String u_id = request.getParameter("id");
-		MultipartFile mf = request.getFile("upload_f");
-			
-		//start to save file
-		
-		//set save_path
-		String path = application.getRealPath("/resources/info_images");
-			System.out.println("application.getRealPath : " + path);
-			
-		//set uploadFileName
-		UUID random_path = UUID.randomUUID();
-			System.out.println("random_path : " + random_path.toString());
-			
-		String i_originalFilename = mf.getOriginalFilename();
-			System.out.println("i_originalFilename : " + i_originalFilename);
-			
-		String i_uploadFileName = random_path + "_" + i_originalFilename;
-			System.out.println("i_uploadFileName : " + i_uploadFileName);
-			
-		//get file_size
-		String i_fileSize = String.valueOf(mf.getSize()) + "byte";
-			System.out.println("i_fileSizee : " + i_fileSize);
-			
-		//set File
-		File file = new File(path, i_uploadFileName);
-		
-		//try to save file
-		try {
-			mf.transferTo(file); // 변환 시도			
-		}catch(Exception e) {}
-		
-		MainDTO dto = new MainDTO();	
-			dto.setI_title(i_title);
-			dto.setI_content(i_content);
-			dto.setI_originalFileName(i_originalFilename);
-			dto.setI_uploadFileName(i_uploadFileName);
-			dto.setI_fileSize(i_fileSize);
-			dto.setU_id(u_id);
-			
-		dao.dbInsertImgBoard(dto);
-			
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("redirect:/img_board.do");
-			
-		return mav;
-	}
-	
-	@RequestMapping("/img_board_detail_download.do")
-	public ModelAndView main_img_board_detail_download(HttpServletRequest request, HttpServletResponse response) {
-		
-		String i_no = request.getParameter("i_no");
-		String path = application.getRealPath("/resources/info_images");
-		
-		MainDTO dto = dao.dbSelectImgBoardDetail(i_no);
-		
-		String i_uploadFileName = dto.getI_uploadFileName();
-		
-		try {
-			response.setHeader("Content-Disporition", 
-								"attachment;filename=" 
-								+ new String(i_uploadFileName.getBytes("UTF-8"), "ISO-8859-1")
-						);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		File file = new File(path, i_uploadFileName);
-		
-		InputStream is = null;
-		OutputStream os = null;
-		byte[] b = null;
-		
-		
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("redirect:/img_board_detail.do?i_no=" + i_no);
 			
 		return mav;
 	}

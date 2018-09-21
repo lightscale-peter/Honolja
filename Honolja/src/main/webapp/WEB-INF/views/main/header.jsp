@@ -6,9 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+	<link href="css/header.css" type="text/css" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -44,31 +45,7 @@
 
 			form.submit();
 		}
-		
-		function sendPostPlus(url, name, value, name1, value1){
-			
-			var form = document.createElement("form");
-				form.setAttribute("charset", "UTF-8");
-				form.setAttribute("method", "Post");
-				form.setAttribute("action", url);
-
-			 
-			var hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", name);
-				hiddenField.setAttribute("value", value);
-				
-			var hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", name1);
-				hiddenField.setAttribute("value", value1);
-				
-			form.appendChild(hiddenField);
-			document.body.appendChild(form);
-
-			form.submit();
-		}
-		
+	
 		function headerNullCheck(id){
 			
 			if(document.getElementById(id).value == ""){
@@ -85,7 +62,6 @@
 			
 		}
     </script>
-    
 </head>
 <body>
 	<!-- 상단 바 -->
@@ -96,12 +72,20 @@
 					<a class="navbar-brand" href="main.do">Honolja</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li ${param.notice}><a href="#" onclick="sendPost('notice.do', 'access_token', '${param.access_token }');">공지사항</a></li>
-					<li ${param.group}><a href="#" onclick="sendPost('board.do', 'access_token', '${param.access_token }');">소모임</a></li>
-					<li ${param.myplace}><a href="#" onclick="sendPostPlus('guestlist.do', 'access_token', '${param.access_token }', 'area', 'my');">내주변</a></li>
-					<li ${param.area}><a href="#" onclick="sendPost('guestlocation.do', 'access_token', '${param.access_token }');">지역</a></li>
-					<li ${param.img_board}><a href="#" onclick="sendPost('img_board.do', 'access_token', '${param.access_token }');">여행지 정보</a></li>
-					<li ${param.test}><a href="#" onclick="sendPost('test.do', 'access_token', '${param.access_token }');">TEST</a></li>
+					<li ${param.notice}><a href="notice.do" >공지사항</a></li>
+					<li ${param.group}><a href="board.do" >소모임</a></li>
+					<li ${param.myplace}><a href="guestlist.do?area=my" >내주변</a></li>
+					<li ${param.area}>
+						<a href="guestlocation.do
+							?area=${param.area}
+							&adult=${param.adult}
+							&child=${param.child}
+							&check_in=${param.check_in}
+							&check_out=${param.check_out}
+							&nights=${param.nights}" >지역</a>
+					</li>
+					<li ${param.img_board}><a href="img_board.do" >여행 정보</a></li>
+					<li ${param.test}><a href="test.do">TEST</a></li>
 				</ul>
 
   				<!-- 게스트 하우스 검색 -->
@@ -136,11 +120,39 @@
 			</div>
 		</nav>
 	</div>
-	
-	<!-- Modal(== alert) 기능 구현 시 필요 -->
-	<jsp:include page="modal.jsp" />
 
-	
-
+			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id" style="display: none;">
+			<div class="layer-search-option layer-area-list">
+			
+			<ul class="area-list">
+				<li class="area-item area-item-myfocus" value="서울"><a href="guestlocation.do?g_addr=seoul">서울</a></li>
+				<li class="area-item" value="경기"><a href="guestlocation.do?g_addr=kyungki">경기</a></li>
+				<li class="area-item" value="인천"><a href="guestlocation.do?g_addr=inchun">인천</a></li>
+				<li class="area-item" value="강원"><a href="guestlocation.do?g_addr=gangwon">강원</a></li>
+				<li class="area-item" value="제주"><a href="guestlocation.do?g_addr=jeju">제주</a></li>
+				<li class="area-item" value="충남"><a href="guestlocation.do?g_addr=chongnam">충남</a></li>
+				<li class="area-item area-item-active" value="충북"><a href="guestlocation.do?g_addr=chongbok">충북</a></li>
+				<li class="area-item" value="경남"><a href="guestlocation.do?g_addr=kyungnam">경남</a></li>
+				<li class="area-item" value="경북"><a href="guestlocation.do?g_addr=kyungbok">경북</a></li>
+				<li class="area-item" value="부산"><a href="guestlocation.do?g_addr=busan">부산</a></li>
+				<li class="area-item" value="전남"><a href="guestlocation.do?g_addr=junnam">전남</a></li>
+				<li class="area-item" value="전주/전북"><a href="guestlocation.do?g_addr=junju">전주/전북</a></li>
+			</ul>
+			
+			<div class="subarea-cnt">
+			<div class="inner">
+			<ul class="subarea-list row2">
+			</ul></div></div></div></div>
+			<div class="dimmed" id="id"></div>
+			<script>
+				jQuery('#id').css("display", "none"); 
+				jQuery('#toggle').click(function () {  
+				    if($("#id").css("display") == "block"){   
+						jQuery('#id').css("display", "none");  
+				    } else {  
+				        jQuery('#id').css("display", "block");   
+				    } 
+				});  
+			</script>
 </body>
 </html>
