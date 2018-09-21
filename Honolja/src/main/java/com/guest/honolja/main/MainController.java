@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.guest.honolja.member.MemberDTO;
+
 
 
 @Controller
@@ -122,46 +124,51 @@ public class MainController {
 	
 	@RequestMapping("/login_popup.do")
 	public ModelAndView main_login_popup(HttpServletRequest request, Model model) {
+		MemberDTO mto = new MemberDTO();
+		String u_id = request.getParameter("u_id");
 		
-		String u_id = request.getParameter("id");
-		String u_pwd = request.getParameter("pwd");
+		long u_pwd = 0;
+		
+		if(request.getParameter("u_pwd") != null) {
+			u_pwd = Integer.parseInt(request.getParameter("u_pwd"));
+		}
+		
+		
 		String host =  request.getParameter("host");
-		int idCheck = 0;
 		
 		HttpSession session = request.getSession();
 		
 		String scriptMsg = null;
 		String alertMsg = null;
-
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/login_popup");
-			
 		//if params have id_value and pwd_value, progress dto/dao
-		if(u_id != null || u_pwd != null) {
-			MainDTO dto = new MainDTO();
-				dto.setU_id(u_id);
-				dto.setU_pwd(u_pwd);
+		if(u_id != null) {
+			mto.setU_id(u_id);
+			mto.setU_pwd(u_pwd);
+			int u_cnt = dao.dbSelect(mto);
 			
-			idCheck = dao.dbSelect(dto);
-		}
-		
-		if(idCheck > 0) {
-
-			model.addAttribute("checked", u_id);
+			if(u_cnt == 1) {
+			String u_emailcheck = dao.emailcheck(mto);
 			
-			alertMsg = "Login Success!!";
-				
-			scriptMsg = "opener.parent.location='"+host+"';";
-			scriptMsg += "self.close();";
-			
-			
-		}else {	
-			alertMsg = "Id or Password is wrong.";
-		}
-		
+				if(u_emailcheck.equals("true")) {
+					model.addAttribute("checked", u_id);
+					
+					alertMsg = "Login Success!!";
+					scriptMsg = "opener.parent.location='"+host+"';";
+					scriptMsg += "self.close();";
+					
+				}else if(u_emailcheck.equals("false")) {
+					alertMsg = "emailcheck please";
+				}
+			}else if(u_cnt == 0){	
+				alertMsg = "Id or Password is wrong.";
+			}
+		}//if end
+		mav.addObject("scriptMsg", scriptMsg);
+		mav.addObject("alertMsg", alertMsg);
 			//JavaScript sentence send
-			mav.addObject("scriptMsg", scriptMsg);
-			mav.addObject("alertMsg", alertMsg);
+			
 			
 		//if I'm NonLogin and there is Cookie saving login_id then Send id_value to page
 		if(session.getAttribute("checked") == null) {
@@ -174,7 +181,7 @@ public class MainController {
 		}
 		
 		return mav;
-	}
+	}//·Î±×ÀÎ ÆË¾÷
 	
 	@RequestMapping("/naver_login.do")
 	public ModelAndView common_naver_login(Model model) {
@@ -327,10 +334,14 @@ public class MainController {
             	
 //            Below Example is to get String value of Private Information from JSON data.
             
-//            String temp = response.toString();
-//            JSONObject obj = new JSONObject(temp);
-//            String temp2 = obj.getJSONObject("response").getString("id");
-//            System.out.println("this is !!!!!" + temp2);
+            String temp = response.toString();
+            JSONObject obj = new JSONObject(temp);
+            String temp2 = obj.getJSONObject("response").getString("id");
+            String temp3 = obj.getJSONObject("response").getString("nickname");
+            String temp4 = obj.getJSONObject("response").getString("name");
+            System.out.println("@id = " + temp2);
+            System.out.println("@nickname = " + temp3);
+            System.out.println("@name = " + temp4);
             
             
             
@@ -341,7 +352,7 @@ public class MainController {
 		
 		
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/test");
+			mav.setViewName("redirect:m_join.do");
 			mav.addObject("test", "class='active'");
 			
 		return mav;

@@ -18,12 +18,14 @@
 	<mappers>
 		<mapper resource="config/mybatis/main.xml" />
 		<mapper resource="config/mybatis/member.xml"/>
+		<mapper resource="config/mybatis/mypage.xml"/>
 		<mapper resource="config/mybatis/firstList.xml" />
 		<mapper resource="config/mybatis/detail.xml" />
 		<mapper resource="config/mybatis/review.xml" />
 		<mapper resource="config/mybatis/notice.xml"/>
 		<mapper resource="config/mybatis/message.xml"/>
 		<mapper resource="config/mybatis/board.xml"/>
+		<mapper resource="config/mybatis/boardreply.xml"/>
 	</mappers>
 
 </configuration>

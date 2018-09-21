@@ -16,11 +16,11 @@ public class MemberDAO {
 	
 	public void m_insert(MemberDTO mto) {
 		temp.insert("member.m_insert", mto);
-		System.out.println("저장성공");
+		System.out.println("���옣�꽦怨�");
 	}//end
 	
-	public List<MemberDTO> m_select(){
-		List<MemberDTO> list = temp.selectList("member.m_select");
+	public List<MemberDTO> m_select(MemberDTO mto){
+		List<MemberDTO> list = temp.selectList("member.m_select", mto);
 		return list;
 	}//end
 	
@@ -29,34 +29,28 @@ public class MemberDAO {
 		return mto;
 	}//end
 	
-	public void m_delete(MemberDTO mto) {
-		temp.delete("member.m_delete", mto);
-	}//end
-	
-	public MemberDTO mypageDelete(String data) {
-		MemberDTO mto = temp.selectOne("member.mypageDelete", data);
-		return mto;
-	}//end
+	public int m_count(MemberDTO mto) {
+		int cnt = temp.selectOne("member.m_count", mto);
+		return cnt;
+	}
 	
 	public MemberDTO login(MemberDTO mto) {
 		mto = temp.selectOne("member.login", mto);
 		return mto;
 	}//end
 	
-	//아이디 중복체크
+	//�븘�씠�뵒 以묐났泥댄겕
 	public int idCheck(String u_id) {
 		int u_cnt = temp.selectOne("member.idCheck", u_id);
 		return u_cnt;
 	}//end
 	
-	//이메일 체크
+	//�씠硫붿씪 泥댄겕
 	public void m_emailcheck(MemberDTO mto) {
-		System.out.println("이메일 키 = " + mto.getU_emailkey());
-		System.out.println("이메일  = " + mto.getU_email());
 		temp.update("member.emailkey", mto);
 	}//end
 	
-	public void m_Auth(String u_email) throws Exception{
-		temp.update("member.emailcheck", u_email);
+	public void m_Auth(String u_id) throws Exception{
+		temp.update("member.emailcheck", u_id);
 	}
 }//MemberDTO class END

@@ -5,29 +5,68 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="board">
 
 <select id="select" resultType="com.guest.honolja.board.BoardDTO">
-select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board
+select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board order by rn desc
 </select>
    <!-- ggugugu -->
+   
+<select id="selectAll" resultType="com.guest.honolja.board.BoardDTO">
+ 	   select * from (
+ 	    select rownum rn,b_no,b_title,b_content,b_date,b_viewcnt,b_member,u_id, b_member2 from  board
+ 	 where ${skey} like '%' || #{sval} || '%'  order by rn desc
+ 	   ) where rn between #{start} and #{end}  
+</select>   
+
 <select id="select2" resultType="com.guest.honolja.board.BoardDTO">
 select * from (
-select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board 
-) where rn between #{start} and #{end} 
+select rownum rn,u_id, b_no, b_title,b_content,b_date,b_member,b_viewcnt from board 
+ order by rn desc) where rn between #{start} and #{end}  
 </select>
    
 <select id="countAll" resultType="int">
 select  count(*)  from board
-where #{skey} like '%' || #{sval} || '%' 
+where ${skey} like '%' || #{sval} || '%'  
+</select>
+
+<select id="value" resultType="com.guest.honolja.board.BoardDTO" parameterType="com.guest.honolja.board.BoardDTO">
+select * from board where ${skey} like  '%' || #{sval} || '%' 
+</select>
+
+<select id="count2" parameterType="int">
+select count(*) from boardreply where b_no=#{b_no}
 </select>
 
 <insert id="add" >
-insert into board values (
-board_seq.nextval, #{b_title}, #{b_content}, sysdate, 4,  1
-,#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , '01')
+insert into board(b_no, b_title, b_content, b_date, b_member, b_viewcnt, b_originalfilename, b_uploadfilename, b_filesize, u_id, b_member2
+	) values ( board_seq.nextval, #{b_title}, #{b_content}, sysdate, #{b_member},  0,
+		#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , #{u_id}, 0)
 </insert>   
 
-<select id="detail" resultType="com.guest.honolja.board.BoardDTO">
-select *from board where u_id=#{u_id}
+<select id="detail" resultType="com.guest.honolja.board.BoardDTO" parameterType="int">
+select *from board where b_no=#{b_no}
 </select>
+
+<delete id="del" parameterType="int">
+delete from boardreply where b_no=#{b_no}
+</delete>
+
+<delete id="del2" parameterType="int">
+delete from board where b_no=#{b_no}
+</delete>
     
-   
+<update id="edit" parameterType="com.guest.honolja.board.BoardDTO">
+    update board set b_title=#{b_title} , b_content=#{b_content} where b_no=#{b_no}
+</update>
+
+<update id="viewcnt" parameterType="int">
+ update board set b_viewcnt=b_viewcnt+1 where b_no=#{b_no}
+</update>
+
+<select id="selectusers" parameterType="int" resultType="String">
+	select b_users from board where b_no = #{b_no}
+</select>
+
+<update id="boardmember" parameterType="com.guest.honolja.board.BoardDTO">
+	update board set b_member2 = #{b_member2}, b_users = #{b_users} where b_no = #{b_no}
+</update>
+
 </mapper>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>[msg_send.jsp]</title>
+<title>[쪽지 보내기]</title>
 <script type="text/javascript">
 	function blank_check(){
 		var title = myform.m_title.value;
@@ -43,14 +43,14 @@
 <p> <div align="center">
 	<form action="msg_insert.do" method="post" name="myform" id="myform" onsubmit="blank_check(); return false;">
 		제목 <input type="text" name="m_title" id="m_title"> <p>
-		보내는 사람<input type="text" name="u_id" value="${userid}" readonly/>
+		보내는 사람<input type="text" name="u_id" value="${checked}" readonly/>
 		받는 사람 <input type="text" name="m_id" id="m_id" value=""> <br> <p>
 		<textarea rows="25" cols="50" name="m_content" id="m_content"></textarea> <!-- 내용 -->
 		<br>
 		<p>
 		<input type="submit" value="보내기">
 		<input type="reset" value="새로 작성">
-		<input type="button" onclick="close(); return false;" value="취소">
+		<input type="button" onclick="javascript:window.close();" value="취소">
 	</form>
 </div>
 </body>

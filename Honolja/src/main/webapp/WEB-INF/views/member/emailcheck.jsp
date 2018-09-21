@@ -3,7 +3,7 @@
 <html>
 <head>
 	<style type="text/css">
-		.email{ margin:50%; }
+		.email{ margin-left:20%; }
 	</style>
 <meta charset="UTF-8">
 </head>

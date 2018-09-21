@@ -29,16 +29,15 @@
 </script>
 </head>
 <body>
-	<form name="myform" action="delete.do" onsubmit="deleteCheck(); return false;">
+	<jsp:include page="mypage_menu.jsp" />
+
+	<form name="myform" action="m_delete.do" onsubmit="deleteCheck(); return false;">
 		<table width="700" border=1 cellspacing="0" cellpadding="5">
-			<tr>
-				<input type="hidden" name="u_id" value="${mto.u_id}">
-			</tr>
 			<tr>
 				<td>
 					비밀번호 : 
 					<input type="password" id="u_pwd" name="u_pwd">
-					<input type="hidden" id="u_pwd2" value="${mto.u_pwd}">
+					<input type="hidden" id="u_pwd2" value="${u_pwd}">
 				</td>
 			</tr>
 			<tr>

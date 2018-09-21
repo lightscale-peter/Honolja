@@ -2,7 +2,7 @@ package com.guest.honolja.message;
 
 public class MsgDTO {
 	int rn, m_no;
-	String m_title, m_content, m_id, u_id, m_date;
+	String m_title, m_content, m_id, u_id, m_date, m_send, m_receive;
 	
 	public int getRn() {return rn;}
 	public void setRn(int rn) {this.rn = rn;}
@@ -19,6 +19,11 @@ public class MsgDTO {
 	public String getM_date() {return m_date;}
 	public void setM_date(String m_date) {this.m_date = m_date;}
 	
+	public String getM_send() { return m_send; }
+	public void setM_send(String m_send) { this.m_send = m_send; }
+	public String getM_receive() { return m_receive; }
+	public void setM_receive(String m_receive) { this.m_receive = m_receive; }
+
 	String userid;
 
 	public String getUserid() {

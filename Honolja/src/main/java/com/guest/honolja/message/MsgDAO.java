@@ -13,44 +13,45 @@ public class MsgDAO {
 	SqlSessionTemplate temp;
 	
 	public void db_insert(MsgDTO dto) {
+		dto.setM_send("true");
 		temp.insert("message.msgSend", dto);
-		System.out.println("메세지 보내기 성공");
-	}//메세지 보내기
-	
-	public List<MsgDTO> db_selectR(String userid){
-		MsgDTO dto = new MsgDTO();
-		dto.setUserid(userid);
-		List<MsgDTO> listR = temp.selectList("message.msgSelectR", userid);
+	}//硫붿꽭吏� 蹂대궡湲�
+		
+	public List<MsgDTO> db_selectR(String m_id){
+		List<MsgDTO> listR = temp.selectList("message.msgSelectR", m_id);
 		return listR;
-	}//받은쪽지함 임시(기능구현확인용)
+	}//諛쏆�履쎌��븿 �엫�떆(湲곕뒫援ы쁽�솗�씤�슜)
 	
-	public List<MsgDTO> db_selectS(String userid){
-		MsgDTO dto = new MsgDTO();
-		dto.setUserid(userid);
-		List<MsgDTO> listS = temp.selectList("message.msgSelectS", userid);
+	public List<MsgDTO> db_selectS(String u_id){
+		List<MsgDTO> listS = temp.selectList("message.msgSelectS", u_id);
 		return listS;
-	}//보낸쪽지함 임시 (기능구현확인용)
+	}//蹂대궦履쎌��븿 �엫�떆 (湲곕뒫援ы쁽�솗�씤�슜)
 
 	public MsgDTO db_detail(int data) {
 		MsgDTO dto=temp.selectOne("message.msgDetail", data);
 		return dto;
-	}//쪽지 상세 확인
+	}//履쎌� �긽�꽭 �솗�씤
 	
 	public void db_check(int data) {
 		temp.update("message.msgCheck", data);
-	}//쪽지 읽음 전환
+	}//履쎌� �씫�쓬 �쟾�솚
 	
-	public int db_msgcheck(String userid) {
-		int cnt = temp.selectOne("message.msgselect", userid);
+	public int db_msgcheck(String u_id) {
+		int cnt = temp.selectOne("message.msgselect", u_id);
 		return cnt;
-	}//안 읽은 쪽지 수
+	}//�븞 �씫�� 履쎌� �닔
 	
-	public void db_delete(int data) {
-		temp.delete("message.msgDelete", data);
-	}//쪽지 삭제
+	public void db_deleteS(int data) {
+		temp.update("message.msgDeleteS", data);
+	}//蹂대궦 履쎌� �궘�젣(hide)
+	
+	public void db_deleteR(int data) {
+		temp.update("message.msgDeleteR", data);
+	}//諛쏆� 履쎌� �궘�젣(hide)
 	
 	public void db_cancel(MsgDTO dto) {
 		temp.delete("message.msgCancel", dto);
-	}//발송 취소
+	}//諛쒖넚 痍⑥냼
+
 	
 }//DAO end
