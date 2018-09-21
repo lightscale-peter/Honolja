@@ -6,75 +6,43 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Type"
-	content="application/json; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="Content-Type" content="application/json; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
+    
 <title>[firstlist.jsp]</title>
+	
+<link href="./resources/css/slidebtn.css" type="text/css" rel="stylesheet">
+<link href="./resources/css/filter.css" type="text/css" rel="stylesheet">
+<link href="./resources/css/header.css" type="text/css" rel="stylesheet">
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 달력 사용하기  -->
-<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"
-	type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css"
-	rel="stylesheet" type="text/css" />
-
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+   
 <!-- naver MAP API 받아오기 -->
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
-<script>
-
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-Type" content="application/json; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-	<title>[firstlist.jsp]</title>
-	
-	<link href="./resources/css/slidebtn.css" type="text/css" rel="stylesheet">
- 	<link href="./resources/css/filter.css" type="text/css" rel="stylesheet">
- 	<link href="./resources/css/header.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
  	
- 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- 달력 사용하기  -->
-	<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
-    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    
-    <!-- naver MAP API 받아오기 -->
- 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
- 	
-	<style type="text/css">
- 	a {text-decoration: none;}
-	a:hover{ color:#337ab7; text-decoration: none;}
-	a:link{ color: #212121; text-decoration: none;}
- 	a:visited{color: #212121; text-decoration: none;}
- 	</style>
- 	
- 	<script type="text/javascript">
-	 	var x= new Array();
-		var y= new Array();
-		var name= new Array();
-		var url= new Array();
-		var g_no = new Array();
-		var adult; var child; var check_in; var check_out; var area;
+<style type="text/css">
+a {text-decoration: none;}
+a:hover{ color:#337ab7; text-decoration: none;}
+a:link{ color: #212121; text-decoration: none;}
+a:visited{color: #212121; text-decoration: none;}
+</style>
+<script type="text/javascript">
+	var x= new Array();
+	var y= new Array();
+	var name= new Array();
+	var url= new Array();
+	var g_no = new Array();
+	var adult; var child; var check_in; var check_out; var area;
  	</script>
  	<script type="text/javascript">
 	//메인 검색 눌 체크
@@ -230,39 +198,10 @@
 		}
 		
 	}
-
-		var area;
-		
-		function sendValue(){
-			
-			var url = "guestlist.do";
-			var name = "marong";
-			var value = "dddd"
-
-			var form = document.createElement("form");
-				form.setAttribute("charset", "UTF-8");
-				form.setAttribute("method", "get");
-				form.setAttribute("action", url);
-
-			var hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", name);
-				hiddenField.setAttribute("value", value);
-				
-			form.appendChild(hiddenField);
-			document.body.appendChild(form);
-	
-			form.submit();
-		}
-		
-		
-		
-
-	</script>
+</script>
 
 
 </head>
-
 <body id="page-top" style="margin-top:51px;" >
    <c:import url="http://localhost:8080/honolja/header.do">
       <c:param name="checked" value="${checked}"></c:param>
@@ -315,12 +254,10 @@
     	<div style="position:fixed; margin-left:29.5%; margin-bottom:80%;">
     		<input type="button" class="btn btn-primary" value="날짜변경" size = "5px" style="size:6px;"onclick="nights_11()">
 		</div>
-
     </div>
 </div>
 
 </form>
-
 	<script type="text/javascript">
 	$(function() {
 		$("#startDate").datepicker({ format: 'yyyy/mm/dd',minDate: 0}).val();
@@ -365,74 +302,6 @@
 	}
    </script>   
 	<br>
-	<div style="padding-top: 40px">
-		<!-- 지도 우측배치로 고정 -->
-		<div style="right: 0; position: fixed; width: 40%; height: 100%;">
-			<div id="map" style="width: 100%; height: 100%; margin-top: 10px;"></div>
-		</div>
-		<!-- 필터 담을것. 기본순/테마/가격대선택/예약가능/.......필터초기화-->
-		<div
-			style="left: 0; width: 50% padding-left: 30px; padding-right: 30px; padding-left: 30px;">
-			<div style="padding-top: 13px; padding-bottom: 12px;">
-				<p>
-					<input type="button" name="basic" value="기본순"> <input
-						type="button" name="basic" value="테마"> <input
-						type="button" name="basic" value="숙소특징"> <input
-						type="button" name="basic" value="가격대선택"> <input
-						type="button" name="basic" value="예약가능">
-					<button type="button" class="filter__refresh-btn f-right">
-						<i class="filter-icon filter-icon__refresh"></i>
-						<!-- react-text: 390 -->
-						<!-- /react-text -->
-						<em>필터 초기화</em>
-					</button>
-			</div>
-			<!-- 필터 끝-->
-
-			<!-- Guest house 목록을 리스트로 뽑아주기 -->
-
-			<table id="ajaxTable" width="60%" height="10%" border="0"
-				cellpadding="1">
-				<c:forEach var="list" items="${list}" varStatus="i">
-					<tr align="left">
-						<td rowspan="5" width="33%" align="center"
-							style="padding-top: 20px; padding-bottom: 30px;"><a
-							href="guestdetail.do?g_no=${list.g_no}&check_in=${param.check_in}&check_out=${param.check_out}">
-								<img src="${list.g_url}" width="90%" height="180px"> <!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
-						</a></td>
-						<!-- image불러올 때 .PNG대소문자 구분함. -->
-						<td style="font-size: 24px; padding-top: 10px;"><a
-							href="guestdetail.do?g_no=${list.g_no}&check_in=${param.check_in}&check_out=${param.check_out}">
-								${list.g_name}</a></td>
-					</tr>
-					<tr>
-						<td>list.rating, reply count</td>
-					</tr>
-					<tr>
-						<td>list.input time, price</td>
-					</tr>
-					<tr>
-						<td>쿠폰 및 테마 공백</td>
-					</tr>
-					<tr>
-						<td style="padding-bottom: 30px;">&nbsp;</td>
-					</tr>
-					<tr>
-						<td colspan="2"><hr color="#D5D5D5" align="center" WIDTH=97%></hr></td>
-					</tr>
-					<script type="text/javascript">
-      			x[${i.index}] = ${list.g_position_n};
-  				y[${i.index}] = ${list.g_position_e}; 
-  				name[${i.index}] = '${list.g_name}';
-  				url[${i.index}] = '${list.g_url}';
-  				area = '${param.area}';
-  			</script>
-				</c:forEach>
-			</table>
-		</div>
-	</div>
-	<script>
-
 	<div style="padding-top:40px; ">
    	<!-- 지도 우측배치로 고정 -->
 		<div style= "right:0; position:fixed;width:40%;height:100%;">	
@@ -460,7 +329,6 @@
      			<em>필터 초기화</em>
      		</button>
      	</div>
-<<<<<<< HEAD
     <!-- 해당 필터 클릭 시 이벤트 -->
 	<script>
 	//기본순 필터이벤트
@@ -539,6 +407,7 @@
  	      		</div>
  	      	</div>
 		</div>
+
 		</form>
 		<script type="text/javascript">
 		//버튼 span에 지정된 값 가져오기
@@ -551,7 +420,6 @@
 			else if(basic1=="priceup"){$('#basics').html('가격 낮은 순');}
 			else if(basic1=="pricedown"){$('#basics').html('가격 높은 순');}
 		});
-		
 		//기본순
 		$(document).ready(function(){
 			var check = $('#basic').is(":checked");
@@ -725,6 +593,7 @@
 		    } 
 		});
 	</script> -->
+
     </table>
    	</div>
  <script>

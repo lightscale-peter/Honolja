@@ -230,11 +230,10 @@ public class MainController {
 		
 		
 		String host =  request.getParameter("host");
-<<<<<<< HEAD
-=======
+
 		
 		int idCheck = 0;
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
+
 		
 		HttpSession session = request.getSession();
 		
@@ -372,68 +371,7 @@ public class MainController {
 	public ModelAndView main_test(HttpServletRequest request) {
 		
 		
-<<<<<<< HEAD
-		String token = "";
-		
-		if(request.getParameter("access_token") != null) {
-			token = request.getParameter("access_token");//NAVER Login access_token;
-		}
-		
-        String header = "Bearer " + token; //Add gap after Bearer;
-        try {
-        	
-            String apiURL = "https://openapi.naver.com/v1/nid/me";   
-            URL url = new URL(apiURL);
-            
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-	            con.setRequestMethod("GET");
-	            con.setRequestProperty("Authorization", header);
-	            
-            int responseCode = con.getResponseCode();
-            
-            BufferedReader br;
-            
-            if(responseCode==200) { // Success calling
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                System.out.println("Success to Private Information Access!!!!");
-            } else {  //Occurred error
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-                System.out.println("Fail to Private Information Access!!!!");
-            }
-            
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            
-            br.close();
-            
-            //response.toString() is to enumerate NAVER_PRIVATE_VALUES of JSON Type
-            System.out.println(response.toString());
-            	
-//            Below Example is to get String value of Private Information from JSON data.
-            
-            String temp = response.toString();
-            JSONObject obj = new JSONObject(temp);
-            String temp2 = obj.getJSONObject("response").getString("id");
-            String temp3 = obj.getJSONObject("response").getString("nickname");
-            String temp4 = obj.getJSONObject("response").getString("name");
-            System.out.println("@id = " + temp2);
-            System.out.println("@nickname = " + temp3);
-            System.out.println("@name = " + temp4);
-            
-            
-            
-       
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-		
-		
-=======
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
+
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("redirect:m_join.do");
 			mav.addObject("test", "class='active'");

@@ -117,12 +117,7 @@
 					</c:when>
 					<c:otherwise>
 						<ul class="nav navbar-nav navbar-right">
-<<<<<<< HEAD
-							<li onclick="popupWindow('chatting.do', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;고객센터</a></li>
-							<li><a href="mypageuser.do"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
-=======
 							<li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>
 					</c:otherwise>

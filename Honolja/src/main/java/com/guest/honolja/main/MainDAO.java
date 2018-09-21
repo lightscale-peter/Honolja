@@ -15,7 +15,7 @@ public class MainDAO {
 	@Autowired
 	SqlSessionTemplate temp;
 	
-<<<<<<< HEAD
+
 	public int dbSelect(MemberDTO mto) {
 		int u_cnt = temp.selectOne("main.selectIdPwd", mto);
 		return u_cnt;
@@ -24,11 +24,6 @@ public class MainDAO {
 	public String emailcheck(MemberDTO mto) {
 		String u_emailcheck = temp.selectOne("main.emailcheck", mto);
 		return u_emailcheck;
-=======
-	//Check id and pwd in DB for normal Login
-	public int dbSelect(MainDTO dto) {
-		return temp.selectOne("main.selectIdPwd", dto);
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	}
 	
 	//Print notice_list in main view
