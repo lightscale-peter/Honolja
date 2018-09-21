@@ -1,24 +1,56 @@
 package com.guest.honolja.list;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class ListDTO {
-	private  int g_no;
-	  private  String g_name;
-	  private  String g_addr;
-	  private  String g_position_n;
-	  private  String g_position_e;
-	  private  String g_detail;
-	  private  String g_url;
-	  private  String guesthouse;
-	  private  String img_file_name ;
-	  private  java.util.Date  nalja;
+	private  int g_no; //guesthouse nomber
+	private  String g_name; // guesthouse name
+	private  String g_addr; //guesthouse address
+	private  String g_position_n; //guesthouse location x position
+	private  String g_position_e; //guesthouse location y position
+	private  String g_detail; //guesthouse content(내용)
+	private  String g_url;	//guesthouse img
+	private  String guesthouse; //guesthouse table
+	private  java.util.Date  nalja;  // guesthouse like time
+	private String check_in, check_out;
+
+	private int rcnt;	//guesthouse count
+	private  String skey; //guesthouse search key
 	  
-	  private int rcnt;
-	  private  MultipartFile upload_f ;
-	  private  String skey;
-	  private  String sval;
-	 
+	private int r_price;
+	  
+	private  String sval; //guesthouse search value
+	private  String area, basic; //지도 초기좌표
+
+	private int startprice, endprice; //가격 검색 => 시작가격~ 끝가격
+	private int islike; //like
+	int low_price; //price search
+
+	public String getBasic() {	return basic;}
+	public void setBasic(String basic) {	this.basic = basic;}
+	
+	public int getR_price() {	return r_price;}
+	public void setR_price(int r_price) {	this.r_price = r_price;} 
+	  
+	public String getCheck_in() {	return check_in;}
+	public void setCheck_in(String check_in) {	this.check_in = check_in;}
+	
+	public String getCheck_out() {	return check_out;}
+	public void setCheck_out(String check_out) {	this.check_out = check_out;}
+	
+	public int getLow_price() {	return low_price;}
+	public void setLow_price(int low_price) {	this.low_price = low_price;}
+	
+	public int getIslike() {	return islike;}
+	public void setIslike(int islike) {	this.islike = islike;}
+	
+	public int getStartprice() {	return startprice;}
+	public void setStartprice(int startprice) {	this.startprice = startprice;}
+	
+	public int getEndprice() {	return endprice;}
+	public void setEndprice(int endprice) {	this.endprice = endprice;}
+	
+	public String getArea() {return area;}
+	public void setArea(String area) {	this.area = area;}
+	
 	public String getSkey() {return skey;}
 	public void setSkey(String skey) {this.skey = skey;}
 	
@@ -49,14 +81,8 @@ public class ListDTO {
 	public String getGuesthouse() {	return guesthouse;}
 	public void setGuesthouse(String guesthouse) {	this.guesthouse = guesthouse;}
 	
-	public String getImg_file_name() {	return img_file_name;}
-	public void setImg_file_name(String img_file_name) {	this.img_file_name = img_file_name;}
-	
 	public int getRcnt() {	return rcnt;}
 	public void setRcnt(int rcnt) {	this.rcnt = rcnt;}
-	
-	public MultipartFile getUpload_f() {	return upload_f;}
-	public void setUpload_f(MultipartFile upload_f) {	this.upload_f = upload_f;}
 	
 	public java.util.Date getNalja() {return nalja;}
 	public void setNalja(java.util.Date nalja) {this.nalja = nalja;}
