@@ -7,7 +7,11 @@
 <head>
 <title>글쓰기</title>
   <meta charset="utf-8">
+<<<<<<< HEAD
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+=======
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,6 +25,15 @@
   
  
 </head>
+<<<<<<< HEAD
+
+<script type="text/javascript">
+
+
+</script>
+
+=======
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 <body>
   <h2><a href="board.do">게시판</a></h2>
 
@@ -59,7 +72,13 @@
 <input class="multi" type="file" name="b_uploadfilename2"  multiple="multiple">
    <a href="#this" name="delete" class="btn">삭제</a>
   </p>
+<<<<<<< HEAD
+          <a href="javascript:void(window.open('board_file.do', 'text', 'width=900, height=800, top=100, left=800'))" class="btn btn-primary btn-lg">
+      <span class="glyphicon glyphicon-picture"></span> File 
+    </a>
+=======
       <a href="#this" id="add" class="btn">파일 추가하기</a>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
         <a href="#this" id="list" class="btn">목록으로</a>
         <a href="#this" id="write" class="btn">글쓰기</a>
       <br><br><br><br><br>

@@ -4,12 +4,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>[main.jsp]</title>
+	<title>[naver_login.jsp]</title>
 </head>
-<body>
-	메인 페이지 입니다.
-	
-	<p><br>
-	<a href="notice.do">공지사항 이동</a>
+<body onload="location.href = '${apiURL}';">
+
 </body>
 </html>

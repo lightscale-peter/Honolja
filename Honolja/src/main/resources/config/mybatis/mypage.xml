@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from users where u_id = #{u_id}
 	</select>
 	
+
 	<select id="useredit" parameterType="String" resultType="com.guest.honolja.member.MemberDTO">
 		select * 
 			from users where u_id = #{u_id}
@@ -19,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			u_pwd = #{u_pwd}, u_name = #{u_name}, u_phn = #{u_phn}, u_member = #{u_member}
 				from users where u_id = #{u_id} 
 	</update>
-	
+
 	<select id="mypagedelete" parameterType="String" resultType="String">
 		select u_pwd from users where u_id = #{u_id}
 	</select>

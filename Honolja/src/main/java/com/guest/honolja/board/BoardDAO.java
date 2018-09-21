@@ -78,11 +78,13 @@ public class BoardDAO {
 			temp.update("board.viewcnt",data);
 		}
 		
+
 		public String selectusers(int b_no) {
 			String b_users = temp.selectOne("board.selectusers", b_no);
 			return b_users;
 		}//end
 		
+
 		public void boardmember(BoardDTO dto) {
 			temp.update("board.boardmember", dto);
 		}//end

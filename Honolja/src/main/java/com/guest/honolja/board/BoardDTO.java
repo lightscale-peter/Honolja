@@ -10,7 +10,9 @@ public class BoardDTO {
 	private Date b_date;
 	private int b_member;
 	private int b_member2;
+
 	private String b_users;
+
 	private String b_viewcnt;
 	private String u_id;
 	private MultipartFile b_uploadfilename2;
@@ -27,7 +29,7 @@ public class BoardDTO {
 
 	
 	
-	
+
 	
 	public String getB_users() {
 		return b_users;
@@ -35,6 +37,7 @@ public class BoardDTO {
 	public void setB_users(String b_users) {
 		this.b_users = b_users;
 	}
+
 	public int getRcnt() {
 		return rcnt;
 	}
@@ -154,8 +157,6 @@ public class BoardDTO {
 	public void setB_originalfilename(String b_originalfilename) {
 		this.b_originalfilename = b_originalfilename;
 	}
-
-	
 	
 	
 

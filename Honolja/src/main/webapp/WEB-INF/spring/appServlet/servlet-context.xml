@@ -15,8 +15,11 @@
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+
 	<resources mapping="/css/**" location="/WEB-INF/views/css/" />
+	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/smarteditor/**" location="/smarteditor/" />
 	<resources mapping="/image/**" location="/WEB-INF/views/image/" />
 
 	<!-- 빈스 임포트 입력 필!!! -->

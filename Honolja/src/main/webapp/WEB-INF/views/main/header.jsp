@@ -45,7 +45,8 @@
 
 			form.submit();
 		}
-	
+
+
 		function headerNullCheck(id){
 			
 			if(document.getElementById(id).value == ""){
@@ -72,6 +73,7 @@
 					<a class="navbar-brand" href="main.do">Honolja</a>
 				</div>
 				<ul class="nav navbar-nav">
+
 					<li ${param.notice}><a href="notice.do" >공지사항</a></li>
 					<li ${param.group}><a href="board.do" >소모임</a></li>
 					<li ${param.myplace}><a href="guestlist.do?area=my" >내주변</a></li>
@@ -86,16 +88,19 @@
 					</li>
 					<li ${param.img_board}><a href="img_board.do" >여행 정보</a></li>
 					<li ${param.test}><a href="test.do">TEST</a></li>
+
 				</ul>
 
   				<!-- 게스트 하우스 검색 -->
   				<form class="navbar-form navbar-left" action="guestlist.do" id = "guestSearch">
+
   					<input type="hidden" name="g_addr"value="${param.g_addr}">
 					<input type="hidden" name="adult"value="${param.adult}">
 					<input type="hidden" name="child"value="${param.child}">
 					<input type="hidden" name="check_in"value="${param.check_in}">
 					<input type="hidden" name="check_out"value="${param.check_out}">
 					<input type="hidden" name="nights"value="${param.nights}">
+
      				<div class="form-group">
      					<div class="col-xs-8">
         					<input class="form-control" id="search" name="keyword" placeholder="게스트 하우스 입력" value="${sval}" size="25">
@@ -116,6 +121,7 @@
 						</ul>
 					</c:when>
 					<c:otherwise>
+
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>

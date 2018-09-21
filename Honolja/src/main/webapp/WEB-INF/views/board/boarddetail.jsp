@@ -33,12 +33,17 @@ $(function() {
 				if(data == "success")
 				{
 					alert("참여하였습니다");
+<<<<<<< HEAD
+				}else if (data == "false"){
+					alert("게시자는 참여할 수 없습니다");
+=======
 					location.reload();
 				}else if (data == "false"){
 					alert("게시자는 참여할 수 없습니다");
 					return false;
 				}else if(data == "fail"){
 					alert("중복참여 불가능합니다");
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 					return false;
 				}
 			},
@@ -55,6 +60,10 @@ $(function() {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
+  	 <link href="css/user_menu.css" rel="stylesheet" type="text/css">
+=======
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </head>
 <body>
 
@@ -63,7 +72,22 @@ $(function() {
 <form>
 <div class="form-group">
 <label for="usr" >게시자:</label>
+<<<<<<< HEAD
+<!-- <input type="text"  class="form-control" id="u_id" readonly="readonly" value="${dto.u_id}" > -->
+
+	<div class="dropdown">
+	<ul>
+		<li><button class="dropdown-button">${dto.u_id}</button></li>
+		<li><div class="dropdown-content">
+			<a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))">쪽지 보내기</a>
+		</div></li>
+		</ul>
+	</div>
+
+
+=======
 <input type="text"  class="form-control" id="u_id" readonly="readonly" value="${dto.u_id}" >
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 <br>
 <label for="usr" >제목:</label>
 <input type="text"  class="form-control" id="usr" readonly="readonly" value="${dto.b_title}" >

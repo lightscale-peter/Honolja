@@ -17,6 +17,7 @@ public class MypageDAO {
 		MemberDTO mto = new MemberDTO();
 		mto = temp.selectOne("mypage.mypageselect", u_id);
 		return mto;
+
 	}//end
 	
 	//È¸¿ø¼öÁ¤
@@ -30,6 +31,7 @@ public class MypageDAO {
 	public void usereditsave(MemberDTO mto) {
 		temp.update("mypage.usereditsave", mto);
 	}
+
 	
 	//È¸¿øÅ»Åð
 	public String mypageDelete(String u_id) {

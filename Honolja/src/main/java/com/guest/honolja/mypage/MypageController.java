@@ -36,6 +36,7 @@ public class MypageController {
 		return mav;
 	}//end
 	
+
 	//È¸¿ø¼öÁ¤
 	@RequestMapping("/useredit.do")
 	public ModelAndView useredit(HttpSession session) {
@@ -54,6 +55,7 @@ public class MypageController {
 		return "redirect:useredit.do";
 	}//end
 	
+
 	//È¸¿øÅ»Åð
 	@RequestMapping("/mypageDelete.do")
 	public ModelAndView mypage_delete(HttpSession session) {

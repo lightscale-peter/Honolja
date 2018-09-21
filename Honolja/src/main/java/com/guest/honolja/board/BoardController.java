@@ -1,6 +1,7 @@
 package com.guest.honolja.board;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.guest.honolja.message.MsgDAO;
@@ -25,7 +27,7 @@ public class BoardController {
 	
 	@Autowired
 	@Inject
-	BoardDAO dao;
+	BoardDAO dao11;
 	
 	
 	@Autowired
@@ -49,19 +51,19 @@ public class BoardController {
 		}
 		
 		
-		dao.dbSelect2(skey, sval);
+		dao11.dbSelect2(skey, sval);
 	
 		pnum=request.getParameter("pageNum");
-		if(pnum==null || pnum=="") {pnum="1";} //비어있으면1p
+		if(pnum==null || pnum=="") {pnum="1";} //鍮꾩뼱�엳�쑝硫�1p
 		else{pageNUM=Integer.parseInt(pnum);}
 
 		start=((pageNUM-1)*10)+1; //if(5 -> 41
 		end=pageNUM*10;              //~50
 		temp=(pageNUM-1)%10;    //if 5 == temp===4
-		startpage=pageNUM-temp;    //1페이지
-		endpage=startpage+9;         //10페이지
+		startpage=pageNUM-temp;    //1�럹�씠吏�
+		endpage=startpage+9;         //10�럹�씠吏�
 		
-		int Gtotal=dao.dbCount(skey,sval);//카운트-전체값
+		int Gtotal=dao11.dbCount(skey,sval);//移댁슫�듃-�쟾泥닿컪
 
 		if(Gtotal%10==0){ pagecount=Gtotal/10; }
 		else{ pagecount=(Gtotal/10)+1; }
@@ -70,9 +72,9 @@ public class BoardController {
 		
 		
 		int rcnt=dto.getRcnt();
-		dao.dbSelect(start,end);
-		List<BoardDTO> LB=dao.dbSelect(start,end,skey,sval);
-		dao.dbSelect2(skey, sval);
+		dao11.dbSelect(start,end);
+		List<BoardDTO> LB=dao11.dbSelect(start,end,skey,sval);
+		dao11.dbSelect2(skey, sval);
 		mav.addObject("pagecount",pagecount);
 		mav.addObject("LB",LB);
 		mav.addObject("Gtotal", Gtotal);
@@ -97,13 +99,13 @@ public class BoardController {
 	dto.setU_id(session.getAttribute("checked").toString());
 	long size=dto.getB_uploadfilename2().getSize();
 		
-		String path=application.getRealPath("/resources/upload"); //경로지정
-		System.out.println(path); //경로출력
-		MultipartFile mf= dto.getB_uploadfilename2(); //mf=upload 파일
-		String img=mf.getOriginalFilename(); //진짜이름 -> img에
+		String path=application.getRealPath("/resources/upload"); //寃쎈줈吏��젙
+		System.out.println(path); //寃쎈줈異쒕젰
+		MultipartFile mf= dto.getB_uploadfilename2(); //mf=upload �뙆�씪
+		String img=mf.getOriginalFilename(); //吏꾩쭨�씠由� -> img�뿉
 		
 		
-		URLEncoder.encode(img,"UTF-8"); //한글화
+		URLEncoder.encode(img,"UTF-8"); //�븳湲��솕
 		File file=new File(path,img);
 		try {
 			dto.getB_uploadfilename2().transferTo(file);
@@ -111,7 +113,7 @@ public class BoardController {
 		} catch (Exception e) {e.printStackTrace(); }
 		dto.setB_originalfilename(img);
 		
-		dao.dbInsert(dto);
+		dao11.dbInsert(dto);
 		//adsf
 		 
 		return "redirect:/board.do";
@@ -121,7 +123,7 @@ public class BoardController {
 	@RequestMapping("/boarddetail.do")
 	public ModelAndView board_detail(@RequestParam("idx") int data) throws Exception {
 		ModelAndView mav=new ModelAndView();
-		BoardDTO dto=dao.dbDetail(data);
+		BoardDTO dto=dao11.dbDetail(data);
 		
 		if(dto.getB_originalfilename() != null) {
 		    mav.addObject("img_file_name", URLEncoder.encode(dto.getB_originalfilename(),"UTF-8"));
@@ -135,14 +137,14 @@ public class BoardController {
 	
 	@RequestMapping("/boarddelete.do")
 	public String board_delete(@RequestParam("idx") int b_no) {
-		dao.dbDelete(b_no);
+		dao11.dbDelete(b_no);
 		return "redirect:/board.do";
 	}
 	
 	@RequestMapping("/boardedit.do")
 	public ModelAndView board_edit(@RequestParam("idx") int b_no) {
 		ModelAndView mav=new ModelAndView();
-		BoardDTO dto=dao.dbDetail(b_no);
+		BoardDTO dto=dao11.dbDetail(b_no);
 		
 		mav.addObject("dto",dto);
 		mav.setViewName("board/boardedit");
@@ -151,28 +153,55 @@ public class BoardController {
 	
 	@RequestMapping("/boardupdate.do")
 	public String board_update(BoardDTO dto) {
-		dao.dbUpdate(dto);
+		dao11.dbUpdate(dto);
 	return "redirect:/board.do";
 	}
 	
-	//방 참여
+	//諛� 李몄뿬
 	@ResponseBody
 	@RequestMapping("/boardmember.do")
 	public String boardmember(BoardDTO dto, HttpSession session) {
-		String u_id = session.getAttribute("checked").toString();
+
+		String u_id2 = session.getAttribute("checked").toString();
 		String result = null;
-		
-		MsgDAO dao = new MsgDAO();
-		MsgDTO mto = new MsgDTO();
-		mto.setU_id(u_id);
-		mto.setM_title("모집인원 참여 요청 쪽지입니다");
-		mto.setM_content("모집인원 참여 요청 쪽지입니다");
-		mto.setM_id(dto.getU_id());
-		dao.db_insert(mto);
-		
-			
-		
+		if(u_id2.equals(dto.getU_id())) {
+			result = "false";
+		}else {
+			dto.setB_member2(dto.getB_member2()+1);
+			dao11.boardmember(dto);
+			result = "success";
+		}
 		return result;
 	}//end
+	
+	@RequestMapping("/board_file.do")
+	public String boardfile() {
+		return "board/board_file";
+	}//�뙆�씪 �뾽濡쒕뱶 �뙘�뾽 �솕硫�
+	
+	@RequestMapping("/board_fileup.do")
+	public String boardfileupload(BoardDTO dto) throws Exception {
+		long size=dto.getB_uploadfilename2().getSize();
+		
+		String path=application.getRealPath("/resources/upload"); //寃쎈줈吏��젙
+		System.out.println(path); //寃쎈줈異쒕젰
+		MultipartFile mf= dto.getB_uploadfilename2(); //mf=upload �뙆�씪
+		String img=mf.getOriginalFilename(); //吏꾩쭨�씠由� -> img�뿉
+		
+		
+		URLEncoder.encode(img,"UTF-8"); //�븳湲��솕
+		File file=new File(path,img);
+		try {
+			dto.getB_uploadfilename2().transferTo(file);
+			
+		} catch (Exception e) {e.printStackTrace(); }
+		dto.setB_originalfilename(img);
+		
+		dao11.dbInsert(dto);
+		 
+		return "redirect:/board.do";
+
+	}//�뙆�씪 �뾽濡쒕뱶 湲곕뒫
+
 
 }//class end
