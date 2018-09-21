@@ -47,8 +47,8 @@
  <tr align="right">
   <td colspan="2">
    <input type="button" value="목록으로" onclick="location.href='notice.do'">
-   <input type="button" value="수정" onclick="location.href='preEdit.do?idx=${dto.n_no}'">
-   <input type="button" value="삭제" onclick="location.href='delete.do?idx=${dto.n_no}'">
+   <input type="button" value="수정" onclick="location.href='notice_preEdit.do?idx=${dto.n_no}'">
+   <input type="button" value="삭제" onclick="location.href='notice_delete.do?idx=${dto.n_no}'">
   </td>
  </tr> 
 

@@ -4,30 +4,98 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 
-<select id="select" resultType="com.guest.honolja.board.BoardDTO">
-select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board
-</select>
-   <!-- ggugugu -->
-<select id="select2" resultType="com.guest.honolja.board.BoardDTO">
-select * from (
-select rownum rn,u_id,b_title,b_content,b_date,b_member,b_viewcnt from board 
-) where rn between #{start} and #{end} 
-</select>
-   
-<select id="countAll" resultType="int">
-select  count(*)  from board
-where #{skey} like '%' || #{sval} || '%' 
-</select>
+	<!--리스트@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<select id="selectAll"
+		resultType="com.guest.honolja.board.BoardDTO"
+		parameterType="com.guest.honolja.board.BoardDTO">
+		select * from (
+		select rownum rn,b_no,b_title,b_content,b_date,b_viewcnt,b_member,u_id from
+		board
+		where ${skey} like '%' || #{sval} || '%' order by b_no desc
+		) where rn between #{start} and #{end}
+	</select>
+	<!-- 전체 개수 조회 -->
+	<select id="countAll" resultType="int">
+		select count(*) from board
+		where ${skey} like '%' || #{sval} || '%'
+	</select>
+	
+	<insert id="insert">
+		insert into board values (
+		board_seq.nextval, #{b_title}, #{b_content}, sysdate, 4, 0,
+		#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , 'hb')
+	</insert>
 
-<insert id="add" >
-insert into board values (
-board_seq.nextval, #{b_title}, #{b_content}, sysdate, 4,  1
-,#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , '01')
-</insert>   
+	<select id="detail"
+		parameterType="int" resultType="com.guest.honolja.board.BoardDTO" >
+		select *from board where b_no=#{b_no}
+	</select>
+	<!-- 게시글 지우기 -->
+	<delete id="del" parameterType="int">
+		delete from boardreply where b_no=#{b_no}
+	</delete>
+	<!-- 댓글 지우기 -->
+	<delete id="del2" parameterType="int">
+		delete from board where b_no=#{b_no}
+	</delete>
 
-<select id="detail" resultType="com.guest.honolja.board.BoardDTO">
-select *from board where u_id=#{u_id}
-</select>
-    
-   
+	<update id="edit"
+		parameterType="com.guest.honolja.board.BoardDTO">
+		update board set b_title=#{b_title} , b_content=#{b_content} where
+		b_no=#{b_no}
+	</update>
+	<!-- 조회수 +1 -->
+	<update id="viewcnt" parameterType="int"> 
+		update board set b_viewcnt=b_viewcnt+1 where b_no=#{b_no}
+	</update>
+
+	<!--댓글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<select id="Rselect"
+		resultType="com.guest.honolja.board.BoardDTO" parameterType="int">
+		select *from boardreply where b_no=#{b_no} order by br_no desc
+	</select>
+	<!-- 댓글 카운트 -->
+	<select id="Rcount" 
+		parameterType="int" resultType="int" >
+		select count(*) as rcnt from boardreply where b_no=#{b_no}
+	</select>
+
+	<select id="Rdetail"
+		parameterType="int" resultType="com.guest.honolja.board.BoardDTO" >
+		select *from boardreply where br_no=#{br_no}
+	</select>
+
+	<insert id="Rinsert"
+		parameterType="com.guest.honolja.board.BoardDTO">
+		insert into boardreply values (
+		boardreply_seq.nextval, #{br_content}, sysdate, #{b_no}, 'hb' )
+	</insert>
+
+	<update id="Rupdate"
+		parameterType="com.guest.honolja.board.BoardDTO">
+		update boardreply set
+		br_content = #{br_content} where br_no = #{br_no}
+	</update>
+
+	<delete id="Rdelete" parameterType="int">
+		delete from boardreply where br_no=#{br_no}
+	</delete>
+
+         <!--대댓글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<select id="RRselect" 
+		parameterType="int" resultType="com.guest.honolja.board.BoardDTO" >
+		select *from boardrreply where br_no=#{br_no}
+	</select>
+
+	<insert id="RRinsert"
+		parameterType="com.guest.honolja.board.BoardDTO">
+		insert into boardrreply values
+		(boardrreply_seq.nextval, #{brr_content}, sysdate, #{br_no}, 'hb', 1)
+	</insert> 
+
+	<delete id="RRdelete" parameterType="int">
+		delete from boardrreply where brr_no=#{brr_no}
+	</delete>
+	
+	
 </mapper>

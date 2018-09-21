@@ -19,10 +19,8 @@
     <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 	<script src = "https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src ="js/bpptstrap.js"></script>
-	<script type="text/javascript">
-
-	
+		
+	<script type="text/javascript">	
 		//진행률  표시
 		function progress(){
 			
@@ -354,7 +352,7 @@
 
 					
 			<!-- 지역 / 체크인 / 체크아웃 검색 창 시작 -->
-			<form id = "check_form" action="list.do">
+			<form id = "check_form" action="guestlist.do">
 				<div class="form-group">
 					<label for="sel1">지역</label>
 					<select class="form-control" id="sel1" name="area" onchange="progress();">

@@ -42,7 +42,7 @@
   <c:forEach items="${dto}" var="list">
  <tr align="center">
 	<td>${reversecnt=reversecnt-1}</td>
- 	<td><a href="detail.do?idx=${list.n_no}">${list.n_title}</a></td>
+ 	<td><a href="notice_detail.do?idx=${list.n_no}">${list.n_title}</a></td>
  	<td>${list.u_id}</td>
  	<td>${list.n_date}</td>
  	<td>${list.n_viewcnt}</td>

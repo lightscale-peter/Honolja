@@ -145,17 +145,29 @@ public class MemberController {
 	// 아이디 중복체크
 	@ResponseBody
 	@RequestMapping("/idcheck.do")
-	public  ModelAndView idcheck(@RequestBody String u_id) {
+	public String idcheck(@RequestBody String u_id) {
 		System.out.println("u_id = " + u_id);
-		ModelAndView mav = new ModelAndView();
-		//Map<String, String> map = new HashMap<String, String>();
-		String u_cnt = Integer.toString(dao.idCheck(u_id));
+		int u_cnt = dao.idCheck(u_id);
 		System.out.println("u_cnt = " + u_cnt);
-		mav.addObject("u_cnt", u_cnt);
-		mav.addObject("u_id", u_id);
-		mav.setViewName(new String());
-		//map.put("u_id", u_id);
-		return mav;
+		
+		String retVal = "";
+		
+		if(u_cnt > 0) { retVal = "true"; }
+		else { retVal = "false"; }
+		
+		return retVal;
 	}//end
+//	public  ModelAndView idcheck(@RequestBody String u_id) {
+//	System.out.println("u_id = " + u_id);
+//	ModelAndView mav = new ModelAndView();
+//	//Map<String, String> map = new HashMap<String, String>();
+//	String u_cnt = Integer.toString(dao.idCheck(u_id));
+//	System.out.println("u_cnt = " + u_cnt);
+//	mav.addObject("u_cnt", u_cnt);
+//	mav.addObject("u_id", u_id);
+//	mav.setViewName(new String());
+//	//map.put("u_id", u_id);
+//	return mav;
+//}//end
 	
 }//MemberController Class END

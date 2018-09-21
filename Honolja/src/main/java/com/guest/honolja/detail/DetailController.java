@@ -23,9 +23,9 @@ public class DetailController {
 	@Autowired
 	ReviewDAO dao1;
 
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	private static final Logger logger = LoggerFactory.getLogger(DetailController.class);
 
-	@RequestMapping("/detail.do")
+	@RequestMapping("/guestdetail.do")
 	public ModelAndView guest_detail(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		int g_no = Integer.parseInt(request.getParameter("g_no"));

@@ -31,7 +31,7 @@ public class MsgController {
 		String userid = request.getParameter("userid");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("userid", userid);
-		mav.setViewName("/WEB-INF/views/message/msg_send.jsp");
+		mav.setViewName("/message/msg_send");
 		return mav;
 	}
 	
@@ -46,9 +46,9 @@ public class MsgController {
 		mav.addObject("userid", userid);
 		mav.addObject("listR", listR);
 		mav.addObject("cnt", cnt);
-		mav.setViewName("/WEB-INF/views/message/msg_testR.jsp");
+		mav.setViewName("/message/msg_testR");
 		return mav;
-	}//받은쪽지
+	}//諛쏆�履쎌�
 	
 	@RequestMapping("/msg_testS.do")
 	public ModelAndView msg_boxS(HttpServletRequest request) {
@@ -62,15 +62,15 @@ public class MsgController {
 		mav.addObject("userid", userid);
 		mav.addObject("listS", listS);
 		//mav.addObject("cnt", cnt);
-		mav.setViewName("/WEB-INF/views/message/msg_testS.jsp");
+		mav.setViewName("message/msg_testS");
 		return mav;
-	}//보낸쪽지
+	}//蹂대궦履쎌�
 	
 	@RequestMapping("/msg_insert.do")
 	public String msg_send(MsgDTO dto) {
 		dao.db_insert(dto);
 		return "redirect:/notice.do";
-	}//메세지 보내기
+	}//硫붿꽭吏� 蹂대궡湲�
 	
 	@RequestMapping("/msg_detailS.do")
 	public ModelAndView msg_detailS(HttpServletRequest request) {
@@ -83,9 +83,9 @@ public class MsgController {
 		dto = dao.db_detail(idx);
 		
 		mav.addObject("dto", dto);
-		mav.setViewName("/WEB-INF/views/message/msg_detailS.jsp");
+		mav.setViewName("/message/msg_detailS");
 		return mav;
-	}//보낸메세지 디테일
+	}//蹂대궦硫붿꽭吏� �뵒�뀒�씪
 	
 	@RequestMapping("/msg_detailR.do")
 	public ModelAndView msg_detailR(HttpServletRequest request) {
@@ -98,9 +98,9 @@ public class MsgController {
 		dto = dao.db_detail(idx);
 		
 		mav.addObject("dto", dto);
-		mav.setViewName("/WEB-INF/views/message/msg_detailR.jsp");
+		mav.setViewName("/message/msg_detailR");
 		return mav;
-	}//받은메세지 디테일
+	}//諛쏆�硫붿꽭吏� �뵒�뀒�씪
 
 	@RequestMapping("/msg_delete")
 	public String msg_delete(HttpServletRequest request) {
@@ -108,7 +108,7 @@ public class MsgController {
 		MsgDTO dto = new MsgDTO();
 		dao.db_delete(idx);
 		return "redirect:/msg_testS.do?userid="+dto.getUserid();
-	}//메세지 삭제
+	}//硫붿꽭吏� �궘�젣
 	
 	@RequestMapping("/msg_cancel")
 	public String msg_cancel(HttpServletRequest request) {
@@ -122,7 +122,7 @@ public class MsgController {
 		}		
 		
 		return "redirect:/msg_testS.do?userid="+dto.getUserid();
-	}//발송취소
+	}//諛쒖넚痍⑥냼
 	
 	
 	
