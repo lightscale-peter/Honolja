@@ -88,7 +88,12 @@
 			 	  	<a href="img_board_detail.do?i_no=${list.i_no }">
 			 	  		<img class = "grid_img" src="resources/info_images/${list.i_uploadFileName}">
 		 	  		</a>
-					<div style="margin-bottom: 5px;">${list.i_title}</div>
+					<div style="margin-bottom: 5px;">
+						${list.i_title}&nbsp;
+						<c:if test="${list.reply_cnt != 0 }">
+							<span class="badge" style="background-color: #337ab7;">${list.reply_cnt}</span>
+						</c:if>					
+					</div>
 					<div style="padding: 0 30px 0 30px;">
 						<span style="float: left;">작성자 : ${list.u_id }</span>
 						<span style="float: right;">

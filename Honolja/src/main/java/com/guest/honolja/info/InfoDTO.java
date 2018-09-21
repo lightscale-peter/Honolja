@@ -47,8 +47,16 @@ public class InfoDTO {
     String irr_content;
     Date irr_date; 
     
+    int reply_cnt;
+    
     
 	
+	public int getReply_cnt() {
+		return reply_cnt;
+	}
+	public void setReply_cnt(int reply_cnt) {
+		this.reply_cnt = reply_cnt;
+	}
 	public Date getIrr_date() {
 		return irr_date;
 	}

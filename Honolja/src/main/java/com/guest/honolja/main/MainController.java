@@ -280,7 +280,7 @@ public class MainController {
 		}
 		
 		return mav;
-	}//로그인 팝업
+	}
 	
 	@RequestMapping("/naver_login.do")
 	public RedirectView common_naver_login(Model model) {
