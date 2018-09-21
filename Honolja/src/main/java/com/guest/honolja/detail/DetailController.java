@@ -23,22 +23,43 @@ public class DetailController {
 	@Autowired
 	ReviewDAO dao1;
 
-	private static final Logger logger = LoggerFactory.getLogger(DetailController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	@RequestMapping("/guestdetail.do")
 	public ModelAndView guest_detail(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		int g_no = Integer.parseInt(request.getParameter("g_no"));
-		List<DetailDTO> list = dao.dbroomSelect(g_no);
 		List<DetailDTO> img = dao.dbimageSelect(g_no);
-		List<ReviewDTO> reveiw = dao1.dbreviewSelect(g_no);
-		for (int i = 0; i < img.size(); i++) {
-			logger.info(img.get(i).getI_url());
-		}
-		mav.addObject("list", list);
-		mav.addObject("review", reveiw);
+		int count = dao1.dbreviewCount(g_no);
+		DetailDTO info = dao.dbroomView(g_no);
+		List<ReviewDTO> review = dao1.dbreviewSelect(g_no);
+
+		int sum = 0;
+		int avg = 0;
+
+//		for (int i = 0; i < review.size(); i++) {
+//			sum += Integer.parseInt(review.get(i).getRe_score());
+//			System.out.println("별점 합계 : " + sum);
+//		}
+
+//		avg = sum / count;
+//		System.out.println("별점 평균 : " + avg);
+
+		mav.addObject("info", info);
+		mav.addObject("avg", avg);
+		mav.addObject("g_no", g_no);
 		mav.addObject("img", img);
+		mav.addObject("rcnt", count);
 		mav.setViewName("/detail/guestDetail");
+		return mav;
+	}
+
+	@RequestMapping("/roominfo.do")
+	public ModelAndView guest_room(DetailDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		List<DetailDTO> room = dao.dbroomSelect(dto.getG_no());
+		mav.addObject("list", room);
+		mav.setViewName("/detail/guestRoomInfo");
 		return mav;
 	}
 }

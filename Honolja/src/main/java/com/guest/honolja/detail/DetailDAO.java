@@ -12,9 +12,14 @@ public class DetailDAO {
 	@Autowired
 	SqlSessionTemplate temp;
 
+	public DetailDTO dbroomView(int g_no) {
+		DetailDTO view = temp.selectOne("detail.roomView", g_no);
+		return view;
+	}
+	
 	public List<DetailDTO> dbroomSelect(int g_no) {
-		List<DetailDTO> list = temp.selectList("detail.roomSelect", g_no);
-		return list;
+		List<DetailDTO> info = temp.selectList("detail.roomSelect", g_no);
+		return info;
 	}
 
 	public List<DetailDTO> dbimageSelect(int g_no) {

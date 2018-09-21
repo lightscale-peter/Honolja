@@ -2,27 +2,31 @@ package com.guest.honolja.list;
 
 public class ListDTO {
 	private  int g_no; //guesthouse nomber
-	  private  String g_name; // guesthouse name
-	  private  String g_addr; //guesthouse address
-	  private  String g_position_n; //guesthouse location x position
-	  private  String g_position_e; //guesthouse location y position
-	  private  String g_detail; //guesthouse content(내용)
-	  private  String g_url;	//guesthouse img
-	  private  String guesthouse; //guesthouse table
-	  private  java.util.Date  nalja;  // guesthouse like time
-	  private String check_in, check_out;
+	private  String g_name; // guesthouse name
+	private  String g_addr; //guesthouse address
+	private  String g_position_n; //guesthouse location x position
+	private  String g_position_e; //guesthouse location y position
+	private  String g_detail; //guesthouse content(내용)
+	private  String g_url;	//guesthouse img
+	private  String guesthouse; //guesthouse table
+	private  java.util.Date  nalja;  // guesthouse like time
+	private String check_in, check_out;
 
-	  private int rcnt;	//guesthouse count
-	  private  String skey; //guesthouse search key
+	private int rcnt;	//guesthouse count
+	private  String skey; //guesthouse search key
 	  
-	  private int r_price;
+	private int r_price;
 	  
-	  private  String sval; //guesthouse search value
-	  private  String area; //지도 초기좌표
-	  private int startprice, endprice; //가격 검색 => 시작가격~ 끝가격
-	  private int islike; //like
-	  int low_price; //price search
-	  
+	private  String sval; //guesthouse search value
+	private  String area, basic; //지도 초기좌표
+
+	private int startprice, endprice; //가격 검색 => 시작가격~ 끝가격
+	private int islike; //like
+	int low_price; //price search
+
+	public String getBasic() {	return basic;}
+	public void setBasic(String basic) {	this.basic = basic;}
+	
 	public int getR_price() {	return r_price;}
 	public void setR_price(int r_price) {	this.r_price = r_price;} 
 	  
