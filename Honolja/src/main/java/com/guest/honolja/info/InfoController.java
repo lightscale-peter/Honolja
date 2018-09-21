@@ -88,6 +88,8 @@ public class InfoController {
 		
 		//Get the list from DB 
 		List<InfoDTO> list = dao.dbSelectImgBoard(dto);
+		
+		System.out.println(list.get(0).getReply_cnt());
 					
 			
 		//Print page_button according to page_num

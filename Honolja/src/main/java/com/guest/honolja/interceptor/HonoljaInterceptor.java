@@ -25,7 +25,6 @@ public class HonoljaInterceptor extends HandlerInterceptorAdapter{
 				
 		if(checked != null) {
 			session.setAttribute("checked", checked);
-			System.out.println("로그인 성공");
 			
 			if(request.getParameter("id_keep") != null) {
 				Cookie loginCookie = new Cookie("loginCookie", (String) session.getAttribute("checked"));

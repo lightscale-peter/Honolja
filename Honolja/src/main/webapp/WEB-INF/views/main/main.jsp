@@ -470,7 +470,7 @@
 	<!-- 네이버 로그인 후, 최초 회원가입 일때 회원가입 페이지로 이동 -->
 	<c:if test="${u_id != null}">
 		<script>
-			location.href = "join.do?u_id=${u_id}";
+			location.href = "m_join.do?u_id=${u_id}";
 		</script>
 	</c:if>
 
