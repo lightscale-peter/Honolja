@@ -2,13 +2,10 @@
 
 
 
-
 .target1 {
-
 	display: inline-block;
-	width: 100px;
+	width: 400px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-

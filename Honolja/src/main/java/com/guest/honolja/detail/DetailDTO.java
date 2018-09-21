@@ -1,17 +1,69 @@
 package com.guest.honolja.detail;
 
 public class DetailDTO {
+	private int g_no;
+	private String g_name;
+	private String g_addr;
+	private String g_position_n;
+	private String g_detail;
+	private String g_url;
+	private String g_position_e;
 	private int r_no;
 	private String r_name;
 	private String r_content;
 	private String r_price;
-	private int g_no;
 	private String img_url;
 	private String img_url2;
 	private String img_url3;
-	private int i_no;
-	private String i_name;
-	private String i_url;
+	private int rcnt;
+
+	public String getG_name() {
+		return g_name;
+	}
+
+	public void setG_name(String g_name) {
+		this.g_name = g_name;
+	}
+
+	public String getG_addr() {
+		return g_addr;
+	}
+
+	public void setG_addr(String g_addr) {
+		this.g_addr = g_addr;
+	}
+
+	public String getG_position_n() {
+		return g_position_n;
+	}
+
+	public void setG_position_n(String g_position_n) {
+		this.g_position_n = g_position_n;
+	}
+
+	public String getG_detail() {
+		return g_detail;
+	}
+
+	public void setG_detail(String g_detail) {
+		this.g_detail = g_detail;
+	}
+
+	public String getG_url() {
+		return g_url;
+	}
+
+	public void setG_url(String g_url) {
+		this.g_url = g_url;
+	}
+
+	public String getG_position_e() {
+		return g_position_e;
+	}
+
+	public void setG_position_e(String g_position_e) {
+		this.g_position_e = g_position_e;
+	}
 
 	public int getR_no() {
 		return r_no;
@@ -77,28 +129,12 @@ public class DetailDTO {
 		this.img_url3 = img_url3;
 	}
 
-	public int getI_no() {
-		return i_no;
+	public int getRcnt() {
+		return rcnt;
 	}
 
-	public void setI_no(int i_no) {
-		this.i_no = i_no;
-	}
-
-	public String getI_name() {
-		return i_name;
-	}
-
-	public void setI_name(String i_name) {
-		this.i_name = i_name;
-	}
-
-	public String getI_url() {
-		return i_url;
-	}
-
-	public void setI_url(String i_url) {
-		this.i_url = i_url;
+	public void setRcnt(int rcnt) {
+		this.rcnt = rcnt;
 	}
 
 }

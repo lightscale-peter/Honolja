@@ -28,17 +28,17 @@ public class NoticeController {
 	@RequestMapping("/notice_insert.do")
 	public String notice_writeView() {
 		return "/notice/notice_insert";
-	}//怨듭�湲� �옉�꽦李�
+	}//
 	
 	@RequestMapping("/notice.do")
-	public ModelAndView notice_view(HttpServletRequest request, NoticeDTO dto) { //select + �럹�씠吏�
+	public ModelAndView notice_view(HttpServletRequest request, NoticeDTO dto) { //select +
 		ModelAndView mav = new ModelAndView();
 		
-		int pageNUM = 1; //Ntotal 湲� 媛쒖닔
-		int start=1, end=1, temp=1, startpage=1, endpage=1, pagecount=1; //pagecount 珥� �럹�씠吏� 媛쒖닔
+		int pageNUM = 1; //Ntotal 
+		int start=1, end=1, temp=1, startpage=1, endpage=1, pagecount=1; //pagecount 
 		String pnum="0", returnpage="";
 		String skey="", sval="";
-		int reversecnt= 0; // �솕硫� �럹�씠吏��뿉�꽌 �뿭�닚 �떆�옉踰덊샇
+		int reversecnt= 0; // 테스트
 		
 		skey=request.getParameter("keyfield");
 		sval=request.getParameter("keyword");
@@ -49,7 +49,6 @@ public class NoticeController {
 		pnum=request.getParameter("pageNum");
 		if(pnum==null || pnum=="") { pageNUM=1; }
 		else { pageNUM = Integer.parseInt(pnum);}
-		
 		
 		dto.setSkey(skey);
 		dto.setSval(sval);
@@ -83,30 +82,22 @@ public class NoticeController {
 		mav.addObject("sval", sval);
 		mav.setViewName("/notice/notice");
 		return mav;
-	}//view end 怨듭��궗�빆 由ъ뒪�듃
+	}//view end 
 
 	@RequestMapping(value="/notice_insert.do", method=RequestMethod.POST)
-	public String notice_insert(NoticeDTO dto) { //怨듭��궗�빆 湲� �엯�젰
+	public String notice_insert(NoticeDTO dto) { 
 		dto.setN_viewcnt(0);
 		dto.setU_id("test");
 		
-		//dto.setN_content(dto.getN_content().replace("\n\n", "<br>"));
 		
 		if(dto.getN_fix() == null) {
 			dto.setN_fix("N");
 		}
-				
-		System.out.println("�젣紐�: "+dto.getN_title());
-		System.out.println("�궡�슜: "+dto.getN_content());
-		System.out.println("�궇吏�: "+dto.getN_date());
-		System.out.println("怨좎젙: "+dto.getN_fix());
-		System.out.println("�옉�꽦�븘�씠�뵒: "+dto.getU_id());
-		System.out.println("議고쉶�닔: "+dto.getN_viewcnt());
 		
 		dao.db_insert(dto);
 		
 		return "redirect:/notice.do";
-	}//insert end 怨듭��옉�꽦 湲곕뒫
+	}//insert end 
 	
 	@RequestMapping("/notice_detail.do")
 	public ModelAndView notice_detail(HttpServletRequest request) {
@@ -119,14 +110,14 @@ public class NoticeController {
 		
 		mav.setViewName("/notice/notice_detail");
 		return mav;
-	}//怨듭�湲� �긽�꽭
+	}//공지글 상세
 	
 	@RequestMapping("/notice_delete.do")
 	public String notice_delete(HttpServletRequest request) {
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		dao.db_delete(idx);
 		return "redirect:/notice.do";
-	}//怨듭�湲� �궘�젣
+	}//삭제
 	
 	@RequestMapping("/notice_preEdit.do")
 	public ModelAndView notice_preEdit(HttpServletRequest request) {
@@ -136,7 +127,7 @@ public class NoticeController {
 		mav.addObject("dto", dto);
 		mav.setViewName("/notice/notice_preEdit");
 		return mav;
-	}//怨듭�湲� �닔�젙�솕硫�
+	}//수정화면
 	
 	@RequestMapping("/notice_edit.do")
 	public String notice_edit(NoticeDTO dto) {
@@ -146,7 +137,7 @@ public class NoticeController {
 		}
 		dao.db_edit(dto);
 		return "redirect:/notice.do";
-	}//怨듭�湲� �닔�젙湲곕뒫
+	}//수정기능
 	
 	
 }//Controller end

@@ -48,7 +48,7 @@
 <body style="text-align: center;margin: 50px;">
 
 	
-	<c:if test="${param.id != null }">	
+	<c:if test="${param.u_id != null }">	
 		<!-- Modal -->
 		<div id="myModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
@@ -76,13 +76,13 @@
 	
 
 
-	<form class="form-horizontal" action="/honolja/popup.do" method = "get" style="padding-bottom: 10px;">
+	<form class="form-horizontal" action="login_popup.do" style="padding-bottom: 10px;">
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="email">Id:</label>
 			<div class="col-sm-10">
 			
 				<!-- 아이디 입력 -->
-				<input type="text" name = "id" class="form-control" id="id" placeholder="Enter id" value = "${loginCookie }">
+				<input type="text" name = "u_id" class="form-control" id="u_id" placeholder="Enter id" value = "${loginCookie }">
 			</div>
 		</div>
 		<div class="form-group">
@@ -90,7 +90,7 @@
 			<div class="col-sm-10"> 
 			
 				<!-- 비밀번호 입력 -->
-				<input type="password" name = "pwd" class="form-control" id="pwd" placeholder="Enter password">
+				<input type="password" name = "u_pwd" class="form-control" id="u_pwd" placeholder="Enter password">
 			</div>
 		</div>
 		<div class="form-group"> 
@@ -126,7 +126,7 @@
 	
 	<label style="padding: 10px;">
 		<span onclick="close_and_move('address')"><a href="#">비밀번호 재설정 </a></span>/
-		<span onclick="close_and_move('address')"><a href="#"> 회원가입</a></span>
+		<span onclick="close_and_move('m_join.do')"><a href="#"> 회원가입</a></span>
 		
 	</label>
 	
@@ -137,7 +137,6 @@
 			</a>
 		</div>
     </div>
-	
 
 
 </body>

@@ -21,17 +21,20 @@
 	<script src = "https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		
 	<script type="text/javascript">	
+	
 		//진행률  표시
 		function progress(){
 			
+			//select-option value 값
 			var selector = document.getElementById("sel1");
 		    var value = selector[selector.selectedIndex].value;
 		    
 		    //지역, 체크인, 체크아웃 입력 확인 Flag
 		    var checkFlag = new Array();
-
+		    
 		    //true 개수 , 개수에 따라 35% / 70% / 100% 
 		    var countTrue = 0;
+		    
 		    //진행률
 		    var percent = 0;
 		    
@@ -62,6 +65,14 @@
 		    }else{
 		    	checkFlag[2] = true
 		    }
+		    
+		    //성인 인원 수 가 0이 되어 있으면,
+			if(document.getElementById("adult").value == 0){
+				checkFlag[3] = false
+		    }else{
+		    	checkFlag[3] = true
+		    }
+		    
 			
 			//true의 갯수 카운트
 			for(var i=0; i<checkFlag.length; i++){
@@ -75,20 +86,25 @@
 			switch(countTrue){
 					
 				case 1:
-					percent = 35;
+					percent = 25;
 					color = "progress-bar-danger";
 					break;
 					
 				case 2:
-					percent = 70;
+					percent = 50;
 					color = "progress-bar-warning";
 					break;
 					
 				case 3:
-					percent = 100;
+					percent = 75;
 					color = "progress-bar-info";
 					break;
-				
+					
+				case 4:
+					percent = 100;
+					color = "progress-bar-success";
+					break;
+							
 				default:
 					percent = 0;
 					color = "";
@@ -128,9 +144,55 @@
 			
 			notice_num++;
 			
-			if(notice_num == 3)notice_num = 0;
+			if(notice_num == 3)notice_num = 0;	
+			
 		}
 		
+		//공지사항 노출 기능 - JavaScript Ajax
+		function chgNotice_ajax(){
+			
+			var xhr = new XMLHttpRequest();
+			
+				xhr.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200){
+						document.getElementById("notice").innerHTML = this.responseText;
+					}
+				};
+				
+				xhr.open("GET", "http://localhost:8080/honolja/main_notice.do", true);
+				xhr.send();
+				
+		}		
+		
+		//공지사항 노출 기능 - jQuery Ajax	
+		$(function(){
+			$('#notice_btn').click(function(){
+				$.ajax({
+					"url" : "http://localhost:8080/honolja/main_notice.do",
+					"type" : "get",
+					"data" : {test : $('#notice').val(), test2 :$('#notice').val()},
+					"beforeSend" : function(){
+						$('#notice').show();
+						$('#notice').empty();
+						$('#notice').html("Loading...");
+						$('#notice').css("opacity", "0.2").stop().animate({opacity:1},300);
+					},
+					"success" : function(data){
+						setTimeout(function(){
+							//$('#notice').fadeOut();
+							//$('#notice').empty();
+							$('#notice').html(data);
+						}, 300);
+					},
+					"error" : function(){
+						$('#notice').fadeOut();
+					}
+				});
+			});
+		});
+		
+	
+		//메인 검색 눌 체크
 		function nullCheck(){
 			
 			var selector = document.getElementById("sel1");
@@ -139,20 +201,52 @@
 		    var check_in = document.getElementById("datepicker").value;
 		    var check_out = document.getElementById("datepicker1").value;
 		    
+		    var adult =  document.getElementById("adult").value;
+		    
 		    if(value == "선택"){
-		    	alert("지역을 선택해주세요.");	
+				$(document).ready(function(){
+					$('#alertbox').ready(function(){
+						$("#error").html("지역을 선택해주세요.");
+						$('#myModal').modal("show");
+					});
+				});
+		    	return;
+		    }
+		    
+		    if(adult == 0){
+				$(document).ready(function(){
+					$('#alertbox').ready(function(){
+						$("#error").html("성인이 0 일 수 없습니다.");
+						$('#myModal').modal("show");
+					});
+				});
 		    	return;
 		    }
 		    
 		    if(check_in == ""){
-		    	alert("체크인을 입력하세요.");	
+				$(document).ready(function(){
+					$('#alertbox').ready(function(){
+						$("#error").html("체크인을 입력하세요.");
+						$('#myModal').modal("show");
+					});
+				});
 		    	return;
 		    }
 		    
 		    if(check_out == ""){
-		    	alert("체크아웃을 입력하세요.");	
+				$(document).ready(function(){
+					$('#alertbox').ready(function(){
+						$("#error").html("체크아웃을 입력하세요.");
+						$('#myModal').modal("show");
+					});
+				});
 		    	return;
 		    }
+		    
+
+		    
+		    
+
 		    
 		    var in_string_array = new Array();
 		    var out_string_array = new Array();   
@@ -171,7 +265,6 @@
 		    	out_array[i] = parseInt(out_string_array[i]);
 		    }
 		   
-		    		
     		//체크인 연 <= 체크아웃 연
     		if(in_array[0] <= out_array[0]){
     			
@@ -191,10 +284,28 @@
 					    		document.getElementById("check_form").submit();
 					    		
 					    	//체크아웃 일 < 체크인 일
-					    	}else if(out_array[2] - in_array[2] < 0){
-					    		alert("체크아웃 일이 체크인 일보다 이전일 수 없습니다.");
-					    	}else{
-					    		alert("10일 이상 예약이 불가합니다.");
+					    	}else if(out_array[2] - in_array[2] < 0){					   
+								$(document).ready(function(){
+									$('#alertbox').ready(function(){
+										$("#error").html("체크아웃 일이 체크인 일보다 이전일 수 없습니다.");
+										$('#myModal').modal("show");
+									});
+								});
+				    		//체크아웃 일 == 체크인 일	
+					    	}else if(out_array[2] == in_array[2]){					    		
+								$(document).ready(function(){
+									$('#alertbox').ready(function(){
+										$("#error").html("체크아웃 일과 체크인 일이 같을 수 없습니다.");
+										$('#myModal').modal("show");
+									});
+								});
+					    	}else{					    		
+								$(document).ready(function(){
+									$('#alertbox').ready(function(){
+										$("#error").html("10일 이상 예약이 불가합니다.");
+										$('#myModal').modal("show");
+									});
+								});
 					    	}
 					    
 					    //만약에 체크인 월 < 체크아웃 월 이면,
@@ -209,15 +320,30 @@
 					    			document.getElementById("nights").value = endOfDay(in_array[1]) - in_array[2] + out_array[2];
 					    			document.getElementById("check_form").submit();
     							
-					    		}else{
-					    			alert("10일 이상 예약이 불가합니다.");
+					    		}else{					    			
+									$(document).ready(function(){
+										$('#alertbox').ready(function(){
+											$("#error").html("10일 이상 예약이 불가합니다.");
+											$('#myModal').modal("show");
+										});
+									});
 					    		}
-					    	}else{
-					    		alert("1달 이내에만 예약이 가능합니다.");
+					    	}else{					    		
+								$(document).ready(function(){
+									$('#alertbox').ready(function(){
+										$("#error").html("1달 이내에만 예약이 가능합니다.");
+										$('#myModal').modal("show");
+									});
+								});
 					    	}
 					    }				  	
-				    }else{
-				    	alert("체크인 월이 체크아웃 월보다 클 수 없습니다.");
+				    }else{				    	
+						$(document).ready(function(){
+							$('#alertbox').ready(function(){
+								$("#error").html("체크인 월이 체크아웃 월보다 클 수 없습니다.");
+								$('#myModal').modal("show");
+							});
+						});
 				    }
     			//체크인  연< 체크아웃 연
     			}else{
@@ -234,18 +360,38 @@
     							document.getElementById("nights").value = endOfDay(11) - in_array[2] + out_array[2];
     							document.getElementById("check_form").submit();
 					    
-    						}else{
-    							alert("10일 이상 예약이 불가합니다.");
+    						}else{    							
+    							$(document).ready(function(){
+    								$('#alertbox').ready(function(){
+    									$("#error").html("10일 이상 예약이 불가합니다.");
+    									$('#myModal').modal("show");
+    								});
+    							});
     						} 	
-    					}else{
-    						alert("1달 이내에만 예약이 가능합니다.");
+    					}else{    						
+							$(document).ready(function(){
+								$('#alertbox').ready(function(){
+									$("#error").html("1달 이내에만 예약이 가능합니다.");
+									$('#myModal').modal("show");
+								});
+							});
     					}
-    				}else{
-    					alert("기간이 1년 이상 차이 납니다.");
+    				}else{    					
+						$(document).ready(function(){
+							$('#alertbox').ready(function(){
+								$("#error").html("기간이 1년 이상 차이 납니다.");
+								$('#myModal').modal("show");
+							});
+						});
     				}
     			}	
-    		}else{
-    			alert("체크인 연도는 체크아웃 연도보다 클 수 없습니다.");
+    		}else{    			
+				$(document).ready(function(){
+					$('#alertbox').ready(function(){
+						$("#error").html("체크인 연도는 체크아웃 연도보다 클 수 없습니다.");
+						$('#myModal').modal("show");
+					});
+				});
     		}
 			
 		}
@@ -277,6 +423,32 @@
 			return day
 		}
 		
+		function countPlus(id){
+			
+			var value = document.getElementById(id).value;		
+			
+			if(value == 9){
+				document.getElementById(id).value = 9;
+			}else{
+				value++;
+				document.getElementById(id).value = value;
+			}
+			
+		}
+		
+		function countMinus(id){
+			
+			var value = document.getElementById(id).value;		
+			
+			if(value == 0){
+				document.getElementById(id).value = 0;
+			}else{
+				value--;
+				document.getElementById(id).value = value;
+			}
+			
+		}
+		
 	</script>
      
 </head>
@@ -291,6 +463,16 @@
 		<c:param name="access_token" value="${access_token}"></c:param>
 		<c:param name="host" value="main.do"></c:param>
 	</c:import>
+	
+	<!-- Modal(== alert) 기능 구현 시 필요 -->
+	<jsp:include page="modal.jsp" />
+	
+	<!-- 네이버 로그인 후, 최초 회원가입 일때 회원가입 페이지로 이동 -->
+	<c:if test="${u_id != null}">
+		<script>
+			location.href = "join.do?u_id=${u_id}";
+		</script>
+	</c:if>
 
 	<!-- 카로셀 시작 -->
 	<div class="container" style = "width:100%; position: relative; padding: 0;">
@@ -305,26 +487,26 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
-			        <img src="resources/main_images/la.jpg" alt="Los Angeles" style="width:100%;height:650px;">
+			        <img src="resources/main_images/1.jpg" alt="Los Angeles" style="width:100%;height:650px;">
 			        <div class="carousel-caption">
-						<h3>Los Angeles</h3>
-						<p>LA is always so much fun!</p>
+						<h3></h3>
+						<p></p>
 			        </div>
 				</div>
 
 				<div class="item">
-					<img src="resources/main_images/chicago.jpg" alt="Chicago" style="width:100%;height:650px;">
+					<img src="resources/main_images/2.jpg" alt="Chicago" style="width:100%;height:650px;">
 					<div class="carousel-caption">
-						<h3>Chicago</h3>
-						<p>Thank you, Chicago!</p>
+						<h3></h3>
+						<p></p>
 		        	</div>
 				</div>
 		    
 				<div class="item">
-		        <img src="resources/main_images/ny.jpg" alt="New York" style="width:100%;height:650px;">
+		        <img src="resources/main_images/3.jpg" alt="New York" style="width:100%;height:650px;">
 			        <div class="carousel-caption">
-						<h3>New York</h3>
-						<p>We love the Big Apple!</p>
+						<h3></h3>
+						<p></p>
 			        </div>
 				</div>
 			</div>
@@ -352,13 +534,15 @@
 
 					
 			<!-- 지역 / 체크인 / 체크아웃 검색 창 시작 -->
-			<form id = "check_form" action="guestlist.do">
+			<form id = "check_form" action="guestlocation.do">
 				<div class="form-group">
+				
 					<label for="sel1">지역</label>
-					<select class="form-control" id="sel1" name="area" onchange="progress();">
+					<select class="form-control" id="sel1" name="g_addr" onchange="progress();">
 						<option>선택</option>
 						<option value="seoul">서울</option>
 						<option value="gyeonggi">경기</option>
+						<option value="inchun">인천</option>
 						<option value="gangwon">강원</option>
 						<option value="chungbuk">충북</option>
 						<option value="chungnam">충남</option>
@@ -369,14 +553,34 @@
 						<option value="jeju">제주</option>
 					</select>
 				</div>
+				
+				<div class="form-group">
+					<table style="width: 100%;">
+						<tr>
+							<td>
+								<label for="usr" style="display: block;">성인</label>
+								<a onclick="countMinus('adult');progress();" href="#" style="color: navy;"><span class="glyphicon glyphicon-minus"></span></a>
+								&nbsp;&nbsp;<input id = "adult" name = "adult"  type="text" class="form-control" id="usr" style="width: 35px; display: inline;" value="0" readonly="readonly">&nbsp;&nbsp;
+								<a onclick="countPlus('adult');progress();" href="#" style="color: navy;"><span class="glyphicon glyphicon-plus"></span></a>
+							</td>
+							<td>
+								<label for="usr" style="display: block;">아동</label>
+								<a onclick="countMinus('child');" href="#" style="color: navy;"><span class="glyphicon glyphicon-minus"></span></a>
+								&nbsp;&nbsp;<input id = "child" name = "child" type="text" class="form-control" id="usr" style="width: 35px; display: inline;" value="0" readonly="readonly">&nbsp;&nbsp;
+								<a onclick="countPlus('child');" href="#" style="color: navy;"><span class="glyphicon glyphicon-plus"></span></a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
 				<!-- Check-IN 날짜 -->
 				<label for="sel1">Check-IN</label>							
-					<div><input type = "text" readonly="readonly" name="check_in" id="datepicker" width="276" onchange="progress();"/></div>
+					<div><input type = "text" name="check_in" id="datepicker" width="276" onchange="progress();"/></div>
 				<br>
 					
 				<!-- Check-OUT 날짜 -->
 				<label for="sel1">Check-OUT</label>
-					<div><input type = "text" readonly="readonly" name="check_out" id="datepicker1" width="276" onchange="progress();"/></div>
+					<div><input type = "text" name="check_out" id="datepicker1" width="276" onchange="progress();"/></div><!-- readonly="readonly" -->
 				<br>
 				
 				<div id = "progress"></div>
@@ -392,26 +596,19 @@
 	</div>
 	
     <script>
-    $('#datepicker').datepicker({
-    	format: 'yyyy/mm/dd',
-    	selectOtherMonths: true,
-    	numberOfMonths: [2,1],
-	   	showCurrentAtPos: 1 
-    });
+    	$('#datepicker').datepicker({
+    		format: 'yyyy/mm/dd'
+    	});
     
-	   $('#datepicker1').datepicker({
-    	format: 'yyyy/mm/dd',
-    	selectOtherMonths: true ,
-    	numberOfMonths: [2,1],
-	   	showCurrentAtPos: 1
-    });
+		$('#datepicker1').datepicker({
+    		format: 'yyyy/mm/dd'
+    	});
 
         
     </script>
     
-    	<!-- 공지사항 노출 부 -->
-
-	<div class="alert" style="margin: 0; background-color: #fff;">
+   	<!-- 공지사항 노출 부 -->
+	<div id = "main_notice" class="alert" style="margin: 0; background-color: #f8f8f8;">
 		<table style="width: 100%;">
 			<tr>
 				<td width="95%">
@@ -419,13 +616,12 @@
 					<span id="notice">카카오 서비스 운영정책 변경 안내</span>
 				</td>
 				<td> 
-					<input class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="chgNotice()">
+					<input id = "notice_btn" class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="" >
 				</td>
 			</tr>
 		</table>
-		
 	</div>
-	
+
 	<c:import url="http://localhost:8080/honolja/footer.do"></c:import>
 		
 	${checked }<br>

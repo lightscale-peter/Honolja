@@ -5,8 +5,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>[naver_login.jsp]</title>
-	
-	
 </head>
 <body onload="location.href = '${apiURL}';">
 

@@ -1,18 +1,38 @@
 package com.guest.honolja.main;
 
 import java.net.HttpURLConnection;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.Buffer;
 import java.security.SecureRandom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.Vector;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Server;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +40,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
+
+import com.guest.honolja.member.MemberDTO;
 
 
 
@@ -33,20 +58,29 @@ public class MainController {
 	@Autowired
 	MainDAO dao;
 	
+	@Autowired
+	ServletContext application;
+	
 	@RequestMapping("/main.do")
 	public ModelAndView main_page(HttpServletRequest request) {
 		
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main/main");
+		
+		
 		String access_token = "";
 		
+		//NAVER API Login part
 		if(request.getParameter("code") != null) {
 			
-				String clientId = "KhHvxQuRC4gDkDcMKUBF";//애플리케이션 클라이언트 아이디값";
-			    String clientSecret = "zIRvSbAaRp";//애플리케이션 클라이언트 시크릿값";
+				String clientId = "KhHvxQuRC4gDkDcMKUBF";//Application Client ID Value
+			    String clientSecret = "zIRvSbAaRp";//Application Client Secret Value
 			    String code = request.getParameter("code");
 			    String state = request.getParameter("state");
     
 			    String redirectURI = null;
 				try {
+					//Address going to back
 					redirectURI = URLEncoder.encode("http://localhost:8080/honolja/main.do", "UTF-8");
 				} catch (UnsupportedEncodingException e1) {
 					e1.printStackTrace();
@@ -68,15 +102,15 @@ public class MainController {
 			      int responseCode = con.getResponseCode();
 			      BufferedReader br;
 			      
-			      System.out.print("responseCode = "+responseCode);
+			      System.out.print("responseCode = " + responseCode + "\n");
 			      
-			      if(responseCode==200) { // 정상 호출
+			      if(responseCode==200) { //Login Success
 			    	br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			    	System.out.println("네이버 로그인 성공!!!!!!!!!");
+			    	System.out.println("NAVER Login Success !!!!");
 			    	
-			      } else {  // 에러 발생	    	  
+			      } else {  //error occurred	    	  
 			        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			        System.out.println("네이버 로그인 에러발생!!!!!!!!!");
+			        System.out.println("NAVER Login Fail !!!!");
 			      }
 			      String inputLine;
 			      StringBuffer res = new StringBuffer();
@@ -85,69 +119,157 @@ public class MainController {
 			      }
 			      br.close();
 			      if(responseCode==200) {
-			        System.out.println("StringBuffer = " + res.toString());
+			    	  //res.toString(); --> Enumerate naver_login_token_informations as JSON type
+			    	  System.out.println("StringBuffer = " + res.toString());
 			        
-			        JSONObject obj = new JSONObject(res.toString());
-			        access_token = obj.getString("access_token");
-    
+			    	  //get access_token from naver_login JSON data
+			    	  JSONObject obj = new JSONObject(res.toString());
+			    	  access_token = obj.getString("access_token");
+			    	  
+			    	  
+			    	  
+			    	  //start to insert info into users DB table.
+			    	  String token = access_token;//NAVER Login access_token;
+			  		
+			          String header = "Bearer " + token; //Add gap after Bearer;
+			          try {
+			          	
+			              apiURL = "https://openapi.naver.com/v1/nid/me";   
+			              url = new URL(apiURL);
+			              
+			              con = (HttpURLConnection)url.openConnection();
+			  	            con.setRequestMethod("GET");
+			  	            con.setRequestProperty("Authorization", header);
+			  	            
+			              responseCode = con.getResponseCode();
+			              
+			              if(responseCode==200) { // Success calling
+			                  br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			                  System.out.println("Success to Private Information Access!!!!");
+			              } else {  //Occurred error
+			                  br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			                  System.out.println("Fail to Private Information Access!!!!");
+			              }
+
+			              StringBuffer response = new StringBuffer();
+			              
+			              while ((inputLine = br.readLine()) != null) {
+			                  response.append(inputLine);
+			              }
+			              
+			              br.close();
+			              
+			              //response.toString() is to enumerate NAVER_PRIVATE_VALUES of JSON Type
+			              System.out.println(response.toString());
+			              	
+//			              Below Example is to get String value of Private Information from JSON data.
+			              
+			              String temp = response.toString();
+			              obj = new JSONObject(temp);
+			              
+			              String u_id = obj.getJSONObject("response").getString("id");
+			              String u_img = obj.getJSONObject("response").getString("profile_image");
+			              String u_gender = obj.getJSONObject("response").getString("gender");
+			              String u_email = obj.getJSONObject("response").getString("email");
+			              String u_name = obj.getJSONObject("response").getString("name");
+			              String u_birth = obj.getJSONObject("response").getString("birthday");
+       
+			              //progress, if Id is not in users table
+			              if(dao.dbSelectIdCheck(u_id) == 0) {
+
+			              MainDTO dto = new MainDTO();
+			              	dto.setU_id(u_id);
+			              	dto.setU_img(u_img);
+			              	dto.setU_gender(u_gender);
+			              	dto.setU_email(u_email);
+			              	dto.setU_name(u_name);
+			              	dto.setU_birth(u_birth);
+			              	  	
+			              dao.dbInsertUsersInfo(dto);
+			              System.out.println("users Info insert success!!");
+			              
+//			              System.out.println("u_id " + u_id);
+//			              System.out.println("u_img " + u_img);
+//			              System.out.println("u_gender " + u_gender);
+//			              System.out.println("u_email " + u_email);
+//			              System.out.println("u_name " + u_name);
+//			              System.out.println("u_birth " + u_birth);
+			              
+			              mav.addObject("u_id", u_id);
+			              	
+			              }else {
+			            	  System.out.println("user Id already exist!!");
+			              }
+			          } catch (Exception e) {
+			              System.out.println(e);
+			          }
 			      }
 			    } catch (Exception e) {
 			      System.out.println(e);
 			    }
 			
 		}
+
+ 		
 		
-		
-		
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/main");
-			mav.addObject("access_token", access_token);
 			
 		return mav;
 	}
 	
-	@RequestMapping("/popup.do")
+	
+	@RequestMapping("/login_popup.do")
 	public ModelAndView main_login_popup(HttpServletRequest request, Model model) {
+		MemberDTO mto = new MemberDTO();
+		String u_id = request.getParameter("u_id");
 		
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
+		long u_pwd = 0;
+		
+		if(request.getParameter("u_pwd") != null) {
+			u_pwd = Integer.parseInt(request.getParameter("u_pwd"));
+		}
+		
+		
 		String host =  request.getParameter("host");
 
-		HttpSession session = request.getSession();
 		
-		if(id == null) {
-			id = "";
-		}			
+		int idCheck = 0;
+
+		
+		HttpSession session = request.getSession();
 		
 		String scriptMsg = null;
 		String alertMsg = null;
-		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/login_popup");
-		
-		int idCheck = 1; //0 으로 바꿀 것 현재 테스트 중 1;
-		//int idCheck = dao.dbSelect 아이디 체크 ;
-		
-		//if(idCheck > 0) {
-		if(id.equals("sky")) {
+		//if params have id_value and pwd_value, progress dto/dao
+		if(u_id != null) {
+			mto.setU_id(u_id);
+			mto.setU_pwd(u_pwd);
+			int u_cnt = dao.dbSelect(mto);
 			
-			model.addAttribute("checked", id);
+			if(u_cnt == 1) {
+			String u_emailcheck = dao.emailcheck(mto);
 			
-			alertMsg = "로그인 성공!";
-				
-			scriptMsg = "opener.parent.location='"+host+"';";
-			scriptMsg += "self.close();";
+				if(u_emailcheck.equals("true")) {
+					model.addAttribute("checked", u_id);
+					
+					alertMsg = "Login Success!!";
+					scriptMsg = "opener.parent.location='"+host+"';";
+					scriptMsg += "self.close();";
+					
+				}else if(u_emailcheck.equals("false")) {
+					alertMsg = "emailcheck please";
+				}
+			}else if(u_cnt == 0){	
+				alertMsg = "Id or Password is wrong.";
+			}
+		}//if end
+		mav.addObject("scriptMsg", scriptMsg);
+		mav.addObject("alertMsg", alertMsg);
+			//JavaScript sentence send
 			
 			
-		}else {	
-			alertMsg = "아이디 또는 비밀번호를 틀렸습니다.";
-		}
-		
-			//JavaScript 문장 전송
-			mav.addObject("scriptMsg", scriptMsg);
-			mav.addObject("alertMsg", alertMsg);
-			
-		//미 로그인 상태에서, 아이디 기억 저장 쿠키가 남아있을 경우 아이디 값 전송
+		//if I'm NonLogin and there is Cookie saving login_id then Send id_value to page
 		if(session.getAttribute("checked") == null) {
 			try {
 				Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
@@ -158,13 +280,13 @@ public class MainController {
 		}
 		
 		return mav;
-	}
+	}//로그인 팝업
 	
 	@RequestMapping("/naver_login.do")
-	public ModelAndView common_naver_login(Model model) {
+	public RedirectView common_naver_login(Model model) {
 		
-		//네이버 API 로그인
-	    String clientId = "KhHvxQuRC4gDkDcMKUBF";//애플리케이션 클라이언트 아이디값";
+		//NAVER API Login
+	    String clientId = "KhHvxQuRC4gDkDcMKUBF";//Application Client ID Value
 	    String redirectURI = null;
 		try {
 			redirectURI = URLEncoder.encode("http://localhost:8080/honolja/main.do", "UTF-8");
@@ -181,17 +303,17 @@ public class MainController {
 	    
 	    model.addAttribute("checked", state);
 	    //session.setAttribute("state", state);
-	    
-	    ModelAndView mav = new ModelAndView();
-	    	mav.addObject("apiURL", apiURL);
-	    	mav.setViewName("main/naver_login");
+	    	
+    	RedirectView redirectView = new RedirectView();
+    		redirectView.setUrl(apiURL);
 		
-		return mav;
+		return redirectView;
 	}
+
 	
 	@RequestMapping("/header.do")
 	public ModelAndView common_header() {
-			
+
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/header");
 
@@ -203,21 +325,13 @@ public class MainController {
 		return "/main/footer";
 	}
 	
-	
-	
 	@RequestMapping("/logout.do")
 	public ModelAndView common_logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		
-	
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/logout");
 
-		//로그아웃 후, 다시 돌아갈 주소 기억	
-		if(request.getParameter("host")  != null) {
-			mav.addObject("host", request.getParameter("host"));
-		}
-		
-		
+		//Host is an address to go back After logout
+		mav.setViewName("redirect:/" + request.getParameter("host"));
 		
 		if(session.getAttribute("checked") != null) {
 			session.removeAttribute("checked");
@@ -235,64 +349,31 @@ public class MainController {
 		return mav;
 	}
 	
+	int rn = 0;
+	
+	@RequestMapping("/main_notice.do")
+	public ModelAndView main_notice() {
+		
+		List<MainDTO> notices = dao.dbSelectFixedNotice();
+		
+		rn++;
+		if(rn == notices.size()) rn = 0;
+
+		ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main/ajax_main_notice");
+			mav.addObject("notice", notices.get(rn).getN_title());
+			
+		return mav;
+	}
+	
+	
 	@RequestMapping("/test.do")
 	public ModelAndView main_test(HttpServletRequest request) {
 		
 		
-		
-		String token = "";
-		
-		if(request.getParameter("access_token") != null) {
-			token = request.getParameter("access_token");// 네이버 로그인 접근 토큰;
-		}
-		
-        String header = "Bearer " + token; // Bearer 다음에 공백 추가
-        try {
-        	
-            String apiURL = "https://openapi.naver.com/v1/nid/me";   
-            URL url = new URL(apiURL);
-            
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-	            con.setRequestMethod("GET");
-	            con.setRequestProperty("Authorization", header);
-	            
-            int responseCode = con.getResponseCode();
-            
-            BufferedReader br;
-            
-            if(responseCode==200) { // 정상 호출
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                System.out.println("개인정보 접근 성공!!!!");
-            } else {  // 에러 발생
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-                System.out.println("개인정보 접근 실패!!!!");
-            }
-            
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            
-            br.close();
-            System.out.println(response.toString());
-            
-//            String temp = response.toString();
-//            JSONObject obj = new JSONObject(temp);
-//            String temp2 = obj.getJSONObject("response").getString("id");
-//            System.out.println("이거다!!!!!!!!!!" + temp2);
-            
-            
-            
-       
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-		
-		
+
 		ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main/test");
+			mav.setViewName("redirect:m_join.do");
 			mav.addObject("test", "class='active'");
 			
 		return mav;
