@@ -499,7 +499,6 @@ a:visited{color: #212121; text-decoration: none;}
 		<input type="hidden" name="check_out"value="${param.check_out}">
 		<input type="hidden" name="nights"value="${param.nights}">
 		<input type="hidden" name="basic"value="${param.basic}">
-		<input type="hidden" id = "price1" name="price1" value ="${low_price}">
 		
 		<div id="secondfilt" 
      	style="box-sizing: border-box;
