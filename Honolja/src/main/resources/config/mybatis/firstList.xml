@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from (
 	select rownum as rn, g.*,(
 	select min(r_price) from roominfo where g_no = g.g_no) as low_price 
-	from guesthouse g where g_addr like '%'|| #{sval} || '%'
+	from guesthouse g where g_name like '%'|| #{sval} || '%' or g_addr like '%' || #{sval} || '%'
 	) where low_price between #{startprice} and #{endprice}
 </select>
 

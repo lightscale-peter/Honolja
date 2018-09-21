@@ -22,7 +22,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
+
 <link rel="stylesheet" href="./resources/css/detail.css">
+
 </head>
 <body>
 	<div class="container-fluid">

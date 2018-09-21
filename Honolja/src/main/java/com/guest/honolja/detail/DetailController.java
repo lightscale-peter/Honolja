@@ -35,6 +35,7 @@ public class DetailController {
 		List<ReviewDTO> review = dao1.dbreviewSelect(g_no);
 
 		int sum = 0;
+
 		double avg = 0;
 
 		for (int i = 0; i < review.size(); i++) {
@@ -46,7 +47,7 @@ public class DetailController {
 			avg = (double) (sum / count);
 			System.out.println("º°Á¡ Æò±Õ : " + avg);
 		}
-		
+
 		mav.addObject("info", info);
 		mav.addObject("avg", avg);
 		mav.addObject("g_no", g_no);

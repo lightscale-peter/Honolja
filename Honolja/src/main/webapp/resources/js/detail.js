@@ -47,6 +47,7 @@ function reviewBtn() {
 	if ($("re_score").val() == null || $("re_score").val() == "") {
 		$('#modal_title').html("확인").css("background-color", "red");
 		$('#modal_body').html("별점을 선택해 주세요.");
+
 		$("#messageModal").modal("show");
 		return false;
 	}

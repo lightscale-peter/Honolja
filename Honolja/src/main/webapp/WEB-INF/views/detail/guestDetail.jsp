@@ -32,6 +32,7 @@ $(document).ready(function() {
 	roominfo(g_no);
 })
 </script>
+
 </head>
 <body>
 	<c:import url="http://localhost:8080/honolja/header.do">
@@ -247,15 +248,18 @@ $(document).ready(function() {
 				}
 			});
 		})
+
 					var x = <c:out value='${info.g_position_n}'/>;
 					var y = <c:out value='${info.g_position_e}'/>;
 					var map = new naver.maps.Map('map', {
 						center : new naver.maps.LatLng(x, y),
+
 						zoomControl: true,
 				        zoomControlOptions: {
 				            style: naver.maps.ZoomControlStyle.SMALL,
 				            position: naver.maps.Position.TOP_RIGHT
 				        }
+
 					});
 
 					var marker = new naver.maps.Marker(
@@ -263,7 +267,9 @@ $(document).ready(function() {
 								position : new naver.maps.LatLng(x, y),
 								map : map
 							});
+
 					
+
 					/*// 마커 클릭 이벤트 처리 ( 클릭할 경우 infowindow에 등록된 이미지와 이름이 뜸 )
 					naver.maps.Event.addListener(marker, "click", function(e) {
 						if (infowindow.getMap()) {
@@ -299,6 +305,8 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+
+
 	<div class="modal fade" id="reviewDelete" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">

@@ -22,6 +22,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
+
 <link rel="stylesheet" href="./resources/css/detail.css">
 </head>
 <body>
@@ -29,6 +30,7 @@
 	<div class="container-fluid" id="review-All">
 		<label for="content">comment</label>
 		<form id="reviewForm" action="reviewAdd.do" method="post">
+
 			<input type="hidden" name="g_no" value="${g_no}"> <input
 				type="hidden" name="u_id" value="${u_id}">
 			<div class="review-userinfo">
@@ -60,7 +62,9 @@
 			</div>
 			<div class="form-group col-md-3">
 				<select class="form-control" id="re_score" name="re_score">
+
 					<option value="1" selected="selected">★</option>
+
 					<option value="2">★★</option>
 					<option value="3">★★★</option>
 					<option value="4">★★★★</option>

@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- select * from review where g_no = #{g_no} order by re_no desc -->
 
 		select * from review where g_no = #{g_no} order by re_no desc
+
 	</select>
 
 	<select id="answerView" parameterType="int"
