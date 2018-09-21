@@ -142,5 +142,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<update id="updateImgBoardROR">
+		update img_reply_of_reply set irr_content = #{irr_content} where irr_no = #{irr_no}
+	</update>
+	
+	<delete id="deleteImgBoardROR">
+		delete from img_reply_of_reply where irr_no = #{irr_no}
+	</delete>
+	
 </mapper>
 

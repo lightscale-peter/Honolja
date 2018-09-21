@@ -104,4 +104,14 @@ public class InfoDAO {
 		temp.insert("info.insertImgBoardROR", dto);
 	}
 	
+	//update img_reply_of_reply
+	public void dbUpdateImgReplyOfReply(InfoDTO dto) {
+		temp.update("info.updateImgBoardROR", dto);
+	}
+	
+	//delete img_reply_of_reply
+	public void dbDeleteImgReplyOfReply(int irr_no) {
+		temp.delete("info.deleteImgBoardROR", irr_no);
+	}
+	
 }

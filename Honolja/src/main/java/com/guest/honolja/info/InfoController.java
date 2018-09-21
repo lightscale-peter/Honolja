@@ -445,12 +445,15 @@ public class InfoController {
 		if(request.getParameter("i_no") != null) {
 			i_no = Integer.parseInt(request.getParameter("i_no"));
 		}
+		
+		String checked = request.getParameter("checked");
 
 		List<InfoDTO> list = dao.dbSelectImgReply(i_no);	
 		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/info/ajax_img_reply");
 			mav.addObject("list", list);
+			mav.addObject("checked", checked);
 			
 		return mav;
 	}
@@ -533,17 +536,22 @@ public class InfoController {
 	
 	@RequestMapping("/img_reply_of_reply.do")
 	public ModelAndView img_reply_of_reply_select(HttpServletRequest request) {
-		
+
 		int ir_no = 0;
 		if(request.getParameter("ir_no") != null) {
 			ir_no = Integer.parseInt(request.getParameter("ir_no"));
 		}
+		
+		String checked = request.getParameter("checked");
 		
 		List<InfoDTO> list_rr = dao.dbSelectImgReplyOfReply(ir_no);
 		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/info/img_reply_of_reply");
 			mav.addObject("list_rr", list_rr);
+			mav.addObject("checked", checked);
+			
+
 	
 		return mav;
 	}
@@ -576,6 +584,63 @@ public class InfoController {
 
 	return mav;
 	}
+	
+	@RequestMapping("/update_ror.do")
+	public ModelAndView update_ror(HttpServletRequest request) {
+		
+		int i_no = 0;
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+		
+		int irr_no = 0;
+		if(request.getParameter("irr_no") != null) {
+			irr_no = Integer.parseInt(request.getParameter("irr_no"));
+		}
+		
+		String irr_content = request.getParameter("irr_content");
+
+		
+		InfoDTO dto = new InfoDTO();
+			dto.setI_no(i_no);
+			dto.setIrr_no(irr_no);
+			dto.setIrr_content(irr_content);
+			
+		dao.dbUpdateImgReplyOfReply(dto);
+		
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/img_board_reply.do?i_no=" + i_no);
+
+		return mav;
+	}
+	
+	@RequestMapping("/delete_ror.do")
+	public ModelAndView delete_ror(HttpServletRequest request) {
+		
+		int i_no = 0;
+		if(request.getParameter("i_no") != null) {
+			i_no = Integer.parseInt(request.getParameter("i_no"));
+		}
+		
+		int irr_no = 0;
+		if(request.getParameter("irr_no") != null) {
+			irr_no = Integer.parseInt(request.getParameter("irr_no"));
+		}
+		
+		
+		System.out.println("i_no : " + i_no);
+		System.out.println("irr_no : " + irr_no);
+		
+		dao.dbDeleteImgReplyOfReply(irr_no);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/img_board_reply.do?i_no=" + i_no);
+
+		return mav;
+	}
+	
+	
 	
 	
 	

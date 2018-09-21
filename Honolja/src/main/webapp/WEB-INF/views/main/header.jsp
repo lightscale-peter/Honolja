@@ -84,7 +84,7 @@
 							&check_out=${param.check_out}
 							&nights=${param.nights}" >지역</a>
 					</li>
-					<li ${param.img_board}><a href="img_board.do" >여행지 정보</a></li>
+					<li ${param.img_board}><a href="img_board.do" >여행 정보</a></li>
 					<li ${param.test}><a href="test.do">TEST</a></li>
 				</ul>
 

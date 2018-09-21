@@ -86,7 +86,7 @@
 			<c:forEach var="list" items="${list}">
 				<div style="text-align: center;">
 			 	  	<a href="img_board_detail.do?i_no=${list.i_no }">
-			 	  		<img class = "grid_img" src="resources/main_images/1.jpg">
+			 	  		<img class = "grid_img" src="resources/info_images/${list.i_uploadFileName}">
 		 	  		</a>
 					<div style="margin-bottom: 5px;">${list.i_title}</div>
 					<div style="padding: 0 30px 0 30px;">

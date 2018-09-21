@@ -23,19 +23,19 @@
 	}
 	
 	//댓글의 댓글달기 버튼 클릭시 발생
-	function reply_of_reply(reply_of_reply_num, ir_no) {
+	function reply_of_reply(ir_no) {
 		
 		var tag_str;
 		
 		tag_str = "<td>";
-		tag_str += "<textarea id = \"irr_content\" class=\"form-control\" style = \"resize : none; width : 86%; margin-left : 140px;\" ></textarea>";
+		tag_str += "<textarea id = \"irr_content_insert\" class=\"form-control\" style = \"resize : none; width : 86%; margin-left : 140px;\" ></textarea>";
 		tag_str += "</td>";
 		tag_str += "<td style = \"vertical-align : middle;\">";
-		tag_str += "<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick = \"insert_reload_ror("+ir_no+");\">작성완료</button>";
+		tag_str += "<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick = \"insert_reload_ror(" + ir_no + ");\">작성완료</button>";
 		tag_str += "</td>";
 
-		document.getElementById("reply_of_reply_btn_" + reply_of_reply_num).innerHTML = "";
-		document.getElementById("reply_of_reply_area_" + reply_of_reply_num).innerHTML = tag_str;
+		document.getElementById("reply_of_reply_btn_" + ir_no).innerHTML = "";
+		document.getElementById("reply_of_reply_area_" + ir_no).innerHTML = tag_str;
 
 	}
 
@@ -64,30 +64,31 @@
 							</h3>		 
 							<p>
 							<!-- 댓글 내용 -->
-							<span id="reply_content_${i.index}">${list.ir_content}</span>
+							<span id="reply_content_${list.ir_no}">${list.ir_content}</span>
 							<p>
 							
 							<!-- 댓글의 댓글달기 버튼 -->
-							<span id = "reply_of_reply_btn_${i.index }">	
-								<button type="button" class="btn btn-default btn-xs" onclick = "reply_of_reply(${i.index}, ${list.ir_no });">댓글달기</button>
+							<span id = "reply_of_reply_btn_${list.ir_no }">	
+								<button type="button" class="btn btn-default btn-xs" onclick = "reply_of_reply(${list.ir_no}, ${list.ir_no });">댓글달기</button>
 							</span>
 						</td>
 						<td style="vertical-align: middle;">
 							<!-- 댓글 수정/삭제 버튼 -->
-							<span id="reply_update_btn_${i.index}">
+							<span id="reply_update_btn_${list.ir_no}">
 								<c:if test="${param.checked == list.u_id || checked == list.u_id}">
-									<button type="button" class="btn btn-success btn-xs" onclick="reply_update(${i.index}, ${list.ir_no });">수정</button>
+									<button type="button" class="btn btn-success btn-xs" onclick="reply_update(${list.ir_no });">수정</button>
 									<button type="button" class="btn btn-danger btn-xs" onclick = "delete_reply_confirm(${list.ir_no});">삭제</button>
 								</c:if>
 							</span>
 						</td>
 					</tr>
 					<!-- 댓글의 댓글 버튼 클릭시 활성화 -->
-					<tr id = "reply_of_reply_area_${i.index}"></tr>
+					<tr id = "reply_of_reply_area_${list.ir_no}"></tr>
 					
 					<!-- 댓글의 댓글 리스트 출력 -->
 					<c:import url="http://localhost:8080/honolja/img_reply_of_reply.do">
 						<c:param name="ir_no" value="${list.ir_no }" />
+						<c:param name="checked" value="${checked }" />	
 					</c:import>
 				</c:forEach>
 			</tbody>

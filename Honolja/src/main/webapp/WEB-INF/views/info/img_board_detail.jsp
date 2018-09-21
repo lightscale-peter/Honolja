@@ -105,14 +105,48 @@
 			});
 		}
 		
-		function insert_reload_ror(ir_no_val){
+		function insert_reload_ror(ir_no_val){		
 			$.ajax({
 				"url" : "http://localhost:8080/honolja/insert_ror.do",
 				"type" : "get",
-				"data" : {i_no : ${param.i_no}, irr_content : $('#irr_content').val(), ir_no : ir_no_val },
+				"data" : {i_no : ${param.i_no}, irr_content : $('#irr_content_insert').val(), ir_no : ir_no_val },
 				"success" : function(data){			
 					$('#ajax_img_reply').html(data);	
 				}
+			});
+		}
+		
+		function update_reload_ror(irr_no_val){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/update_ror.do",
+				"type" : "get",
+				"data" : {i_no : ${param.i_no}, irr_no : irr_no_val, irr_content : $('#irr_content_update').val() },
+				"success" : function(data){			
+					$('#ajax_img_reply').html(data);	
+				}
+			});
+		}
+		
+		function delete_reload_ror(irr_no_val){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/delete_ror.do",
+				"type" : "get",
+				"data" : {i_no : ${param.i_no}, irr_no : irr_no_val},
+				"success" : function(data){			
+					$('#ajax_img_reply').html(data);	
+				}
+			});
+		}
+		
+		function delete_ror_confirm(irr_no_val){
+			$(document).ready(function(){
+				$('#alertbox').ready(function(){
+					$("#error").html("정말 삭제 하시겠습니까?");
+					$('#myModal').modal("show");
+					$('#check_btn').click(function(){
+						delete_reload_ror(irr_no_val);
+					});
+				});
 			});
 		}
 		
@@ -150,8 +184,8 @@
 		</c:when>
 		<c:otherwise>
 			<div class="container" style="margin-top: 80px;">
-				<h2>여행지정보 게시판</h2>
-				<p>여행지에 대한 정보를 공유하는 공간입니다. 광고/홍보용 사진은 삭제됨을 알려드립니다.</p>            
+				<h2>여행 정보 게시판</h2>
+				<p>여행에 대한 정보를 공유하는 공간입니다. 광고/홍보용 사진은 삭제됨을 알려드립니다.</p>            
 				<table class="table" style="margin-top: 30px;">
 					<thead>
 						<tr>
@@ -217,13 +251,15 @@
 										</c:otherwise>
 									</c:choose>
 						        </span>
-						        <!-- 글 수정 버튼 -->
-						        &nbsp;
-								<button type="button" class="btn btn-success" onclick = "location.href = 'img_board_write.do?i_no=${param.i_no}'">글 수정</button>
-								
-								<!-- 글 삭제 버튼 -->
-								&nbsp;
-								<button type="button" class="btn btn-danger" onclick = "modal_confirm();">글 삭제</button>
+						        <c:if test="${dto.u_id == checked }">
+							        <!-- 글 수정 버튼 -->
+							        &nbsp;
+									<button type="button" class="btn btn-success" onclick = "location.href = 'img_board_write.do?i_no=${param.i_no}'">글 수정</button>
+									
+									<!-- 글 삭제 버튼 -->
+									&nbsp;
+									<button type="button" class="btn btn-danger" onclick = "modal_confirm();">글 삭제</button>
+								</c:if>
 							</td>
 						</tr>
 						<tr>
