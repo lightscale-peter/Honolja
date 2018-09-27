@@ -314,13 +314,33 @@
 	<div style="left:0; width:60%; padding-left: 30px; padding-right:30px;padding-left:30px;">
     	<div style="padding-top: 13px;padding-bottom: 12px;"><p>
      		<button type="button" class="filter__item" name="popoverButton" style="margin-right:27px;"id="firstfilter">
-     			<span class="filter__option"id = "basics">기본순</span>
+     			<span class="filter__option"id="basics">기본순</span>
      			<i style="width: 17px;height: 16px; background: url(https://yaimg.yanolja.com/joy/pw/search/filter-icon__arrow_bottom.svg) 50%;
    				display: inline-block;overflow: hidden;font-size: 0;line-height: 0;text-indent: -9999px; vertical-align: middle;"></i>
      		</button> 
      		
      		<button type="button" class="filter__item" name="popoverButton"style="margin-right:27px;" id="secondfilter">
-     			<span class="filter__option">가격대선택</span>
+     			<c:choose>
+  					<c:when test="${low_price=='a'}">
+   						<span class="filter__option">0~20000</span>
+					</c:when>
+					<c:when test="${low_price=='b'}">
+						<span class="filter__option">20000~40000</span>
+					</c:when>
+					<c:when test="${low_price=='c'}">
+						<span class="filter__option">40000~60000</span>
+					</c:when>
+					<c:when test="${low_price=='d'}">
+						<span class="filter__option">60000~80000</span>
+					</c:when>
+					<c:when test="${low_price=='e'}">
+						<span class="filter__option">60000~80000</span>
+					</c:when>
+					<c:otherwise>
+						<span class="filter__option">가격대선택</span>
+					</c:otherwise>
+					</c:choose>   
+     			<!-- <span class="filter__option"id="priceselect">가격대선택</span> -->
      			<i style="width: 17px;height: 16px; background: url(https://yaimg.yanolja.com/joy/pw/search/filter-icon__arrow_bottom.svg) 50%;
    				display: inline-block;overflow: hidden;font-size: 0;line-height: 0;text-indent: -9999px; vertical-align: middle;"></i>
      		</button> 
@@ -342,7 +362,7 @@
  	      	    jQuery('#secondfilt').css("display", "none"); 
 			} 
 		});
-	//가격대순 필터이벤트
+	//가격대선택 필터이벤트
 		jQuery('#secondfilter').click(function () {  
 			if($("#secondfilt").css("display") == "table"){
 				jQuery('#secondfilt').css("display", "none");
@@ -361,7 +381,7 @@
  		});
 	</script>
 	<!-- 해당 필터 클릭 시 이벤트 끝-->
-     <!-- 기본순 필터 -->
+    <!-- 기본순 필터 -->
      <form action="guestlocation.do" method="get">
 		<input type="hidden" name="g_addr"value="${param.g_addr}">
 		<input type="hidden" name="adult"value="${param.adult}">
@@ -387,7 +407,7 @@
  	    	<div>
  	      		<div>
  	      			<div>
- 	      				<input type="radio" id="basic" name="basic" value="basic"> <!-- onClick="alert('asdf');" -->
+ 	      				<input type="radio" id="basic" name="basic" value="basic">
  	      				<label for="basic">기본순</label>
  	      			</div>
  	      			<div>
@@ -413,34 +433,29 @@
 		<script type="text/javascript">
 		//버튼 span에 지정된 값 가져오기
 		$(document).ready(function(){
-			var span = document.getElementById("basics").value;
 			var basic1 = document.getElementById("a").value;
-			if(basic1=="basic"){$('#basics').html('기본순');}
-			else if(basic1=="like"){$('#basics').html('인기순');}
-			else if(basic1=="reply"){$('#basics').html('댓글 많은 순');}
-			else if(basic1=="priceup"){$('#basics').html('가격 낮은 순');}
-			else if(basic1=="pricedown"){$('#basics').html('가격 높은 순');}
+			if(basic1=="basic"){$('#basics').html('기본순');$('#basic').is(":checked");}
+			else if(basic1=="like"){$('#basics').html('인기순');$('#basic').is(":checked");}
+			else if(basic1=="reply"){$('#basics').html('댓글 많은 순');$('#basic').is(":checked");}
+			else if(basic1=="priceup"){$('#basics').html('가격 낮은 순');$('#basic').is(":checked");}
+			else if(basic1=="pricedown"){$('#basics').html('가격 높은 순');$('#basic').is(":checked");}
 		});
-		
 		//기본순
 		$(document).ready(function(){
 	    	$("#basic").change(function(){
 	        	if($("#basic").is(":checked")){
-	        		$('#basics').html('기본순');
 	        		location.href="guestlocation.do?g_addr=${param.g_addr}&adult=${param.adult}&child=${param.child}"
-		        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=basic";
-		        	$('#basic').is(":checked");
+		        	+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=basic";
 	        	}
 	   		});
 		});
 		
-		//인기순
+		//인기순(좋아요 많은 순)
 		$(document).ready(function(){
 	    	$("#like").change(function(){
 	        	if($("#like").is(":checked")){
-	        		$('#basics').html('인기순');
 	        		location.href="guestlocation.do?g_addr=${param.g_addr}&adult=${param.adult}&child=${param.child}"
-		        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=like";
+		        	+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=like";
 	        	}
 	   		});
 		});
@@ -449,7 +464,6 @@
 		$(document).ready(function(){
 	    	$("#reply").change(function(){
 	        	if($("#reply").is(":checked")){
-	        		$('#basics').html('댓글 많은 순');
 	        		location.href="guestlocation.do?g_addr=${param.g_addr}&adult=${param.adult}&child=${param.child}"
 		        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=reply";
 	        	}
@@ -460,7 +474,6 @@
 		$(document).ready(function(){
 	    	$("#priceup").change(function(){
 	        	if($("#priceup").is(":checked")){
-	        		$('#basics').html('가격 낮은 순');
 	        		location.href="guestlocation.do?g_addr=${param.g_addr}&adult=${param.adult}&child=${param.child}"
 		        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=priceup";
 	        	}
@@ -471,7 +484,6 @@
 		$(document).ready(function(){
 	    	$("#pricedown").change(function(){
 	        	if($("#pricedown").is(":checked")){
-	        		$('#basics').html('가격 높은 순');
 	        		location.href="guestlocation.do?g_addr=${param.g_addr}&adult=${param.adult}&child=${param.child}"
 		        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=pricedown";
 	        	}
@@ -498,9 +510,9 @@
     	background-color: #fff;
     	padding: 20px;
     	clear: both;
-    	margin-left: 5%;
+    	margin-left:5%;
     	display:none;"><!--data-popover-content="true"  -->
- 	    	<div id="checkbox" >
+ 	    	<div id="checkbox">
  	      		<div>
  	      			<div>
  	      				<input type="checkbox" id="one" name="sortFilter" value="a">
@@ -523,7 +535,7 @@
  	      				<label for="five">80000~100000</label>
  	      			</div>
  	      			<div style="margin-left:60%;">
- 	      				<button type="submit" id="secondbtn" style = "width:60px;background-color:#ff2d60; color:white;">
+ 	      				<button type="submit" id="pricebtn" style = "width:60px;background-color:#ff2d60; color:white;">
  	      				<em>확인</em>
  	      				</button> 
  	      			</div>
@@ -534,37 +546,37 @@
     </div>
 		<!-- 필터 끝-->
 		<!-- Guest house 목록을 리스트로 뽑아주기 -->
-      	<table id="ajaxTable" width="60%" height="10%" border="0" cellpadding="1">
-      	<c:forEach var="list" items="${listlo}" varStatus="i">
-      		<tr align="left" >
-      		<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
-      			<a style="text-decoration: none;"
-      			href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}"
-      			target="_blank">
-      			<img src = "${list.g_url}" width="90%" height="180px"></a>
-      			<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
-      		</td>
-      		<td style="font-size:24px;padding-top:10px;">
-      			<a style="text-decoration: none;"
-      			href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}"
-      			target="_blank">
-      			${list.g_name}</a>
-      			 <button type="button" class="filter__refresh-btn"style = "font-size:16px;"><em>좋아요</em></button>
-      		</td>
-      		</tr>
-      		<tr><td>list.rating, reply count</td></tr>
-      		<tr>
-      			<td>
-      				<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
-      				<i>14:00~&nbsp;</i>
-      				<i style="width:15px; height: 15px; background-color:#ff2d60; color:white;">기본</i> 
-      				<i style="font-size:18px;font-weight:bold;color:black;">&nbsp;&nbsp;${list.low_price} 원</i>
-      			</td>
-      		</tr>
-      		<tr><td>쿠폰 및 테마 공백 </td></tr>
-      		<tr><td style="padding-bottom:30px;">&nbsp;</td></tr>
-      		<tr><td colspan="2"><hr color="#D5D5D5" align="center" width=97%></hr></td></tr>
-      		<script>
+	<table id="ajaxTable" width="60%" height="10%" border="0" cellpadding="1">
+    <c:forEach var="list" items="${listlo}" varStatus="i">
+    	<tr align="left" >
+      	<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
+      		<a style="text-decoration: none;"
+      		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}"
+      		target="_blank">
+      		<img src = "${list.g_url}" width="90%" height="180px"></a>
+      		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
+		</td>
+      	<td style="font-size:24px;padding-top:10px;">
+      		<a style="text-decoration: none;"
+      		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}"
+      		target="_blank">
+      		${list.g_name}</a>
+      		<button type="submit" id="likebtn" class="filter__refresh-btn"style="font-size:16px;"><em>좋아요</em></button>
+		</td>
+      	</tr>
+      	<tr><td>list.rating, reply count</td></tr>
+      	<tr>
+      		<td>
+				<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
+      			<i>14:00~&nbsp;</i>
+      			<i style="width:15px; height: 15px; background-color:#ff2d60; color:white;">기본</i> 
+      			<i style="font-size:18px;font-weight:bold;color:black;">&nbsp;&nbsp;${list.low_price} 원</i>
+			</td>
+		</tr>
+      	<tr><td>쿠폰 및 테마 공백 </td></tr>
+      	<tr><td style="padding-bottom:30px;">&nbsp;</td></tr>
+      	<tr><td colspan="2"><hr color="#D5D5D5" align="center" width=97%></hr></td></tr>
+      	<script>
       		x[${i.index}] = ${list.g_position_n};
   			y[${i.index}] = ${list.g_position_e}; 
   			name[${i.index}] = '${list.g_name}';
@@ -575,19 +587,18 @@
 			child= '${param.child}'; 
   			area = '${param.area}';
   		</script>
-		</c:forEach>
-		<!-- <script>
-				jQuery('#like').css("display", "none"); 
-				jQuery('#like').click(function () {  
-			 	   if($("#like").css("display") == "block"){
-			       	 	jQuery('#like').css("display", "none");   
-			    	} else {  
-			        	jQuery('#like').css("display", "block");   
-			    	} 
-				});  redirect:???.???//???
-			</script> -->
-      	</table>
-      	</div>
+	</c:forEach>
+	<!-- <script> //좋아요 클릭 이벤트
+		jQuery("#likebtn").click(function(){
+			if(jQuery("#likebtn").class("filter__refresh-btn")){
+				jQuery("#likebtn").css("background-color","black");
+		    } else {  
+		    	//if else 써서 이미지 바꿔주고 동적으로 데이터값 넘겨주기 
+		    } 
+		});
+	</script> -->
+    </table>
+	</div>
  <script>
  	var map;
  	if(area=='my'){
@@ -613,7 +624,6 @@
 	    
 	   // 마크 클릭시 인포윈도우 오픈
 	    var infowindow = new naver.maps.InfoWindow({
-	    	/* &adult='+adult+'&child='+child+' */
 	    	content: '<h6>'+name[i]+'</h6><div align="center"><a href="guestdetail.do?g_no='
 	    	+g_no[i]+'&adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='+check_out+'" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
 	    	 maxWidth: 140,
@@ -682,8 +692,6 @@
     for (var i=0, ii=markers.length; i<ii; i++) {
         naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
     }
- 	
    </script>
-
 </body>
 </html>
