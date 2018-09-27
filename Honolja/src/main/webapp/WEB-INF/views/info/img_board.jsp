@@ -86,7 +86,15 @@
 			<c:forEach var="list" items="${list}">
 				<div style="text-align: center;">
 			 	  	<a href="img_board_detail.do?i_no=${list.i_no }">
-			 	  		<img class = "grid_img" src="resources/info_images/${list.i_uploadFileName}">
+			 	  		<c:choose>
+			 	  			<c:when test="${list.i_originalFileName != null}">
+			 	  				<img class = "grid_img" src="resources/info_images/${list.i_uploadFileName}">
+			 	  			</c:when>
+			 	  			<c:otherwise>
+			 	  				<img class = "grid_img" src="resources/info_images/ccc.gif">
+			 	  			</c:otherwise>
+			 	  		</c:choose>
+			 	  		
 		 	  		</a>
 					<div style="margin-bottom: 5px;">
 						${list.i_title}&nbsp;
