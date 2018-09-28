@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="reservation">
 
 	<insert id="resAdd"
-		parameterType="com.guest.honolja.reservation.ReservationDTO">
+		parameterType="com.guest.honolja.detail.DetailDTO">
 		insert into reservation values(
 		reservation_seq.nextval,
 		#{u_id}, #{res_price},
@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="resSelect"
-		parameterType="com.guest.honolja.reservation.ReservationDTO"
-		resultType="com.guest.honolja.reservation.ReservationDTO">
+		parameterType="com.guest.honolja.detail.DetailDTO"
+		resultType="com.guest.honolja.detail.DetailDTO">
 		select * from reservation where
 		to_date(#{check_in},'YYYY/MM/DD') <![CDATA[>=]]>
 		res_startdate AND to_date(#{check_out},'YYYY/MM/DD') <![CDATA[<=]]>

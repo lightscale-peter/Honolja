@@ -66,18 +66,19 @@
 							value="${list.r_price}" pattern="###,###,###.##" /> </font><i>원</i>
 				</div>
 				<c:choose>
-					<c:when test="${!empty list.resCnt}">
+					<c:when test="">
 						<button type="button" class="btn btn-secondary btn-block" disabled>예약불가</button>
 					</c:when>
 					<c:otherwise>
 						<c:choose>
 							<c:when test="${empty sessionScope.checked}">
 								<button type="button" class="btn btn-primary btn-block"
-									href="login.do">예약 하기</button>
+									onclick="popupWindow('login_popup.do?host=guestdetail.do?g_no=${list.g_no}', 'login', 410, 450)">예약
+									하기</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" class="btn btn-primary btn-block" href="">예약
-									하기</button>
+								<button type="button" class="btn btn-primary btn-block"
+									data-toggle="modal" href="#reservationModal">예약 하기</button>
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>

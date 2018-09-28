@@ -149,10 +149,7 @@
 				});
 			});
 		}
-		
-		
 
-		
 	</script>
 </head>
 <body style="margin-top: 50px;">
@@ -179,7 +176,7 @@
 							location.href = 'img_board.do';
 						});
 					});
-				});
+				});	
 			</script>
 		</c:when>
 		<c:otherwise>
@@ -215,6 +212,13 @@
 								<c:if test="${dto. i_originalFileName != null }">
 									<div style="margin-bottom: 20px;">
 										<img style="display: block; margin: auto; border-radius: 5px; width: 1000px;" src="resources/info_images/${dto. i_originalFileName}">
+									</div>
+								</c:if>
+								
+								<!-- 유튜브 영상 삽입 -->
+								<c:if test="${dto.i_youtube != null }">
+									<div id = "youtube_fr" style="width : 80%; margin: auto;" class="embed-responsive embed-responsive-16by9">
+										<iframe width="560" height="315" src="${dto.i_youtube }" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 									</div>
 								</c:if>
 								${dto.i_content}

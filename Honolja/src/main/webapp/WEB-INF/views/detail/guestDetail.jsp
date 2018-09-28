@@ -200,7 +200,7 @@
 															value="${list.r_price}" pattern="###,###,###.##" /> </font><i>원</i>
 												</div>
 												<c:choose>
-													<c:when test="${!empty list.resCnt}">
+													<c:when test="">
 														<button type="button" class="btn btn-secondary btn-block"
 															disabled>예약불가</button>
 													</c:when>
@@ -208,11 +208,13 @@
 														<c:choose>
 															<c:when test="${empty sessionScope.checked}">
 																<button type="button" class="btn btn-primary btn-block"
-																	href="login.do">예약 하기</button>
+																	onclick="popupWindow('login_popup.do?host=guestdetail.do?g_no=${list.g_no}', 'login', 410, 450)">예약
+																	하기</button>
 															</c:when>
 															<c:otherwise>
 																<button type="button" class="btn btn-primary btn-block"
-																	href="">예약 하기</button>
+																	data-toggle="modal" href="#reservationModal">예약
+																	하기</button>
 															</c:otherwise>
 														</c:choose>
 													</c:otherwise>
@@ -251,7 +253,7 @@
 						</div>
 					</div>
 					<div class="DateRangePicker-bottom">
-						<span class="f-right" id="nights">${nights}1박</span>
+						<span class="f-right" id="nights">${nights}</span>
 					</div>
 				</div>
 				<div id="map" style="width: 400px; height: 400px;" align="center"></div>
@@ -293,11 +295,11 @@
 								content : '<a href="http://bitcamp.co.kr/index.php?main_page=home"><h4>[비트캠프 서초센터]</h4></a>'
 							}); */
 							
-							$('#startDate').datepicker({ 
+							$('#check_in').datepicker({ 
 							    format: 'yyyy/mm/dd'
 							}); 
 							 
-							$('#endDate').datepicker({ 
+							$('#check_out').datepicker({ 
 								format: 'yyyy/mm/dd'
 							});
 							
@@ -452,24 +454,6 @@
 				</script>
 	</div>
 	<jsp:include page="detailModal.jsp"></jsp:include>
-	<!-- Modal -->
-	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog modal-notify modal-info">
-			<div class="modal-content">
-				<div class="modal-header" id="modal_title">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title"></h4>
-				</div>
-				<div class="modal-body" id="modal_body"></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
 	<c:import url="http://localhost:8080/honolja/footer.do"></c:import>
 </body>
 </html>

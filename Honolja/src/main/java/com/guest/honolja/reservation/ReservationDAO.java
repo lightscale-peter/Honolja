@@ -6,18 +6,20 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.guest.honolja.detail.DetailDTO;
+
 @Repository
 public class ReservationDAO {
 
 	@Autowired
 	SqlSessionTemplate temp;
 
-	public List<ReservationDTO> dbresSelect(ReservationDTO dto) {
-		List<ReservationDTO> res = temp.selectList("reservation.resSelect", dto);
+	public List<DetailDTO> dbresSelect(DetailDTO dto) {
+		List<DetailDTO> res = temp.selectList("reservation.resSelect", dto);
 		return res;
 	}
 
-	public void dbresAdd(ReservationDTO dto) {
+	public void dbresAdd(DetailDTO dto) {
 		temp.insert("reservation.resAdd", dto);
 	}
 }

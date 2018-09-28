@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.guest.honolja.detail.DetailDTO;
 import com.guest.honolja.main.MainController;
 
 @Controller
@@ -18,7 +19,7 @@ public class ReservationController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	@RequestMapping("/resevationAdd.do")
-	public ModelAndView resAdd(ReservationDTO dto) {
+	public ModelAndView resAdd(DetailDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		dao.dbresAdd(dto);
 		mav.setViewName("direct:/guestdetail.do" + dto.getG_no());

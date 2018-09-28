@@ -2,17 +2,14 @@
  * 
  */
 
-function roominfo(g_no, res_startdate, res_enddate) {
+function roominfo(g_no) {
 	$.ajax({
 		url : 'roominfo.do',
 		type : 'GET',
 		data : {
-			g_no : g_no,
-			res_startdate : res_startdate,
-			res_enddate : res_enddate
+			g_no : g_no
 		},
 		success : function(data) { // 서버에 대한 정상응답이 오면 실행, callback
-			$("#roominfos").tab('show');
 			$("#roominfos").html(data);
 		}
 	});
@@ -26,7 +23,6 @@ function review(g_no) {
 			g_no : g_no
 		},
 		success : function(data) { // 서버에 대한 정상응답이 오면 실행, callback
-			$("#reviews").tab('show');
 			$("#reviews").html(data);
 		},
 		error : function(request, status, error) {
@@ -40,15 +36,15 @@ function reviewBtn() {
 
 	if ($.trim($("#re_content").val()) == ""
 			|| $.trim($("#re_content").val()) == null) {
-		$('#modal_title').html("확인").css("background-color", "red");
-		$('#modal_body').html("댓글 내용을 입력해주세요.");
+		$('#modal_title1').html("확인").css("background-color", "red");
+		$('#modal_body1').html("댓글 내용을 입력해주세요.");
 		$("#messageModal").modal("show");
 		return false;
 	}
 
-	if ($("re_score").val() == null || $("re_score").val() == "") {
-		$('#modal_title').html("확인").css("background-color", "red");
-		$('#modal_body').html("별점을 선택해 주세요.");
+	if ($("re_score").val() == null && $("re_score").val() == "") {
+		$('#modal_title1').html("확인").css("background-color", "red");
+		$('#modal_body1').html("별점을 선택해 주세요.");
 		$("#messageModal").modal("show");
 		return false;
 	}
@@ -229,4 +225,12 @@ function answerDel(re_no, g_no) {
 					+ request.responseText + "\n" + "error:" + error);
 		}
 	})
+}
+
+function popupWindow(url, title, w, h) {
+	
+	var left = (screen.width/2) - (w/2);
+	var top = (screen.height/2) - (h/2) - 50;
+	
+	return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
 }

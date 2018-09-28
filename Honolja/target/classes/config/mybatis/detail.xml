@@ -13,16 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		parameterType="com.guest.honolja.detail.DetailDTO">
 		select
 		g.*, r.*, (select count(*) from review where
-		g_no = r.g_no) as
+		g_no =
+		r.g_no) as
 		rcnt
-		<if test="check_in != null and check_out != null">
-			, (select count(*) from reservation where
-			to_date(#{check_in},'YYYY/MM/DD') <![CDATA[>=]]>
-			check_in
-			and to_date(#{check_out},'YYYY/MM/DD') <![CDATA[<=]]>
-			check_out
-			and res_ok = 'n') as resCnt
-		</if>
 		from
 		guesthouse g inner join
 		roominfo r
@@ -30,7 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		g.g_no
 		=
 		r.g_no
-		and r.g_no =
+		and
+		r.g_no =
 		#{g_no}
 	</select>
 	<select id="imageSelect" parameterType="int"

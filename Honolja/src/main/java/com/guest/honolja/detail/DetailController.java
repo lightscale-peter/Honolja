@@ -43,7 +43,9 @@ public class DetailController {
 		dto.setG_no(g_no);
 		dto.setCheck_in(startDate);
 		dto.setCheck_out(endDate);
-		
+		System.out.println("체크인:" + startDate);
+		System.out.println("체크아웃:" + endDate);
+
 		List<DetailDTO> room = dao.dbroomSelect(dto);
 		List<DetailDTO> img = dao.dbimageSelect(g_no);
 		int count = dao1.dbreviewCount(g_no);
@@ -82,9 +84,9 @@ public class DetailController {
 	public ModelAndView guest_room(DetailDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		List<DetailDTO> room = dao.dbroomSelect(dto);
-		// List<ReservationDTO> res = dao2.dbresSelect(dto);
+		List<DetailDTO> res = dao2.dbresSelect(dto);
 		mav.addObject("list", room);
-		// mav.addObject("res", res);
+		mav.addObject("res", res);
 		mav.setViewName("/detail/guestRoomInfo");
 		return mav;
 	}
