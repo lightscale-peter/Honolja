@@ -2,12 +2,14 @@
  * 
  */
 
-function roominfo(g_no) {
+function roominfo(g_no, res_startdate, res_enddate) {
 	$.ajax({
 		url : 'roominfo.do',
 		type : 'GET',
 		data : {
-			g_no : g_no
+			g_no : g_no,
+			res_startdate : res_startdate,
+			res_enddate : res_enddate
 		},
 		success : function(data) { // 서버에 대한 정상응답이 오면 실행, callback
 			$("#roominfos").tab('show');
@@ -47,7 +49,6 @@ function reviewBtn() {
 	if ($("re_score").val() == null || $("re_score").val() == "") {
 		$('#modal_title').html("확인").css("background-color", "red");
 		$('#modal_body').html("별점을 선택해 주세요.");
-
 		$("#messageModal").modal("show");
 		return false;
 	}
@@ -61,7 +62,7 @@ function reviewBtn() {
 		success : function(data) { // 서버에 대한 정상응답이 오면 실행, callback
 			$('#modal_title').html("확인");
 			$('#modal_body').html("저장 되었습니다.");
-			$("#messageModal").modal("show");
+			$("#ignismyModal").modal("show");
 			$("#reviews").html(data);
 		},
 		error : function(request, status, error) {
@@ -83,7 +84,7 @@ function remove(re_no, g_no) {
 		success : function(data) {
 			$('#modal_title').html("확인");
 			$('#modal_body').html("삭제 되었습니다.");
-			$("#messageModal").modal("show");
+			$("#ignismyModal").modal("show");
 			$("#reviews").html(data);
 		}
 	})
@@ -168,7 +169,7 @@ function answerAdd() {
 			$("#reviews").html(data);
 			$('#modal_title').html("확인");
 			$('#modal_body').html("저장 되었습니다.");
-			$("#messageModal").modal("show");
+			$("#ignismyModal").modal("show");
 		},
 		error : function(request, status, error) {
 			alert("code:" + request.status + "\n" + "message:"
@@ -219,7 +220,7 @@ function answerDel(re_no, g_no) {
 		success : function(data) {
 			$('#modal_title').html("확인");
 			$('#modal_body').html("삭제 되었습니다.");
-			$("#messageModal").modal("show");
+			$("#ignismyModal").modal("show");
 			$("#reviews").html(data);
 
 		},

@@ -197,5 +197,6 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+	<jsp:include page="detailModal.jsp"></jsp:include>
 </body>
 </html>

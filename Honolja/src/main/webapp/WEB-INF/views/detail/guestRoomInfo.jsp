@@ -65,11 +65,27 @@
 					<font color="#FF69B4" size="15px"><fmt:formatNumber
 							value="${list.r_price}" pattern="###,###,###.##" /> </font><i>원</i>
 				</div>
-				<button type="button" class="btn btn-primary btn-block" href="">예약
-					하기</button>
+				<c:choose>
+					<c:when test="${!empty list.resCnt}">
+						<button type="button" class="btn btn-secondary btn-block" disabled>예약불가</button>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${empty sessionScope.checked}">
+								<button type="button" class="btn btn-primary btn-block"
+									href="login.do">예약 하기</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn-primary btn-block" href="">예약
+									하기</button>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<hr>
 	</c:forEach>
+	<jsp:include page="detailModal.jsp"></jsp:include>
 </body>
 </html>
