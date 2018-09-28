@@ -17,8 +17,8 @@ public class DetailDAO {
 		return view;
 	}
 	
-	public List<DetailDTO> dbroomSelect(int g_no) {
-		List<DetailDTO> info = temp.selectList("detail.roomSelect", g_no);
+	public List<DetailDTO> dbroomSelect(DetailDTO dto) {
+		List<DetailDTO> info = temp.selectList("detail.roomSelect", dto);
 		return info;
 	}
 

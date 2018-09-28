@@ -9,7 +9,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			r.hobby_idx from hobby h inner join hobby_reply r on h.hobby_idx = r.hobby_idx 
 			and r.hobby_idx = #{h.hobby_idx} order by rrn -->
 		<!-- select * from review where g_no = #{g_no} order by re_no desc -->
-
 		select * from review where g_no = #{g_no} order by re_no desc
 
 	</select>
@@ -28,8 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{re_title}, #{re_content},
 		#{re_like},
 		#{re_score},
-		sysdate,
-		#{re_img},
+		sysdate, #{re_img},
 		#{u_id}, #{g_no})
 	</insert>
 
@@ -60,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		re_score = #{re_score},
 		re_date =
 		sysdate,
-		i_name = #{i_name},
+		re_img = #{re_img},
 		u_id = #{u_id}
 		where
 		re_no = #{re_no}

@@ -21,23 +21,24 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="./resources/js/detail.js"></script>
 
+<script src="./resources/js/detail.js"></script>
 <link rel="stylesheet" href="./resources/css/detail.css">
 </head>
 <body>
+	<jsp:include page="detailModal.jsp"></jsp:include>
 	<div class="container-fluid" id="review-All">
 		<c:choose>
 			<c:when test="${empty sessionScope.checked}">
 				<div class="place-room__message">
-					<i class="badge-live">바른후기</i> 는 로그인한 회원만 작성할 수 있습니다.
+					<i class="badge-live">후기</i> 는 로그인한 회원만 작성할 수 있습니다.
 				</div>
 			</c:when>
 			<c:otherwise>
+				<c:set var="u_id" value="${sessionScope.checked}" />
 				<div>
 					<label for="content">comment</label>
 					<form id="reviewForm" action="reviewAdd.do" method="post">
-
 						<input type="hidden" name="g_no" value="${g_no}"> <input
 							type="hidden" name="u_id" value="${u_id}">
 						<div class="review-userinfo">
@@ -45,7 +46,7 @@
 								<img
 									src="http://member.yanolja.com/include/img/picture/default_picture.png"
 									class="img-circle" alt="프로필사진" width="34px;" /><span
-									class="nicname">로그인섹션값</span>
+									class="nicname">${u_id}</span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -160,13 +161,14 @@
 											src="//member.yanolja.com/include/img/picture/default_picture.png"
 											class="img-circle" alt="프로필사진" width="34px;" /> <span
 											class="nicname">${review.u_id}</span><i class="bar"></i><span
-											class="roomtype">${review.i_name}</span><i class="bar"></i><span
+											class="roomtype">${review.r_name}</span><i class="bar"></i><span
 											class="date"><fmt:formatDate value="${review.re_date}"
 												pattern="yyyy-MM-dd" /></span>
 										<div class="btn-group pull-right">
 											<button type="button" class="btn btn-info" role="button"
-												onclick="premodify(${review.re_no})">수정</button>
+												data-toggle="modal" onclick="premodify(${review.re_no})">수정</button>
 											<button type="button" class="btn btn-secondary" role="button"
+												data-toggle="modal"
 												onclick="remove(${review.re_no}, ${g_no})">삭제</button>
 										</div>
 									</div>
@@ -176,7 +178,7 @@
 									<c:when test="${review.ansCnt > 0}">
 										<div>
 											<button type="button" class="btn btn-primary"
-												onclick="answerView(${review.re_no})">
+												data-toggle="modal" onclick="answerView(${review.re_no})">
 												답변 <span class="badge badge-light">1</span>
 											</button>
 										</div>
@@ -184,6 +186,7 @@
 									<c:otherwise>
 										<div>
 											<button type="button" class="btn btn-primary"
+												data-toggle="modal"
 												onclick="answer(${review.re_no}, ${g_no})">답변</button>
 										</div>
 									</c:otherwise>

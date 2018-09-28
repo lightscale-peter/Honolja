@@ -44,5 +44,6 @@
 			</div>
 		</form>
 	</div>
+	<jsp:include page="detailModal.jsp"></jsp:include>
 </body>
 </html>
