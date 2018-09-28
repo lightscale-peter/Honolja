@@ -44,6 +44,11 @@ public class MemberController {
 
 	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
+	@RequestMapping("/find_ID.do")
+	public String find_ID() {
+		return "member/find_ID";
+	}//아이디 찾기
+	
 	@RequestMapping(value = "/m_join.do", method = RequestMethod.GET)
 	public String member(Locale locale, Model model) {
 		return "member/join";
@@ -53,10 +58,7 @@ public class MemberController {
 	@RequestMapping("/m_insert.do")
 	public String member_insert(MemberDTO mto) throws Exception {
 		mto.setU_birth(mto.getYear() + mto.getMonth() + mto.getDay());
-<<<<<<< HEAD
 		mto.setU_email(mto.getU_email()+"@"+mto.getU_email2());
-=======
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		mto.setU_guestjuso(mto.u_guestjuso + " " + mto.u_guestjuso1);
 		String path = "C:\\Users\\bit-user\\git\\Honolja\\Honolja\\src\\main\\webapp\\image\\";
 		MultipartFile mf = mto.getUpload_img();
@@ -186,6 +188,16 @@ public class MemberController {
 		else { retVal = "false"; }
 		
 		return retVal;
+	}//end
+	
+	//아이디찾기
+	@RequestMapping("/findID.do")
+	public ModelAndView findID(MemberDTO mto) {
+		ModelAndView mav = new ModelAndView();
+		String u_id = dao.findID(mto);
+		mav.addObject("u_id", u_id);
+		mav.setViewName("member/find_ID");
+		return mav;
 	}//end
 	
 }//MemberController Class END

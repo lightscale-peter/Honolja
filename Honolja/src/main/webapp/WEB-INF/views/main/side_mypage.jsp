@@ -8,7 +8,6 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="css/styles_side.css">
    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-   <script src="script.js"></script>
 </head>
 
 <body>
@@ -19,7 +18,7 @@
 <ul>
    <li><a href='#'>찜</a></li>
    <li><a href='#'>예약 현황</a></li>
-   <li><a href='#'>내가 쓴 글</a></li>
+   <li><a href="mypage_board.do">내가 쓴 글</a></li>
       <ul>
          <li class='has-sub'id="box"><a href='#'>쪽지함</a>
         <div style="display:none" id="boxlist">
@@ -31,7 +30,7 @@
 		</li>
 		
         <li class='has-sub'id="info"><a href="#">회원 관리</a>
-        <div style="display:none"id="infolist">    <!-- mypageuser.do -->
+        <div style="display:none"id="infolist">  
         <ul>
 			<li><a href="mypageuser.do">회원 정보</a></li>
             <li><a href="mypageDelete.do">회원 탈퇴</a></li>

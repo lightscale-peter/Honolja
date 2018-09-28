@@ -10,19 +10,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   			) values (message_seq.nextval, #{m_title}, #{m_content}, #{m_id}, sysdate, #{u_id}, 'false', 'true', 'true')
  </insert>
 
-<<<<<<< HEAD
- <select id="msgSelectR" resultType="msg" parameterType="msg">
-=======
+
  <select id="msgSelectR" resultType="msg" parameterType="String">
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
   select * from message where m_id = #{m_id} and m_receive = 'true' order by m_date desc
  </select>
  
-<<<<<<< HEAD
- <select id="msgSelectS" resultType="msg" parameterType="msg">
-=======
  <select id="msgSelectS" resultType="msg" parameterType="String">
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
   select * from message where u_id = #{u_id} and m_send = 'true' order by m_date desc
  </select>
  

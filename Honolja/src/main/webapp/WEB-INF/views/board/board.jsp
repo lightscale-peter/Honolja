@@ -38,7 +38,7 @@
         <td> ${dto.u_id}</td>
         <td> ${dto.b_date}</td>
 		<td> ${dto.b_viewcnt}</td>
-		<td> ${dto.b_member2}/${dto.b_member}</td>
+		<td>${dto.b_member}</td>
 		      </tr>
 </c:forEach>
 </tbody>

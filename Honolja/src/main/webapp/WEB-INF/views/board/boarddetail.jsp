@@ -33,17 +33,12 @@ $(function() {
 				if(data == "success")
 				{
 					alert("참여하였습니다");
-<<<<<<< HEAD
-				}else if (data == "false"){
-					alert("게시자는 참여할 수 없습니다");
-=======
 					location.reload();
 				}else if (data == "false"){
 					alert("게시자는 참여할 수 없습니다");
 					return false;
 				}else if(data == "fail"){
 					alert("중복참여 불가능합니다");
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 					return false;
 				}
 			},
@@ -60,10 +55,8 @@ $(function() {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
+
   	 <link href="css/user_menu.css" rel="stylesheet" type="text/css">
-=======
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </head>
 <body>
 
@@ -72,7 +65,6 @@ $(function() {
 <form>
 <div class="form-group">
 <label for="usr" >게시자:</label>
-<<<<<<< HEAD
 <!-- <input type="text"  class="form-control" id="u_id" readonly="readonly" value="${dto.u_id}" > -->
 
 	<div class="dropdown">
@@ -84,10 +76,7 @@ $(function() {
 		</ul>
 	</div>
 
-
-=======
 <input type="text"  class="form-control" id="u_id" readonly="readonly" value="${dto.u_id}" >
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 <br>
 <label for="usr" >제목:</label>
 <input type="text"  class="form-control" id="usr" readonly="readonly" value="${dto.b_title}" >
@@ -108,8 +97,7 @@ $(function() {
 </div>
  
 </form>
-    <c:if test="${dto.b_originalfilename  != null }"><img src ='${pageContext.request.contextPath}/resources/upload/${img_file_name}' width=250 height=300 border=0> </c:if>
- <c:import url="/boardreply.do" />
+
  <a href="boardedit.do?idx=${dto.b_no}">[수정]</a>
  <a href="boarddelete.do?idx=${dto.b_no}">[삭제]</a>
  </div>

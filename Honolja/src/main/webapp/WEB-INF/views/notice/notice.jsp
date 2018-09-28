@@ -47,7 +47,7 @@
 <br>
 
 <table  class="table">
- <tr align="center">
+ <tr align="center" style="background-color: lightgray;">
 	<td><b>No</b></td>
 	<td><b>제목</b></td>
 	<td><b>작성자</b></td>

@@ -26,33 +26,16 @@
 
 	<mappers>
 		<mapper resource="config/mybatis/main.xml" />
-<<<<<<< HEAD
 		<mapper resource="config/mybatis/member.xml"/>
 		<mapper resource="config/mybatis/mypage.xml"/>
-=======
-		<mapper resource="config/mybatis/member.xml" />
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		<mapper resource="config/mybatis/firstList.xml" />
 		<mapper resource="config/mybatis/detail.xml" />
-<<<<<<< HEAD
 		<mapper resource="config/mybatis/review.xml" />
 		<mapper resource="config/mybatis/notice.xml"/>
 		<mapper resource="config/mybatis/message.xml"/>
 		<mapper resource="config/mybatis/board.xml"/>
-<<<<<<< HEAD
-		<mapper resource="config/mybatis/boardreply.xml"/>
-		<mapper resource="config/mybatis/mypage.xml"/>
-=======
-		<mapper resource="config/mybatis/boardreply.xml"/>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
-	</mappers>
-=======
-		<mapper resource="config/mybatis/review.xml" />
-		<mapper resource="config/mybatis/notice.xml" />
-		<mapper resource="config/mybatis/message.xml" />
 		<mapper resource="config/mybatis/info.xml" />
 	</mappers>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
 </configuration>
 	   

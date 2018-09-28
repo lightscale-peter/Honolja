@@ -9,8 +9,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from users where u_id = #{u_id}
 	</select>
 	
-<<<<<<< HEAD
-=======
 	<select id="useredit" parameterType="String" resultType="com.guest.honolja.member.MemberDTO">
 		select * 
 			from users where u_id = #{u_id}
@@ -22,7 +20,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				from users where u_id = #{u_id} 
 	</update>
 	
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	<select id="mypagedelete" parameterType="String" resultType="String">
 		select u_pwd from users where u_id = #{u_id}
 	</select>
@@ -30,4 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="m_delete" parameterType="com.guest.honolja.member.MemberDTO">
 		delete from users where u_id = #{u_id} and u_pwd = #{u_pwd}
 	</delete>
+	
+	<select id="myboard_select" parameterType="String" resultType="com.guest.honolja.board.BoardDTO">
+		select * from board where u_id = #{u_id}
+	</select>
+	
 </mapper>
