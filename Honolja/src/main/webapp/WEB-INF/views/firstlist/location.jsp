@@ -42,7 +42,7 @@
 	var name= new Array();
 	var url= new Array();
 	var g_no = new Array();
-	var adult; var child; var check_in; var check_out; var area;
+	var adult; var child; var check_in; var check_out; var area; var nights;
 	
 	//메인 검색 눌 체크
 	function nights_11(){
@@ -551,14 +551,14 @@
     	<tr align="left" >
       	<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
       		<a style="text-decoration: none;"
-      		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}"
+      		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
       		target="_blank">
       		<img src = "${list.g_url}" width="90%" height="180px"></a>
       		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
 		</td>
       	<td style="font-size:24px;padding-top:10px;">
       		<a style="text-decoration: none;"
-      		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}"
+      		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
       		target="_blank">
       		${list.g_name}</a>
       		<button type="submit" id="likebtn" class="filter__refresh-btn"style="font-size:16px;"><em>좋아요</em></button>
@@ -586,6 +586,7 @@
 			adult= '${param.adult}';
 			child= '${param.child}'; 
   			area = '${param.area}';
+  			nights= '${param.nights}';
   		</script>
 	</c:forEach>
 	<!-- <script> //좋아요 클릭 이벤트
@@ -625,7 +626,7 @@
 	   // 마크 클릭시 인포윈도우 오픈
 	    var infowindow = new naver.maps.InfoWindow({
 	    	content: '<h6>'+name[i]+'</h6><div align="center"><a href="guestdetail.do?g_no='
-	    	+g_no[i]+'&adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='+check_out+'" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
+	    	+g_no[i]+'&adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='+check_out+'&nights='+nights+'" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
 	    	 maxWidth: 140,
 	    	    backgroundColor: "#eee",
 	    	    borderColor: "#2db400",
