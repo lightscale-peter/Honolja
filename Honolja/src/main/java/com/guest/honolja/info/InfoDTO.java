@@ -49,8 +49,16 @@ public class InfoDTO {
     
     int reply_cnt;
     
+    String i_youtube;
+    
     
 	
+	public String getI_youtube() {
+		return i_youtube;
+	}
+	public void setI_youtube(String i_youtube) {
+		this.i_youtube = i_youtube;
+	}
 	public int getReply_cnt() {
 		return reply_cnt;
 	}

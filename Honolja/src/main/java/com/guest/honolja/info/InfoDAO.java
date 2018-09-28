@@ -29,7 +29,7 @@ public class InfoDAO {
 		return temp.selectOne("info.selectImageBoardDetail", i_no);
 	}
 	
-	//Write contents on img_board
+	//insert contents into img_board
 	public void dbInsertImgBoard(InfoDTO dto) {
 		temp.insert("info.insertImageBoard", dto);
 	}
