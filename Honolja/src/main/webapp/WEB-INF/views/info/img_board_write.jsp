@@ -9,7 +9,10 @@
 	<meta charset="UTF-8">
 	<title>[img_board_write.jsp]</title>
 	
+	<script src="//cdn.ckeditor.com/4.10.1/basic/ckeditor.js"></script>
+	
 	<script type="text/javascript">
+	
 		function make_file_btn(){
 			document.getElementById("update_file").innerHTML = 
 				"파일 첨부 : <input style=\"display: inline;\" type=\"file\" name = \"upload_f\">";
@@ -49,7 +52,9 @@
 		function nullCheck(){
 			
 			var title_val = document.getElementsByClassName("title")[0].value;
-			var content_val = document.getElementsByClassName("content")[0].value;
+			//var content_val = document.getElementsByClassName("content")[0].value;
+			var content_val = CKEDITOR.instances.editor1.getData();
+			
 			
 			if(title_val == ""){
 				$(document).ready(function(){
@@ -61,7 +66,7 @@
 				return;
 			}
 			
-			if(content_val == ""){
+ 	 		if(content_val == ""){
 				$(document).ready(function(){
 					$('#alertbox').ready(function(){
 						$("#error").html("내용을 입력해 주세요.");
@@ -81,10 +86,13 @@
 				return;
 			}
 			
-			document.getElementById("form_write").submit();	
-			
+			if("${param.i_no}" == ""){
+				document.getElementById("form_write").submit();	
+			}else{
+				document.getElementById("form_update").submit();	
+			}
 		}
-
+		
 	</script>
 	
 </head>
@@ -121,7 +129,7 @@
 				<p>게스트 하우스에 대한 정보를 공유하는 공간입니다. 광고/홍보용 사진은 삭제됨을 알려드립니다.</p> 
 				<c:choose>
 					<c:when test="${param.i_no != null }">
-						<form action="img_board_update_backend.do" enctype="multipart/form-data" method="post">
+						<form id = "form_update" action="img_board_update_backend.do" enctype="multipart/form-data" method="post">
 					</c:when>
 					<c:otherwise>
 						<form id = "form_write" action="img_board_write_backend.do" enctype="multipart/form-data" method="post">
@@ -154,10 +162,10 @@
 							<!-- 내용 -->
 							<tr>
 								<td colspan="2" style="height: 500px;">
-									<textarea 
+									<textarea
 										name = "content" 
 										class="form-control content" 
-										id="comment" 
+										id = "editor1"
 										style="resize: none; 
 										height: 100%;">${dto.i_content }</textarea>
 								</td>
@@ -208,5 +216,11 @@
 			</div>
 		</c:otherwise>
 	</c:choose>
+	
+	<script type="text/javascript">		
+		CKEDITOR.replace('editor1');
+		CKEDITOR.config.height = '450px';
+	</script>
+	
 </body>
 </html>

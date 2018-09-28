@@ -7,7 +7,7 @@
 	<title>[index.jsp]</title>
 
 	<script type="text/javascript">
-		 setTimeout("location.href='guestlist.do'", 500); 
+		 setTimeout("location.href='main.do'", 500); 
 	</script>
 </head>
 <body>

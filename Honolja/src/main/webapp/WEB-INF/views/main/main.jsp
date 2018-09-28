@@ -82,7 +82,7 @@
 				}
 			}
 			
-			//개수에 따라 35% / 70% / 100% 
+			//개수에 따라 25% / 50% / 75% / 100% 
 			switch(countTrue){
 					
 				case 1:
@@ -575,12 +575,12 @@
 				
 				<!-- Check-IN 날짜 -->
 				<label for="sel1">Check-IN</label>							
-					<div><input type = "text" name="check_in" id="datepicker" width="276" onchange="progress();"/></div>
+					<div><input readonly="readonly" type = "text" name="check_in" id="datepicker" width="276" onchange="progress();"/></div>
 				<br>
 					
 				<!-- Check-OUT 날짜 -->
 				<label for="sel1">Check-OUT</label>
-					<div><input type = "text" name="check_out" id="datepicker1" width="276" onchange="progress();"/></div><!-- readonly="readonly" -->
+					<div><input readonly="readonly" type = "text" name="check_out" id="datepicker1" width="276" onchange="progress();"/></div><!-- readonly="readonly" -->
 				<br>
 				
 				<div id = "progress"></div>
