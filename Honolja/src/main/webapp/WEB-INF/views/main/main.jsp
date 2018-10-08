@@ -613,7 +613,7 @@
 			<tr>
 				<td width="95%">
 					<strong>&nbsp;&nbsp;&nbsp;&nbsp;공지사항&nbsp;&nbsp;:&nbsp;&nbsp;</strong>
-					<span id="notice">카카오 서비스 운영정책 변경 안내</span>
+					<span id="notice">${notice }</span>
 				</td>
 				<td> 
 					<input id = "notice_btn" class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="" >
