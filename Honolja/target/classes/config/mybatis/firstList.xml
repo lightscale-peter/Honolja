@@ -6,19 +6,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select resultType="com.guest.honolja.list.ListDTO" id="selectAll">
 	select * from (
-	select rownum as rn, g.*,(
-	select min(r_price) from roominfo where g_no = g.g_no) as low_price 
+	select rownum as rn, g.*,
+	(select min(r_price) from roominfo where g_no = g.g_no) as low_price,
+    (select count(*) from review where g_no = g.g_no) as reviewcnt
 	from guesthouse g where g_name like '%'|| #{sval} || '%' or g_addr like '%' || #{sval} || '%'
-	) where low_price between #{startprice} and #{endprice}
+	) where low_price between #{startprice} and #{endprice}  
+	<if test="range.equals('asc')">
+		order by #{filter} asc
+	</if>
+	<if test="range.equals('desc')">
+		order by #{filter} desc
+	</if>
 </select>
 
 	
 <select resultType="com.guest.honolja.list.ListDTO" id="selectlo">
 	select * from (
-	select rownum as rn, g.*,(
-	select min(r_price) from roominfo where g_no = g.g_no) as low_price 
+	select rownum as rn, g.*,
+	(select min(r_price) from roominfo where g_no = g.g_no) as low_price,
+	(select count(*) from review where g_no = g.g_no) as reviewcnt
 	from guesthouse g where g_addr like '%'|| #{g_addr} || '%'
-	) where low_price between #{startprice} and #{endprice}
+	) where low_price between #{startprice} and #{endprice} 
+	
+	<choose>
+	<when test="range.equals('asc')">order by #{filter} asc</when>
+	<otherwise>order by #{filter} desc</otherwise>
+	</choose>
+	
+<!-- 	<if test="range.equals('asc')">
+		order by #{filter} asc
+	</if>
+	<if test="range.equals('desc')">
+		order by #{filter} desc
+	</if> -->
 </select>
 
 <!-- select * from ( select rownum rn, g_no, g_name, g_addr, g_position_n, g_detail, g_url, g_position_e 

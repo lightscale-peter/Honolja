@@ -31,19 +31,20 @@ public class ListController {
 		int startprice=0, endprice=200000; //가격대 선택 최소-최대가격
 		String low_price="", basic=""; //가격대 or 기본정렬 value값 가져와서 저장되는 변수
 		String check_in="", check_out=""; //check_in check_out 시간 저장되는 변수
+		String filter="basic", range="desc"; //필터, 정렬방식
 		
 		check_in=request.getParameter("check_in");
 		check_out=request.getParameter("check_out");
+		basic= request.getParameter("basic");
 		System.out.println("check_in" + check_in + "check_out"+check_out);
-		
-		low_price = request.getParameter("sortFilter");
-		basic = request.getParameter("basic");
+
 		skey=request.getParameter("keyfield");
 		sval=request.getParameter("keyword");
 		
 		if(sval==null || sval==""){skey="g_name"; sval=" ";}
 		logger.info("skey="+skey+" sval="+sval);
 		
+		low_price = request.getParameter("sortFilter");
 		if(low_price != null) {
 			if(low_price.equals("a")) {startprice=0; endprice=20000;}
 			else if(low_price.equals("b")) {startprice=20000; endprice=40000;}
@@ -52,19 +53,20 @@ public class ListController {
 			else if(low_price.equals("e")) {startprice=80000; endprice=100000;}
 			}
 		System.out.println("low_price="+low_price+"startprice="+startprice+"endprice="+endprice);
-		
-		/*if(basic != null) {
-			if(basic.equals("basic")) {}
-			else if(basic.equals("like")) {}
-			else if(basic.equals("reply")) {}
+
+		if(basic != null) {
+			if(basic.equals("reply")) {filter="reviewcnt"; range="desc";}//댓글 많은 순
+			if(basic.equals("priceup")) {filter="low_price"; range="asc";}//가격 낮은 순
+			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순
 		}
-		System.out.println("basic"+"like"+"reply");*/		
+		System.out.println("basic="+basic+" filter="+filter+" range="+range);
+		
 		dto.setCheck_in(check_in);
 		dto.setCheck_out(check_out);
 		
 		int total=dao.dbCount(skey,sval);
 		
-		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice);
+		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice,filter,range);
 		mav.addObject("check_in",check_in);
 		mav.addObject("check_out",check_out);
 		
@@ -72,6 +74,8 @@ public class ListController {
 		mav.addObject("low_price",low_price);
 		mav.addObject("startprice",startprice);
 		mav.addObject("endprice",endprice);
+		mav.addObject("filter",filter);
+		mav.addObject("range",range);
 		
 		mav.addObject("list", list);
 		mav.addObject("total",total);
@@ -86,19 +90,19 @@ public class ListController {
 	@RequestMapping("/guestlocation.do")
 	public ModelAndView guest_selectlo(HttpServletRequest request, ListDTO dto) {
 		ModelAndView mav = new ModelAndView( );
+		String filter = "", range = "desc"; //필터, 정렬방식
 		String g_addr="",low_price="";
 		int startprice=0, endprice=1000000;
 		String check_in, check_out;
-		String basic="";
+		String basic="basic";
 		check_in=request.getParameter("check_in");
 		check_out=request.getParameter("check_out");
+		basic= request.getParameter("basic");
 		System.out.println("check in" + check_in + "check_out"+check_out);
 		
 		g_addr = request.getParameter("g_addr");
 		System.out.print("g_addr="+g_addr);
 		low_price = request.getParameter("sortFilter");
-		
-		basic= request.getParameter("basic");
 		
 		if(low_price == null || low_price=="") {low_price=""; }
 		
@@ -130,9 +134,19 @@ public class ListController {
 			else if(low_price.equals("e")) {startprice=80000; endprice=100000;}
 		}
 		System.out.println("low_price="+low_price+"startprice="+startprice+"endprice="+endprice);
-		 
-		List<ListDTO> listlo=dao.dbSelectlo(g_addr,startprice,endprice);
+
+		if(basic != null) {
+			if(basic.equals("reply")) {filter="reviewcnt"; range="desc";}//댓글 많은 순
+			if(basic.equals("priceup")) {filter="low_price"; range="asc";}//가격 낮은 순
+			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순
+		}
+		System.out.println("basic="+basic+" filter="+filter+" range="+range);
+		
+		List<ListDTO> listlo=dao.dbSelectlo(g_addr,startprice,endprice,filter,range);
 		mav.addObject("basic",basic);
+		mav.addObject("filter",filter);
+		mav.addObject("range",range);
+		
 		mav.addObject("check_in",check_in);
 		mav.addObject("check_out",check_out);
 		mav.addObject("low_price",low_price);
