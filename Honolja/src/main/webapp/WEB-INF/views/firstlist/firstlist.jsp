@@ -550,14 +550,14 @@ a:visited{color: #212121; text-decoration: none;}
     	<tr align="left" >
     	<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
     		<a style="text-decoration: none;"
-    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
+    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank">
     		<img src = "${list.g_url}" width="90%" height="180px"></a>
     		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
     	</td>
     	<td style="font-size:24px;padding-top:10px;">
     		<a style="text-decoration: none;"
-    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
+    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank">
     		${list.g_name}</a>
     		<button type="submit" id="likebtn" class="filter__refresh-btn"style="font-size:16px;"><em>좋아요</em></button>

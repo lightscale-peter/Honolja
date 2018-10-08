@@ -48,7 +48,7 @@ public class ReviewDAO {
 		temp.delete("review.del", re_no);
 	}
 
-	public void dbanswerDel(int re_no) {
-		temp.delete("review.answerDel", re_no);
+	public void dbanswerDel(int a_no) {
+		temp.delete("review.answerDel", a_no);
 	}
 }

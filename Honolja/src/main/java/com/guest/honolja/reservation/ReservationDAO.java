@@ -19,6 +19,11 @@ public class ReservationDAO {
 		return res;
 	}
 
+	public DetailDTO dbres(DetailDTO dto) {
+		DetailDTO res = temp.selectOne("reservation.res", dto);
+		return res;
+	}
+
 	public void dbresAdd(DetailDTO dto) {
 		temp.insert("reservation.resAdd", dto);
 	}

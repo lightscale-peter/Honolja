@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>[혼놀자]</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,12 +22,18 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 달력 사용하기  -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"
+	type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css"
+	rel="stylesheet" type="text/css" />
+
 
 <script src="./resources/js/detail.js"></script>
-<link rel="stylesheet" href="./resources/css/detail.css">
+<link rel="stylesheet" href="./resources/css/detail.css" />
 </head>
 <body>
-	<jsp:include page="detailModal.jsp"></jsp:include>
 	<div class="container-fluid" id="review-All">
 		<c:choose>
 			<c:when test="${empty sessionScope.checked}">
@@ -79,7 +86,7 @@
 						</div>
 						<div class="form-group col-md-3">
 							<button class="btn btn-info btn-block" type="button"
-								onclick="reviewBtn()">등록</button>
+								onclick="reviewBtn(${g_no})">등록</button>
 						</div>
 					</form>
 				</div>
@@ -165,11 +172,10 @@
 											class="date"><fmt:formatDate value="${review.re_date}"
 												pattern="yyyy-MM-dd" /></span>
 										<div class="btn-group pull-right">
-											<button type="button" class="btn btn-info" role="button"
-												data-toggle="modal" onclick="premodify(${review.re_no})">수정</button>
-											<button type="button" class="btn btn-secondary" role="button"
-												data-toggle="modal"
-												onclick="remove(${review.re_no}, ${g_no})">삭제</button>
+											<button type="button" class="btn btn-info"
+												onclick="premodify(${review.re_no})">수정</button>
+											<button type="button" class="btn btn-secondary"
+												onclick="remove(${review.re_no})">삭제</button>
 										</div>
 									</div>
 								</div>
@@ -178,7 +184,7 @@
 									<c:when test="${review.ansCnt > 0}">
 										<div>
 											<button type="button" class="btn btn-primary"
-												data-toggle="modal" onclick="answerView(${review.re_no})">
+												onclick="answerView(${review.re_no})">
 												답변 <span class="badge badge-light">1</span>
 											</button>
 										</div>
@@ -186,8 +192,7 @@
 									<c:otherwise>
 										<div>
 											<button type="button" class="btn btn-primary"
-												data-toggle="modal"
-												onclick="answer(${review.re_no}, ${g_no})">답변</button>
+												onclick="answer(${review.re_no})">답변</button>
 										</div>
 									</c:otherwise>
 								</c:choose>
@@ -200,5 +205,6 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+
 </body>
 </html>

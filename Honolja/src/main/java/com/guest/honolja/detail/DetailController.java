@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.guest.honolja.main.MainController;
 import com.guest.honolja.reservation.ReservationDAO;
-import com.guest.honolja.reservation.ReservationDTO;
 import com.guest.honolja.review.ReviewDAO;
 import com.guest.honolja.review.ReviewDTO;
 
@@ -51,43 +50,43 @@ public class DetailController {
 		int count = dao1.dbreviewCount(g_no);
 		DetailDTO info = dao.dbroomView(g_no);
 		List<ReviewDTO> review = dao1.dbreviewSelect(g_no);
+		List<DetailDTO> res = dao2.dbresSelect(dto);
 
 		int sum = 0;
 		double avg = 0;
 
 		for (int i = 0; i < review.size(); i++) {
 			sum += Integer.parseInt(review.get(i).getRe_score());
-			System.out.println("별점 합계 : " + sum);
 		}
 
 		if (count > 0) {
 			avg = (double) (sum / count);
-			System.out.println("별점 평균 : " + avg);
 		}
 
-		// List<ReservationDTO> res = dao2.dbresSelect(dto);
+		if (res != null) {
+			for (int i = 0; i < res.size(); i++) {
+				for (int j = 0; j < room.size(); j++) {
+					if (room.get(j).getR_no() == res.get(i).getR_no()) {
+						room.get(j).setRes_ok(res.get(i).getRes_ok());
+					}
+				}
+			}
+		}
 
 		mav.addObject("check_in", startDate);
 		mav.addObject("check_out", endDate);
 		mav.addObject("nights", nights);
+		mav.addObject("adult", adult);
+		mav.addObject("child", child);
 		mav.addObject("list", room);
 		mav.addObject("info", info);
 		mav.addObject("avg", avg);
 		mav.addObject("g_no", g_no);
 		mav.addObject("img", img);
 		mav.addObject("rcnt", count);
-		mav.setViewName("/detail/guestDetail");
-		return mav;
-	}
-
-	@RequestMapping("/roominfo.do")
-	public ModelAndView guest_room(DetailDTO dto) {
-		ModelAndView mav = new ModelAndView();
-		List<DetailDTO> room = dao.dbroomSelect(dto);
-		List<DetailDTO> res = dao2.dbresSelect(dto);
-		mav.addObject("list", room);
 		mav.addObject("res", res);
-		mav.setViewName("/detail/guestRoomInfo");
+		mav.addObject("review", review);
+		mav.setViewName("/detail/guestDetail");
 		return mav;
 	}
 }
