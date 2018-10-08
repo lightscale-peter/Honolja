@@ -52,5 +52,14 @@ public class ListDAO {
 		int total = (Integer)temp.selectOne("firstlist.countAll",dto);
 		return total;
 	}//end
+	public int dblike_cnt(ListDTO dto) {
+		return temp.selectOne("firstlist.like_cnt", dto);
+	}
+	public int dbinsertlike(ListDTO dto) {
+		return temp.selectOne("firstlist.insertlike", dto);
+	}
+	public int dbdeletelike(ListDTO dto) {
+		return temp.selectOne("firstlist.deletelike", dto);
+	}
 
 }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.guest.honolja.info.InfoDTO;
+
 
 @Controller
 public class ListController {
@@ -31,7 +33,7 @@ public class ListController {
 		int startprice=0, endprice=200000; //가격대 선택 최소-최대가격
 		String low_price="", basic=""; //가격대 or 기본정렬 value값 가져와서 저장되는 변수
 		String check_in="", check_out=""; //check_in check_out 시간 저장되는 변수
-		String filter="basic", range="desc"; //필터, 정렬방식
+		String filter="g_no", range="asc"; //필터, 정렬방식
 		
 		check_in=request.getParameter("check_in");
 		check_out=request.getParameter("check_out");
@@ -55,6 +57,7 @@ public class ListController {
 		System.out.println("low_price="+low_price+"startprice="+startprice+"endprice="+endprice);
 
 		if(basic != null) {
+			if(basic.equals("basic")) {filter="g_no"; range="asc";}//기본순
 			if(basic.equals("reply")) {filter="reviewcnt"; range="desc";}//댓글 많은 순
 			if(basic.equals("priceup")) {filter="low_price"; range="asc";}//가격 낮은 순
 			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순
@@ -65,6 +68,9 @@ public class ListController {
 		dto.setCheck_out(check_out);
 		
 		int total=dao.dbCount(skey,sval);
+		
+		/*int like_flag = dao.dblike_cnt(dto);
+		System.out.println("like_flag="+like_flag);*/
 		
 		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice,filter,range);
 		mav.addObject("check_in",check_in);
@@ -82,7 +88,20 @@ public class ListController {
 		mav.addObject("sval",sval);
 		mav.addObject("skey",skey);
 		String url="firstlist/firstlist";
+		/*mav.addObject("like_flag",like_flag);*/
+		
+		String u_id = "";
+		
+		if(request.getSession().getAttribute("checked") != null) {
+			u_id = request.getSession().getAttribute("checked").toString();
+		}
+				
+		mav.addObject("u_id",u_id);
+		
+		
+		
 		mav.setViewName(url);
+	
 		return mav;
 	}//end
 	
@@ -90,7 +109,7 @@ public class ListController {
 	@RequestMapping("/guestlocation.do")
 	public ModelAndView guest_selectlo(HttpServletRequest request, ListDTO dto) {
 		ModelAndView mav = new ModelAndView( );
-		String filter = "", range = "desc"; //필터, 정렬방식
+		String filter="g_no", range="asc"; //필터, 정렬방식
 		String g_addr="",low_price="";
 		int startprice=0, endprice=1000000;
 		String check_in, check_out;
@@ -136,6 +155,7 @@ public class ListController {
 		System.out.println("low_price="+low_price+"startprice="+startprice+"endprice="+endprice);
 
 		if(basic != null) {
+			if(basic.equals("basic")) {filter="g_no"; range="asc";}//기본순
 			if(basic.equals("reply")) {filter="reviewcnt"; range="desc";}//댓글 많은 순
 			if(basic.equals("priceup")) {filter="low_price"; range="asc";}//가격 낮은 순
 			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순
@@ -158,5 +178,45 @@ public class ListController {
 		mav.setViewName(url);
 		return mav;
 	}//end
+	@RequestMapping("guestlike.do")
+	public ModelAndView guest_like(HttpServletRequest request) {	
+		
+		System.out.println("guestlike.do 정상 작동");
+		
+		int g_no = 0;
+		if(request.getParameter("g_no") != null) {
+			g_no = Integer.parseInt(request.getParameter("g_no"));
+		}
+		
+		String u_id = request.getParameter("u_id");	
+		
+		int btn_flag = 0;
+		if(request.getParameter("btn_flag") != null) {
+			btn_flag = Integer.parseInt(request.getParameter("btn_flag"));
+		}
+		
+		System.out.println("g_no : " + g_no);
+		System.out.println("u_id : " + u_id);
+		System.out.println("btn_flag : " + btn_flag);
+		
+		ListDTO dto = new ListDTO();
+			dto.setG_no(g_no);
+			dto.setU_id(u_id);
+	
+		if(btn_flag == 2) {
+			dao.dbinsertlike(dto);
+			System.out.println("insert 성공!!");
+			btn_flag = 1;
+		}else if(btn_flag == 1) {
+			dao.dbdeletelike(dto);		
+			System.out.println("delete 성공!!");
+			btn_flag = 2;
+		}
+		
+		
+		ModelAndView mav = new ModelAndView( );
+			mav.setViewName("firstlist/like_button");
+	return mav;
+	}
 	
 }//ListController class end

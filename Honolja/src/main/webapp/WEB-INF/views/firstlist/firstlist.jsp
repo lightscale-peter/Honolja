@@ -43,8 +43,23 @@ a:visited{color: #212121; text-decoration: none;}
 	var url= new Array();
 	var g_no = new Array();
 	var adult; var child; var check_in; var check_out; var area; var nights;
- 	</script>
- 	<script type="text/javascript">
+
+	function like_btn(btn_flag_val, g_no_val){
+		var u_id_val = "${u_id}";
+ 
+		if("${u_id}" != ''){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/guestlike.do",
+				"type" : "get",
+				"data" : {g_no : g_no_val, u_id : u_id_val, btn_flag : btn_flag_val},
+				"success" : function(data){			
+					$('#like_btn_area').html(data);	
+				}
+			});
+			
+		}else{alert("로그인이벤트")} 
+	}
+		
 	//메인 검색 눌 체크
 	function nights_11(){
 	    var check_in = document.getElementById("startDate").value;
@@ -498,6 +513,7 @@ a:visited{color: #212121; text-decoration: none;}
 		<input type="hidden" name="check_out"value="${param.check_out}">
 		<input type="hidden" name="nights"value="${param.nights}">
 		<input type="hidden" name="basic"value="${param.basic}">
+		<input type="hidden" name="basic"value="${param.btn_flag}">
 		
 		<div id="secondfilt" 
      	style="box-sizing: border-box;
@@ -550,20 +566,35 @@ a:visited{color: #212121; text-decoration: none;}
     	<tr align="left" >
     	<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
     		<a style="text-decoration: none;"
-    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
+    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank">
     		<img src = "${list.g_url}" width="90%" height="180px"></a>
     		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
     	</td>
     	<td style="font-size:24px;padding-top:10px;">
     		<a style="text-decoration: none;"
-    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
+    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank">
-    		${list.g_name}</a>
-    		<button type="submit" id="likebtn" class="filter__refresh-btn"style="font-size:16px;"><em>좋아요</em></button>
+    		${list.g_name}${list.islike }${list.g_no}</a>
+    	<!-- 좋아요 시작 -->
+    	<span id="like_btn_area">
+	    	<c:choose>
+				<c:when test="${list.islike != 0}">
+					<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no});">
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like
+					</button>
+				</c:otherwise>
+			</c:choose>
+		</span>
+		<!-- 좋아요 끝 -->
       	</td>
       	</tr>
-      	<tr><td>list.rating, reply count</td></tr>
+      	<tr><td>list.rating, 댓글 ${list.reviewcnt}</td></tr>
       	<tr>
       		<td>
       			<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
@@ -588,15 +619,6 @@ a:visited{color: #212121; text-decoration: none;}
   			nights= '${param.nights}';
   		</script>
 	</c:forEach>
-	<!-- <script> //좋아요 클릭 이벤트
-		jQuery("#likebtn").click(function(){
-			if(jQuery("#likebtn").class("filter__refresh-btn")){
-				jQuery("#likebtn").css("background-color","black");
-		    } else {  
-		    	//if else 써서 이미지 바꿔주고 동적으로 데이터값 넘겨주기 
-		    } 
-		});
-	</script> -->
     </table>
    	</div>
  <script>

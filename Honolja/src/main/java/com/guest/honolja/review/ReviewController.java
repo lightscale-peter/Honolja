@@ -47,14 +47,10 @@ public class ReviewController {
 
 	@RequestMapping("/reviewDel.do")
 	@ResponseBody
-	public ModelAndView guest_reviewDel(ReviewDTO dto) {
-		ModelAndView mav = new ModelAndView();
+	public String guest_reviewDel(ReviewDTO dto) {
+		String result = "true";
 		dao.dbreviewDel(dto.getRe_no());
-		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
-		mav.addObject("g_no", dto.getG_no());
-		mav.addObject("review", review);
-		mav.setViewName("/detail/guestReview");
-		return mav;
+		return result;
 	}
 
 	@RequestMapping("/reviewPremod.do")
@@ -89,7 +85,7 @@ public class ReviewController {
 		mav.addObject("re_no", dto.getRe_no());
 		mav.addObject("g_no", dto.getG_no());
 		mav.addObject("answer", answer);
-		mav.setViewName("reviewAnswerView");
+		mav.setViewName("/detail/reviewAnswerView");
 		return mav;
 	}
 
@@ -99,8 +95,6 @@ public class ReviewController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("re_no", dto.getRe_no());
 		mav.addObject("g_no", dto.getG_no());
-		System.out.println("답변 g_no : " + dto.getG_no());
-		System.out.println("답변 re_no : " + dto.getRe_no());
 		mav.setViewName("/detail/reviewAnswerAdd");
 		return mav;
 	}
@@ -110,25 +104,20 @@ public class ReviewController {
 	public ModelAndView guest_answerAdd(ReviewDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		dto.setU_guestname("게스트하우스");
-		System.out.println("앤서 re_no" + dto.getRe_no());
-		System.out.println("앤서 g_no" + dto.getG_no());
 		dao.dbanswerAdd(dto);
-		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
+		ReviewDTO answer = dao.dbanswerView(dto.getRe_no());
 		mav.addObject("g_no", dto.getG_no());
-		mav.addObject("review", review);
-		mav.setViewName("/detail/guestReview");
+		System.out.println(dto.getRe_no());
+		mav.addObject("answer", answer);
+		mav.setViewName("/detail/reviewAnswerView");
 		return mav;
 	}
 
 	@RequestMapping("/answerDel.do")
 	@ResponseBody
-	public ModelAndView guest_answerDel(ReviewDTO dto) {
-		ModelAndView mav = new ModelAndView();
+	public String guest_answerDel(ReviewDTO dto) {
+		String result = "true";
 		dao.dbanswerDel(dto.getRe_no());
-		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
-		mav.addObject("g_no", dto.getG_no());
-		mav.addObject("review", review);
-		mav.setViewName("/detail/guestReview");
-		return mav;
+		return result;
 	}
 }

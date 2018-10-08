@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>[혼놀자]</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +24,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
 
-<link rel="stylesheet" href="./resources/css/detail.css">
+<link rel="stylesheet" href="./resources/css/detail.css" />
 
 </head>
 <body>
@@ -49,11 +50,10 @@
 			<tr>
 				<td><div class="btn-group pull-right">
 						<button type="submit" class="btn btn-info" role="button"
-							onclick="answerDel(${answer.re_no}, ${g_no})">삭제</button>
+							onclick="answerDel(${answer.re_no}, ${answer.a_no})">삭제</button>
 					</div></td>
 			</tr>
 		</table>
 	</div>
-	<jsp:include page="detailModal.jsp"></jsp:include>
 </body>
 </html>
