@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>[like_btn.jsp]</title>
+</head>
+<body onload="alert('작동 된다!!');">
+	<c:choose>
+		<c:when test="${param.btn_flag == 'like'}">
+			<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">
+				<span class="glyphicon glyphicon-thumbs-up"></span> Like
+			</button>
+		</c:when>
+		<c:otherwise>
+			<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no});">
+				<span class="glyphicon glyphicon-thumbs-up"></span> Like
+			</button>
+		</c:otherwise>
+	</c:choose>
+</body>
+</html>

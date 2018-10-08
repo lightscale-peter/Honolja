@@ -13,6 +13,10 @@ public class ListDTO {
 	private String check_in, check_out; //checkin check out
 	private String filter, range; //filter range
 	private int reviewcnt; //reply count
+	private String u_id;
+	
+	public String getU_id() {	return u_id;}
+	public void setU_id(String u_id) {	this.u_id = u_id;}
 	
 	private int rcnt;	//guesthouse count
 	private  String skey; //guesthouse search key
@@ -22,7 +26,7 @@ public class ListDTO {
 	private  String area, basic; //지도 초기좌표
 
 	private int startprice, endprice; //가격 검색 => 시작가격~ 끝가격
-	private int islike; //like
+	private String islike; //like
 	int low_price; //price search
 
 	public int getReviewcnt() {	return reviewcnt;}
@@ -49,8 +53,8 @@ public class ListDTO {
 	public int getLow_price() {	return low_price;}
 	public void setLow_price(int low_price) {	this.low_price = low_price;}
 	
-	public int getIslike() {	return islike;}
-	public void setIslike(int islike) {	this.islike = islike;}
+	public String getIslike() {	return islike;}
+	public void setIslike(String islike) {	this.islike = islike;}
 	
 	public int getStartprice() {	return startprice;}
 	public void setStartprice(int startprice) {	this.startprice = startprice;}

@@ -28,6 +28,8 @@ public class DetailDTO {
 	private String check_in;
 	private String check_out;
 	private int resCnt;
+	private String adult;
+	private String child;
 
 	public String getG_name() {
 		return g_name;
@@ -227,6 +229,22 @@ public class DetailDTO {
 
 	public void setResCnt(int resCnt) {
 		this.resCnt = resCnt;
+	}
+
+	public String getAdult() {
+		return adult;
+	}
+
+	public void setAdult(String adult) {
+		this.adult = adult;
+	}
+
+	public String getChild() {
+		return child;
+	}
+
+	public void setChild(String child) {
+		this.child = child;
 	}
 
 }

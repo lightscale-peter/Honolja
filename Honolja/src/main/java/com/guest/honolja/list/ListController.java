@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.guest.honolja.info.InfoDTO;
+
 
 @Controller
 public class ListController {
@@ -67,6 +69,9 @@ public class ListController {
 		
 		int total=dao.dbCount(skey,sval);
 		
+		/*int like_flag = dao.dblike_cnt(dto);
+		System.out.println("like_flag="+like_flag);*/
+		
 		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice,filter,range);
 		mav.addObject("check_in",check_in);
 		mav.addObject("check_out",check_out);
@@ -83,7 +88,14 @@ public class ListController {
 		mav.addObject("sval",sval);
 		mav.addObject("skey",skey);
 		String url="firstlist/firstlist";
+		/*mav.addObject("like_flag",like_flag);*/
+		String u_id = request.getSession().getAttribute("checked").toString();
+		mav.addObject("u_id",u_id);
+		
+		
+		
 		mav.setViewName(url);
+	
 		return mav;
 	}//end
 	
@@ -160,5 +172,32 @@ public class ListController {
 		mav.setViewName(url);
 		return mav;
 	}//end
+	@RequestMapping("guestlike.do")
+	public ModelAndView guest_like(HttpServletRequest request, ListDTO dto) {	
+		int g_no=0;
+		if(request.getParameter("g_no") != null) {
+			g_no = Integer.parseInt(request.getParameter("g_no"));
+		}
+		
+		String u_id = request.getParameter("u_id");	
+		/*String btn_flag = request.getParameter("btn_flag");*/
+		
+		dto.setU_id(u_id);
+		dto.setG_no(g_no);
+		
+		if(dao.dblike_cnt(dto) == 0) {
+			dao.dbinsertlike(dto);
+			System.out.println("insert");
+		}else {
+			dao.dbdeletelike(dto);
+			System.out.println("delete");
+		}
+		
+		
+		ModelAndView mav = new ModelAndView( );
+		String url="firstlist/like_button";
+		mav.setViewName(url);
+	return mav;
+	}
 	
 }//ListController class end
