@@ -435,8 +435,6 @@ public class InfoController {
 		
 		dao.dbUpdateImgBoardStarCnt(dto2);
 		
-		
-		
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/info/ajax_like_btn");
 			
