@@ -18,21 +18,25 @@ public class ListDAO {
 		return list;
 	}//end
 	
-	public List<ListDTO> dbSelect(String skey, String sval, int startprice, int endprice) {
+	public List<ListDTO> dbSelect(String skey, String sval, int startprice, int endprice, String filter,String range) {
 		ListDTO dto = new ListDTO();
 		dto.setSkey(skey);
 		dto.setSval(sval);
 		dto.setStartprice(startprice);
 		dto.setEndprice(endprice);
+		dto.setFilter(filter);
+		dto.setRange(range);
 		List<ListDTO> list=temp.selectList("firstlist.selectAll",dto);
 	  return list;
 	}//end
 	
-	public List<ListDTO> dbSelectlo(String g_addr,int startprice, int endprice){
+	public List<ListDTO> dbSelectlo(String g_addr,int startprice, int endprice, String filter,String range){
 		ListDTO dto = new ListDTO();
 		dto.setStartprice(startprice);
 		dto.setEndprice(endprice);
 		dto.setG_addr(g_addr);
+		dto.setFilter(filter);
+		dto.setRange(range);
 		List<ListDTO> listlo=temp.selectList("firstlist.selectlo",dto);
 		return listlo;
 	}//end

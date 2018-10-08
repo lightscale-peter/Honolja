@@ -11,7 +11,13 @@ public class ListDTO {
 	private  String guesthouse; //guesthouse table
 	private  java.util.Date  nalja;  // guesthouse like time
 	private String check_in, check_out;
-
+	private String filter, range; //filter range
+	
+	public String getFilter() {	return filter;}
+	public void setFilter(String filter) {	this.filter = filter;}
+	public String getRange() {	return range;}
+	public void setRange(String range) {	this.range = range;}
+	
 	private int rcnt;	//guesthouse count
 	private  String skey; //guesthouse search key
 	  
