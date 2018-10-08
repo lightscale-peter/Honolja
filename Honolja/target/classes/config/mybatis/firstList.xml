@@ -33,12 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<otherwise>order by #{filter} desc</otherwise>
 	</choose>
 	
- 	<if test="range.equals('asc')">
+ 	<!-- <if test="range.equals('asc')">
 		order by #{filter} asc
 	</if>
 	<if test="range.equals('desc')">
 		order by #{filter} desc
-	</if> 
+	</if>  -->
 </select>
 
 <!-- select * from ( select rownum rn, g_no, g_name, g_addr, g_position_n, g_detail, g_url, g_position_e 

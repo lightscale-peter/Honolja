@@ -82,7 +82,7 @@
 				}
 			}
 			
-			//개수에 따라 35% / 70% / 100% 
+			//개수에 따라 25% / 50% / 75% / 100% 
 			switch(countTrue){
 					
 				case 1:
@@ -575,12 +575,12 @@
 				
 				<!-- Check-IN 날짜 -->
 				<label for="sel1">Check-IN</label>							
-					<div><input type = "text" name="check_in" id="datepicker" width="276" onchange="progress();"/></div>
+					<div><input readonly="readonly" type = "text" name="check_in" id="datepicker" width="276" onchange="progress();"/></div>
 				<br>
 					
 				<!-- Check-OUT 날짜 -->
 				<label for="sel1">Check-OUT</label>
-					<div><input type = "text" name="check_out" id="datepicker1" width="276" onchange="progress();"/></div><!-- readonly="readonly" -->
+					<div><input readonly="readonly" type = "text" name="check_out" id="datepicker1" width="276" onchange="progress();"/></div><!-- readonly="readonly" -->
 				<br>
 				
 				<div id = "progress"></div>
@@ -613,7 +613,7 @@
 			<tr>
 				<td width="95%">
 					<strong>&nbsp;&nbsp;&nbsp;&nbsp;공지사항&nbsp;&nbsp;:&nbsp;&nbsp;</strong>
-					<span id="notice">카카오 서비스 운영정책 변경 안내</span>
+					<span id="notice">${notice }</span>
 				</td>
 				<td> 
 					<input id = "notice_btn" class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="" >
