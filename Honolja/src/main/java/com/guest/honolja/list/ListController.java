@@ -91,6 +91,7 @@ public class ListController {
 		/*mav.addObject("like_flag",like_flag);*/
 		if(request.getSession().getAttribute("checked")!=null) {
 		String u_id = request.getSession().getAttribute("checked").toString();
+
 		mav.addObject("u_id",u_id);
 		}
 		mav.setViewName(url);
@@ -172,30 +173,43 @@ public class ListController {
 		return mav;
 	}//end
 	@RequestMapping("guestlike.do")
-	public ModelAndView guest_like(HttpServletRequest request, ListDTO dto) {	
-		int g_no=0;
+	public ModelAndView guest_like(HttpServletRequest request) {	
+		
+		System.out.println("guestlike.do 정상 작동");
+		
+		int g_no = 0;
 		if(request.getParameter("g_no") != null) {
 			g_no = Integer.parseInt(request.getParameter("g_no"));
 		}
 		
 		String u_id = request.getParameter("u_id");	
-		/*String btn_flag = request.getParameter("btn_flag");*/
 		
-		dto.setU_id(u_id);
-		dto.setG_no(g_no);
+		int btn_flag = 0;
+		if(request.getParameter("btn_flag") != null) {
+			btn_flag = Integer.parseInt(request.getParameter("btn_flag"));
+		}
 		
-		if(dao.dblike_cnt(dto) == 0) {
+		System.out.println("g_no : " + g_no);
+		System.out.println("u_id : " + u_id);
+		System.out.println("btn_flag : " + btn_flag);
+		
+		ListDTO dto = new ListDTO();
+			dto.setG_no(g_no);
+			dto.setU_id(u_id);
+	
+		if(btn_flag == 2) {
 			dao.dbinsertlike(dto);
-			System.out.println("insert");
-		}else {
-			dao.dbdeletelike(dto);
-			System.out.println("delete");
+			System.out.println("insert 성공!!");
+			btn_flag = 1;
+		}else if(btn_flag == 1) {
+			dao.dbdeletelike(dto);		
+			System.out.println("delete 성공!!");
+			btn_flag = 2;
 		}
 		
 		
 		ModelAndView mav = new ModelAndView( );
-		String url="firstlist/like_button";
-		mav.setViewName(url);
+			mav.setViewName("firstlist/like_button");
 	return mav;
 	}
 	

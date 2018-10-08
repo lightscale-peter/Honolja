@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<title>[like_btn.jsp]</title>
 </head>
-<body onload="alert('작동 된다!!');">
+<body>
 	<c:choose>
 		<c:when test="${list.islike != 0}">
 			<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">

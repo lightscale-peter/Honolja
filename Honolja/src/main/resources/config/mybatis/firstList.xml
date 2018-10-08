@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <select resultType="com.guest.honolja.list.ListDTO" id="insertlike">
-	insert into guestlike values(guestlike_SEQ.nextval, sysdate, #{u_id}, #{i_no})
+	insert into guestlike values(guestlike_SEQ.nextval, sysdate, #{u_id}, #{g_no})
 </select>
 <select resultType="com.guest.honolja.list.ListDTO" id="deletelike">
 	delete from guestlike where u_id = #{u_id} and g_no = #{g_no}

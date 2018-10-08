@@ -45,30 +45,22 @@ a:visited{color: #212121; text-decoration: none;}
 	var adult; var child; var check_in; var check_out; var area; var nights;
  	</script>
  		<script>
-		function like_btn(btn_flag,g_no){
-			alert("${g_no}"); 
-			if("${u_id}" != ''){
-				var xhr = new XMLHttpRequest();
-				xhr.onreadystatechange = function(){
-					if(this.readyState == 4 && this.status == 200){
-						document.getElementById("like").innerHTML = this.responseText;
-					}
-				};
-				if(btn_flag == 1){
-					alert("ㅁㄴㅇㄻㄴㅇㄻㄴ");
-					xhr.open("GET", "http://localhost:8080/honolja/guestlike.do?area=my&adult=${param.adult}&child=${param.child}"
-			        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&basic=${param.basic}&sortFilter=${param.sortFilter}"
-							+"&g_no=" + g_no + "&u_id=" + "${u_id}", true);
-				}else{
-					xhr.open("GET", "http://localhost:8080/honolja/guestlike.do?area=my&adult=${param.adult}&child=${param.child}"
-			        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&basic=${param.basic}&sortFilter=${param.sortFilter}"
-							+"&g_no=" + g_no + "&u_id=" + "${u_id}", true);
+	function like_btn(btn_flag_val, g_no_val){
+		var u_id_val = "${u_id}";
+ 
+		if("${u_id}" != ''){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/guestlike.do",
+				"type" : "get",
+				"data" : {g_no : g_no_val, u_id : u_id_val, btn_flag : btn_flag_val},
+				"success" : function(data){			
+					$('#like_btn_area').html(data);	
 				}
-				xhr.send();
-			}else{alert("로그인이벤트")} 
-		}
-		</script>
- 	<script type="text/javascript">
+			});
+			
+		}else{alert("로그인이벤트")} 
+	}
+		
 	//메인 검색 눌 체크
 	function nights_11(){
 	    var check_in = document.getElementById("startDate").value;
@@ -584,7 +576,7 @@ a:visited{color: #212121; text-decoration: none;}
     		<a style="text-decoration: none;"
     		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank">
-    		${list.g_name}</a>
+    		${list.g_name}${list.islike }${list.g_no}</a>
     	<!-- 좋아요 시작 -->
     	<span id="like">
     	<c:choose>
