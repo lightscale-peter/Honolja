@@ -39,24 +39,10 @@
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
 <style type="text/css">
-a {
-	text-decoration: none;
-}
-
-a:hover {
-	color: #337ab7;
-	text-decoration: none;
-}
-
-a:link {
-	color: #212121;
-	text-decoration: none;
-}
-
-a:visited {
-	color: #212121;
-	text-decoration: none;
-}
+a {	text-decoration: none;}
+a:hover {color: #337ab7;text-decoration: none;}
+a:link {color: #212121;text-decoration: none;}
+a:visited {color: #212121;text-decoration: none;}
 </style>
 <script>
  	// naver지도에서 사용할 전역변수 생성
@@ -66,7 +52,30 @@ a:visited {
 	var url= new Array();
 	var g_no = new Array();
 	var adult; var child; var check_in; var check_out; var area; var nights;
-	
+</script>
+	<script>
+	function like_btn(btn_flag_val, g_no_val){
+		var u_id_val = "${u_id}";
+ 
+		if("${u_id}" != ''){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/guestlike.do",
+				"type" : "get",
+				"data" : {g_no : g_no_val, u_id : u_id_val, btn_flag : btn_flag_val},
+				"success" : function(data){			
+					$('#like_btn_area').html(data);	
+				}
+			});
+			
+		}else{$(document).ready(function(){
+			$('#alertbox').ready(function(){
+				$("#error").html("로그인 후 가능합니다.");
+				$('#modal').modal("show");
+			});
+		});} 
+	}
+	</script>
+	<script>
 	//메인 검색 눌 체크
 	function nights_11(){
 		
@@ -81,30 +90,20 @@ a:visited {
 	    
 	    in_string_array = check_in.split("/");
 	    out_string_array = check_out.split("/");
-	    
 	    for(i in in_string_array){
 	    	in_array[i] = parseInt(in_string_array[i]);
-	    }
-	    
+	    }    
 	    for(i in out_string_array){
-	    	out_array[i] = parseInt(out_string_array[i]);
-	    }
-	    
-	    
-	   
-	    		
+			out_array[i] = parseInt(out_string_array[i]);
+	    }	
 		//체크인 연 <= 체크아웃 연
 		if(in_array[0] <= out_array[0]){
-			
 			//체크인 연 == 체크아웃 연
 			if(in_array[0] == out_array[0]){
-				
 			    //만약에 체크인 월 <= 체크아웃 월 이면,
 			    if(in_array[1] <= out_array[1]){
-			    	
 				    //만약에 체크인 월 == 체크아웃 월 이면,
 				    if(in_array[1] == out_array[1]){
-				    	
 				    	//체크아웃 일 - 체크인 일  <= 10
 				    	if(out_array[2] - in_array[2] <= 10 && out_array[2] - in_array[2] > 0){
 				    		
@@ -581,10 +580,25 @@ a:visited {
       		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
       		target="_blank">
       		${list.g_name}</a>
-      		<button type="submit" id="likebtn" class="filter__refresh-btn"style="font-size:16px;"><em>좋아요</em></button>
+      	<!-- 좋아요 시작 -->
+    	<span id="like">
+    	<c:choose>
+			<c:when test="${list.islike != 0}">
+				<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">
+					<span class="glyphicon glyphicon-thumbs-up"></span> Like
+				</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no});">
+					<span class="glyphicon glyphicon-thumbs-up"></span> Like
+				</button>
+			</c:otherwise>
+		</c:choose>
+		</span>
+		<!-- 좋아요 끝 -->
 		</td>
       	</tr>
-      	<tr><td>list.rating, 댓글 수 ${list.reviewcnt}</td></tr>
+      	<tr><td>list.rating, 댓글 ${list.reviewcnt}</td></tr>
       	<tr>
       		<td>
 				<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>

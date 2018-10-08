@@ -1,22 +1,15 @@
 package com.guest.honolja.list;
 
 import java.util.List;
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.guest.honolja.info.InfoDTO;
-
 
 @Controller
 public class ListController {
@@ -29,12 +22,12 @@ public class ListController {
 
 	public ModelAndView guest_select(HttpServletRequest request,ListDTO dto) {
 		ModelAndView mav = new ModelAndView( );
+		
 		String skey="", sval=""; //검색
 		int startprice=0, endprice=200000; //가격대 선택 최소-최대가격
 		String low_price="", basic=""; //가격대 or 기본정렬 value값 가져와서 저장되는 변수
 		String check_in="", check_out=""; //check_in check_out 시간 저장되는 변수
 		String filter="g_no", range="asc"; //필터, 정렬방식
-		
 		check_in=request.getParameter("check_in");
 		check_out=request.getParameter("check_out");
 		basic= request.getParameter("basic");
@@ -58,6 +51,7 @@ public class ListController {
 
 		if(basic != null) {
 			if(basic.equals("basic")) {filter="g_no"; range="asc";}//기본순
+			if(basic.equals("like")) {filter="islike"; range="desc";} // 좋아요 많은 순
 			if(basic.equals("reply")) {filter="reviewcnt"; range="desc";}//댓글 많은 순
 			if(basic.equals("priceup")) {filter="low_price"; range="asc";}//가격 낮은 순
 			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순
@@ -67,12 +61,10 @@ public class ListController {
 		dto.setCheck_in(check_in);
 		dto.setCheck_out(check_out);
 		
+		
 		int total=dao.dbCount(skey,sval);
-		
-		/*int like_flag = dao.dblike_cnt(dto);
-		System.out.println("like_flag="+like_flag);*/
-		
 		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice,filter,range);
+		/*mav.addObject("score",dao.dbselscore());*/
 		mav.addObject("check_in",check_in);
 		mav.addObject("check_out",check_out);
 		
@@ -88,10 +80,8 @@ public class ListController {
 		mav.addObject("sval",sval);
 		mav.addObject("skey",skey);
 		String url="firstlist/firstlist";
-		/*mav.addObject("like_flag",like_flag);*/
 		if(request.getSession().getAttribute("checked")!=null) {
 		String u_id = request.getSession().getAttribute("checked").toString();
-
 		mav.addObject("u_id",u_id);
 		}
 		mav.setViewName(url);
@@ -150,6 +140,7 @@ public class ListController {
 
 		if(basic != null) {
 			if(basic.equals("basic")) {filter="g_no"; range="asc";}//기본순
+			if(basic.equals("like")) {filter="islike"; range="desc";} // 좋아요 많은 순
 			if(basic.equals("reply")) {filter="reviewcnt"; range="desc";}//댓글 많은 순
 			if(basic.equals("priceup")) {filter="low_price"; range="asc";}//가격 낮은 순
 			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순
@@ -169,6 +160,10 @@ public class ListController {
 		mav.addObject("listlo", listlo);
 		mav.addObject("g_addr",g_addr);
 		String url="firstlist/location";
+		if(request.getSession().getAttribute("checked")!=null) {
+		String u_id = request.getSession().getAttribute("checked").toString();
+		mav.addObject("u_id",u_id);
+		}
 		mav.setViewName(url);
 		return mav;
 	}//end
@@ -206,7 +201,6 @@ public class ListController {
 			System.out.println("delete 성공!!");
 			btn_flag = 2;
 		}
-		
 		
 		ModelAndView mav = new ModelAndView( );
 			mav.setViewName("firstlist/like_button");
