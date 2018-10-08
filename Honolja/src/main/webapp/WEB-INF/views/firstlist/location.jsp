@@ -564,7 +564,7 @@
       		<button type="submit" id="likebtn" class="filter__refresh-btn"style="font-size:16px;"><em>좋아요</em></button>
 		</td>
       	</tr>
-      	<tr><td>list.rating, reply count</td></tr>
+      	<tr><td>list.rating, 댓글 수 ${list.reviewcnt}</td></tr>
       	<tr>
       		<td>
 				<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>

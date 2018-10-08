@@ -10,17 +10,12 @@ public class ListDTO {
 	private  String g_url;	//guesthouse img
 	private  String guesthouse; //guesthouse table
 	private  java.util.Date  nalja;  // guesthouse like time
-	private String check_in, check_out;
+	private String check_in, check_out; //checkin check out
 	private String filter, range; //filter range
-	
-	public String getFilter() {	return filter;}
-	public void setFilter(String filter) {	this.filter = filter;}
-	public String getRange() {	return range;}
-	public void setRange(String range) {	this.range = range;}
+	private int reviewcnt; //reply count
 	
 	private int rcnt;	//guesthouse count
 	private  String skey; //guesthouse search key
-	  
 	private int r_price;
 	  
 	private  String sval; //guesthouse search value
@@ -29,6 +24,15 @@ public class ListDTO {
 	private int startprice, endprice; //가격 검색 => 시작가격~ 끝가격
 	private int islike; //like
 	int low_price; //price search
+
+	public int getReviewcnt() {	return reviewcnt;}
+	public void setReviewcnt(int reviewcnt) {	this.reviewcnt = reviewcnt;}
+	
+	public String getFilter() {	return filter;}
+	public void setFilter(String filter) {	this.filter = filter;}
+	
+	public String getRange() {	return range;}
+	public void setRange(String range) {	this.range = range;}
 
 	public String getBasic() {	return basic;}
 	public void setBasic(String basic) {	this.basic = basic;}

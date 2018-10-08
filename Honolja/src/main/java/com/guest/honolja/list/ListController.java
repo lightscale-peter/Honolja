@@ -31,7 +31,7 @@ public class ListController {
 		int startprice=0, endprice=200000; //가격대 선택 최소-최대가격
 		String low_price="", basic=""; //가격대 or 기본정렬 value값 가져와서 저장되는 변수
 		String check_in="", check_out=""; //check_in check_out 시간 저장되는 변수
-		String filter="basic", range="desc"; //필터, 정렬방식
+		String filter="g_no", range="asc"; //필터, 정렬방식
 		
 		check_in=request.getParameter("check_in");
 		check_out=request.getParameter("check_out");
@@ -55,6 +55,7 @@ public class ListController {
 		System.out.println("low_price="+low_price+"startprice="+startprice+"endprice="+endprice);
 
 		if(basic != null) {
+			if(basic.equals("basic")) {filter="g_no"; range="asc";}//기본순
 			if(basic.equals("reply")) {filter="reviewcnt"; range="desc";}//댓글 많은 순
 			if(basic.equals("priceup")) {filter="low_price"; range="asc";}//가격 낮은 순
 			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순
@@ -90,7 +91,7 @@ public class ListController {
 	@RequestMapping("/guestlocation.do")
 	public ModelAndView guest_selectlo(HttpServletRequest request, ListDTO dto) {
 		ModelAndView mav = new ModelAndView( );
-		String filter = "", range = "desc"; //필터, 정렬방식
+		String filter="g_no", range="asc"; //필터, 정렬방식
 		String g_addr="",low_price="";
 		int startprice=0, endprice=1000000;
 		String check_in, check_out;
@@ -136,6 +137,7 @@ public class ListController {
 		System.out.println("low_price="+low_price+"startprice="+startprice+"endprice="+endprice);
 
 		if(basic != null) {
+			if(basic.equals("basic")) {filter="g_no"; range="asc";}//기본순
 			if(basic.equals("reply")) {filter="reviewcnt"; range="desc";}//댓글 많은 순
 			if(basic.equals("priceup")) {filter="low_price"; range="asc";}//가격 낮은 순
 			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순

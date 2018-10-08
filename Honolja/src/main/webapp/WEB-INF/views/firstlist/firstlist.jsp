@@ -560,10 +560,23 @@ a:visited{color: #212121; text-decoration: none;}
     		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
     		target="_blank">
     		${list.g_name}</a>
-    		<button type="submit" id="likebtn" class="filter__refresh-btn"style="font-size:16px;"><em>좋아요</em></button>
+    		<!-- 좋아요 시작 -->
+    	<c:choose>
+		<c:when test="${param.btn_flag == 'like' }">
+			<button type="button" class="btn btn-primary" onclick = "like_btn_ajax(1);">
+				<span class="glyphicon glyphicon-thumbs-up"></span> Like
+			</button>
+		</c:when>
+		<c:otherwise>
+			<button type="button" class="btn btn-default btn-sm" onclick = "like_btn_ajax(3);">
+				<span class="glyphicon glyphicon-thumbs-up"></span> Like
+			</button>
+		</c:otherwise>
+		</c:choose>
+		<!-- 좋아요 끝 -->
       	</td>
       	</tr>
-      	<tr><td>list.rating, reply count</td></tr>
+      	<tr><td>list.rating, 댓글 ${list.reviewcnt}</td></tr>
       	<tr>
       		<td>
       			<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
