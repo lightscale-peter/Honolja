@@ -10,7 +10,7 @@
 </head>
 <body onload="alert('작동 된다!!');">
 	<c:choose>
-		<c:when test="${param.btn_flag == 'like'}">
+		<c:when test="${list.islike != 0}">
 			<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">
 				<span class="glyphicon glyphicon-thumbs-up"></span> Like
 			</button>

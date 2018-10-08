@@ -46,7 +46,7 @@ a:visited{color: #212121; text-decoration: none;}
  	</script>
  		<script>
 		function like_btn(btn_flag,g_no){
-			alert("${u_id}"); 
+			alert("${g_no}"); 
 			if("${u_id}" != ''){
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function(){
@@ -55,6 +55,7 @@ a:visited{color: #212121; text-decoration: none;}
 					}
 				};
 				if(btn_flag == 1){
+					alert("ㅁㄴㅇㄻㄴㅇㄻㄴ");
 					xhr.open("GET", "http://localhost:8080/honolja/guestlike.do?area=my&adult=${param.adult}&child=${param.child}"
 			        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&basic=${param.basic}&sortFilter=${param.sortFilter}"
 							+"&g_no=" + g_no + "&u_id=" + "${u_id}", true);
@@ -587,7 +588,7 @@ a:visited{color: #212121; text-decoration: none;}
     	<!-- 좋아요 시작 -->
     	<span id="like">
     	<c:choose>
-			<c:when test="${param.btn_flag == 'like'}">
+			<c:when test="${list.islike != 0}">
 				<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">
 					<span class="glyphicon glyphicon-thumbs-up"></span> Like
 				</button>

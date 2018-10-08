@@ -89,11 +89,10 @@ public class ListController {
 		mav.addObject("skey",skey);
 		String url="firstlist/firstlist";
 		/*mav.addObject("like_flag",like_flag);*/
+		if(request.getSession().getAttribute("checked")!=null) {
 		String u_id = request.getSession().getAttribute("checked").toString();
 		mav.addObject("u_id",u_id);
-		
-		
-		
+		}
 		mav.setViewName(url);
 	
 		return mav;
