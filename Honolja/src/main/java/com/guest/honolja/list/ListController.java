@@ -63,7 +63,7 @@ public class ListController {
 		
 		
 		int total=dao.dbCount(skey,sval);
-<<<<<<< HEAD
+
 		
 		String u_id = "none";
 		
@@ -72,10 +72,7 @@ public class ListController {
 		}
 	
 		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice,filter,range, u_id);
-=======
-		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice,filter,range);
-		/*mav.addObject("score",dao.dbselscore());*/
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
+
 		mav.addObject("check_in",check_in);
 		mav.addObject("check_out",check_out);
 		
@@ -90,19 +87,10 @@ public class ListController {
 		mav.addObject("total",total);
 		mav.addObject("sval",sval);
 		mav.addObject("skey",skey);
-<<<<<<< HEAD
 		String url="firstlist/firstlist";
 		/*mav.addObject("like_flag",like_flag);*/			
-=======
-		String url="firstlist/firstlist";
-		if(request.getSession().getAttribute("checked")!=null) {
-		String u_id = request.getSession().getAttribute("checked").toString();
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
+
 		mav.addObject("u_id",u_id);
-<<<<<<< HEAD
-=======
-		}
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
 		mav.setViewName(url);
 	
 		return mav;
