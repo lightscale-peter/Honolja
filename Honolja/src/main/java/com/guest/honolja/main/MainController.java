@@ -213,10 +213,12 @@ public class MainController {
 			      System.out.println(e);
 			    }
 			
-		}
-
- 		
+		}//NaverLogin Part END
 		
+		//Get text from DB noticeboard
+		List<MainDTO> notices = dao.dbSelectFixedNotice();
+
+		mav.addObject("notice", notices.get(0).getN_title());
 			
 		return mav;
 	}

@@ -13,6 +13,8 @@ public class ReservationDTO {
 	private String check_out;
 	private int r_no;
 	private int g_no;
+	private String adult;
+	private String child;
 
 	public int getG_no() {
 		return g_no;
@@ -78,7 +80,7 @@ public class ReservationDTO {
 		this.check_in = check_in;
 	}
 
-	public String getChech_out() {
+	public String getCheck_out() {
 		return check_out;
 	}
 
@@ -100,7 +102,6 @@ public class ReservationDTO {
 	private String img_url;
 	private String res_startdate;
 	private String res_enddate;
-
 	public String getR_name() {
 		return r_name;
 	}
@@ -133,10 +134,6 @@ public class ReservationDTO {
 		this.img_url = img_url;
 	}
 
-	public String getCheck_out() {
-		return check_out;
-	}
-
 	public String getRes_startdate() {
 		return res_startdate;
 	}
@@ -153,6 +150,21 @@ public class ReservationDTO {
 		this.res_enddate = res_enddate;
 	}
 
-	
-	
+
+	public String getAdult() {
+		return adult;
+	}
+
+	public void setAdult(String adult) {
+		this.adult = adult;
+	}
+
+	public String getChild() {
+		return child;
+	}
+
+	public void setChild(String child) {
+		this.child = child;
+	}
+
 }

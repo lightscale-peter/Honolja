@@ -10,11 +10,20 @@ public class ListDTO {
 	private  String g_url;	//guesthouse img
 	private  String guesthouse; //guesthouse table
 	private  java.util.Date  nalja;  // guesthouse like time
-	private String check_in, check_out;
+	private String check_in, check_out; //checkin check out
+	private String filter, range; //filter range
+	private int reviewcnt; //reply count
+	private String u_id;
+	private int avgs;
 
+	public int getAvgs() {	return avgs;}
+	public void setAvgs(int avgs) {	this.avgs = avgs;}
+	
+	public String getU_id() {	return u_id;}
+	public void setU_id(String u_id) {	this.u_id = u_id;}
+	
 	private int rcnt;	//guesthouse count
 	private  String skey; //guesthouse search key
-	  
 	private int r_price;
 	  
 	private  String sval; //guesthouse search value
@@ -27,26 +36,27 @@ public class ListDTO {
 	
 	private int gl_no;
 	private String gl_date;
-	private String u_id;
 
-	public int getGl_no() {
-		return gl_no;
-	}
-	public void setGl_no(int gl_no) {
-		this.gl_no = gl_no;
-	}
-	public String getGl_date() {
-		return gl_date;
-	}
-	public void setGl_date(String gl_date) {
-		this.gl_date = gl_date;
-	}
-	public String getU_id() {
-		return u_id;
-	}
-	public void setU_id(String u_id) {
-		this.u_id = u_id;
-	}
+	private String check_like;
+
+	public String getCheck_like() {	return check_like;}
+	public void setCheck_like(String check_like) {	this.check_like = check_like;}
+	
+	public int getReviewcnt() {	return reviewcnt;}
+	public void setReviewcnt(int reviewcnt) {	this.reviewcnt = reviewcnt;}
+	
+	public String getFilter() {	return filter;}
+	public void setFilter(String filter) {	this.filter = filter;}
+	
+	public String getRange() {	return range;}
+	public void setRange(String range) {	this.range = range;}
+
+	public int getGl_no() {	return gl_no;}
+	public void setGl_no(int gl_no) {	this.gl_no = gl_no;}
+	
+	public String getGl_date() {	return gl_date;}
+	public void setGl_date(String gl_date) {	this.gl_date = gl_date;}
+	
 	public String getBasic() {	return basic;}
 	public void setBasic(String basic) {	this.basic = basic;}
 	
@@ -61,9 +71,6 @@ public class ListDTO {
 	
 	public int getLow_price() {	return low_price;}
 	public void setLow_price(int low_price) {	this.low_price = low_price;}
-	
-	public int getIslike() {	return islike;}
-	public void setIslike(int islike) {	this.islike = islike;}
 	
 	public int getStartprice() {	return startprice;}
 	public void setStartprice(int startprice) {	this.startprice = startprice;}
