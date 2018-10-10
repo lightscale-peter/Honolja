@@ -1,62 +1,168 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="css/mypage_menu.css" rel="stylesheet" type="text/css">
+	<link href="css/styles_side.css" rel="stylesheet" type="text/css">
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			var g1 = document.getElementById("g1").value;
-			var g2 = document.getElementById("g2").value;
-			var g3 = document.getElementById("g3").value;
-			 if(g1 == "" || g1 == null){
-				$("#guest1").style.display = "none";
-				$("#guest2").style.display = "none";
-				$("#guest3").style.display = "none";
-			}else{
-				document.getElementById("guest1").style.display = "";
-				document.getElementById("guest2").style.display = "";
-				document.getElementById("guest3").style.display = "";
-			}
-			 
-			if(guest1 == null || guest == ""){
-				document.getElementById("guest1").style.display = "none";
-				document.getElementById("guest2").style.display = "none";
-				document.getElementById("guest3").style.display = "none";
-			}else{
-				document.getElementById("guest1").style.display = "";
-				document.getElementById("guest2").style.display = "";
-				document.getElementById("guest3").style.display = "";
-			} 
-		});
-	 </script>
+
+	 
+	 <style type="text/css">
+	 
+	 .img-circle {
+		border-radius: 50%;
+		width: 150px;
+		height: 150px; 
+	 }
+	 
+	 .ff {
+	 	position: relative;
+	 	bottom: 0;
+	 	width: 100%;
+	 }
+
+	#member {
+		 background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+		 width: 100%; 
+		 height: 75%;
+		 padding: 50px;
+		 
+	}
+
+table.minfo {
+    text-align: left;
+  	margin : 20px 10px;
+}
+
+table.minfo td {
+    width: 320px;
+    vertical-align: top;
+    padding: 20px;
+}
+
+#ttop {
+	border-top: 1px solid #ccc;
+}
+
+#tbottom {
+	border-bottom: 1px solid #ccc;
+}
+
+#tbold {
+	font-weight: bold;
+
+}
+
+
+	 
+	 </style>
+
 </head>
 <body>
-<jsp:include page="mypage_menu.jsp"/>
 
-<table width="1000" height="700" cellspacing="0" cellpadding="5">
-	<tr>  <td> 회원번호 </td>  <td> ${mto.u_no} </td>  </tr>
-	<tr>  <td> <img src="./image/${mto.u_img}" width="100" height="135">  </td>  </tr>
-	<tr>  <td> 구분 </td>  <td> ${mto.u_member} </td>  </tr>
-	<tr>  <td> 아이디 </td>  <td> ${mto.u_id} </td>  </tr>
-	<tr>  <td> 이름 </td>  <td> ${mto.u_name} </td>  </tr>
-	<tr>  <td> 성별 </td>  <td> ${mto.u_gender} </td>  </tr>
-	<tr>  <td> 이메일 </td>  <td> ${mto.u_email} </td>  </tr>
-	<tr>  <td> 생년월일 </td>  <td> ${mto.u_birth} </td>  </tr>
-	<tr>  <td> 핸드폰 </td>  <td> ${mto.u_phn} </td>  </tr>
-	<tr>  <td> 등록날짜 </td>  <td> ${mto.u_date} </td>  </tr>
-	<tr>  <td> 수정날짜 </td>  <td> ${mto.u_update} </td>  </tr>
-	<tr id="guest1" style="display:none">  <td> 게스트하우스 이름 </td>  <td> <input type="text" id="g1" value="${mto.u_guestname}"> </td>  </tr>
-	<tr id="guest2" style="display:none">  <td> 게스트하우스 주소 </td>  <td> <input type="text" id="g2" value="${mto.u_postcode}  ${mto.u_guestjuso}">  </td>  </tr>
-	<tr id="guest3" style="display:none">  <td> 게스트하우스 연락처 </td> <td> <input type="text" id="g3" value="${mto.u_guestnum}"> </td>  </tr>
-</table>
-<input type="button" class="btn btn-primary btn-md" onclick="location='useredit.do'" value="수정">
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="main.do"></c:param>
+	</c:import>
+	
+	<div style="height:100px;"></div>
+	
+	<div>
+  		<c:import url="http://localhost:8080/honolja/side_mypage.do">
+		</c:import>
+	</div>
+
+		
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <div class="modal-content">
+
+          
+
+      </div>
+      
+    </div>
+</div>
+		
 
 
+<div class="tt" align="center">
+	<table class="minfo">
+		<tr>
+			<td colspan="2"><img src="./image/${mto.u_img}" class="img-circle"></td>
+			<td align="right" valign="bottom"><button type="button" class="btn btn-default" href="useredit.do" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-cog"></i></button></td>
+		</tr>
+		
+		<tr>
+			<td rowspan="3" id="ttop" style="font-size: large; font-weight: bold;">아이디</td>
+			<td id="ttop" style="font-weight: bold;">HONOLJA 아이디</td>
+			<td id="ttop">${mto.u_id}</td>				
+		</tr>
+		<tr>
+			<td id="tbold">가입일</td>
+			<td> 					
+				<fmt:parseDate value="${mto.u_date}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
+      			<fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd"/>
+			</td> 
+		</tr>
+		<tr>
+			<td id="tbold">회원 구분</td>
+			<td>${mto.u_member}</td>
+		</tr>
+		
+		<tr>
+			<td rowspan="3" id="ttop" style="font-size: large; font-weight: bold;">이름/연락처</td>
+			<td id="ttop" style="font-weight: bold;">이름</td>
+			<td id="ttop">${mto.u_name}</td>
+		</tr>
+		<tr>
+			<td rowspan="2" id="tbold">연락처</td>
+			<td><span class="glyphicon glyphicon-phone"></span>&nbsp;${mto.u_phn}</td>
+		</tr>
+		<tr>
+			<td><span class="glyphicon glyphicon-envelope"></span>&nbsp;${mto.u_email}</td>
+		</tr>
+		
+		<tr>
+			<td rowspan="2" id="ttop" style="font-size: large; border-bottom: 1px solid #ccc; font-weight: bold;">개인정보</td>
+			<td id="ttop" style="font-weight: bold;">성별</td>
+			<td id="ttop">${mto.u_gender}</td>
+		</tr>
+		<tr>
+			<td id="tbottom" style="font-weight: bold;">생일</td>
+			<td id="tbottom">${mto.u_birth}</td>
+		</tr>
+
+		<c:if test="${mto.u_member eq '점주'}">
+			<tr>
+				<td rowspan="3" id="ttop" style=" font-weight: bold; font-size: large; border-bottom: 1px solid #ccc;">게스트하우스 정보</td>
+				<td id="ttop" style="font-weight: bold;">게스트하우스 이름</td>
+				<td id="ttop">${mto.u_guestname}</td>
+			</tr>
+			
+			<tr>
+				<td id="tbold">게스트하우스 주소</td>
+				<td>${mto.u_postcode}  ${mto.u_guestjuso}</td>
+			</tr>
+			
+			<tr>
+				<td id="tbottom" style="font-weight: bold;">게스트하우스 연락처</td>
+				<td id="tbottom">${mto.u_guestnum}</td>
+			</tr>
+		</c:if>
+	</table>
+</div>		
+	
+	<div style="height: 100px;"></div>
+		
+	<div class="ff">
+		<c:import url="http://localhost:8080/honolja/footer.do" />
+	</div>
+	
 </body>
 </html>

@@ -357,8 +357,8 @@ a:visited{color: #212121; text-decoration: none;}
    	<!-- 지도 우측배치로 고정 -->
 		<div style= "right:0; position:fixed;width:40%;height:100%;">	
 			<div id="map" style="width:100%;height:100%;margin-top:10px;"></div>
-			</div>
-		<!-- 지도 끝-->
+		</div>
+	<!-- 지도 끝-->
 		
         <!-- 필터 담을것. 기본순/테마/가격대선택/예약가능/.......필터초기화-->
 	<div style="left:0; width:60%; padding-left: 30px; padding-right:30px;padding-left:30px;">

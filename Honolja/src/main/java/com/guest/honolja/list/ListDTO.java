@@ -6,7 +6,7 @@ public class ListDTO {
 	private  String g_addr; //guesthouse address
 	private  String g_position_n; //guesthouse location x position
 	private  String g_position_e; //guesthouse location y position
-	private  String g_detail; //guesthouse content(³»¿ë)
+	private  String g_detail; //guesthouse content(ï¿½ï¿½ï¿½ï¿½)
 	private  String g_url;	//guesthouse img
 	private  String guesthouse; //guesthouse table
 	private  java.util.Date  nalja;  // guesthouse like time
@@ -27,20 +27,21 @@ public class ListDTO {
 	private int r_price;
 	  
 	private  String sval; //guesthouse search value
-	private  String area, basic; //Áöµµ ÃÊ±âÁÂÇ¥
+	private  String area, basic; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ï¿½ï¿½Ç¥
 
-	private int startprice, endprice; //°¡°Ý °Ë»ö => ½ÃÀÛ°¡°Ý~ ³¡°¡°Ý
-	private String islike; //like
+	private int startprice, endprice; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ => ï¿½ï¿½ï¿½Û°ï¿½ï¿½ï¿½~ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int islike; //like
 	int low_price; //price search
 	
+	
+	private int gl_no;
+	private String gl_date;
+
 	private String check_like;
 
-	public String getCheck_like() {
-		return check_like;
-	}
-	public void setCheck_like(String check_like) {
-		this.check_like = check_like;
-	}
+	public String getCheck_like() {	return check_like;}
+	public void setCheck_like(String check_like) {	this.check_like = check_like;}
+	
 	public int getReviewcnt() {	return reviewcnt;}
 	public void setReviewcnt(int reviewcnt) {	this.reviewcnt = reviewcnt;}
 	
@@ -50,6 +51,12 @@ public class ListDTO {
 	public String getRange() {	return range;}
 	public void setRange(String range) {	this.range = range;}
 
+	public int getGl_no() {	return gl_no;}
+	public void setGl_no(int gl_no) {	this.gl_no = gl_no;}
+	
+	public String getGl_date() {	return gl_date;}
+	public void setGl_date(String gl_date) {	this.gl_date = gl_date;}
+	
 	public String getBasic() {	return basic;}
 	public void setBasic(String basic) {	this.basic = basic;}
 	
@@ -64,9 +71,6 @@ public class ListDTO {
 	
 	public int getLow_price() {	return low_price;}
 	public void setLow_price(int low_price) {	this.low_price = low_price;}
-	
-	public String getIslike() {	return islike;}
-	public void setIslike(String islike) {	this.islike = islike;}
 	
 	public int getStartprice() {	return startprice;}
 	public void setStartprice(int startprice) {	this.startprice = startprice;}

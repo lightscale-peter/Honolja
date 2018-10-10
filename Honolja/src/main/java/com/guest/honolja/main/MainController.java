@@ -60,6 +60,11 @@ public class MainController {
 	
 	@Autowired
 	ServletContext application;
+
+	@RequestMapping("/side_mypage.do")
+	public String side_mypage() {
+		return "/main/side_mypage";
+	}
 	
 	@RequestMapping("/main.do")
 	public ModelAndView main_page(HttpServletRequest request) {

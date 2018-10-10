@@ -19,18 +19,13 @@
 <body>
   <h2><a href="board.do">게시판</a></h2>
 <label>제목</label>
-<!--asdf-->
- 
 
-
-수정하세요=-------------------------------------------------------------
     <form action="boardupdate.do" method="post"  >
   <input type="hidden" name="u_id" value="${dto.u_id}">  회원님 아이디:  ${dto.u_id} <br>
    <input type="hidden" name="b_no" value="${dto.b_no}"> 
    <input type="text"  name="b_title" value="${dto.b_title}">
        <p>
-       수정하세요=-------------------------------------------------------------
-       </p>
+  
         <textarea name="b_content" style="width: 700px; height: 400px;">${dto.b_content}</textarea>
         <input type="submit" value="수정" />
     </form>
