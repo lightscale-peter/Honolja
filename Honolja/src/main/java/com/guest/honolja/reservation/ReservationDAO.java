@@ -27,4 +27,9 @@ public class ReservationDAO {
 	public void dbresAdd(DetailDTO dto) {
 		temp.insert("reservation.resAdd", dto);
 	}
+
+	public DetailDTO dbresCheck(DetailDTO dto) {
+		DetailDTO check = temp.selectOne("reservation.resSelect", dto);
+		return check;
+	}
 }

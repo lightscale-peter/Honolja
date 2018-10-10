@@ -13,6 +13,8 @@ public class ReservationDTO {
 	private String check_out;
 	private int r_no;
 	private int g_no;
+	private String adult;
+	private String child;
 
 	public int getG_no() {
 		return g_no;
@@ -78,7 +80,7 @@ public class ReservationDTO {
 		this.check_in = check_in;
 	}
 
-	public String getChech_out() {
+	public String getCheck_out() {
 		return check_out;
 	}
 
@@ -92,6 +94,22 @@ public class ReservationDTO {
 
 	public void setR_no(int r_no) {
 		this.r_no = r_no;
+	}
+
+	public String getAdult() {
+		return adult;
+	}
+
+	public void setAdult(String adult) {
+		this.adult = adult;
+	}
+
+	public String getChild() {
+		return child;
+	}
+
+	public void setChild(String child) {
+		this.child = child;
 	}
 
 }
