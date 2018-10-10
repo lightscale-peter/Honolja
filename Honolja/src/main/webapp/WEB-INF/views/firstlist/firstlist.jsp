@@ -43,11 +43,8 @@ a:visited{color: #212121; text-decoration: none;}
 	var url= new Array();
 	var g_no = new Array();
 	var adult; var child; var check_in; var check_out; var area; var nights;
-
 	function like_btn(btn_flag_val, g_no_val, like_id_val){		
-		
 		var u_id_val = "${u_id}";
-		
 		if("${u_id}" != 'none'){
 			$.ajax({
 				"url" : "http://localhost:8080/honolja/guestlike.do",
@@ -63,13 +60,11 @@ a:visited{color: #212121; text-decoration: none;}
 				}
 			});
 		}else{$(document).ready(function(){
-			
 			$('#alertbox').ready(function(){
 				$("#error").html("로그인 후 가능합니다.");
 				$('#modal').modal("show");
 			});
-		});
-		} 
+		});} 
 	}
 	</script>
 	<script>
@@ -233,11 +228,7 @@ a:visited{color: #212121; text-decoration: none;}
 <body id="page-top" style="margin-top:51px;" >
    <c:import url="http://localhost:8080/honolja/header.do">
       <c:param name="checked" value="${checked}"></c:param>
-<<<<<<< HEAD
       <c:param name="host" value="guestlist.do?area=my&adult=${param.adult}&child=${param.child}&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"></c:param>
-=======
-      <c:param name="host" value="guestlist.do?area=my&adult=&child=&check_in=&check_out=&nights="></c:param>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
       <c:param name="area" value="${param.area}"></c:param>
       <c:param name="adult" value="${param.adult}"></c:param>
       <c:param name="child" value="${param.child}"></c:param>
@@ -592,21 +583,22 @@ a:visited{color: #212121; text-decoration: none;}
     		<a style="text-decoration: none;"
     		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank">
-    		${list.g_name}</a>
+
+    		${list.g_name}${list.islike }${list.g_no}</a>
     	<!-- 좋아요 시작 -->
-    	<span id="likebtn_${i.index}" style="font-size:13px">
-    	<c:choose>
-			<c:when test="${list.islike != 0}">
-				<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no},'likebtn_${i.index}');"style="height:26px;width:52px;font-size:10px"> 
-					<span class="glyphicon glyphicon-thumbs-up" style="size:13px"></span> Like
-				</button>
-			</c:when>
-			<c:otherwise>
-				<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no},'likebtn_${i.index}');" style="height:25px;width:50px;font-size:10px">
-					<span class="glyphicon glyphicon-thumbs-up" style="size:13px"></span> Like
-				</button>
-			</c:otherwise>
-		</c:choose>
+    	<span id="like_${i.index}">
+	    	<c:choose>
+				<c:when test="${list.check_like != 0}">
+					<button type="button" class="btn btn-primary" onclick="like_btn(1,${list.g_no}, 'like_${i.index }');">
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like 좋아요 ${list.islike}
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no}, 'like_${i.index }');">
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like 좋아요 ${list.islike}
+					</button>
+				</c:otherwise> 
+			</c:choose>
 		</span>
 		<!-- 좋아요 끝 -->
       	</td>

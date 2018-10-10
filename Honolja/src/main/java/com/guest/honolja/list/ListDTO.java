@@ -35,9 +35,12 @@ public class ListDTO {
 	
 	private String check_like;
 
-	public String getCheck_like() {	return check_like;}
-	public void setCheck_like(String check_like) {	this.check_like = check_like;}
-	
+	public String getCheck_like() {
+		return check_like;
+	}
+	public void setCheck_like(String check_like) {
+		this.check_like = check_like;
+	}
 	public int getReviewcnt() {	return reviewcnt;}
 	public void setReviewcnt(int reviewcnt) {	this.reviewcnt = reviewcnt;}
 	

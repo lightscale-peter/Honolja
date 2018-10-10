@@ -66,7 +66,7 @@ public class ListDAO {
 		temp.selectOne("firstlist.insertlike", dto);
 	}
 	public void dbdeletelike(ListDTO dto) {
-		 temp.selectOne("firstlist.deletelike", dto);
+		temp.selectOne("firstlist.deletelike", dto);
 	}
 	public List<ListDTO> dbselscore() {
 		List<ListDTO> list1 = temp.selectList("firstlist.selscore");
