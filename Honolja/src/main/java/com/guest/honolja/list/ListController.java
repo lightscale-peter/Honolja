@@ -60,7 +60,6 @@ public class ListController {
 		
 		dto.setCheck_in(check_in);
 		dto.setCheck_out(check_out);
-				
 		int total=dao.dbCount(skey,sval);
 
 		String u_id = "none";
