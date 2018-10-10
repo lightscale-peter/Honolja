@@ -107,7 +107,6 @@ public class ReviewController {
 		dao.dbanswerAdd(dto);
 		ReviewDTO answer = dao.dbanswerView(dto.getRe_no());
 		mav.addObject("g_no", dto.getG_no());
-		System.out.println(dto.getRe_no());
 		mav.addObject("answer", answer);
 		mav.setViewName("/detail/reviewAnswerView");
 		return mav;

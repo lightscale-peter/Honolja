@@ -29,7 +29,7 @@
 	rel="stylesheet" type="text/css" />
 
 <script src="./resources/js/detail.js"></script>
-<link rel="stylesheet" href="./resources/css/detail.css"/>
+<link rel="stylesheet" href="./resources/css/detail.css" />
 <style type="text/css">
 .payment-topcont.pc {
 	padding: 30px 0;
@@ -139,6 +139,40 @@ img {
 	height: 60px;
 }
 </style>
+<script type="text/javascript">
+	function resAdd() {
+
+		var dataForm = $("#resForm").serialize();
+
+		var g_no = <c:out value='${list.g_no}'/>;
+		var check_in = document.getElementById("check_in").value;
+		var check_out = document.getElementById("check_out").value;
+		var adult = <c:out value='${adult}'/>;
+		var child = <c:out value='${child}'/>;
+		var nights = <c:out value='${nights}'/>;
+
+		$.ajax({
+			url : 'reservationAdd.do',
+			type : 'post',
+			data : dataForm,
+			success : function(data) {
+				if (data == "success") {
+					$("#modal_title").html("확인");
+					$("#modal_body").html("예약 되었습니다.");
+					$("#ignismyModal").modal("show");
+					location.href = 'guestdetail.do?g_no=' + g_no + '&adult='
+							+ adult + '&child=' + child + '&check_in='
+							+ check_in + '&check_out=' + check_out + '&nights='
+							+ nights;
+				}
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		})
+	}
+</script>
 </head>
 <body>
 	<c:import url="http://localhost:8080/honolja/header.do">
@@ -154,10 +188,10 @@ img {
 					type="hidden" name="r_name" value="${list.r_name}"> <input
 					type="hidden" name="adult" value="${adult}"> <input
 					type="hidden" name="child" value="${child}"> <input
-					type="hidden" name="check_in" value="${check_in}"> <input
-					type="hidden" name="check_out" value="${check_out}"> <input
 					type="hidden" name="res_price" value="${list.r_price}"> <input
-					type="hidden" name="r_no" value="${list.r_no}">
+					type="hidden" name="r_no" value="${list.r_no}"> <input
+					type="hidden" name="g_no" value="${list.g_no}"> <input
+					type="hidden" name="nights" value="${nights}">
 				<div class="col-md-7">
 					<div class="image-box">
 						<img src="${list.img_url}" alt="${list.r_name}">
@@ -179,20 +213,16 @@ img {
 						<div class="DateRangePicker1">
 							<div class="DateRangePickerInput">
 								<div class="col-md-5">
-									<input type="text" class="DateInput" id="check_in"
-										name="check_in" value="${check_in}" placeholder="YYYY/MM/DD"
-										autocomplete="off"
-										aria-describedby="DateInput__screen-reader-message-startDate">
+									<input type="text" id="check_in" name="check_in"
+										value="${check_in}" placeholder="YYYY/MM/DD">
 								</div>
 								<div class="col-md-2">
 									<span class="glyphicon glyphicon-arrow-right"
 										aria-hidden="true"></span>
 								</div>
 								<div class="col-md-5">
-									<input type="text" class="DateInput" id="check_out"
-										name="check_out" value="${check_out}" placeholder="YYYY/MM/DD"
-										autocomplete="off"
-										aria-describedby="DateInput__screen-reader-message-endDate">
+									<input type="text" id="check_out" name="check_out"
+										value="${check_out}" placeholder="YYYY/MM/DD">
 								</div>
 							</div>
 						</div>
@@ -202,7 +232,8 @@ img {
 						</div>
 						<br>
 						<div class="DateRangePicker-bottom">
-							<span class="f-right" id="nights">${nights}박</span>
+							<span class="f-left">성인 : ${adult}</span><span>아동 :
+								${child}</span> <span class="f-right" id="nights">${nights}박</span>
 						</div>
 						<br>
 						<div class="f-right" id="res_price"
@@ -213,7 +244,7 @@ img {
 						</div>
 					</div>
 					<button type="button" class="btn-payment btn-block"
-						onclick="resAdd(${list.g_no})">예약하기</button>
+						onclick="resAdd()">예약하기</button>
 				</div>
 			</form>
 		</div>

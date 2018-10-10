@@ -14,6 +14,7 @@ public class DetailDTO {
 	private String r_name;
 	private String r_content;
 	private String r_price;
+	private int r_min;
 	private int r_people;
 	private String img_url;
 	private String img_url2;
@@ -30,6 +31,7 @@ public class DetailDTO {
 	private int resCnt;
 	private String adult;
 	private String child;
+	private String nights;
 
 	public String getG_name() {
 		return g_name;
@@ -117,6 +119,14 @@ public class DetailDTO {
 
 	public void setG_no(int g_no) {
 		this.g_no = g_no;
+	}
+
+	public int getR_min() {
+		return r_min;
+	}
+
+	public void setR_min(int r_min) {
+		this.r_min = r_min;
 	}
 
 	public int getR_people() {
@@ -245,6 +255,14 @@ public class DetailDTO {
 
 	public void setChild(String child) {
 		this.child = child;
+	}
+
+	public String getNights() {
+		return nights;
+	}
+
+	public void setNights(String nights) {
+		this.nights = nights;
 	}
 
 }

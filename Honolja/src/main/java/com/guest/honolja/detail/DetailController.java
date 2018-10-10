@@ -42,8 +42,6 @@ public class DetailController {
 		dto.setG_no(g_no);
 		dto.setCheck_in(startDate);
 		dto.setCheck_out(endDate);
-		System.out.println("체크인:" + startDate);
-		System.out.println("체크아웃:" + endDate);
 
 		List<DetailDTO> room = dao.dbroomSelect(dto);
 		List<DetailDTO> img = dao.dbimageSelect(g_no);

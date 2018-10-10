@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
+	<meta charset="utf-8">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 <script type="text/javascript">
 	function deleteCheck(){
 		var pwd = myform.u_pwd.value;
@@ -27,25 +36,69 @@
 		}
 	}//deleteCheck end
 </script>
+
+<style type="text/css">
+
+	.ff {
+		 position: absolute;
+	 	 bottom: 0;
+	 	 width: 100%;
+	 }
+
+	table, td, th {    
+		border: 0;
+		text-align: center;
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+	
+	td {
+		height: 100px;
+	}
+
+	 
+</style>
+
 </head>
 <body>
-	<jsp:include page="mypage_menu.jsp" />
 
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="main.do"></c:param>
+	</c:import>
+	
+	<div style="height: 100px;"></div>
+	
+	<div>
+  		<c:import url="http://localhost:8080/honolja/side_mypage.do">
+		</c:import>
+	</div>
+
+<div class="container">
 	<form name="myform" action="m_delete.do" onsubmit="deleteCheck(); return false;">
-		<table width="700" border=1 cellspacing="0" cellpadding="5">
+		<table>
 			<tr>
 				<td>
-					비밀번호 : 
+					비밀번호 :
 					<input type="password" id="u_pwd" name="u_pwd">
 					<input type="hidden" id="u_pwd2" value="${u_pwd}">
 				</td>
 			</tr>
 			<tr>
-				<td align="center">
-					<input type="submit" value="회원탈퇴">
+				<td>
+					<input type="submit" class="btn" value="회원탈퇴">
 				</td>
 			</tr>
 		</table>
+		
 	</form>
+</div>
+
+	<div class="ff">
+		<c:import url="http://localhost:8080/honolja/footer.do" />
+	</div>
 </body>
 </html>

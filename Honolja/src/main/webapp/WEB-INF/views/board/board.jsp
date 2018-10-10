@@ -16,6 +16,13 @@
 </head>
 <body>
 
+<div style="margin-top: 50px"></div>
+
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="main.do"></c:param>
+	</c:import>
+
 <div class="container">
   <h2><a href="board.do">게시판</a></h2>
   <table class="table table-striped">
@@ -43,7 +50,7 @@
         <td> ${dto.u_id}</td>
         <td> ${dto.b_date}</td>
 		<td> ${dto.b_viewcnt}</td>
-		<td> ${dto.b_member}</td>
+		<td>${dto.b_member}</td>
 		      </tr>
 </c:forEach>
 </tbody>
@@ -94,10 +101,9 @@
 </table>
 </div>
 
-<a href="boardwrite.do">글쓰기</a> <br>
-<a href="board.do">board.jsp</a>
-
-
+<div style="margin-left: 75%">
+	<input type="button" class="btn btn-primary" value="글쓰기" onclick="location.href='boardwrite.do'"> <br>
+</div>
 
 
 </body>

@@ -60,11 +60,9 @@ public class ListController {
 		
 		dto.setCheck_in(check_in);
 		dto.setCheck_out(check_out);
-		
-		
+				
 		int total=dao.dbCount(skey,sval);
 
-		
 		String u_id = "none";
 		
 		if(request.getSession().getAttribute("checked") != null) {
@@ -89,7 +87,6 @@ public class ListController {
 		mav.addObject("skey",skey);
 		String url="firstlist/firstlist";
 		/*mav.addObject("like_flag",like_flag);*/			
-
 		mav.addObject("u_id",u_id);
 		mav.setViewName(url);
 	
@@ -153,8 +150,13 @@ public class ListController {
 			if(basic.equals("pricedown")) {filter="low_price"; range="desc";}//가격 높은 순
 		}
 		System.out.println("basic="+basic+" filter="+filter+" range="+range);
+		String u_id = "none";
 		
-		List<ListDTO> listlo=dao.dbSelectlo(g_addr,startprice,endprice,filter,range);
+		if(request.getSession().getAttribute("checked") != null) {
+			u_id = request.getSession().getAttribute("checked").toString();
+		}
+	
+		List<ListDTO> listlo=dao.dbSelectlo(g_addr,startprice,endprice,filter,range, u_id);
 		mav.addObject("basic",basic);
 		mav.addObject("filter",filter);
 		mav.addObject("range",range);
@@ -167,10 +169,8 @@ public class ListController {
 		mav.addObject("listlo", listlo);
 		mav.addObject("g_addr",g_addr);
 		String url="firstlist/location";
-		if(request.getSession().getAttribute("checked")!=null) {
-		String u_id = request.getSession().getAttribute("checked").toString();
 		mav.addObject("u_id",u_id);
-		}
+		
 		mav.setViewName(url);
 		return mav;
 	}//end

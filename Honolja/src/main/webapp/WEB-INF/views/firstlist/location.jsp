@@ -15,10 +15,10 @@
 
 <title>[location.jsp]</title>
 
-<link href="./resources/css/slidebtn.css" type="text/css"
-	rel="stylesheet">
+<link href="./resources/css/slidebtn.css" type="text/css" rel="stylesheet">
 <link href="./resources/css/filter.css" type="text/css" rel="stylesheet">
 <link href="./resources/css/header.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="./resources/css/detail.css" />
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -54,19 +54,22 @@ a:visited {color: #212121;text-decoration: none;}
 	var adult; var child; var check_in; var check_out; var area; var nights;
 </script>
 	<script>
-	function like_btn(btn_flag_val, g_no_val){
+	function like_btn(btn_flag_val, g_no_val, like_id_val){		
 		var u_id_val = "${u_id}";
- 
-		if("${u_id}" != ''){
+		if("${u_id}" != 'none'){
 			$.ajax({
 				"url" : "http://localhost:8080/honolja/guestlike.do",
 				"type" : "get",
-				"data" : {g_no : g_no_val, u_id : u_id_val, btn_flag : btn_flag_val},
+				"data" : {
+							g_no : g_no_val,
+							u_id : u_id_val, 
+							btn_flag : btn_flag_val,
+							like_id : like_id_val
+						},
 				"success" : function(data){			
-					$('#like_btn_area').html(data);	
+					$('#'+ like_id_val).html(data);	
 				}
 			});
-			
 		}else{$(document).ready(function(){
 			$('#alertbox').ready(function(){
 				$("#error").html("로그인 후 가능합니다.");
@@ -229,7 +232,7 @@ a:visited {color: #212121;text-decoration: none;}
 	<jsp:include page="modal.jsp" />
 	<c:import url="http://localhost:8080/honolja/header.do">
 		<c:param name="checked" value="${checked}"></c:param>
-		<c:param name="host" value="main.do"></c:param>
+		<c:param name="host" value="guestlocation.do?g_addr=${param.g_addr}&adult=${param.adult}&child=${param.child}&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"></c:param>
 		<c:param name="area" value="${param.area}"></c:param>
 		<c:param name="adult" value="${param.adult}"></c:param>
 		<c:param name="child" value="${param.child}"></c:param>
@@ -292,8 +295,32 @@ a:visited {color: #212121;text-decoration: none;}
 	<script type="text/javascript">
 	//datepicker 생성 및 날짜 수정시 이벤트
 	$(function() {
-		$("#startDate").datepicker({ format: 'yyyy/mm/dd',minDate: 0}).val();
-		$("#endDate").datepicker({ format: 'yyyy/mm/dd', minDate: 0}).val();
+		var now = new Date();
+		var today = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate();
+		var today1 = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + (now.getDate() + 1);
+		
+		$("#startDate").datepicker({ 
+			header: true,
+	        //footer: true,
+	        value: today,
+	        format: 'yyyy/mm/dd',
+	        minDate: today,
+	        maxDate: function () {
+	            return $('#endDate').val();
+	        }
+	    });
+		$("#endDate").datepicker({ 
+			header: true,
+	        //footer: true,
+	        value:today1,
+	        format: 'yyyy/mm/dd',
+	        minDate: function () {
+	            return  $('#startDate').val(); 
+	        },
+	        change: function (e) {
+	        	//alert("ㅁㄴㅇ");
+	        }
+	    }); 
 	});
 	function date1(){
 		var url = "guestlocation.do";
@@ -568,46 +595,129 @@ a:visited {color: #212121;text-decoration: none;}
 	<table id="ajaxTable" width="60%" height="10%" border="0" cellpadding="1">
     	<c:forEach var="list" items="${listlo}" varStatus="i">
     	<tr align="left" >
-      	<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
-      		<a style="text-decoration: none;"
-      		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
-      		target="_blank">
-      		<img src = "${list.g_url}" width="90%" height="180px"></a>
-      		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
-		</td>
-      	<td style="font-size:24px;padding-top:10px;">
-      		<a style="text-decoration: none;"
-      		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&night=${param.nights}"
-      		target="_blank">
-      		${list.g_name}</a>
-      	<!-- 좋아요 시작 -->
-    	<span id="like">
-    	<c:choose>
-			<c:when test="${list.islike != 0}">
-				<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">
-					<span class="glyphicon glyphicon-thumbs-up"></span> Like
-				</button>
-			</c:when>
-			<c:otherwise>
-				<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no});">
-					<span class="glyphicon glyphicon-thumbs-up"></span> Like
-				</button>
-			</c:otherwise>
-		</c:choose>
+    	<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
+    		<a 
+    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
+    		target="_blank"><!-- style="text-decoration: none;" -->
+    		<img src = "${list.g_url}" width="90%" height="180px"></a>
+    		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
+    	</td>
+    	<td style="font-size:24px;padding-top:24px;">
+    		<a 
+    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
+    		target="_blank"><!-- style="text-decoration: none;" -->
+
+    		${list.g_name}${list.islike }${list.g_no}</a>
+    	<!-- 좋아요 시작 -->
+    	<span id="like_${i.index}">
+	    	<c:choose>
+				<c:when test="${list.check_like != 0}">
+					<button type="button" class="btn btn-primary" onclick="like_btn(1,${list.g_no}, 'like_${i.index }');">
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like 좋아요 ${list.islike}
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no}, 'like_${i.index }');">
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like 좋아요 ${list.islike}
+					</button>
+				</c:otherwise> 
+			</c:choose>
 		</span>
 		<!-- 좋아요 끝 -->
-		</td>
+      	</td>
       	</tr>
-      	<tr><td>list.rating, 댓글 ${list.reviewcnt}</td></tr>
+      	<tr><td>평점<c:choose>
+							<c:when test="${list.avgs == 5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i></span>
+							</c:when>
+							<c:when test="${5 > list.avgs && list.avgs >= 4.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i></span>
+							</c:when>
+							<c:when test="${4.5 > list.avgs && avgs >= 4}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${4 > list.avgs && list.avgs >= 3.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${3.5 > list.avgs && list.avgs >= 3}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${3 > list.avgs && list.avgs >= 2.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${2.5 > list.avgs && list.avgs >= 2}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${2 > list.avgs && list.avgs >= 1.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${1.5 > list.avgs && list.avgs >= 1}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:otherwise>
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:otherwise>
+						</c:choose>
+						댓글 ${list.reviewcnt} 좋아요 ${list.islike}</td></tr>
       	<tr>
       		<td>
-				<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
+      			<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
       			<i>14:00~&nbsp;</i>
       			<i style="width:15px; height: 15px; background-color:#ff2d60; color:white;">기본</i> 
       			<i style="font-size:18px;font-weight:bold;color:black;">&nbsp;&nbsp;${list.low_price} 원</i>
-			</td>
-		</tr>
-      	<tr><td>쿠폰 및 테마 공백 </td></tr>
+      		</td>
+      	</tr>
+      	<tr><td><!-- 쿠폰 및 테마 공백  --></td></tr>
       	<tr><td style="padding-bottom:30px;">&nbsp;</td></tr>
       	<tr><td colspan="2"><hr color="#D5D5D5" align="center" width=97%></hr></td></tr>
       	<script>

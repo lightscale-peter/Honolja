@@ -27,8 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		reservation_seq.nextval,
 		#{u_id}, #{res_price},
 		#{res_ok}, #{res_people}, sysdate,
-		to_date(SUBSTR(#{check_in},1,10), 'YYYY/MM/DD'),
-		to_date(SUBSTR(#{check_out},1,10),'YYYY/MM/DD'),
+		to_date(#{check_in}, 'YYYY/MM/DD'),
+		to_date(#{check_out},'YYYY/MM/DD'),
 		#{r_no}
 		)
 	</insert>
@@ -49,4 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND TO_DATE(#{res_enddate},'YYYY/MM/DD') <![CDATA[<]]> res_enddate)OR (TO_DATE(#{res_startdate},'YYYY/MM/DD') 
 		<![CDATA[<=]]> res_startdate AND TO_DATE(#{res_enddate},'YYYY/MM/DD') <![CDATA[>=]]> 
 		res_enddate)) -->
+		
+		
 </mapper>
