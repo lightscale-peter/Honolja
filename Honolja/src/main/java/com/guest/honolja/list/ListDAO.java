@@ -2,6 +2,8 @@ package com.guest.honolja.list;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,14 +23,16 @@ public class ListDAO {
 		return list;
 	}//end
 	
-	public List<ListDTO> dbSelect(String skey, String sval, int startprice, int endprice, String filter,String range) {
+	public List<ListDTO> dbSelect(String skey, String sval, int startprice, int endprice, String filter,String range, String u_id) {
+		
 		ListDTO dto = new ListDTO();
-		dto.setSkey(skey);
-		dto.setSval(sval);
-		dto.setStartprice(startprice);
-		dto.setEndprice(endprice);
-		dto.setFilter(filter);
-		dto.setRange(range);
+			dto.setU_id(u_id);
+			dto.setSkey(skey);
+			dto.setSval(sval);
+			dto.setStartprice(startprice);
+			dto.setEndprice(endprice);
+			dto.setFilter(filter);
+			dto.setRange(range);
 		List<ListDTO> list=temp.selectList("firstlist.selectAll",dto);
 	  return list;
 	}//end

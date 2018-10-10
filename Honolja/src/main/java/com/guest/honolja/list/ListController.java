@@ -65,8 +65,16 @@ public class ListController {
 		
 		
 		int total=dao.dbCount(skey,sval);
-		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice,filter,range);
-		/*mav.addObject("score",dao.dbselscore());*/
+
+		
+		String u_id = "none";
+		
+		if(request.getSession().getAttribute("checked") != null) {
+			u_id = request.getSession().getAttribute("checked").toString();
+		}
+	
+		List<ListDTO> list=dao.dbSelect(skey,sval,startprice,endprice,filter,range, u_id);
+
 		mav.addObject("check_in",check_in);
 		mav.addObject("check_out",check_out);
 		
@@ -82,10 +90,9 @@ public class ListController {
 		mav.addObject("sval",sval);
 		mav.addObject("skey",skey);
 		String url="firstlist/firstlist";
-		if(request.getSession().getAttribute("checked")!=null) {
-		String u_id = request.getSession().getAttribute("checked").toString();
+		/*mav.addObject("like_flag",like_flag);*/			
+
 		mav.addObject("u_id",u_id);
-		}
 		mav.setViewName(url);
 	
 		return mav;
@@ -169,7 +176,9 @@ public class ListController {
 		mav.setViewName(url);
 		return mav;
 	}//end
+	
 	@RequestMapping("guestlike.do")
+
 	public ModelAndView guest_like(HttpServletRequest request) {	
 		ModelAndView mav = new ModelAndView( );
 		System.out.println("guestlike.do 정상 작동");
@@ -186,6 +195,7 @@ public class ListController {
 			btn_flag = Integer.parseInt(request.getParameter("btn_flag"));
 		}
 		
+		String like_id = request.getParameter("like_id");	
 		System.out.println("g_no : " + g_no);
 		System.out.println("u_id : " + u_id);
 		System.out.println("btn_flag : " + btn_flag);
@@ -198,13 +208,17 @@ public class ListController {
 			dao.dbinsertlike(dto);
 			System.out.println("insert 성공!!");
 			btn_flag = 1;
-		}else if(btn_flag == 1) {			
-			dao.dbdeletelike(dto);
+		}else{
+			dao.dbdeletelike(dto);		
 			System.out.println("delete 성공!!");
 			btn_flag = 2;
-		}	
-		mav.setViewName("firstlist/like_button");
-	return mav;
+		}
+			mav.addObject("g_no", g_no);
+			mav.addObject("like_id", like_id);
+			mav.addObject("btn_flag", btn_flag);
+			mav.setViewName("/firstlist/like_button");
+			
+		return mav;
 	}
 	
 }//ListController class end

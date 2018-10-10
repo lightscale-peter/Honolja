@@ -32,7 +32,12 @@ public class ListDTO {
 	private int startprice, endprice; //가격 검색 => 시작가격~ 끝가격
 	private String islike; //like
 	int low_price; //price search
+	
+	private String check_like;
 
+	public String getCheck_like() {	return check_like;}
+	public void setCheck_like(String check_like) {	this.check_like = check_like;}
+	
 	public int getReviewcnt() {	return reviewcnt;}
 	public void setReviewcnt(int reviewcnt) {	this.reviewcnt = reviewcnt;}
 	

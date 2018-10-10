@@ -43,18 +43,23 @@ a:visited{color: #212121; text-decoration: none;}
 	var url= new Array();
 	var g_no = new Array();
 	var adult; var child; var check_in; var check_out; var area; var nights;
- 	</script>
- 	<script>
- 	function like_btn(btn_flag_val, g_no_val, like_id){
- 		
+
+	function like_btn(btn_flag_val, g_no_val, like_id_val){		
+		
 		var u_id_val = "${u_id}";
-		if("${u_id}" != '' && "${u_id}" != null){
+		
+		if("${u_id}" != 'none'){
 			$.ajax({
-				url : "http://localhost:8080/honolja/guestlike.do",
-				type : "get",
-				data : {g_no : g_no_val, u_id : u_id_val, btn_flag : btn_flag_val},
-				success : function(data){			
-					$('#' + like_id).html(data);	
+				"url" : "http://localhost:8080/honolja/guestlike.do",
+				"type" : "get",
+				"data" : {
+							g_no : g_no_val,
+							u_id : u_id_val, 
+							btn_flag : btn_flag_val,
+							like_id : like_id_val
+						},
+				"success" : function(data){			
+					$('#'+ like_id_val).html(data);	
 				}
 			});
 		}else{$(document).ready(function(){
@@ -228,7 +233,11 @@ a:visited{color: #212121; text-decoration: none;}
 <body id="page-top" style="margin-top:51px;" >
    <c:import url="http://localhost:8080/honolja/header.do">
       <c:param name="checked" value="${checked}"></c:param>
+<<<<<<< HEAD
       <c:param name="host" value="guestlist.do?area=my&adult=${param.adult}&child=${param.child}&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"></c:param>
+=======
+      <c:param name="host" value="guestlist.do?area=my&adult=&child=&check_in=&check_out=&nights="></c:param>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
       <c:param name="area" value="${param.area}"></c:param>
       <c:param name="adult" value="${param.adult}"></c:param>
       <c:param name="child" value="${param.child}"></c:param>
