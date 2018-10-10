@@ -10,7 +10,7 @@ function review(g_no) {
 			g_no : g_no
 		},
 		success : function(data) { // 서버에 대한 정상응답이 오면 실행, callback
-			$("#review").tab('show');
+			$("#review").tab("show");
 			$("#reviews").html(data);
 		},
 		error : function(request, status, error) {
@@ -24,15 +24,15 @@ function reviewBtn(g_no) {
 
 	if ($.trim($("#re_content").val()) == ""
 			|| $.trim($("#re_content").val()) == null) {
-		$('.modal-title1').html("확인");
-		$('.modal-body1').html("댓글 내용을 입력해주세요.");
+		$(".modal-title1").html("확인");
+		$(".modal-body1").html("댓글 내용을 입력해 주세요.");
 		$("#messageModal").modal("show");
 		return false;
 	}
 
 	if ($("re_score").val() == null && $("re_score").val() == "") {
-		$('.modal-title1').html("확인");
-		$('.modal-body1').html("별점을 선택해 주세요.");
+		$(".modal-title1").html("확인");
+		$(".modal-body1").html("별점을 선택해 주세요.");
 		$("#messageModal").modal("show");
 		return false;
 	}
@@ -44,10 +44,10 @@ function reviewBtn(g_no) {
 		type : 'post',
 		data : dataForm,
 		success : function(data) { // 서버에 대한 정상응답이 오면 실행, callback
-			$('#modal_title').html("확인");
-			$('#modal_body').html("저장 되었습니다.");
+			$("#modal_title").html("확인");
+			$("#modal_body").html("저장 되었습니다.");
 			$("#ignismyModal").modal("show");
-			$("#review").tab('show');
+			$("#review").tab("show");
 			$("#reviews").html(data);
 		},
 		error : function(request, status, error) {
@@ -67,10 +67,10 @@ function remove(re_no) {
 		},
 		success : function(data) {
 			if(data == "true") {
-				$('#modal_title').html("확인");
-				$('#modal_body').html("삭제 되었습니다.");
+				$("#modal_title").html("확인");
+				$("#modal_body").html("삭제 되었습니다.");
 				$("#ignismyModal").modal("show");
-				$("#review").tab('show');
+				$("#review").tab("show");
 				$("reviewModify_" + re_no).hide();
 			}
 		}
@@ -89,7 +89,7 @@ function premodify(re_no) {
 			},
 			success : function(data) {
 				$("#reviewModify_" + re_no).html(data);
-				$('#reviewModify_' + re_no).focus();
+				$("#reviewModify_" + re_no).focus();
 			},
 			error : function(request, status, error) {
 				alert("code:" + request.status + "\n" + "message:"
@@ -108,10 +108,10 @@ function modify(re_no) {
 		type : 'post',
 		data : dataForm,
 		success : function(data) {
-			$('#modal_title').html("확인");
-			$('#modal_body').html("저장 되었습니다.");
+			$("#modal_title").html("확인");
+			$("#modal_body").html("저장 되었습니다.");
 			$("#ignismyModal").modal("show");
-			$("#review").tab('show');
+			$("#review").tab("show");
 			$("#reviews").html(data);
 			$("#reviewModify_"+ re_no).focus();
 		},
@@ -160,8 +160,8 @@ function answerAdd(re_no) {
 			$("#view_" + re_no).html(data);
 			$("#view_" + re_no).show();
 			$("#view_" + re_no).focus();
-			$('#modal_title').html("확인");
-			$('#modal_body').html("저장 되었습니다.");
+			$("#modal_title").html("확인");
+			$("#modal_body").html("저장 되었습니다.");
 			$("#ignismyModal").modal("show");
 		},
 		error : function(request, status, error) {
@@ -213,8 +213,8 @@ function answerDel(a_no, re_no) {
 		success : function(data) {
 			if(data == "true") {
 				$("#view_" + re_no).hide();
-				$('#modal_title').html("확인");
-				$('#modal_body').html("삭제 되었습니다.");
+				$("#modal_title").html("확인");
+				$("#modal_body").html("삭제 되었습니다.");
 				$("#ignismyModal").modal("show");
 			}
 		},
@@ -233,40 +233,40 @@ function popupWindow(url, title, w, h) {
 	return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
 }
 
-function reservation(r_no, adult, child, nights) {
+function reservation(r_no, nights, g_no) {
 
 	var check_in = document.getElementById("check_in").value;
 	var check_out = document.getElementById("check_out").value;
+	var adult = document.getElementById("adult").value;
+	var child = document.getElementById("child").value;
 	
-	location.href = 'reservationPre.do?r_no=' + r_no +'&adult=' + adult + '&child=' + child + '&check_in=' + check_in + '&check_out=' + check_out + '&nights=' + nights;
+	$.ajax({
+		url : 'reservationCheck.do',
+		type : 'post',
+		data : {
+			r_no : r_no,
+			adult : adult,
+			child : child,
+			check_in : check_in,
+			check_out : check_out,
+			nights : nights,
+			g_no : g_no
+		},
+		success : function(data) {
+			if(data == 'true') {
+				location.href = 'reservationPre.do?r_no=' + r_no +'&adult=' + adult + '&child=' + child + '&check_in=' + check_in + '&check_out=' + check_out + '&nights=' + nights;
+			} else {
+				alert("수용인원이 초과되었습니다.");
+			}
+		},
+		error : function(request, status, error) {
+		alert("code:" + request.status + "\n" + "message:"
+				+ request.responseText + "\n" + "error:" + error);
+		}
+	})
 	
 	// window.open(url, '예약 확인', 'toolbar=no, location=no, directories=no,
 	// status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no,
 	// width=600, height=600, top='+top+', left='+left);
 	
 }
-
-function resAdd(g_no) {
-	
-	var dataForm = $("#resForm").serialize();
-	
-	$.ajax({
-		url : 'resevationAdd.do',
-		type : 'post',
-		data : dataForm,
-		success : function(data) {
-			if(data == 'success') {
-				alert("예약 되었습니다.");
-				$('#modal_title').html("확인");
-				$('#modal_body').html("예약 되었습니다.");
-				$("#ignismyModal").modal("show");
-				location.href="guestdetail.do?g_no=" + g_no;
-			}
-		},
-		error : function(request, status, error) {
-			alert("code:" + request.status + "\n" + "message:"
-					+ request.responseText + "\n" + "error:" + error);
-		}
-	})
-}
-

@@ -211,8 +211,7 @@
 												</c:when>
 												<c:otherwise>
 													<button type="button" class="btn btn-primary btn-block"
-														data-toggle="modal"
-														onclick="reservation(${list.r_no}, ${adult}, ${child}, ${nights})">예약
+														onclick="reservation(${list.r_no}, ${nights}, ${g_no})">예약
 														하기</button>
 												</c:otherwise>
 											</c:choose>
@@ -236,7 +235,7 @@
 						<span class="f-left">체크인</span><span class="f-right">체크아웃</span>
 					</div>
 					<div class="DateRangePicker">
-						<div class="DateRangePickerInput" data-reactid="559">
+						<div class="DateRangePickerInput">
 							<div class="DateInput DateInput--open-down">
 								<div class="col-md-5">
 									<input type="text" id="check_in" name="check_in"
@@ -254,9 +253,36 @@
 								</div>
 							</div>
 						</div>
-						<div class="DateRangePicker-bottom">
-							<span class="f-right" id="nights">${nights}박</span>
+						<div class="form-group">
+							<table style="width: 100%;">
+								<tr>
+									<td><label for="usr"
+										style="display: block; align-content: center;"><font
+											color="#fff">성인</font></label> <a
+										onclick="countMinus('adult');progress();" href="#"
+										style="color: #ff777a;"><span
+											class="glyphicon glyphicon-minus"></span></a> &nbsp;&nbsp;<input
+										id="adult" name="adult" type="text" class="form-control"
+										id="usr" style="width: 35px; display: inline;"
+										value="${adult}" readonly="readonly">&nbsp;&nbsp; <a
+										onclick="countPlus('adult');progress();" href="#"
+										style="color: #ff777a;"><span
+											class="glyphicon glyphicon-plus"></span></a></td>
+									<td><label for="usr" style="display: block;"><font
+											color="#fff">아동</font> </label> <a onclick="countMinus('child');"
+										href="#" style="color: #ff777a;"><span
+											class="glyphicon glyphicon-minus"></span></a> &nbsp;&nbsp;<input
+										id="child" name="child" type="text" class="form-control"
+										id="usr" style="width: 35px; display: inline;"
+										value="${child}" readonly="readonly">&nbsp;&nbsp; <a
+										onclick="countPlus('child');" href="#" style="color: #ff777a;"><span
+											class="glyphicon glyphicon-plus"></span></a></td>
+								</tr>
+							</table>
 						</div>
+					</div>
+					<div class="DateRangePicker-bottom">
+						<span class="f-right" id="nights">${nights}박</span>
 					</div>
 				</div>
 				<div id="map" style="width: 400px; height: 400px;" align="center"></div>
@@ -285,9 +311,24 @@
             return $('#check_in').val();
         },
         change: function (e) {
-        	alert("ㅁㄴㅇ");
+        	alert("변경 되었습니다.");
+        	detail();
         }
-    }); 
+    });
+    
+    function detail() {
+    	var g_no = <c:out value='${g_no}'/>;
+		var check_in = document.getElementById("check_in").value;
+		var check_out = document.getElementById("check_out").value;
+		var adult = <c:out value='${adult}'/>;
+		var child = <c:out value='${child}'/>;
+		var nights = <c:out value='${nights}'/>;
+		
+			location.href = 'guestdetail.do?g_no=' + g_no + '&adult='
+			+ adult + '&child=' + child + '&check_in='
+			+ check_in + '&check_out=' + check_out + '&nights='
+			+ nights;
+	}
 
 		var	x=<c:out value='${info.g_position_n}'/>;
 		var	y=<c:out value='${info.g_position_e}'/>;
@@ -304,7 +345,33 @@
 		var	marker=new naver.maps.Marker({
 			position :	new naver.maps.LatLng(x, y),
 			map : map
-			})
+			});	
+	
+		function countPlus(id){
+			
+			var value = document.getElementById(id).value;		
+			
+			if(value == 9){
+				document.getElementById(id).value = 9;
+			}else{
+				value++;
+				document.getElementById(id).value = value;
+			}
+			
+		}
+		
+		function countMinus(id){
+			
+			var value = document.getElementById(id).value;		
+			
+			if(value == 0){
+				document.getElementById(id).value = 0;
+			}else{
+				value--;
+				document.getElementById(id).value = value;
+			}
+			
+		};
 		
 	</script>
 
