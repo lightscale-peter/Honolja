@@ -717,7 +717,7 @@ a:visited {color: #212121;text-decoration: none;}
       			<i style="font-size:18px;font-weight:bold;color:black;">&nbsp;&nbsp;${list.low_price} 원</i>
       		</td>
       	</tr>
-      	<tr><td>쿠폰 및 테마 공백 </td></tr>
+      	<tr><td><!-- 쿠폰 및 테마 공백  --></td></tr>
       	<tr><td style="padding-bottom:30px;">&nbsp;</td></tr>
       	<tr><td colspan="2"><hr color="#D5D5D5" align="center" width=97%></hr></td></tr>
       	<script>
