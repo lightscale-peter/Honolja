@@ -5,18 +5,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="UTF-8">
 	<title>[like_btn.jsp]</title>
 </head>
 <body>
 	<c:choose>
-		<c:when test="${list.islike != 0}">
-			<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">
+		<c:when test="${btn_flag == 1}">
+			<button type="button" class="btn btn-primary" onclick = "like_btn(1,${g_no}, '${like_id }');">
 				<span class="glyphicon glyphicon-thumbs-up"></span> Like
 			</button>
 		</c:when>
 		<c:otherwise>
-			<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no});">
+			<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${g_no}, '${like_id }');">
 				<span class="glyphicon glyphicon-thumbs-up"></span> Like
 			</button>
 		</c:otherwise>

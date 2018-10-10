@@ -44,20 +44,27 @@ a:visited{color: #212121; text-decoration: none;}
 	var g_no = new Array();
 	var adult; var child; var check_in; var check_out; var area; var nights;
 
-	function like_btn(btn_flag_val, g_no_val){
+	function like_btn(btn_flag_val, g_no_val, like_id_val){		
+		
 		var u_id_val = "${u_id}";
- 
-		if("${u_id}" != ''){
+		
+		if("${u_id}" != 'none'){
 			$.ajax({
 				"url" : "http://localhost:8080/honolja/guestlike.do",
 				"type" : "get",
-				"data" : {g_no : g_no_val, u_id : u_id_val, btn_flag : btn_flag_val},
+				"data" : {
+							g_no : g_no_val,
+							u_id : u_id_val, 
+							btn_flag : btn_flag_val,
+							like_id : like_id_val
+						},
+						
 				"success" : function(data){			
-					$('#like_btn_area').html(data);	
+					$('#'+ like_id_val).html(data);	
 				}
 			});
 			
-		}else{alert("로그인이벤트")} 
+		}else{alert("로그인이벤트");} 
 	}
 		
 	//메인 검색 눌 체크
@@ -220,7 +227,7 @@ a:visited{color: #212121; text-decoration: none;}
 <body id="page-top" style="margin-top:51px;" >
    <c:import url="http://localhost:8080/honolja/header.do">
       <c:param name="checked" value="${checked}"></c:param>
-      <c:param name="host" value="main.do"></c:param>
+      <c:param name="host" value="guestlist.do?area=my&adult=&child=&check_in=&check_out=&nights="></c:param>
       <c:param name="area" value="${param.area}"></c:param>
       <c:param name="adult" value="${param.adult}"></c:param>
       <c:param name="child" value="${param.child}"></c:param>
@@ -577,15 +584,15 @@ a:visited{color: #212121; text-decoration: none;}
     		target="_blank">
     		${list.g_name}${list.islike }${list.g_no}</a>
     	<!-- 좋아요 시작 -->
-    	<span id="like_btn_area">
+    	<span id="like_${i.index}">
 	    	<c:choose>
-				<c:when test="${list.islike != 0}">
-					<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});">
+				<c:when test="${list.check_like != 0}">
+					<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no}, 'like_${i.index }');">
 						<span class="glyphicon glyphicon-thumbs-up"></span> Like
 					</button>
 				</c:when>
 				<c:otherwise>
-					<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no});">
+					<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no}, 'like_${i.index }');">
 						<span class="glyphicon glyphicon-thumbs-up"></span> Like
 					</button>
 				</c:otherwise>
