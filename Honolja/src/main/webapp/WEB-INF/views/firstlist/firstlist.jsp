@@ -137,7 +137,7 @@ a:visited{color: #212121; text-decoration: none;}
 				    	}
 				    
 				    //만약에 체크인 월 < 체크아웃 월 이면,
-				    }else{
+				    }else{ 
 				    	
 				    	//체크아웃 월 - 체크인 월 == 1
 				    	if(out_array[1] - in_array[1] == 1){
