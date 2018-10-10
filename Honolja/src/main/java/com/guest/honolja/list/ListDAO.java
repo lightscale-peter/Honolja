@@ -58,11 +58,11 @@ public class ListDAO {
 	public int dblike_cnt(ListDTO dto) {
 		return temp.selectOne("firstlist.like_cnt", dto);
 	}
-	public int dbinsertlike(ListDTO dto) {
-		return temp.selectOne("firstlist.insertlike", dto);
+	public void dbinsertlike(ListDTO dto) {
+		temp.selectOne("firstlist.insertlike", dto);
 	}
-	public int dbdeletelike(ListDTO dto) {
-		return temp.selectOne("firstlist.deletelike", dto);
+	public void dbdeletelike(ListDTO dto) {
+		 temp.selectOne("firstlist.deletelike", dto);
 	}
 	public List<ListDTO> dbselscore() {
 		List<ListDTO> list1 = temp.selectList("firstlist.selscore");

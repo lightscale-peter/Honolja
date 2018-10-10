@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.guest.honolja.info.InfoDTO;
+
 @Controller
 public class ListController {
 	
@@ -169,7 +171,7 @@ public class ListController {
 	}//end
 	@RequestMapping("guestlike.do")
 	public ModelAndView guest_like(HttpServletRequest request) {	
-		
+		ModelAndView mav = new ModelAndView( );
 		System.out.println("guestlike.do 정상 작동");
 		
 		int g_no = 0;
@@ -191,19 +193,17 @@ public class ListController {
 		ListDTO dto = new ListDTO();
 			dto.setG_no(g_no);
 			dto.setU_id(u_id);
-	
-		if(btn_flag == 2) {
+			
+		if(btn_flag == 2) {			
 			dao.dbinsertlike(dto);
 			System.out.println("insert 성공!!");
 			btn_flag = 1;
-		}else if(btn_flag == 1) {
-			dao.dbdeletelike(dto);		
+		}else if(btn_flag == 1) {			
+			dao.dbdeletelike(dto);
 			System.out.println("delete 성공!!");
 			btn_flag = 2;
-		}
-		
-		ModelAndView mav = new ModelAndView( );
-			mav.setViewName("firstlist/like_button");
+		}	
+		mav.setViewName("firstlist/like_button");
 	return mav;
 	}
 	
