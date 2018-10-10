@@ -6,7 +6,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="./resources/ckeditor/ckeditor.js"></script>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+
 <title>[notice_detail.jsp]</title>
 </head>
 
@@ -24,7 +33,6 @@
 		<c:param name="checked" value="${checked}"></c:param>
 		<c:param name="host" value="main.do"></c:param>
 	</c:import>
-<h1>공지사항 수정</h1>
 <p>
 <br>
 
@@ -32,23 +40,22 @@
 	<form action="notice_edit.do" method="post" name="myform" id="myform" onsubmit="pop(); return false;">
 		<input type="hidden" value="${dto.n_no}" name="n_no">
 		
-	<div class="form-group" style="margin: 0 auto; width:70%;">
-		<label for="n_title">Title: </label>
+	<div class="form-group" style="margin: 0 auto; width:100%;">
 			<input type="text" name="n_title" id="n_title" class="form-control" value="${dto.n_title}"> <p>
-			<input type="hidden" value="${checked}" > <!-- 공지 작성자는 admin 고정 -->
+			<input type="hidden" value="${checked}" >
 	</div>
 	
 		<input type="hidden" value="${dto.n_viewcnt}" name="n_viewcnt" id="n_viewcnt">
 		
-	<div class="form-group" style="margin: 0 auto; width:70%;">
-		<label for="n_content">Content: </label>
-		<textarea class="form-control" rows="30" name="n_content" id="n_content">${dto.n_content}</textarea>
-	</div><p>
-	
+		<textarea rows="50" name="n_content" id="n_content" class="ckeditor" >${dto.n_content}</textarea>
+		<script type="text/javascript">
+			CKEDITOR.replace('n_content', {height: 500});
+		</script>
+
 		<br>
 			<div align="center">
 		<input type="checkbox" id="n_fix" name="n_fix" value="Y">
-		<label id="">이 공지사항을 목록 상단에 고정합니다.</label> <!-- Y/N으로 고정 여부값 판단 -->
+		<label id="">이 공지사항을 목록 상단에 고정합니다.</label>
 		<p>
 		<input type="submit" class="btn btn-primary" value="수정">
 		<input type="reset" class="btn btn-primary" value="새로 작성">

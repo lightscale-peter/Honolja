@@ -33,6 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) as u_cnt from users where u_id = #{u_id}
 	</select>
 	
+	<select id="findID" resultType="String" parameterType="com.guest.honolja.member.MemberDTO">
+		select u_id from users where u_name = #{u_name} and u_phn = #{u_phn}
+	</select>
+	
 	<update id="emailkey" parameterType="com.guest.honolja.member.MemberDTO">
 		update users set u_emailkey = #{u_emailkey}, u_emailcheck = 'false' where u_id = #{u_id}
 	</update>

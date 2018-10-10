@@ -62,8 +62,8 @@ public class MsgController {
 		ModelAndView mav = new ModelAndView();
 		String userid = request.getParameter("userid");
 		String receiver = request.getParameter("receiver");
-
 		mav.addObject("userid", userid);
+		mav.addObject("receiver",receiver);
 		mav.setViewName("/message/msg_resend");
 		return mav;
 	}//답장 화면
@@ -74,7 +74,6 @@ public class MsgController {
 		response.setContentType("text/html; charset=UTF-8");
 		String u_id = session.getAttribute("checked").toString();
 
-		
 		if ( u_id == null || u_id == "") {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('로그인이 필요한 서비스입니다.'); location.href='main.do';</script>");
@@ -97,16 +96,7 @@ public class MsgController {
 		response.setCharacterEncoding("UTF-8"); 
 		response.setContentType("text/html; charset=UTF-8");
 
-
 		String u_id = (String)session.getAttribute("checked");
-
-
-
-		if ( u_id == null || u_id == "") {
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('로그인이 필요한 서비스입니다.'); location.href='main.do';</script>");
-			out.flush();
-		}//로그인 제한
 
 		ModelAndView mav = new ModelAndView();
 		List<MsgDTO> listS = dao.db_selectS(u_id);

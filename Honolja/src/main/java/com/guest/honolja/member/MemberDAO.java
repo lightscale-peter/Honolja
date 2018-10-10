@@ -16,7 +16,6 @@ public class MemberDAO {
 	
 	public void m_insert(MemberDTO mto) {
 		temp.insert("member.m_insert", mto);
-		System.out.println("���옣�꽦怨�");
 	}//end
 	
 	public List<MemberDTO> m_select(MemberDTO mto){
@@ -52,5 +51,10 @@ public class MemberDAO {
 	
 	public void m_Auth(String u_id) throws Exception{
 		temp.update("member.emailcheck", u_id);
-	}
+	}//end
+	
+	public String findID(MemberDTO mto) {
+		String u_id = temp.selectOne("member.findID", mto);
+		return u_id;
+	}//end
 }//MemberDTO class END

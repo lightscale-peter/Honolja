@@ -95,6 +95,61 @@ public class ReservationDTO {
 	public void setR_no(int r_no) {
 		this.r_no = r_no;
 	}
+	
+	private String r_name;
+	private String r_content;
+	private int r_price;
+	private String img_url;
+	private String res_startdate;
+	private String res_enddate;
+	public String getR_name() {
+		return r_name;
+	}
+
+	public void setR_name(String r_name) {
+		this.r_name = r_name;
+	}
+
+	public String getR_content() {
+		return r_content;
+	}
+
+	public void setR_content(String r_content) {
+		this.r_content = r_content;
+	}
+
+	public int getR_price() {
+		return r_price;
+	}
+
+	public void setR_price(int r_price) {
+		this.r_price = r_price;
+	}
+
+	public String getImg_url() {
+		return img_url;
+	}
+
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
+	}
+
+	public String getRes_startdate() {
+		return res_startdate;
+	}
+
+	public void setRes_startdate(String res_startdate) {
+		this.res_startdate = res_startdate;
+	}
+
+	public String getRes_enddate() {
+		return res_enddate;
+	}
+
+	public void setRes_enddate(String res_enddate) {
+		this.res_enddate = res_enddate;
+	}
+
 
 	public String getAdult() {
 		return adult;
