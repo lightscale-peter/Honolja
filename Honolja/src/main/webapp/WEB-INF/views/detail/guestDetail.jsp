@@ -21,18 +21,9 @@
 	type="text/javascript"></script>
 <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css"
 	rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script src="./resources/js/detail.js"></script>
 <link rel="stylesheet" href="./resources/css/detail.css">
-<script type="text/javascript">
-$(document).ready(function() {
-	var g_no = <c:out value='${g_no}'/>;
-	$("#roominfos").tab('show');
-	roominfo(g_no);
-})
-</script>
-
 </head>
 <body>
 	<c:import url="http://localhost:8080/honolja/header.do">
@@ -164,7 +155,75 @@ $(document).ready(function() {
 						</ul>
 						<div class="tab-content" id="my-tab-content">
 							<div class="tab-pane active" id="room-info">
-								<div id="roominfos"></div>
+								<div id="roominfos">
+									<c:forEach var="list" items="${list}">
+										<div class="row">
+											<div class="col-sm-7">
+												<div id="${list.r_no}" class="carousel slide"
+													data-ride="carousel" data-interval="false">
+													<div class="carousel-inner">
+														<div class="item active">
+															<img src="${list.img_url}" alt="첫번째 슬라이드" width="500px"
+																height="300px">
+														</div>
+														<div class="item">
+															<img src="${list.img_url2}" alt="두번째 슬라이드" width="500px"
+																height="300px">
+														</div>
+														<div class="item">
+															<img src="${list.img_url3}" alt="세번째 슬라이드" width="500px"
+																height="300px">
+														</div>
+													</div>
+													<a class="left carousel-control" href="#${list.r_no}"
+														data-slide="prev"> <span
+														class="glyphicon glyphicon-chevron-left"></span> <span
+														class="sr-only">Previous</span>
+													</a> <a class="right carousel-control" href="#${list.r_no}"
+														data-slide="next"> <span
+														class="glyphicon glyphicon-chevron-right"></span> <span
+														class="sr-only">Next</span>
+													</a>
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<div>
+													<h2>
+														<em>${list.r_name}</em>
+													</h2>
+												</div>
+												<p>
+												<div>${list.r_content}</div>
+												<br>
+												<div align="right">
+													<font color="#FF69B4" size="15px"><fmt:formatNumber
+															value="${list.r_price}" pattern="###,###,###.##" /> </font><i>원</i>
+												</div>
+												<c:choose>
+													<c:when test="">
+														<button type="button" class="btn btn-secondary btn-block"
+															disabled>예약불가</button>
+													</c:when>
+													<c:otherwise>
+														<c:choose>
+															<c:when test="${empty sessionScope.checked}">
+																<button type="button" class="btn btn-primary btn-block"
+																	onclick="popupWindow('login_popup.do?host=guestdetail.do?g_no=${list.g_no}', 'login', 410, 450)">예약
+																	하기</button>
+															</c:when>
+															<c:otherwise>
+																<button type="button" class="btn btn-primary btn-block"
+																	data-toggle="modal" href="#reservationModal">예약
+																	하기</button>
+															</c:otherwise>
+														</c:choose>
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</div>
+										<hr>
+									</c:forEach>
+								</div>
 							</div>
 							<div class="tab-pane" id="review">
 								<div id="reviews"></div>
@@ -179,75 +238,28 @@ $(document).ready(function() {
 						<span class="f-left">체크인</span><span class="f-right">체크아웃</span>
 					</div>
 					<div class="DateRangePicker">
-						<div class="container-fluid DateInput">
-							<div class="row">
-								<div class="col-md-5">
-									<input type="text" name="startDate" id="startDate"
-										value="2018-09-20" />
-								</div>
-								<div class="col-md-2">
-									<span class="glyphicon glyphicon-arrow-right"
-										aria-hidden="true"></span>
-								</div>
-								<div class="col-md-5">
-									<input type="text" name="endDate" id="endDate"
-										value="2018-09-20" />
-								</div>
+						<div class="DateInput">
+							<div class="col-md-5">
+								<input type="text" id="check_in" name="check_in"
+									class="form-control" value="${check_in}">
+							</div>
+							<div class="col-md-2">
+								<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+							</div>
+							<div class="col-md-5">
+								<input type="text" id="check_out" name="check_out"
+									class="form-control" value="${check_out}">
 							</div>
 						</div>
 					</div>
 					<div class="DateRangePicker-bottom">
-						<span class="f-right">1박</span>
+						<span class="f-right" id="nights">${nights}</span>
 					</div>
 				</div>
 				<div id="map" style="width: 400px; height: 400px;" align="center"></div>
 			</div>
 		</div>
 		<script type="text/javascript">
-		$(function() {
-		 $('#startDate').datepicker({ 
-				showOn:"both",
-				buttonImageOnly:true,
-				buttonText:"날짜 선택",
-				format: 'yyyy-mm-dd',
-				numberOfMonths : 1,
-				firstDay : 1,
-				minDate : '0',
-				maxDate: '+2Y',
-				showMonthAfterYear : true,
-				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-					'8월', '9월', '10월', '11월', '12월'],
-				monthNamesShort : ['1월', '2월', '3월', '4월', '5월', '6월',
-					'7월', '8월', '9월', '10월', '11월', '12월'],
-				dayNames : [ '일', '월', '화', '수', '목', '금', '토'],
-				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토'],
-				dayNamesMin : ['일', '월', '화', '수', '목', '금', '토'],
-			}); 
-		 
-			$('#endDate').datepicker({ 
-				showOn:"both",
-				buttonImageOnly:true,
-				buttonText:"날짜 선택",
-				format: 'yyyy-mm-dd',
-				numberOfMonths : 1,
-				firstDay : 1,
-				minDate : '0',
-				maxDate: '+2Y',
-				showMonthAfterYear : true,
-				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-					'8월', '9월', '10월', '11월', '12월'],
-				monthNamesShort : ['1월', '2월', '3월', '4월', '5월', '6월',
-					'7월', '8월', '9월', '10월', '11월', '12월'],
-				dayNames : [ '일', '월', '화', '수', '목', '금', '토'],
-				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토'],
-				dayNamesMin : ['일', '월', '화', '수', '목', '금', '토'],
-				onSelect : function(dateStr){
-					var min = $(this).datepicker('getDate');
-					$('#startDate').datepicker('option','minDate', min || '0');
-					datrpicked();
-				}
-			});
-		})
 
 					var x = <c:out value='${info.g_position_n}'/>;
 					var y = <c:out value='${info.g_position_e}'/>;
@@ -268,8 +280,6 @@ $(document).ready(function() {
 								map : map
 							});
 
-					
-
 					/*// 마커 클릭 이벤트 처리 ( 클릭할 경우 infowindow에 등록된 이미지와 이름이 뜸 )
 					naver.maps.Event.addListener(marker, "click", function(e) {
 						if (infowindow.getMap()) {
@@ -284,47 +294,166 @@ $(document).ready(function() {
 								//띄워줄 이름과 사이트 이미지, 클릭했을경우 이동할 url 주소를 입력해주면 된다.
 								content : '<a href="http://bitcamp.co.kr/index.php?main_page=home"><h4>[비트캠프 서초센터]</h4></a>'
 							}); */
+							
+							$('#check_in').datepicker({ 
+							    format: 'yyyy/mm/dd'
+							}); 
+							 
+							$('#check_out').datepicker({ 
+								format: 'yyyy/mm/dd'
+							});
+							
+							var check_in = document.getElementById("check_in").value;
+						    var check_out = document.getElementById("chek_out").value;
+							
+							var in_string_array = new Array();
+						    var out_string_array = new Array();   
+						    
+						    var in_array = new Array();
+						    var out_array = new Array();
+						    
+						    in_string_array = check_in.split("/");
+						    out_string_array = check_out.split("/");
+						    
+						    for(i in in_string_array){
+						    	in_array[i] = parseInt(in_string_array[i]);
+						    }
+						    
+						    for(i in out_string_array){
+						    	out_array[i] = parseInt(out_string_array[i]);
+						    }
+						   
+				    		//체크인 연 <= 체크아웃 연
+				    		if(in_array[0] <= out_array[0]){
+				    			
+				    			//체크인 연 == 체크아웃 연
+				    			if(in_array[0] == out_array[0]){
+				    				
+								    //만약에 체크인 월 <= 체크아웃 월 이면,
+								    if(in_array[1] <= out_array[1]){
+								    	
+									    //만약에 체크인 월 == 체크아웃 월 이면,
+									    if(in_array[1] == out_array[1]){
+									    	
+									    	//체크아웃 일 - 체크인 일  <= 10
+									    	if(out_array[2] - in_array[2] <= 10 && out_array[2] - in_array[2] > 0){
+									    		
+									    		document.getElementById("nights").value = out_array[2] - in_array[2];
+									    		document.getElementById("check_form").submit();
+									    		
+									    	//체크아웃 일 < 체크인 일
+									    	}else if(out_array[2] - in_array[2] < 0){					   
+												$(document).ready(function(){
+													$('#alertbox').ready(function(){
+														$("#error").html("체크아웃 일이 체크인 일보다 이전일 수 없습니다.");
+														$('#myModal').modal("show");
+													});
+												});
+								    		//체크아웃 일 == 체크인 일	
+									    	}else if(out_array[2] == in_array[2]){					    		
+												$(document).ready(function(){
+													$('#alertbox').ready(function(){
+														$("#error").html("체크아웃 일과 체크인 일이 같을 수 없습니다.");
+														$('#myModal').modal("show");
+													});
+												});
+									    	}else{					    		
+												$(document).ready(function(){
+													$('#alertbox').ready(function(){
+														$("#error").html("10일 이상 예약이 불가합니다.");
+														$('#myModal').modal("show");
+													});
+												});
+									    	}
+									    
+									    //만약에 체크인 월 < 체크아웃 월 이면,
+									    }else{
+									    	
+									    	//체크아웃 월 - 체크인 월 == 1
+									    	if(out_array[1] - in_array[1] == 1){
+						
+									    		//(체크인 월의 말일 - 체크인 일) + (체크아웃 일) <=10;
+									    		if(endOfDay(in_array[1]) - in_array[2] + out_array[2] <= 10){
+									    			
+									    			document.getElementById("nights").value = endOfDay(in_array[1]) - in_array[2] + out_array[2];
+									    			document.getElementById("check_form").submit();
+				    							
+									    		}else{					    			
+													$(document).ready(function(){
+														$('#alertbox').ready(function(){
+															$("#error").html("10일 이상 예약이 불가합니다.");
+															$('#myModal').modal("show");
+														});
+													});
+									    		}
+									    	}else{					    		
+												$(document).ready(function(){
+													$('#alertbox').ready(function(){
+														$("#error").html("1달 이내에만 예약이 가능합니다.");
+														$('#myModal').modal("show");
+													});
+												});
+									    	}
+									    }				  	
+								    }else{				    	
+										$(document).ready(function(){
+											$('#alertbox').ready(function(){
+												$("#error").html("체크인 월이 체크아웃 월보다 클 수 없습니다.");
+												$('#myModal').modal("show");
+											});
+										});
+								    }
+				    			//체크인  연< 체크아웃 연
+				    			}else{
+				    			
+				    				//체크 아웃 연 - 체크 인 연 == 1
+				    				if(out_array[0] - in_array[0] == 1){	
+				    				
+				    					//체크인 월== 11월 && 체크 아웃 월== 1월 
+				    					if(in_array[1] == 11 && out_array[1] == 1){
+				    						
+				    						//(11월 말일 - 체크인 일) + 체크아웃 일 <= 10; 
+				    						if(endOfDay(11) - in_array[2] + out_array[2] <= 10){
+				 
+				    							document.getElementById("nights").value = endOfDay(11) - in_array[2] + out_array[2];
+				    							document.getElementById("check_form").submit();
+									    
+				    						}else{    							
+				    							$(document).ready(function(){
+				    								$('#alertbox').ready(function(){
+				    									$("#error").html("10일 이상 예약이 불가합니다.");
+				    									$('#myModal').modal("show");
+				    								});
+				    							});
+				    						} 	
+				    					}else{    						
+											$(document).ready(function(){
+												$('#alertbox').ready(function(){
+													$("#error").html("1달 이내에만 예약이 가능합니다.");
+													$('#myModal').modal("show");
+												});
+											});
+				    					}
+				    				}else{    					
+										$(document).ready(function(){
+											$('#alertbox').ready(function(){
+												$("#error").html("기간이 1년 이상 차이 납니다.");
+												$('#myModal').modal("show");
+											});
+										});
+				    				}
+				    			}	
+				    		}else{    			
+								$(document).ready(function(){
+									$('#alertbox').ready(function(){
+										$("#error").html("체크인 연도는 체크아웃 연도보다 클 수 없습니다.");
+										$('#myModal').modal("show");
+									});
+								});
+				    		}
 				</script>
 	</div>
-
-	<!-- Modal -->
-	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog modal-notify modal-info">
-			<div class="modal-content">
-				<div class="modal-header" id="modal_title">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title"></h4>
-				</div>
-				<div class="modal-body" id="modal_body"></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="modal fade" id="reviewDelete" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close" aria-hidden="true">×</button>
-					<h4 class="smaller lighter blue no-margin modal-title">알림</h4>
-				</div>
-				<div class="modal-body">'삭제'버튼을 누르면 해당 게시글이 삭제됩니다. 정말로
-					삭제하시겠습니까?</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" id="modalDelbtn">삭제</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="detailModal.jsp"></jsp:include>
 	<c:import url="http://localhost:8080/honolja/footer.do"></c:import>
 </body>
 </html>

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
-  <title>Bootstrap Example</title>
    <meta charset='utf-8'>
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,8 +15,8 @@
 
 <div id='cssmenu'>
 <ul>
-   <li><a href='#'>찜</a></li>
-   <li><a href='#'>예약 현황</a></li>
+   <li><a href="mypage_like.do">찜</a></li>
+   <li><a href="mypage_rsvt.do">예약 현황</a></li>
    <li><a href="mypage_board.do">내가 쓴 글</a></li>
       <ul>
          <li class='has-sub'id="box"><a href='#'>쪽지함</a>

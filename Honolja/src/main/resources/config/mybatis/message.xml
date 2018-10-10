@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select * from message where m_id = #{m_id} and m_receive = 'true' order by m_date desc
  </select>
  
+
  <select id="msgSelectS" resultType="msg" parameterType="String">
   select * from message where u_id = #{u_id} and m_send = 'true' order by m_date desc
  </select>

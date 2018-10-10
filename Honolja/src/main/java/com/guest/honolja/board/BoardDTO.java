@@ -31,17 +31,6 @@ public class BoardDTO {
 	private String brr_content;
 	private Date brr_date;
 	
-	private String b_member2;
-	
-	
-	public String getB_member2() {
-		return b_member2;
-	}
-
-	public void setB_member2(String b_member2) {
-		this.b_member2 = b_member2;
-	}
-
 	public int getBrr_no() {
 		return brr_no;
 	}

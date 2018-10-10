@@ -88,6 +88,8 @@ public class InfoController {
 		
 		//Get the list from DB 
 		List<InfoDTO> list = dao.dbSelectImgBoard(dto);
+		
+		System.out.println(list.get(0).getReply_cnt());
 					
 			
 		//Print page_button according to page_num
@@ -207,44 +209,48 @@ public class InfoController {
 		String i_title = request.getParameter("title");
 		String i_content = request.getParameter("content");
 		String u_id = request.getParameter("id");
+		String i_youtube = request.getParameter("youtube");
 		MultipartFile mf = request.getFile("upload_f");
+		
+		System.out.println("mf: !!!!dddddfdf!!!!" + mf.getOriginalFilename());
 			
 		InfoDTO dto = new InfoDTO();	
 			dto.setI_title(i_title);
 			dto.setI_content(i_content);
 			dto.setU_id(u_id);
+			dto.setI_youtube(i_youtube);
 		//start to save file
 		
-		if(mf != null) {
-			//set save_path
-			String path = application.getRealPath("/resources/info_images");
-				System.out.println("application.getRealPath : " + path);
-				
-			//set uploadFileName
-			UUID random_path = UUID.randomUUID();
-				System.out.println("random_path : " + random_path.toString());
-				
-			String i_originalFilename = mf.getOriginalFilename();
-				System.out.println("i_originalFilename : " + i_originalFilename);
-				dto.setI_originalFileName(i_originalFilename);
-				
-			String i_uploadFileName = random_path + "_" + i_originalFilename;
-				System.out.println("i_uploadFileName : " + i_uploadFileName);
-				dto.setI_uploadFileName(i_uploadFileName);
-				
-			//get file_size
-			String i_fileSize = String.valueOf(mf.getSize()) + "byte";
-				System.out.println("i_fileSizee : " + i_fileSize);
-				dto.setI_fileSize(i_fileSize);
-				
-			//set File
-			File file = new File(path, i_uploadFileName);
+		
+		//set save_path
+		String path = application.getRealPath("/resources/info_images");
+			System.out.println("application.getRealPath : " + path);
 			
-			//try to save file
-			try {
-				mf.transferTo(file); // 변환 시도			
-			}catch(Exception e) {}
-		}
+		//set uploadFileName
+		UUID random_path = UUID.randomUUID();
+			System.out.println("random_path : " + random_path.toString());
+			
+		String i_originalFilename = mf.getOriginalFilename();
+			System.out.println("i_originalFilename : " + i_originalFilename);
+			dto.setI_originalFileName(i_originalFilename);
+			
+		String i_uploadFileName = random_path + "_" + i_originalFilename;
+			System.out.println("i_uploadFileName : " + i_uploadFileName);
+			dto.setI_uploadFileName(i_uploadFileName);
+			
+		//get file_size
+		String i_fileSize = String.valueOf(mf.getSize()) + "byte";
+			System.out.println("i_fileSizee : " + i_fileSize);
+			dto.setI_fileSize(i_fileSize);
+			
+		//set File
+		File file = new File(path, i_uploadFileName);
+		
+		//try to save file
+		try {
+			mf.transferTo(file); // 변환 시도			
+		}catch(Exception e) {}
+		
 		
 			
 		dao.dbInsertImgBoard(dto);

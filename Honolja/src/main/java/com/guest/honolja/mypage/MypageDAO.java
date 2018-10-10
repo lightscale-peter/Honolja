@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.guest.honolja.board.BoardDTO;
+import com.guest.honolja.list.ListDTO;
 import com.guest.honolja.member.MemberDTO;
+import com.guest.honolja.reservation.ReservationDTO;
 
 @Repository
 public class MypageDAO {
@@ -15,18 +17,40 @@ public class MypageDAO {
 	@Autowired
 	SqlSessionTemplate temp;
 	
-	public List<BoardDTO> myboard_select(String u_id) {		
-		 List<BoardDTO> listB = temp.selectList("mypage.myboard_select", u_id);
-		 return listB;
-	}//내가 쓴 글 select
-	
 	//ȸ������
 	public MemberDTO mypageselect(String u_id) {
 		MemberDTO mto = new MemberDTO();
 		mto = temp.selectOne("mypage.mypageselect", u_id);
 		return mto;
-		
 	}//end
+	
+	public List<BoardDTO> mypage_board(String u_id){
+		List<BoardDTO> listB = temp.selectList("mypage.mypage_board", u_id);
+		return listB;
+	}//end
+	
+	public List<ListDTO> mypage_like(String u_id){
+		List<ListDTO> listL = temp.selectList("mypage.mypage_like", u_id);
+		return listL;
+	}//end
+	
+	public List<ReservationDTO> mypage_rsvt(String u_id){
+		List<ReservationDTO> listRS = temp.selectList("mypage.mypage_rsvt", u_id);
+		return listRS;
+	}//end
+	
+	//ȸ������
+	public MemberDTO useredit(String u_id) {
+		MemberDTO mto = new MemberDTO();
+		mto = temp.selectOne("mypage.useredit", u_id);
+		return mto;
+	}//end
+	
+	//ȸ������ ����
+	public void usereditsave(MemberDTO mto) {
+		temp.update("mypage.usereditsave", mto);
+	}
+
 	
 	//ȸ��Ż��
 	public String mypageDelete(String u_id) {

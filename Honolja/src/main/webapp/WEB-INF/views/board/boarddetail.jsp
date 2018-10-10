@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -49,7 +50,7 @@ $(function() {
 	});
 });//아이디 중복체크 end
 </script>
-<title>게시판 디테일</title>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -57,13 +58,17 @@ $(function() {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   	 <link href="css/user_menu.css" rel="stylesheet" type="text/css">
+  	 
 </head>
 <body>
+        
+    
 
 <div class="container">
   <h2><a href="board.do">게시판</a></h2>
 <form>
 <div class="form-group">
+
 <label for="usr" >게시자:</label>
 <!-- <input type="text"  class="form-control" id="u_id" readonly="readonly" value="${dto.u_id}" > -->
 
@@ -78,16 +83,9 @@ $(function() {
 
 <input type="text"  class="form-control" id="u_id" readonly="readonly" value="${dto.u_id}" >
 <br>
+
 <label for="usr" >제목:</label>
 <input type="text"  class="form-control" id="usr" readonly="readonly" value="${dto.b_title}" >
-
-<br>
-<input type="hidden" id="b_no" value="${dto.b_no}">
-<input type="hidden" id="b_member2" value="${dto.b_member2}">
-<input type="hidden" id="b_member" value="${dto.b_member}">
-참여&nbsp;&nbsp;&nbsp;${dto.b_member2}/${dto.b_member}
-&nbsp;<input type="button" id="btn_member" value="참여">
-<br>
     
 <br> <label for="comment" >Comment:</label>
 <textarea name="b_content"  class="form-control" rows="10" id="comment"  readonly="readonly">${dto.b_content} 
@@ -98,9 +96,23 @@ $(function() {
  
 </form>
 
- <a href="boardedit.do?idx=${dto.b_no}">[수정]</a>
- <a href="boarddelete.do?idx=${dto.b_no}">[삭제]</a>
+    <c:if test="${dto.b_originalfilename  != null }"><img src ='${pageContext.request.contextPath}/resources/upload/${img_file_name}' width=250 height=300 border=0> </c:if>
+ <c:import url="/boardreply.do" />
+  <c:import url="/boardrreply.do" />
+ 
+ <a href="boardedit.do?idx=${dto.b_no}" >[수정]</a>
+ <a href="javascript:void(0);" onclick="del();" >[삭제]</a>
  </div>
+	
+	<script type="text/javascript">
+	
+	function del() {
+		if(confirm("게시글을 삭제하시겠습니까?")) {
+			location.href = "boarddelete.do?idx=" +${dto.b_no};
+		}
+			return false;
+		}
+	</script>
 	
 </body>
 </html> 

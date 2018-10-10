@@ -67,14 +67,13 @@ public class MsgController {
 		mav.setViewName("/message/msg_resend");
 		return mav;
 	}//답장 화면
-
 	
 	@RequestMapping("/msg_boxR.do")
 	public ModelAndView msg_boxR(HttpSession session, HttpServletResponse response) throws Exception {
 		response.setCharacterEncoding("UTF-8"); 
 		response.setContentType("text/html; charset=UTF-8");
 		String u_id = session.getAttribute("checked").toString();
-		
+
 		if ( u_id == null || u_id == "") {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('로그인이 필요한 서비스입니다.'); location.href='main.do';</script>");
@@ -98,12 +97,7 @@ public class MsgController {
 		response.setContentType("text/html; charset=UTF-8");
 
 		String u_id = (String)session.getAttribute("checked");
-		if ( u_id == null || u_id == "") {
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('로그인이 필요한 서비스입니다.'); window.document.location.href='main.do';</script>");
-			out.flush();
-		}//로그인 제한
-		
+
 		ModelAndView mav = new ModelAndView();
 		List<MsgDTO> listS = dao.db_selectS(u_id);
 		

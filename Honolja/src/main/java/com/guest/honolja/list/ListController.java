@@ -41,8 +41,7 @@ public class ListController {
 		skey=request.getParameter("keyfield");
 		sval=request.getParameter("keyword");
 		
-		if(sval==null || sval=="") /*|| low_price == null || low_price==" " || basic=="" || basic==null*/
-		{skey="g_name"; sval=" ";}
+		if(sval==null || sval==""){skey="g_name"; sval=" ";}
 		logger.info("skey="+skey+" sval="+sval);
 		
 		if(low_price != null) {
@@ -52,7 +51,7 @@ public class ListController {
 			else if(low_price.equals("d")) {startprice=60000; endprice=80000;}
 			else if(low_price.equals("e")) {startprice=80000; endprice=100000;}
 			}
-		//System.out.println("startprice="+startprice+"endprice="+endprice);
+		System.out.println("low_price="+low_price+"startprice="+startprice+"endprice="+endprice);
 		
 		/*if(basic != null) {
 			if(basic.equals("basic")) {}
@@ -101,7 +100,7 @@ public class ListController {
 		
 		basic= request.getParameter("basic");
 		
-		if(low_price == null || low_price=="" /*|| g_addr==null || g_addr == ""*/) {/* g_addr="";*/ low_price=""; }
+		if(low_price == null || low_price=="") {low_price=""; }
 		
 		if(g_addr != null) {
 		if(g_addr.equals("seoul")) {g_addr="서울";}
@@ -130,7 +129,7 @@ public class ListController {
 			else if(low_price.equals("d")) {startprice=60000; endprice=80000;}
 			else if(low_price.equals("e")) {startprice=80000; endprice=100000;}
 		}
-		System.out.println("startprice="+startprice+"endprice="+endprice);
+		System.out.println("low_price="+low_price+"startprice="+startprice+"endprice="+endprice);
 		 
 		List<ListDTO> listlo=dao.dbSelectlo(g_addr,startprice,endprice);
 		mav.addObject("basic",basic);

@@ -54,5 +54,6 @@
 			</tr>
 		</table>
 	</div>
+	<jsp:include page="detailModal.jsp"></jsp:include>
 </body>
 </html>

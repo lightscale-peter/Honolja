@@ -109,16 +109,6 @@
 
 <script type="text/javascript">
 
-<<<<<<< HEAD
- 
-	//ID중복체크
-	var flagID = false;
-	$(function() {
-		//idck 버튼을 클릭했을 때 
-		$("#btn_idcheck").click(function() {
-
-			//userid 를 param.
-=======
 	var flagID = false;
 	
 	//radio버튼
@@ -157,7 +147,6 @@
 			}
 		}else{
 			uid.innerHTML = "";
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			var u_id = $("#u_id").val();
 			
 			$.ajax({
@@ -170,20 +159,12 @@
 				success : function(data) {
 					if(data == "true")
 					{
-<<<<<<< HEAD
-						alert("이미 사용중인 아이디입니다.");
-=======
 						uid.innerHTML = "<font color='red'>이미 사용중이거나 탈퇴한 아이디입니다.</font>";
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 						flagID = false;
 					}
 					else
 					{
-<<<<<<< HEAD
-						alert("사용 가능한 아이디입니다.");
-=======
 						uid.innerHTML = "<font color='blue'>멋진 아이디네요!</font>";
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 						flagID = true;
 					}
 				},
@@ -355,71 +336,36 @@
 		var pwd2 = document.getElementById("pwd2");
 		
 		if (u_id == "" || u_id == null) {
-<<<<<<< HEAD
-			alert("아이디를 입력해주세요");
-=======
 			document.getElementById("u_id").focus();
 			uid.innerHTML = "<font color='red'>필수 정보입니다.</font>"
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			return;
 		} else if (u_pwd == "" || u_pwd == null) {
-<<<<<<< HEAD
-			alert("비밀번호를 입력해주세요");
-=======
 			document.getElementById("u_pwd").focus();
 			pwd.innerHTML = "<font color='red'>필수 정보입니다.</font>"
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			return;
 		} else if (u_name == "" || u_name == null) {
-<<<<<<< HEAD
-			alert("이름을 입력해주세요");
-=======
 			document.getElementById("u_name").focus();
 			uname.innerHTML = "<font color='red'>필수 정보입니다.</font>"
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			return;
-<<<<<<< HEAD
-		} else if (year == "선택하세요") {
-			alert("년도를 선택해주세요.");
-=======
 		} else if (year == "" || year == null) {
 			document.getElementById("year").focus();
 			ubirth.innerHTML = "<font color='red'>필수 정보입니다.</font>"
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			return;
-<<<<<<< HEAD
-		} else if (month == "선택하세요") {
-			alert("월을 선택해주세요");
-=======
 		} else if (month == "월") {
 			document.getElementById("month").focus();
 			ubirth.innerHTML = "<font color='red'>필수 정보입니다.</font>"
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			return;
-<<<<<<< HEAD
-		} else if (day == "선택하세요") {
-			alert("일을 선택해주세요");
-=======
 		} else if (day == "" || day == null) {
 			document.getElementById("day").focus();
 			ubirth.innerHTML = "<font color='red'>필수 정보입니다.</font>"
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			return;
 		} else if (u_phn == "" || u_phn == null) {
-<<<<<<< HEAD
-			alert("핸드폰 번호를 입력해주세요");
-=======
 			document.getElementById("u_phn").focus();
 			uphn.innerHTML = "<font color='red'>필수 정보입니다.</font>"
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			return;
 		}else if(u_gender.checked.length < 1){
-<<<<<<< HEAD
-			alert("성별을 선택해주세요");
-=======
 			document.getElementById("u_gender").focus();
 			ugender.innerHTML = "<font color='red'>필수 정보입니다.</font>"
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			return;
 		}else if (u_email == "" || u_email == null) {
 			document.getElementById("u_email").focus();
@@ -462,83 +408,6 @@
 		}
 		myform.submit();
 	}//insertCheck end
-<<<<<<< HEAD
-
-	//radio버튼
-	function radioCheck(v, id, id2, id3) {
-		if (v == "점주") {
-			document.getElementById(id).style.display = ""; //보여줌
-			document.getElementById(id2).style.display = "";
-			document.getElementById(id3).style.display = "";
-		} else {
-			document.getElementById(id).style.display = "none"; //숨김
-			document.getElementById(id2).style.display = "none";
-			document.getElementById(id3).style.display = "none";
-		}
-	}//radioCheck end
-
-	function pwdCheck() {
-		var u_pwd = document.getElementById("u_pwd").value;
-		var u_pwd2 = document.getElementById("u_pwd2").value;
-			if (u_pwd == u_pwd2) {
-				pwd2.innerHTML = "비밀번호가 일치합니다.";
-			} else {
-				pwd2.innerHTML = "비밀번호가 일치하지 않습니다.";
-			}
-	}//pwdCheck end
-	
-	
-	//주소
-	function DaumPostcode() 
-	{
-		new daum.Postcode
-		({
-			oncomplete:function(data) 
-			{
-				//팝업에서 검색결과 항목을 클릭했을 떄 실행할 코드를 작성하는 부분
-				//각 주소의 노출 규칙에 따라 주소를 조합한다
-				//내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기한다
-				var fullAddr = '';//최종 주소 변수
-				var extraAddr = '';//조합형 주소 변수
-				
-				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다
-				if (data.userSelectedType === 'R') //사용자가 도로명 주소를 선택했을 경우 
-				{
-					fullAddr = data.roadAddress;
-				} 
-				else //사용자가 지번 주소를 선택했을 경우(J) 
-				{
-					fullAddr = data.jibunAddress;
-				}
-				
-				//사용자가 선택한 주소가 도로명 타입일때 조합한다
-				if (data.userSelectedType === 'R') //법적동명이 있을 경우 추가한다 
-				{
-					if (data.bname !== '') 
-					{
-						extraAddr += data.bname;
-					}
-				
-					//건물명이 있을 경우 추가 한다
-					if (data.buildingName !== '') 
-					{
-						extraAddr += (extraAddr !== '' ? ',' + data.buildingName : data.buildingName);
-					}
-					//조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종주소를 만든다
-					fullAddr += (extraAddr !== '' ? '(' + extraAddr + ')' : '');
-				}
-				
-				//우편번호와 주소 정보를 해당 필드에 넣는다
-				document.getElementById('u_postcode').value = data.zonecode;//5자리 새우편번호 사용
-				document.getElementById('u_guestjuso').value = fullAddr;
-			
-				//커서를 상세주소 필드로 이동한다
-				document.getElementById('u_guestjuso1').focus();
-			}
-		}).open();
-	}//DaumPostcode end
-=======
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </script>
 </head>
 <body id="page-top" style="margin-top:51px;">
@@ -546,104 +415,6 @@
 		<c:param name="checked" value="${checked}"></c:param>
 		<c:param name="host" value="main.do"></c:param>
 	</c:import>
-<<<<<<< HEAD
-	<div>
-		<form action="m_insert.do" method="post" name="myform" onsubmit="insertCheck(); return false;" enctype="multipart/form-data">
-			<table width="1000" border=1 cellspacing="0" cellpadding="5">
-				<tr>
-					<td>구분 : <input type="radio" name="u_member" id="u_member" checked="checked"
-						onclick="radioCheck(this.value,'name','juso','num');" value="일반회원"> 일반회원
-						<input type="radio" name="u_member" id="u_member"
-						onclick="radioCheck(this.value,'name','juso','num');" value="점주"> 점주
-					<td rowspan="4"><input type="file" name="upload_img" /></td>
-				</tr>
-				<tr>
-					<td>아이디 : <input type="text" name="u_id" id="u_id" value="test" />
-						<button type="button" id="btn_idcheck">중복체크</button>
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호 : <input type="password" name="u_pwd" id="u_pwd"
-						placeholder="8~12자리" /> <label id="pwd">
-					</label>
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호확인 : <input type="password" id="u_pwd2"
-						onkeyup="pwdCheck();" /> <label id="pwd2"> </label>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">이름 : <input type="text" name="u_name"
-						id="u_name" value="test33" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">생년월일 : <select id="year" name="year">
-							<option selected>선택하세요</option>
-							<c:forEach var="i" begin="0" end="${2010-1900}">
-								<c:set var="year" value="${2010-i}" />
-								<option value="${year}">${year}</option>
-							</c:forEach>
-					</select> <select id="month" name="month">
-							<option selected>선택하세요</option>
-							<c:forEach var="i" begin="0" end="${12-1}">
-								<c:set var="month" value="${12-i}" />
-								<option value="${month}">${month}</option>
-							</c:forEach>
-					</select> <select id="day" name="day">
-							<option selected>선택하세요</option>
-							<c:forEach var="i" begin="0" end="${31-1}">
-								<c:set var="day" value="${31-i}" />
-								<option value="${day}">${day}</option>
-							</c:forEach>
-					</select>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						휴대전화 <input type="text" name="u_phn" id="u_phn" placeholder="'-' 없이 입력하세요" value="01088921067">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="radio" name="u_gender" id="u_gender" value="남자">남자
-						<input type="radio" name="u_gender" id="u_gender" value="여자">여자
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						이메일
-						<input type="text" name="u_email"id="u_email">@
-						<input type="text" name="u_email2"id="u_email2">
-					</td>
-				</tr>
-				<tr id="name" style="display: none">
-					<td colspan="2">
-						게스트하우스 이름<input type="text" id="u_guestname" name="u_guestname">
-					</td>
-				</tr>
-				<tr id="juso" style="display: none"> 
-					<td colspan="2">
-						게스트하우스 주소<br>
-							<input type="text" size="10" id="u_postcode" name="u_postcode" readonly>
-	                        <input type="button" onclick="DaumPostcode()" value="우편번호"><br>
-	                        <input type="text" size="30" id="u_guestjuso" name="u_guestjuso" readonly  style="margin-top: 10px;"><br>
-	                        <input type="text" size="30" id="u_guestjuso1" name="u_guestjuso1"   style="margin-top: 10px;" placeholder="상세주소 입력하세요">
-					</td>
-				</tr>
-				<tr id="num" style="display: none"> 
-					<td colspan="2">
-						게스스트하우스 연락처  <input type="text" id="u_guestnum" name="u_guestnum" placeholder="'-' 없이 입력하세요">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center">
-						<input type="submit"value="가입하기">
-					</td>
-				</tr>
-			</table>
-=======
 	
 	<div class="logo" role="banner">
 		<h1 class="loghoh1">
@@ -739,7 +510,6 @@
 				<div>
 					<input type="submit" class="btn btn-primary btn-md" style="height: 50px; width: 100%; margin-top: 20px;" value="가입하기">
 				</div>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		</form>
 	</div>
 

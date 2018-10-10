@@ -6,13 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>mypage_board.jsp</title>
-	<meta charset="utf-8">
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
 	
@@ -66,11 +63,11 @@
 			<td><b>날짜</b></td>
 		</tr>
 
-	<c:forEach var="dto" items="${listB}">
+	<c:forEach var="listB" items="${listB}">
 		<tr>
-			<td>${dto.b_no}</td>
-			<td><a href="boarddetail.do?idx=${dto.b_no}">${dto.b_title}</a></td>
-			<td>${dto.b_date}</td>
+			<td>${listB.b_no}</td>
+			<td><a href="boarddetail.do?idx=${listB.b_no}">${listB.b_title}</a></td>
+			<td>${listB.b_date}</td>
 		</tr>
 	</c:forEach>
 	</table>

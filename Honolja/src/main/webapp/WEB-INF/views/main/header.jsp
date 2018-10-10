@@ -9,7 +9,7 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link href="css/header.css" type="text/css" rel="stylesheet"> 
+	<link href="./resources/css/header.css" type="text/css" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -45,32 +45,8 @@
 
 			form.submit();
 		}
-		
-		function sendPostPlus(url, name, value, name1, value1){
-			
-			var form = document.createElement("form");
-				form.setAttribute("charset", "UTF-8");
-				form.setAttribute("method", "Post");
-				form.setAttribute("action", url);
 
-			 
-			var hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", name);
-				hiddenField.setAttribute("value", value);
-				
-			var hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", name1);
-				hiddenField.setAttribute("value", value1);
-				
-			form.appendChild(hiddenField);
-			document.body.appendChild(form);
 
-			form.submit();
-		}
-	
-	
 		function headerNullCheck(id){
 			
 			if(document.getElementById(id).value == ""){
@@ -97,20 +73,19 @@
 					<a class="navbar-brand" href="main.do">Honolja</a>
 				</div>
 				<ul class="nav navbar-nav">
+
 					<li ${param.notice}><a href="notice.do" >공지사항</a></li>
 					<li ${param.group}><a href="board.do" >소모임</a></li>
-					<li ${param.myplace}><a href="guestlist.do?area=my" >내주변</a></li>
-					<li ${param.area}>
-						<a href="guestlocation.do
-							?area=${param.area}
-							&adult=${param.adult}
-							&child=${param.child}
-							&check_in=${param.check_in}
-							&check_out=${param.check_out}
-							&nights=${param.nights}" >지역</a>
+					<li ${param.myplace}>
+						<a href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}
+						&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">내주변
+						</a>
+					</li>
+					<li ${param.area} id = "toggle"><a href="#">지역</a></li>
 					</li>
 					<li ${param.img_board}><a href="img_board.do" >여행 정보</a></li>
 					<li ${param.test}><a href="test.do">TEST</a></li>
+
 				</ul>
 
   				<!-- 게스트 하우스 검색 -->
@@ -122,6 +97,7 @@
 					<input type="hidden" name="check_in"value="${param.check_in}">
 					<input type="hidden" name="check_out"value="${param.check_out}">
 					<input type="hidden" name="nights"value="${param.nights}">
+
      				<div class="form-group">
      					<div class="col-xs-8">
         					<input class="form-control" id="search" name="keyword" placeholder="게스트 하우스 입력" value="${sval}" size="25">
@@ -142,11 +118,9 @@
 						</ul>
 					</c:when>
 					<c:otherwise>
+
 						<ul class="nav navbar-nav navbar-right">
-
-							<li onclick="popupWindow('chatting.do', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;고객센터</a></li>
-							<li><a href="mypageuser.do"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
-
+							<li><a href="mypageuser.do?u_id=${param.checked}"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>
 					</c:otherwise>
@@ -154,10 +128,6 @@
 
 			</div>
 		</nav>
-	</div>
-	
-	<!-- Modal(== alert) 기능 구현 시 필요 -->
-	<jsp:include page="modal.jsp" />
 
 	</div>
 			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id" style="display: none;">
@@ -227,6 +197,8 @@
 				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">전주/전북
 				</a>
 			</li>
+
+
 			</ul>
 			
 			<div class="subarea-cnt">
