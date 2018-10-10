@@ -536,7 +536,6 @@
 			<!-- 지역 / 체크인 / 체크아웃 검색 창 시작 -->
 			<form id = "check_form" action="guestlocation.do">
 				<div class="form-group">
-				
 					<label for="sel1">지역</label>
 					<select class="form-control" id="sel1" name="g_addr" onchange="progress();">
 						<option>선택</option>
@@ -554,6 +553,7 @@
 					</select>
 				</div>
 				
+				<!-- 인원 수 입력 -->
 				<div class="form-group">
 					<table style="width: 100%;">
 						<tr>
