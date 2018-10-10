@@ -34,7 +34,16 @@ public class ListDTO {
 	int low_price; //price search
 	
 	private String check_like;
+	private int btn_flag;
+	
 
+	
+	public int getBtn_flag() {
+		return btn_flag;
+	}
+	public void setBtn_flag(int btn_flag) {
+		this.btn_flag = btn_flag;
+	}
 	public String getCheck_like() {
 		return check_like;
 	}
