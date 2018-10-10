@@ -14,10 +14,10 @@ public class ListDTO {
 	private String filter, range; //filter range
 	private int reviewcnt; //reply count
 	private String u_id;
-	/*private int re_score;
-	
-	public int getRe_score() {	return re_score;}
-	public void setRe_score(int re_score) {	this.re_score = re_score;}*/
+	private int avgs;
+
+	public int getAvgs() {	return avgs;}
+	public void setAvgs(int avgs) {	this.avgs = avgs;}
 	
 	public String getU_id() {	return u_id;}
 	public void setU_id(String u_id) {	this.u_id = u_id;}
