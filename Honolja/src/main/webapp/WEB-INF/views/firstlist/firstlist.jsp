@@ -296,9 +296,9 @@ a:visited{color: #212121; text-decoration: none;}
 	        value: today,
 	        format: 'yyyy/mm/dd',
 	        minDate: today,
-	        maxDate: function () {
+	       /*  maxDate: function () {
 	            return $('#endDate').val();
-	        }
+	        } */
 	    });
 		$("#endDate").datepicker({ 
 			header: true,
@@ -308,11 +308,12 @@ a:visited{color: #212121; text-decoration: none;}
 	        minDate: function () {
 	            return  $('#startDate').val(); 
 	        },
-	        change: function (e) {
+	        /* change: function (e) {
 	        	//alert("ㅁㄴㅇ");
-	        }
+	        } */
 	    }); 
 	});
+	
 	function date1(){
 		var url = "guestlist.do";
 		var name = "check_in";
@@ -356,8 +357,8 @@ a:visited{color: #212121; text-decoration: none;}
    	<!-- 지도 우측배치로 고정 -->
 		<div style= "right:0; position:fixed;width:40%;height:100%;">	
 			<div id="map" style="width:100%;height:100%;margin-top:10px;"></div>
-			</div>
-		<!-- 지도 끝-->
+		</div>
+	<!-- 지도 끝-->
 		
         <!-- 필터 담을것. 기본순/테마/가격대선택/예약가능/.......필터초기화-->
 	<div style="left:0; width:60%; padding-left: 30px; padding-right:30px;padding-left:30px;">
@@ -608,8 +609,7 @@ a:visited{color: #212121; text-decoration: none;}
     		<a 
     		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank"><!-- style="text-decoration: none;" -->
-
-    		${list.g_name}${list.islike }${list.g_no}</a>
+    		${list.g_name}</a>
     	<!-- 좋아요 시작 -->
     	<span id="like_${i.index}">
 	    	<c:choose>
@@ -645,7 +645,7 @@ a:visited{color: #212121; text-decoration: none;}
 									class="icon-staylist icon-staylist-score score10"></i><i
 									class="icon-staylist icon-staylist-score score05"></i></span>
 							</c:when>
-							<c:when test="${4.5 > list.avgs && avgs >= 4}">
+							<c:when test="${4.5 > list.avgs && list.avgs >= 4}">
 								<span class="score-rap"><i
 									class="icon-staylist icon-staylist-score score10"></i><i
 									class="icon-staylist icon-staylist-score score10"></i><i

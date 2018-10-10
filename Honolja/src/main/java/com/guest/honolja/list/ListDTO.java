@@ -31,8 +31,11 @@ public class ListDTO {
 
 	private int startprice, endprice; //���� �˻� => ���۰���~ ������
 	private int islike; //like
-	int low_price; //price search
 	
+	public int getIslike() {	return islike;}
+	public void setIslike(int islike) {	this.islike = islike;}
+
+	int low_price; //price search
 	
 	private int gl_no;
 	private String gl_date;

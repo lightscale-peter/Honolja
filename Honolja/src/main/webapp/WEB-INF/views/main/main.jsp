@@ -596,12 +596,34 @@
 	</div>
 	
     <script>
+    
+    	var today_year = new Date().getFullYear();
+    	var today_month = new Date().getMonth();
+    	var today_date = new Date().getDate();
+    	var get_check_in = (today_year + "/" + (today_month + 1) + "/" + today_date).split("/");
+    
     	$('#datepicker').datepicker({
-    		format: 'yyyy/mm/dd'
+    		format: 'yyyy/mm/dd',
+    		value: today_year + "/" + (today_month + 1) + "/" + today_date,
+    		close: function(){
+    			get_check_in = $('#datepicker').datepicker().value().split("/");
+    			$('#datepicker1').datepicker().destroy();
+    			$('#datepicker1').datepicker({
+    	    		format: 'yyyy/mm/dd',
+    	    		value: get_check_in[0] + "/" + get_check_in[1] + "/" + get_check_in[2],
+    	    		minDate: new Date(get_check_in[0], get_check_in[1]-1, get_check_in[2]),
+    	    		maxDate: new Date(get_check_in[0], get_check_in[1]-1, parseInt(get_check_in[2])+10)
+    	    	});
+    		},
+    		minDate: new Date(today_year,today_month,today_date),
+    		maxDate: new Date(today_year, parseInt(today_month)+3, today_date)
     	});
     
 		$('#datepicker1').datepicker({
-    		format: 'yyyy/mm/dd'
+    		format: 'yyyy/mm/dd',
+    		value: today_year + "/" + (today_month + 1) + "/" + today_date,
+    		minDate: new Date(today_year, today_month, today_date),
+    		maxDate: new Date(today_year, today_month, parseInt(today_date)+10)
     	});
 
         

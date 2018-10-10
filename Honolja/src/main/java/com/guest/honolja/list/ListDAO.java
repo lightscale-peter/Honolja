@@ -1,16 +1,9 @@
 package com.guest.honolja.list;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.guest.honolja.detail.DetailDTO;
-import com.guest.honolja.review.ReviewDTO;
-
 
 @Repository
 public class ListDAO {

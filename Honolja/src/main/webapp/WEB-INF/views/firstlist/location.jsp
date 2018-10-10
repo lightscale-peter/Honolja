@@ -305,9 +305,9 @@ a:visited {color: #212121;text-decoration: none;}
 	        value: today,
 	        format: 'yyyy/mm/dd',
 	        minDate: today,
-	        maxDate: function () {
+	       /*  maxDate: function () {
 	            return $('#endDate').val();
-	        }
+	        } */
 	    });
 		$("#endDate").datepicker({ 
 			header: true,
@@ -317,9 +317,9 @@ a:visited {color: #212121;text-decoration: none;}
 	        minDate: function () {
 	            return  $('#startDate').val(); 
 	        },
-	        change: function (e) {
+	        /* change: function (e) {
 	        	//alert("ㅁㄴㅇ");
-	        }
+	        } */
 	    }); 
 	});
 	function date1(){
@@ -607,7 +607,7 @@ a:visited {color: #212121;text-decoration: none;}
     		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank"><!-- style="text-decoration: none;" -->
 
-    		${list.g_name}${list.islike }${list.g_no}</a>
+    		${list.g_name}${list.avgs}</a>
     	<!-- 좋아요 시작 -->
     	<span id="like_${i.index}">
 	    	<c:choose>
@@ -643,7 +643,7 @@ a:visited {color: #212121;text-decoration: none;}
 									class="icon-staylist icon-staylist-score score10"></i><i
 									class="icon-staylist icon-staylist-score score05"></i></span>
 							</c:when>
-							<c:when test="${4.5 > list.avgs && avgs >= 4}">
+							<c:when test="${4.5 > list.avgs && list.avgs >= 4}">
 								<span class="score-rap"><i
 									class="icon-staylist icon-staylist-score score10"></i><i
 									class="icon-staylist icon-staylist-score score10"></i><i
