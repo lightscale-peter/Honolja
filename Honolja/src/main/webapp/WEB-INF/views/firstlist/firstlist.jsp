@@ -43,6 +43,8 @@ a:visited{color: #212121; text-decoration: none;}
 	var url= new Array();
 	var g_no = new Array();
 	var adult; var child; var check_in; var check_out; var area; var nights;
+	</script>
+	<script>
 	function like_btn(btn_flag_val, g_no_val, like_id_val){		
 		var u_id_val = "${u_id}";
 		if("${u_id}" != 'none'){
@@ -603,7 +605,7 @@ a:visited{color: #212121; text-decoration: none;}
 		<!-- 좋아요 끝 -->
       	</td>
       	</tr>
-      	<tr><td>별{list.re}, 댓글 ${list.reviewcnt} 좋아요 ${list.islike}</td></tr>
+      	<tr><td>평점{list.re}, 댓글 ${list.reviewcnt} 좋아요 ${list.islike}</td></tr>
       	<tr>
       		<td>
       			<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>

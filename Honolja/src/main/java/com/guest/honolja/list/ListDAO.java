@@ -24,7 +24,6 @@ public class ListDAO {
 	}//end
 	
 	public List<ListDTO> dbSelect(String skey, String sval, int startprice, int endprice, String filter,String range, String u_id) {
-		
 		ListDTO dto = new ListDTO();
 			dto.setU_id(u_id);
 			dto.setSkey(skey);
@@ -37,8 +36,9 @@ public class ListDAO {
 	  return list;
 	}//end
 	
-	public List<ListDTO> dbSelectlo(String g_addr,int startprice, int endprice, String filter,String range){
+	public List<ListDTO> dbSelectlo(String g_addr,int startprice, int endprice, String filter,String range,String u_id){
 		ListDTO dto = new ListDTO();
+		dto.setU_id(u_id);
 		dto.setStartprice(startprice);
 		dto.setEndprice(endprice);
 		dto.setG_addr(g_addr);

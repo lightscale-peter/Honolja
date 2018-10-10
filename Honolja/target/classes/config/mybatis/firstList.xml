@@ -19,9 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from (
 	select rownum as rn, g.*,
 	(select min(r_price) from roominfo where g_no = g.g_no) as low_price,
-	(select count(*) from review where g_no = g.g_no) as reviewcnt,
-	(select count(*) from guestlike where g_no = g.g_no) as islike
-	(select count(*) from guestlike where g_no = g.g_no and u_id = #{u_id}) as check_like
+    (select count(*) from review where g_no = g.g_no) as reviewcnt,
+    (select count(*) from guestlike where g_no = g.g_no) as islike,
+    (select count(*) from guestlike where g_no = g.g_no and u_id = #{u_id}) as check_like
 	from guesthouse g where g_addr like '%'|| #{g_addr} || '%'
 	) where low_price between #{startprice} and #{endprice} order by ${filter} ${range}
 </select>
