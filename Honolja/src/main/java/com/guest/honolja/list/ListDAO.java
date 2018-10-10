@@ -8,6 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.guest.honolja.detail.DetailDTO;
+import com.guest.honolja.review.ReviewDTO;
+
 
 @Repository
 public class ListDAO {
@@ -65,5 +68,8 @@ public class ListDAO {
 	public void dbdeletelike(ListDTO dto) {
 		temp.selectOne("firstlist.deletelike", dto);
 	}
-
+	public List<ListDTO> dbselscore() {
+		List<ListDTO> list1 = temp.selectList("firstlist.selscore");
+		return list1;
+	}
 }

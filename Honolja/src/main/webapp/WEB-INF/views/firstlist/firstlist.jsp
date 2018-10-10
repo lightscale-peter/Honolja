@@ -42,15 +42,27 @@ a:visited{color: #212121; text-decoration: none;}
 	var name= new Array();
 	var url= new Array();
 	var g_no = new Array();
+<<<<<<< HEAD
 	var adult; var child; var check_in; var check_out; var area; var nights;
 
 	function like_btn(btn_flag_val, g_no_val, like_id_val){		
 		
+=======
+	var adult; var child; var check_in; var check_out; var area; var nights;
+ 	</script>
+ 	<script>
+	function like_btn(btn_flag_val, g_no_val){
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
 		var u_id_val = "${u_id}";
+<<<<<<< HEAD
 		
 		if("${u_id}" != 'none'){
+=======
+		if("${u_id}" != ''){
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
 			$.ajax({
 				"url" : "http://localhost:8080/honolja/guestlike.do",
+<<<<<<< HEAD
 				"type" : "get",
 				"data" : {
 							g_no : g_no_val,
@@ -59,14 +71,32 @@ a:visited{color: #212121; text-decoration: none;}
 							like_id : like_id_val
 						},
 						
+=======
+				"type" : "GET",
+				"data" : {g_no : g_no_val, u_id : u_id_val, btn_flag : btn_flag_val},
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
 				"success" : function(data){			
+<<<<<<< HEAD
 					$('#'+ like_id_val).html(data);	
+=======
+					$('#like_btn_area').html(data);	
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
 				}
 			});
 			
+<<<<<<< HEAD
 		}else{alert("로그인이벤트");} 
+=======
+		}else{$(document).ready(function(){
+			$('#alertbox').ready(function(){
+				$("#error").html("로그인 후 가능합니다.");
+				$('#modal').modal("show");
+			});
+		});} 
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
 	}
-		
+	</script>
+	<script>
 	//메인 검색 눌 체크
 	function nights_11(){
 	    var check_in = document.getElementById("startDate").value;
@@ -578,10 +608,11 @@ a:visited{color: #212121; text-decoration: none;}
     		<img src = "${list.g_url}" width="90%" height="180px"></a>
     		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
     	</td>
-    	<td style="font-size:24px;padding-top:10px;">
+    	<td style="font-size:24px;padding-top:24px;">
     		<a style="text-decoration: none;"
     		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank">
+<<<<<<< HEAD
     		${list.g_name}${list.islike }${list.g_no}</a>
     	<!-- 좋아요 시작 -->
     	<span id="like_${i.index}">
@@ -598,10 +629,28 @@ a:visited{color: #212121; text-decoration: none;}
 				</c:otherwise>
 			</c:choose>
 		</span>
+=======
+    		${list.g_name}</a>
+    	<!-- 좋아요 시작 -->
+    	<span id="like" style="font-size:13px">
+    	<c:choose>
+			<c:when test="${list.islike != 0}">
+				<button type="button" class="btn btn-primary" onclick = "like_btn(1,${list.g_no});"style="height:26px;width:52px;font-size:10px"> 
+					<span class="glyphicon glyphicon-thumbs-up" style="size:13px"></span> Like
+				</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no});" style="height:25px;width:50px;font-size:10px">
+					<span class="glyphicon glyphicon-thumbs-up" style="size:13px"></span> Like
+				</button>
+			</c:otherwise>
+		</c:choose>좋아요 ${list.islike}   
+		</span> 
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja.git
 		<!-- 좋아요 끝 -->
       	</td>
       	</tr>
-      	<tr><td>list.rating, 댓글 ${list.reviewcnt}</td></tr>
+      	<tr><td>별{list.re}, 댓글 ${list.reviewcnt}</td></tr>
       	<tr>
       		<td>
       			<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
