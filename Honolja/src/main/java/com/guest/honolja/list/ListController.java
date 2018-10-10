@@ -190,9 +190,6 @@ public class ListController {
 		}
 		
 		String like_id = request.getParameter("like_id");	
-		
-		
-		
 		System.out.println("g_no : " + g_no);
 		System.out.println("u_id : " + u_id);
 		System.out.println("btn_flag : " + btn_flag);
