@@ -16,7 +16,6 @@
   	 <link href="css/user_menu.css" rel="stylesheet" type="text/css">
   	 <link href="css/styles.css" rel="stylesheet" type="text/css">
   	 
-  	    
   	 <style type="text/css">
   	 
   	 td { 
@@ -51,7 +50,7 @@
 		<c:param name="checked" value="${checked}"></c:param>
 		<c:param name="host" value="main.do"></c:param>
 	</c:import>
-<h1>공지사항 상세</h1>
+
 <p>
 <br>
 

@@ -67,12 +67,32 @@
 		</form>
 	</div>
 
+<<<<<<< HEAD
 		 <br> 
 		<p>
 		
 <div class="foot" style="position:absolute; bottom:0; width:100%">
 	<c:import url="http://localhost:8080/honolja/footer.do" />
 </div>
+=======
+</script>
+<body>
+  <h2><a href="board.do">게시판</a></h2>
+<label>제목</label>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
+<<<<<<< HEAD
+=======
+    <form action="boardupdate.do" method="post"  >
+  <input type="hidden" name="u_id" value="${dto.u_id}">  회원님 아이디:  ${dto.u_id} <br>
+   <input type="hidden" name="b_no" value="${dto.b_no}"> 
+   <input type="text"  name="b_title" value="${dto.b_title}">
+       <p>
+  
+        <textarea name="b_content" style="width: 700px; height: 400px;">${dto.b_content}</textarea>
+        <input type="submit" value="수정" />
+    </form>
+ <!--   <a href="board.do">board.jsp</a> -->
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </body>
 </html>

@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="usereditsave" parameterType="com.guest.honolja.member.MemberDTO">
 		update users set
-			u_pwd = #{u_pwd}, u_name = #{u_name}, u_phn = #{u_phn}, u_member = #{u_member}
-				from users where u_id = #{u_id} 
+			u_pwd = #{u_pwd}, u_name = #{u_name}, u_phn = #{u_phn}, u_img = #{u_img}
+				where u_id = #{u_id} 
 	</update>
 
 	<select id="mypagedelete" parameterType="String" resultType="String">
@@ -28,4 +28,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="m_delete" parameterType="com.guest.honolja.member.MemberDTO">
 		delete from users where u_id = #{u_id} and u_pwd = #{u_pwd}
 	</delete>
+	
+	<select id="mypage_board" parameterType="String" resultType="com.guest.honolja.board.BoardDTO">
+		select * from board where u_id = #{u_id}
+	</select>
+	
+	<select id="mypage_like" parameterType="String" resultType="com.guest.honolja.list.ListDTO">
+		select guesthouse.g_no, guesthouse.g_name, guesthouse.g_addr, guesthouse.g_url, guestlike.gl_date, guestlike.u_id
+			from guesthouse	inner join guestlike
+				on guestlike.g_no = guesthouse.g_no
+					where u_id = #{u_id}
+	</select>
+	
+	<select id="mypage_rsvt" parameterType="String" resultType="com.guest.honolja.reservation.ReservationDTO">
+		select * 
+			from roominfo inner join reservation 
+				on roominfo.r_no = reservation.r_no 
+					where u_id = #{u_id}
+	</select>
+	
 </mapper>

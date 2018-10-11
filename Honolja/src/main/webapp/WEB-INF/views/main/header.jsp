@@ -17,7 +17,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
       
-    
     <script type="text/javascript">
 		function popupWindow(url, title, w, h) {
 			
@@ -82,9 +81,8 @@
 						</a>
 					</li>
 					<li ${param.area} id = "toggle"><a href="#">지역</a></li>
-					</li>
 					<li ${param.img_board}><a href="img_board.do" >여행 정보</a></li>
-					<li ${param.test}><a href="test.do">TEST</a></li>
+					<%-- <li ${param.test}><a href="test.do">TEST</a></li> --%>
 
 				</ul>
 
@@ -120,7 +118,7 @@
 					<c:otherwise>
 
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
+							<li><a href="mypageuser.do?u_id=${param.checked}"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>
 					</c:otherwise>

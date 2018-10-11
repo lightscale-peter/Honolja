@@ -82,7 +82,7 @@
 				}
 			}
 			
-			//개수에 따라 35% / 70% / 100% 
+			//개수에 따라 25% / 50% / 75% / 100% 
 			switch(countTrue){
 					
 				case 1:
@@ -470,7 +470,7 @@
 	<!-- 네이버 로그인 후, 최초 회원가입 일때 회원가입 페이지로 이동 -->
 	<c:if test="${u_id != null}">
 		<script>
-			location.href = "join.do?u_id=${u_id}";
+			location.href = "m_join.do?u_id=${u_id}";
 		</script>
 	</c:if>
 
@@ -536,7 +536,6 @@
 			<!-- 지역 / 체크인 / 체크아웃 검색 창 시작 -->
 			<form id = "check_form" action="guestlocation.do">
 				<div class="form-group">
-				
 					<label for="sel1">지역</label>
 					<select class="form-control" id="sel1" name="g_addr" onchange="progress();">
 						<option>선택</option>
@@ -554,6 +553,7 @@
 					</select>
 				</div>
 				
+				<!-- 인원 수 입력 -->
 				<div class="form-group">
 					<table style="width: 100%;">
 						<tr>
@@ -575,12 +575,12 @@
 				
 				<!-- Check-IN 날짜 -->
 				<label for="sel1">Check-IN</label>							
-					<div><input type = "text" name="check_in" id="datepicker" width="276" onchange="progress();"/></div>
+					<div><input readonly="readonly" type = "text" name="check_in" id="datepicker" width="276" onchange="progress();"/></div>
 				<br>
 					
 				<!-- Check-OUT 날짜 -->
 				<label for="sel1">Check-OUT</label>
-					<div><input type = "text" name="check_out" id="datepicker1" width="276" onchange="progress();"/></div><!-- readonly="readonly" -->
+					<div><input readonly="readonly" type = "text" name="check_out" id="datepicker1" width="276" onchange="progress();"/></div><!-- readonly="readonly" -->
 				<br>
 				
 				<div id = "progress"></div>
@@ -596,12 +596,34 @@
 	</div>
 	
     <script>
+    
+    	var today_year = new Date().getFullYear();
+    	var today_month = new Date().getMonth();
+    	var today_date = new Date().getDate();
+    	var get_check_in = (today_year + "/" + (today_month + 1) + "/" + today_date).split("/");
+    
     	$('#datepicker').datepicker({
-    		format: 'yyyy/mm/dd'
+    		format: 'yyyy/mm/dd',
+    		value: today_year + "/" + (today_month + 1) + "/" + today_date,
+    		close: function(){
+    			get_check_in = $('#datepicker').datepicker().value().split("/");
+    			$('#datepicker1').datepicker().destroy();
+    			$('#datepicker1').datepicker({
+    	    		format: 'yyyy/mm/dd',
+    	    		value: get_check_in[0] + "/" + get_check_in[1] + "/" + get_check_in[2],
+    	    		minDate: new Date(get_check_in[0], get_check_in[1]-1, get_check_in[2]),
+    	    		maxDate: new Date(get_check_in[0], get_check_in[1]-1, parseInt(get_check_in[2])+10)
+    	    	});
+    		},
+    		minDate: new Date(today_year,today_month,today_date),
+    		maxDate: new Date(today_year, parseInt(today_month)+3, today_date)
     	});
     
 		$('#datepicker1').datepicker({
-    		format: 'yyyy/mm/dd'
+    		format: 'yyyy/mm/dd',
+    		value: today_year + "/" + (today_month + 1) + "/" + today_date,
+    		minDate: new Date(today_year, today_month, today_date),
+    		maxDate: new Date(today_year, today_month, parseInt(today_date)+10)
     	});
 
         
@@ -613,7 +635,7 @@
 			<tr>
 				<td width="95%">
 					<strong>&nbsp;&nbsp;&nbsp;&nbsp;공지사항&nbsp;&nbsp;:&nbsp;&nbsp;</strong>
-					<span id="notice">카카오 서비스 운영정책 변경 안내</span>
+					<span id="notice">${notice }</span>
 				</td>
 				<td> 
 					<input id = "notice_btn" class="btn" type = "button" value = "&nbsp;&nbsp;>&nbsp;&nbsp;" onclick="" >

@@ -60,6 +60,11 @@ public class MainController {
 	
 	@Autowired
 	ServletContext application;
+
+	@RequestMapping("/side_mypage.do")
+	public String side_mypage() {
+		return "/main/side_mypage";
+	}
 	
 	@RequestMapping("/main.do")
 	public ModelAndView main_page(HttpServletRequest request) {
@@ -208,10 +213,12 @@ public class MainController {
 			      System.out.println(e);
 			    }
 			
-		}
-
- 		
+		}//NaverLogin Part END
 		
+		//Get text from DB noticeboard
+		List<MainDTO> notices = dao.dbSelectFixedNotice();
+
+		mav.addObject("notice", notices.get(0).getN_title());
 			
 		return mav;
 	}
@@ -280,7 +287,7 @@ public class MainController {
 		}
 		
 		return mav;
-	}//·Î±×ÀÎ ÆË¾÷
+	}
 	
 	@RequestMapping("/naver_login.do")
 	public RedirectView common_naver_login(Model model) {
