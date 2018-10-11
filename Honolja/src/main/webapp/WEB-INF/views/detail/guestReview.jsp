@@ -23,15 +23,37 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 달력 사용하기  -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"
 	type="text/javascript"></script>
 <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css"
 	rel="stylesheet" type="text/css" />
-
-
 <script src="./resources/js/detail.js"></script>
 <link rel="stylesheet" href="./resources/css/detail.css" />
+<script type="text/javascript">
+$('.starRev span').click(function(){
+	  $(this).parent().children('span').removeClass('on');
+	  $(this).addClass('on').prevAll('span').addClass('on');
+	  return false;
+	});
+
+</script>
+<style type="text/css">
+.starR {
+	background:
+		url('http://miuu227.godohosting.com/images/icon/ico_review.png')
+		no-repeat right 0;
+	background-size: auto 100%;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.starR.on {
+	background-position: 0 0;
+}
+</style>
 </head>
 <body>
 	<div class="container-fluid" id="review-All">
@@ -52,7 +74,7 @@
 							<div class="col">
 								<img
 									src="http://member.yanolja.com/include/img/picture/default_picture.png"
-									class="img-circle" alt="프로필사진" width="34px;" /><span
+									class="img-circle" alt="프로필사진" width="34px;" />&nbsp;<span
 									class="nicname">${u_id}</span>
 							</div>
 						</div>
@@ -65,28 +87,39 @@
 								rows="3" placeholder="댓글을 입력하세요."></textarea>
 						</div>
 						<div class="form-group col-md-3">
-							<button type="button" class="btn btn-default btn-sm">
+							<!-- 	<button type="button" class="btn btn-default btn-sm">
 								<span class="glyphicon glyphicon-picture"></span> Picture
-							</button>
-						</div>
-						<div class="form-group col-md-3">
-							<select class="form-control" id="re_like" name="re_like">
-								<option value="추천" selected="selected">추천</option>
-								<option value="비추천">비추천</option>
-							</select>
+							</button> -->
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-danger active"> <input
+									type="radio" name="re_like" id="re_like" autocomplete="off"
+									value="추천" checked> 추천
+								</label> <label class="btn btn-danger"> <input type="radio"
+									name="re_like" id="re_like" value="비추천" autocomplete="off">
+									비추천
+								</label>
+							</div>
 						</div>
 						<div class="form-group col-md-3">
 							<select class="form-control" id="re_score" name="re_score">
-								<option value="1" selected="selected">★</option>
-								<option value="2">★★</option>
-								<option value="3">★★★</option>
-								<option value="4">★★★★</option>
+								<option value="1" selected="selected">★☆☆☆☆</option>
+								<option value="2">★★☆☆☆</option>
+								<option value="3">★★★☆☆</option>
+								<option value="4">★★★★☆</option>
 								<option value="5">★★★★★</option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
-							<button class="btn btn-info btn-block" type="button"
-								onclick="reviewBtn(${g_no})">등록</button>
+							<div class="starRev">
+								<span class="starR on" id="star1">1</span> <span class="starR"
+									id="star1">2</span> <span class="starR" id="star1">3</span> <span
+									class="starR" id="star1">4</span> <span class="starR"
+									id="star1">5</span>
+							</div>
+						</div>
+						<div class="form-group col-md-3">
+							<button class="btn btn-primary btn-block" type="button"
+								data-toggle="modal" onclick="reviewBtn(${g_no})">등록</button>
 						</div>
 					</form>
 				</div>
@@ -173,9 +206,9 @@
 												pattern="yyyy-MM-dd" /></span>
 										<div class="btn-group pull-right">
 											<button type="button" class="btn btn-info"
-												onclick="premodify(${review.re_no})">수정</button>
+												data-toggle="modal" onclick="premodify(${review.re_no})">수정</button>
 											<button type="button" class="btn btn-secondary"
-												onclick="remove(${review.re_no})">삭제</button>
+												data-toggle="modal" onclick="remove(${review.re_no})">삭제</button>
 										</div>
 									</div>
 								</div>
@@ -184,7 +217,7 @@
 									<c:when test="${review.ansCnt > 0}">
 										<div>
 											<button type="button" class="btn btn-primary"
-												onclick="answerView(${review.re_no})">
+												onclick="answerView(${review.re_no})" data-toggle="modal">
 												답변 <span class="badge badge-light">1</span>
 											</button>
 										</div>
@@ -192,7 +225,7 @@
 									<c:otherwise>
 										<div>
 											<button type="button" class="btn btn-primary"
-												onclick="answer(${review.re_no})">답변</button>
+												data-toggle="modal" onclick="answer(${review.re_no})">답변</button>
 										</div>
 									</c:otherwise>
 								</c:choose>
@@ -205,5 +238,6 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+	<c:import url="detailModal.jsp"></c:import>
 </body>
 </html>

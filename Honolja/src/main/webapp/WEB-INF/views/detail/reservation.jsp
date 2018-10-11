@@ -157,9 +157,10 @@ img {
 			data : dataForm,
 			success : function(data) {
 				if (data == "success") {
+					alert("예약 되었습니다.");
 					$("#modal_title").html("확인");
 					$("#modal_body").html("예약 되었습니다.");
-					$("#ignismyModal").modal("show");
+					$('#ignismyModal').modal('show');
 					location.href = 'guestdetail.do?g_no=' + g_no + '&adult='
 							+ adult + '&child=' + child + '&check_in='
 							+ check_in + '&check_out=' + check_out + '&nights='
@@ -259,6 +260,7 @@ img {
 			});
 		});
 	</script>
+	<c:import url="detailModal.jsp"></c:import>
 	<c:import url="http://localhost:8080/honolja/footer.do"></c:import>
 </body>
 </html>

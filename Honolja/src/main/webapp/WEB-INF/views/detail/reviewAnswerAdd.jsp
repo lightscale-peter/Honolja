@@ -32,7 +32,7 @@
 		<form id="answerForm" method="post" action="answerAdd.do">
 			<input type="hidden" value="" name="u_guestname"> <input
 				type="hidden" value="${re_no}" name="re_no"> <input
-				type="hidden" value="${g_no}" name="g_no"> <span><strong>Comments</strong></span>
+				type="hidden" value="${g_no}" name="g_no"> <span><strong>관리자답변</strong></span>
 			<c:set var="u_id" value="${sessionScope.checked}"></c:set>
 			<div class="form-group">
 				<div class="form-control">${u_id}</div>
@@ -42,10 +42,11 @@
 					name="a_content"></textarea>
 			</div>
 			<div class="form-group pull-right">
-				<button class="btn btn-info" type="button"
+				<button class="btn btn-info" type="button" data-toggle="modal"
 					onclick="answerAdd(${re_no})">등록</button>
 			</div>
 		</form>
 	</div>
+	<c:import url="detailModal.jsp"></c:import>
 </body>
 </html>
