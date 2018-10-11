@@ -1,39 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
+<title>수정</title>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>에디터</title>
- 
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="./resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
- 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./resources/ckeditor/ckeditor.js"></script>
+
+ 	<script type="text/javascript">
+	  function check( ){
+		  var title=myform.b_title.value;
+		  var content=myform.b_content.value;
+		 
+			if (title == "" || title == null) {
+				alert("제목을 입력해주세요.");  
+			myform.b_title.focus();
+			return false;
+			}
+			if (content == "" || content == null) {
+				alert("내용을 입력해주세요.");
+			myform.b_content.focus();
+			return false;
+			}
+			document.myform.submit(); 
+	  }
+	  </script>
+	  
 </head>
-<script type="text/javascript">
 
+<body id="page-top" style="margin-top:51px;" >
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}" />
+		<c:param name="host" value="main.do" />
+	</c:import>
+<div class="container">
+	<h2> <a href="board.do">게시판</a> </h2>
+		<form action="boardupdate.do" name="myform" method="post" enctype="multipart/form-data" id="fileform"
+			onsubmit="check(); return false;">
+			<div class="form-group">
+				<label for="usr">제목 :</label> 
+				<input type="text" name="b_title" class="form-control" id="usr" placeholder="제목을 입력하세요." value="${dto.b_title}">
+				<br> <label for="comment">내용:</label>
+				<textarea name="b_content" class="form-control" rows="10" id="b_content" placeholder="내용을 입력하세요." class="ckeditor">${dto.b_content}</textarea>
+					<script type="text/javascript">
+    					CKEDITOR.replace('b_content', {height: 500});
+					</script>	
+			</div>
+			<div id="fileDiv">
+				<p>
+					<input class="multi" type="file" name="b_uploadfilename2" multiple="multiple">
+				</p>
+				<span style="float: right"> <input type="submit" class="btn btn-primary" value="확인"> </span>
+			<c:if test="${dto.b_originalfilename  != null }">
+				<img src='${pageContext.request.contextPath}/resources/bupload/${img}' width=100 height=100 border=0> <br> ${dto.b_originalfilename}
+			</c:if>
+				<br> <br> <br>
+				 	<input type="hidden" name="u_id" value="${dto.u_id}"> 
+				 	<input type="hidden" name="b_no" value="${dto.b_no}">
+			</div>
+		</form>
+	</div>
 
-</script>
-<body>
-  <h2><a href="board.do">게시판</a></h2>
-<label>제목</label>
-<!--asdf-->
- 
+		 <br> 
+		<p>
+		
+<div class="foot" style="position:absolute; bottom:0; width:100%">
+	<c:import url="http://localhost:8080/honolja/footer.do" />
+</div>
 
-
-수정하세요=-------------------------------------------------------------
-    <form action="boardupdate.do" method="post"  >
-  <input type="hidden" name="u_id" value="${dto.u_id}">  회원님 아이디:  ${dto.u_id} <br>
-   <input type="hidden" name="b_no" value="${dto.b_no}"> 
-   <input type="text"  name="b_title" value="${dto.b_title}">
-       <p>
-       수정하세요=-------------------------------------------------------------
-       </p>
-        <textarea name="b_content" style="width: 700px; height: 400px;">${dto.b_content}</textarea>
-        <input type="submit" value="수정" />
-    </form>
- <!--   <a href="board.do">board.jsp</a> -->
 </body>
-</html> 
+</html>

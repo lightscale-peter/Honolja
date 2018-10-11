@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./resources/ckeditor/ckeditor.js"></script>
  
 
 <title>[notice_insert.jsp]</title>
@@ -53,9 +54,12 @@
 	
 	<div class="form-group" style="margin: 0 auto; width:70%;">
 		<label for="n_content">Content: </label>
-		<textarea class="form-control" rows="30" name="n_content" id="n_content"></textarea>
+		<textarea class="form-control" rows="30" name="n_content" id="n_content" class="ckeditor"></textarea>
 	</div><p>
-
+	<textarea rows="50" name="n_content" id="n_content" class="ckeditor"></textarea>
+			<script type="text/javascript">
+    			CKEDITOR.replace('n_content', {height: 500});
+			</script>	
 	<div align="center">
 		<input type="checkbox" id="n_fix" name="n_fix" value="Y">
 		<label id="">이 공지사항을 목록 상단에 고정합니다.</label> <br>
