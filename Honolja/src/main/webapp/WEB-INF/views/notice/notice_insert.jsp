@@ -20,11 +20,11 @@
 
 	function blank_check(){
 		var title = myform.n_title.value;
-		var content = CKEDITOR.instances.contents.getData();
+		var content = CKEDITOR.instances.n_content.getData();
 		
 		if(title == null || title == ""){
 			alert("제목을 입력해주세요.");
-			return;
+			return false;
 		}
 		
 		if(content == null || content == ""){
@@ -32,7 +32,6 @@
 			return false;
 		}//content end
 		
-		return true;
 		myform.submit();
 	}//blank_check end
 	
@@ -48,14 +47,14 @@
 <p><br><p><br>  
 
 <div align="center">
-<form method="post" name="myform" id="myform" onsubmit="blank_check(); return false;" style="width:1000px; height:1000px;">
+<form action="notice_insert.do" method="post" name="myform" id="myform" onsubmit="blank_check(); return false;" style="width:1000px; height:1000px;">
 
 	<div class="form-group" style="margin: 0 auto; width:100%;">
 			<input type="text" name="n_title" id="n_title" class="form-control" placeholder="제목을 입력해주세요."> <p>
 			<input type="hidden" value="${checked}" >
 	</div>
 
-		<textarea rows="50" name="n_content" id="n_content" class="ckeditor"></textarea>
+			<textarea rows="50" name="n_content" id="n_content" class="ckeditor"></textarea>
 			<script type="text/javascript">
     			CKEDITOR.replace('n_content', {height: 500});
 			</script>	

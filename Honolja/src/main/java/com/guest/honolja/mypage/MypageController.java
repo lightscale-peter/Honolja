@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -65,6 +66,14 @@ public class MypageController {
 		return mav;
 	}//예약
 	
+
+	@RequestMapping("/rsvt_cancel.do")
+	public String rsvt_cancel(HttpServletRequest request) {
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		dao.rsvt_cancel(idx);
+		return "redirect:/mypage_rsvt.do";
+	};
+	
 	//ȸ������
 	@RequestMapping("/mypageuser.do")
 	public ModelAndView mypageuser(HttpSession session) {
@@ -89,7 +98,6 @@ public class MypageController {
 		return mav;
 	}//end
 	
-	//ȸ������ ����
 	@RequestMapping("/usereditsave.do")
 	public String usereditsave(MemberDTO mto) {
 		  String path=application.getRealPath("/resources/upload");
@@ -99,7 +107,6 @@ public class MypageController {
 		  
 		  File file=new File(path, img);
 		  try{
-		    //dto.getUpload_f().transferTo(file);//물리적인 파일로 변환
 			  FileCopyUtils.copy(mto.getUpload_img().getBytes(), file);
 		  }catch(Exception ex){ }
 		  mto.setU_img(img);		  
@@ -108,7 +115,6 @@ public class MypageController {
 	}//end
 	
 
-	//ȸ��Ż��
 	@RequestMapping("/mypageDelete.do")
 	public ModelAndView mypage_delete(HttpSession session) {
 		String u_id = session.getAttribute("checked").toString();

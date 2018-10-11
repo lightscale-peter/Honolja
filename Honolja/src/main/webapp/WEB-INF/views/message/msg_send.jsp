@@ -31,7 +31,6 @@
 			return;
 		}//내용 체크
 		
-		//userid 를 param.
 		var msg = $("#myform").serialize();
 		
 		$.ajax({

@@ -39,6 +39,10 @@ public class MypageDAO {
 		return listRS;
 	}//end
 	
+	public void rsvt_cancel(int data) {
+		temp.delete("mypage.rsvt_cancel", data);
+	}
+	
 	//ȸ������
 	public MemberDTO useredit(String u_id) {
 		MemberDTO mto = new MemberDTO();

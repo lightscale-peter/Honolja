@@ -11,57 +11,53 @@
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 	 
-	 <style type="text/css">
+	<style type="text/css">
 	 
-	 .img-circle {
-		border-radius: 50%;
-		width: 150px;
-		height: 150px; 
-	 }
+		.img-circle {
+			border-radius: 50%;
+			width: 150px;
+			height: 150px; 
+		}
 	 
-	 .ff {
-	 	position: relative;
-	 	bottom: 0;
-	 	width: 100%;
-	 }
+		.ff {
+			position: relative;
+			bottom: 0;
+			width: 100%;
+		}
 
-	#member {
-		 background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-		 width: 100%; 
-		 height: 75%;
-		 padding: 50px;
-		 
-	}
+		#member {
+			background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+			width: 100%; 
+			height: 75%;
+			padding: 50px;
+		}
 
-table.minfo {
-    text-align: left;
-  	margin : 20px 10px;
-}
+		table.minfo {
+			text-align: left;
+			margin : 20px 10px;
+		}
 
-table.minfo td {
-    width: 320px;
-    vertical-align: top;
-    padding: 20px;
-}
+		table.minfo td {
+			width: 320px;
+			vertical-align: top;
+			padding: 20px;
+		}
 
-#ttop {
-	border-top: 1px solid #ccc;
-}
+		#ttop {
+			border-top: 1px solid #ccc;
+		}
 
-#tbottom {
-	border-bottom: 1px solid #ccc;
-}
+		#tbottom {
+			border-bottom: 1px solid #ccc;
+		}
 
-#tbold {
-	font-weight: bold;
-
-}
-
-
+		#tbold {
+			font-weight: bold;
+		}
 	 
 	 </style>
-
 </head>
+
 <body>
 
 	<c:import url="http://localhost:8080/honolja/header.do">
@@ -89,7 +85,6 @@ table.minfo td {
     </div>
 </div>
 		
-
 
 <div class="tt" align="center">
 	<table class="minfo">

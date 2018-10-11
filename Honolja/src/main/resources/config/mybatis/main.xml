@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectFixedNotice" resultType="main">
-		select rownum rn, n_title, n_fix from noticeboard where n_fix = 'true'	
+		select rownum rn, n_title, n_fix from noticeboard where n_fix = 'Y'	
 	</select>
 	
 	<insert id="insertUsersInfo">

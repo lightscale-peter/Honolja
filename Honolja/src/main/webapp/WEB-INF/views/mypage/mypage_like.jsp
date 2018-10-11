@@ -14,26 +14,26 @@
 	
 	 <style type="text/css">
 	 
-	 .ff {
-	  position: absolute;
-	  bottom: 0;
-	  width: 100%;
-	 }
+	.ff {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}
 	 
-	 table.ta {
-    border-collapse: separate;
-    border-spacing: 1px;
-    text-align: center;
-    line-height: 1.5;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-  	margin : 20px 10px;
+	table.ta {
+    	border-collapse: separate;
+    	border-spacing: 1px;
+    	text-align: center;
+    	line-height: 1.5;
+    	border-top: 1px solid #ccc;
+    	border-bottom: 1px solid #ccc;
+  		margin : 20px 10px;
 	}
 
 	table.ta td {
-    width: 350px;
-    padding: 10px;
-    vertical-align: middle;
+    	width: 350px;
+    	padding: 10px;
+    	border-bottom: 1px solid #ccc;
 	}
 	 
 	 </style>

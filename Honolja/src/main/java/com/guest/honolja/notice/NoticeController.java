@@ -87,15 +87,13 @@ public class NoticeController {
 	@RequestMapping(value="/notice_insert.do", method=RequestMethod.POST)
 	public String notice_insert(NoticeDTO dto) { 
 		dto.setN_viewcnt(0);
-		dto.setU_id("test");
-		
+		dto.setU_id("admin");
 		
 		if(dto.getN_fix() == null) {
 			dto.setN_fix("N");
 		}
 		
 		dao.db_insert(dto);
-		
 		return "redirect:/notice.do";
 	}//insert end 
 	
@@ -131,7 +129,7 @@ public class NoticeController {
 	
 	@RequestMapping("/notice_edit.do")
 	public String notice_edit(NoticeDTO dto) {
-		dto.setU_id("test");
+		dto.setU_id("admin");
 		if(dto.getN_fix() == null) {
 			dto.setN_fix("N");
 		}

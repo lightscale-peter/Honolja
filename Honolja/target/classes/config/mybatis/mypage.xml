@@ -47,4 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					where u_id = #{u_id}
 	</select>
 	
+	<delete id="rsvt_cancel" parameterType="int">
+		delete from reservation where res_no = #{res_no}
+	</delete>
+	
 </mapper>
