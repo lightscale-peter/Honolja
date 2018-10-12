@@ -125,16 +125,12 @@
 				</c:choose>
 
 			</div>
-		</nav>
+					</nav>
 
 	</div>
-			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id" style="display: none;">
-
+			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id" style="display: none; background-color:white;">
 			<div class="layer-search-option layer-area-list">
-			
 			<ul class="area-list">
-
-			
 			<li class="area-item area-item-myfocus" value="서울">
 				<a href="guestlocation.do?g_addr=seoul&adult=${param.adult}&child=${param.child}
 				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">서울
@@ -195,10 +191,7 @@
 				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">전주/전북
 				</a>
 			</li>
-
-
 			</ul>
-			
 			<div class="subarea-cnt">
 			<div class="inner">
 			<ul class="subarea-list row2">
@@ -214,5 +207,6 @@
 				    } 
 				});  
 			</script>
-</body>
+
+	</body>
 </html>
