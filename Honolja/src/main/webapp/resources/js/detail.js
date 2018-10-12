@@ -270,3 +270,19 @@ function reservation(r_no, nights, g_no) {
 	// width=600, height=600, top='+top+', left='+left);
 	
 }
+
+function detaillike_btn(btn_flag, g_no, u_id){		
+	
+	$.ajax({
+			url : "detaillike.do",
+			type : "post",
+			data : {
+						g_no : g_no,
+						u_id : u_id, 
+						btn_flag : btn_flag,
+					},
+			success : function(data){			
+				$("#detaillike").html(data);	
+			}
+		});
+	}

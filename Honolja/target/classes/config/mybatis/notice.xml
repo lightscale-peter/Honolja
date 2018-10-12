@@ -18,6 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) where rn between #{start} and #{end}
 	</select>
 	
+		<select id="sel" parameterType="com.guest.honolja.notice.NoticeDTO" resultType="com.guest.honolja.notice.NoticeDTO">
+	select * from (
+		 select rownum rn, n_no, n_title, n_content, n_date, n_viewcnt, u_id, n_fix from noticeboard
+		) where rn between 1 and 3
+	</select>
 	
 	<select id="selectCnt" parameterType="com.guest.honolja.notice.NoticeDTO" resultType="int">
 	 select count(*) as cnt 

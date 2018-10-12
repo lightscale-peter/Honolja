@@ -54,7 +54,12 @@
 		<div class="row justify-content-center">
 			<div id="detail-info" class="col-sm-8">
 				<section>
-					<h2 class="detail-info__title">${info.g_name}</h2>
+					<h2 class="detail-info__title">${info.g_name}
+						<!-- 좋아요 시작 -->
+						<span id="detaillike"> <c:import url="like_button2.jsp"></c:import>
+						</span>
+						<!-- 좋아요 끝 -->
+					</h2>
 					<div class="detail-info__address">
 						<div>${info.g_addr}</div>
 						<div></div>
@@ -280,9 +285,9 @@
 								</tr>
 							</table>
 						</div>
-					</div>
-					<div class="DateRangePicker-bottom">
-						<span class="f-right" id="nights">${nights}박</span>
+						<div class="DateRangePicker-bottom">
+							<span class="f-right" id="nights">${nights}박</span>
+						</div>
 					</div>
 				</div>
 				<div id="map" style="width: 400px; height: 400px;" align="center"></div>
@@ -292,7 +297,7 @@
 	<script type="text/javascript">
  	var now = new Date();
 	var today = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate();
-	var today1 = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + (now.getDate() + 1);
+	var today1 = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + (now.getDate() + 7);
 	$('#check_in').datepicker({
 		header: true,
         footer: true,
@@ -305,7 +310,6 @@
     $('#check_out').datepicker({
     	header: true,
         footer: true,
-     
         format: 'yyyy/mm/dd',
         minDate: function () {
             return $('#check_in').val();
@@ -322,7 +326,10 @@
 		var check_out = document.getElementById("check_out").value;
 		var adult = <c:out value='${adult}'/>;
 		var child = <c:out value='${child}'/>;
-		var nights = <c:out value='${nights}'/>;
+		
+		var _in = check_in.substring(8,10);
+		var _out = check_out.substring(8,10);
+		var nights = _out - _in;
 		
 			location.href = 'guestdetail.do?g_no=' + g_no + '&adult='
 			+ adult + '&child=' + child + '&check_in='
@@ -371,7 +378,7 @@
 				document.getElementById(id).value = value;
 			}
 			
-		};
+		}; 
 		
 	</script>
 

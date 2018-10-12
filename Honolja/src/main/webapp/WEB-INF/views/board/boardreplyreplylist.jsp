@@ -5,6 +5,73 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+	/* 대댓글 삭제 */
+	function rrdel(brr_no,b_no) { 
+		
+		if (confirm("댓글을 삭제하시겠습니까?") == true) {
+			
+		$.ajax({
+		url : 'boardrreplydelete.do',
+		type : 'post',
+		data : {
+			brr_no : brr_no,
+			b_no : b_no
+		},
+		success : function(data) {
+			$("#note-title2_" + brr_no ).hide();
+		},
+		error : function(request, status, error) {
+			alert("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+			console.log("error");
+		}
+		})
+		
+	}
+}
+	/* 대댓글 Form */
+	 function rreply(br_no,b_no) {
+		
+			$.ajax({ 
+				url : 'boardrreplyinsertForm.do',
+				type : 'post',
+				data : {"br_no" : br_no,
+							"b_no" : b_no
+					},
+				success : function(data) {
+					$('#rreply_' + br_no).html(data);
+					$('#rreply_' + br_no).focus();
+				},
+				error : function(request, status, error) {
+					alert('code:' + request.status + '\n' + 'message:'
+							+ request.responseText + '\n' + 'error:' + error); 
+					}
+				})
+	}
+	 /* 대댓글 수정Ajax */
+	 function rredit(brr_no,b_no) {
+	 	if(confirm("수정하시겠습니까?")) {
+	 	
+	 	$.ajax({
+	 		url : 'boardrreplyedit.do',
+	 		type : 'post',
+	 		data : { "brr_no" : brr_no,
+	 					"b_no" : b_no
+	 			},
+	 		success : function(data) {
+	 			$('#rredit_' + brr_no).html(data);
+	 			$('#rredit_' + brr_no).focus();
+	 		},
+	 		error : function(request, status, error) {
+	 			alert('code:' + request.status + '\n' + 'message:'
+	 					+ request.responseText + '\n' + 'error:' + error);
+	 			}
+	 		})
+	 	}
+	 }
+	</script>
+
 <title>대댓글리스트</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,40 +82,33 @@
 
 </head>
 <body>
-
-	<c:forEach var="dto" items="${list}">
-	<li id="note-title" class="list-group-item note-title" style="margin-left: 10%;">
-	
-	<div class="media" id="c_5818" >
-		<div class="photo pull-left" >
-			<div class="media-object" >
-			</div>
-		</div>
-	</div>
+			
+<c:forEach var="dto" items="${RRlist}">
+	<li id="note-title2_${dto.brr_no}" class="list-group-item note-title" style="margin-left: 5%;">
 		<div class="media-body" >
 			<div class="media-heading">
-				<b><a href="javascript:void(0);" onclick="showSideView(this, 'bsocks', '갈루노', '', '');"> 
-				<span class="member"> ${dto.u_id }</span></a></b> <span
-					class="font-11 text-muted"> <span class="media-info">
-						<i class="fa fa-clock-o"></i> ${dto.brr_date}
+				<span class="member">
+					<a href="javascript:void(0);" onclick="showSideView(this, 'bsocks', '갈루노', '', '');">  ${dto.u_id}</a>
 				</span> 
-				 <a href="boardrreplyinsertForm.do?idx=${dto.b_no}&br_no=${dto.brr_no}">답글달기</a></span>
-				<div class="media-content"> ${dto.brr_content} 
-				 &nbsp;
-				 </div>
-			</div>
+					<span class="font-11 text-muted"> 
+						 <span class="media-info"> <i class="fa fa-clock-o"></i> ${dto.brr_date} </span>
+		 				 <a href="javascript:void(0); " onclick="rreply(${dto.br_no},${b_no});">대댓글 달기</a>
+		 			</span>
+						<div id="rredit_${dto.brr_no}"> 
+							<div class="media-content"> ${dto.brr_content}   
+								<c:if test="${sessionScope.checked eq dto.u_id}">
+									 <a href="javascript:void(0);" onclick="rredit(${dto.brr_no},${b_no})">[수정]</a>
+									 <a href="javascript:void(0);" onclick="rrdel(${dto.brr_no},${b_no}); return false;">[삭제]</a>
+								 </c:if>
+							  </div>
+						</div>
+				</div>
+							 	<div id="rreply_${dto.br_no}"> </div>	
+							 		<input type="hidden" id="br_no" name="br_no" value="${dto.br_no}">
 		</div>
-			<input type="hidden" id="br_no" name="br_no" value="${dto.br_no}">
-			<input type="hidden" id="b_no" name="b_no" value="${dto.b_no}">
-		
-		<div align="right">
-					 <a href="boardrreplyedit.do?idx=${dto.b_no}&br_no=${dto.brr_no}">[수정]</a>
-					 <a href="boardrreplydelete.do?idx=${b_no}&brr_no=${dto.brr_no}">[삭제]</a>
-		</div>
-			<br>
-			</li>
-		</c:forEach>
-	
+	</li>
+</c:forEach>
+<input type="hidden" id="b_no" name="b_no" value="${dto.b_no}">
 	
 </body>
 </html>
