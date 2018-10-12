@@ -41,7 +41,6 @@ function rcheck() {
 			console.log("error");
 		}
 		})
-		
 	}
 }
 
