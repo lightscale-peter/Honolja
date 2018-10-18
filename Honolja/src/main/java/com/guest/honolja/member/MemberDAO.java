@@ -16,7 +16,6 @@ public class MemberDAO {
 	
 	public void m_insert(MemberDTO mto) {
 		temp.insert("member.m_insert", mto);
-		System.out.println("���옣�꽦怨�");
 	}//end
 	
 	public List<MemberDTO> m_select(MemberDTO mto){
@@ -46,11 +45,39 @@ public class MemberDAO {
 	}//end
 	
 	//�씠硫붿씪 泥댄겕
-	public void m_emailcheck(MemberDTO mto) {
-		temp.update("member.emailkey", mto);
+	public void m_emailfalse(MemberDTO mto) {
+		temp.update("member.emailfalse", mto);
 	}//end
 	
 	public void m_Auth(String u_id) throws Exception{
 		temp.update("member.emailcheck", u_id);
-	}
+	}//end
+	
+	//아이디찾기
+	public String findingID(MemberDTO mto) {
+		String u_id = temp.selectOne("member.findingID", mto);
+		return u_id;
+	}//end
+	
+	//비밀번호 찾기 - 1.아이디입력(체크)
+	public String findPWid(String u_id) {
+		String u_name = temp.selectOne("member.findPWid", u_id);
+		return u_name;
+	}//end
+	
+	//임시 비밀번호 메일전송
+	public void findingPW(MemberDTO mto) {
+		temp.update("member.findingPW", mto);
+	}//end
+	
+	//인증 키값 체크
+	public String emailkeyCheck(MemberDTO mto) {
+		String u_id = temp.selectOne("member.emailkeyCheck", mto);
+		return u_id;
+	}//end
+	
+	//비밀번호 재설정
+	public void pwdupdate(MemberDTO mto) {
+		temp.update("member.pwdupdate", mto);
+	}//end
 }//MemberDTO class END

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,11 @@
 	}//deleteCheck end
 </script>
 </head>
-<body>
+<body id="page-top" style="margin-top:51px;">
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="main.do"></c:param>
+	</c:import>
 	<jsp:include page="mypage_menu.jsp" />
 
 	<form name="myform" action="m_delete.do" onsubmit="deleteCheck(); return false;">

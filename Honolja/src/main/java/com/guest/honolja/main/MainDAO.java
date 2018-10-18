@@ -15,21 +15,15 @@ public class MainDAO {
 	@Autowired
 	SqlSessionTemplate temp;
 	
-<<<<<<< HEAD
 	public int dbSelect(MemberDTO mto) {
 		int u_cnt = temp.selectOne("main.selectIdPwd", mto);
 		return u_cnt;
-	}
+	}//end
 	
 	public String emailcheck(MemberDTO mto) {
 		String u_emailcheck = temp.selectOne("main.emailcheck", mto);
 		return u_emailcheck;
-=======
-	//Check id and pwd in DB for normal Login
-	public int dbSelect(MainDTO dto) {
-		return temp.selectOne("main.selectIdPwd", dto);
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
-	}
+	}//end
 	
 	//Print notice_list in main view
 	public List<MainDTO> dbSelectFixedNotice() {
@@ -44,6 +38,12 @@ public class MainDAO {
 	//Check id in DB for NAVER Login. if it isn't, insert.
 	public int dbSelectIdCheck(String u_id) {
 		return temp.selectOne("main.selectIdCheck", u_id);
-	}
+	}//end
+	
+	//관리자 체크
+	public String membercheck(String u_id) {
+		String u_member = temp.selectOne("main.membercheck", u_id);
+		return u_member;
+	}//end
 	
 }

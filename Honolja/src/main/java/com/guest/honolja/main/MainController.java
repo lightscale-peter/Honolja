@@ -62,9 +62,12 @@ public class MainController {
 	ServletContext application;
 	
 	@RequestMapping("/main.do")
-	public ModelAndView main_page(HttpServletRequest request) {
+	public ModelAndView main_page(HttpServletRequest request, HttpSession session) {
+		String uid = (String)session.getAttribute("checked");
+		String u_member = dao.membercheck(uid);
 		
 		ModelAndView mav = new ModelAndView();
+			mav.addObject("u_member", u_member);
 			mav.setViewName("/main/main");
 		
 		
@@ -168,37 +171,45 @@ public class MainController {
 			              obj = new JSONObject(temp);
 			              
 			              String u_id = obj.getJSONObject("response").getString("id");
-			              String u_img = obj.getJSONObject("response").getString("profile_image");
+			              String u_img = "";
 			              String u_gender = obj.getJSONObject("response").getString("gender");
 			              String u_email = obj.getJSONObject("response").getString("email");
 			              String u_name = obj.getJSONObject("response").getString("name");
 			              String u_birth = obj.getJSONObject("response").getString("birthday");
+			              	
+			              if(u_gender.equals("³²ÀÚ")) {
+			            	  u_img = "boy.jpg";  
+			              }else {
+			            	  u_img = "girl.jpg";
+			              }
        
 			              //progress, if Id is not in users table
 			              if(dao.dbSelectIdCheck(u_id) == 0) {
-
-			              MainDTO dto = new MainDTO();
-			              	dto.setU_id(u_id);
-			              	dto.setU_img(u_img);
-			              	dto.setU_gender(u_gender);
-			              	dto.setU_email(u_email);
-			              	dto.setU_name(u_name);
-			              	dto.setU_birth(u_birth);
+			            	  session.setAttribute("checked", u_id);
+			            	  
+			            	  MainDTO dto = new MainDTO();
+				              	dto.setU_id(u_id);
+				              	dto.setU_img(u_img);
+				              	dto.setU_gender(u_gender);
+				              	dto.setU_email(u_email);
+				              	dto.setU_name(u_name);
+				              	dto.setU_birth(u_birth);
 			              	  	
-			              dao.dbInsertUsersInfo(dto);
-			              System.out.println("users Info insert success!!");
+				              dao.dbInsertUsersInfo(dto);
+				              System.out.println("users Info insert success!!");
 			              
-//			              System.out.println("u_id " + u_id);
-//			              System.out.println("u_img " + u_img);
-//			              System.out.println("u_gender " + u_gender);
-//			              System.out.println("u_email " + u_email);
-//			              System.out.println("u_name " + u_name);
-//			              System.out.println("u_birth " + u_birth);
-			              
-			              mav.addObject("u_id", u_id);
-			              	
+				              System.out.println("u_id " + u_id);
+				              System.out.println("u_img " + u_img);
+				              System.out.println("u_gender " + u_gender);
+				              System.out.println("u_email " + u_email);
+				              System.out.println("u_name " + u_name);
+				              System.out.println("u_birth " + u_birth);
+				              
+				              mav.addObject("u_id", u_id);
+				              	
 			              }else {
 			            	  System.out.println("user Id already exist!!");
+			            	  session.setAttribute("checked", u_id);
 			              }
 			          } catch (Exception e) {
 			              System.out.println(e);
@@ -230,11 +241,6 @@ public class MainController {
 		
 		
 		String host =  request.getParameter("host");
-<<<<<<< HEAD
-=======
-		
-		int idCheck = 0;
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		
 		HttpSession session = request.getSession();
 		
@@ -301,6 +307,7 @@ public class MainController {
 	    apiURL += "&client_id=" + clientId;
 	    apiURL += "&redirect_uri=" + redirectURI;
 	    apiURL += "&state=" + state;
+	    System.out.println("apiURL =  " + apiURL);
 	    
 	    model.addAttribute("checked", state);
 	    //session.setAttribute("state", state);
@@ -314,10 +321,8 @@ public class MainController {
 	
 	@RequestMapping("/header.do")
 	public ModelAndView common_header() {
-
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/header");
-
 		return mav;		
 	}
 	
@@ -363,80 +368,6 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/ajax_main_notice");
 			mav.addObject("notice", notices.get(rn).getN_title());
-			
-		return mav;
-	}
-	
-	
-	@RequestMapping("/test.do")
-	public ModelAndView main_test(HttpServletRequest request) {
-		
-		
-<<<<<<< HEAD
-		String token = "";
-		
-		if(request.getParameter("access_token") != null) {
-			token = request.getParameter("access_token");//NAVER Login access_token;
-		}
-		
-        String header = "Bearer " + token; //Add gap after Bearer;
-        try {
-        	
-            String apiURL = "https://openapi.naver.com/v1/nid/me";   
-            URL url = new URL(apiURL);
-            
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-	            con.setRequestMethod("GET");
-	            con.setRequestProperty("Authorization", header);
-	            
-            int responseCode = con.getResponseCode();
-            
-            BufferedReader br;
-            
-            if(responseCode==200) { // Success calling
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                System.out.println("Success to Private Information Access!!!!");
-            } else {  //Occurred error
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-                System.out.println("Fail to Private Information Access!!!!");
-            }
-            
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            
-            br.close();
-            
-            //response.toString() is to enumerate NAVER_PRIVATE_VALUES of JSON Type
-            System.out.println(response.toString());
-            	
-//            Below Example is to get String value of Private Information from JSON data.
-            
-            String temp = response.toString();
-            JSONObject obj = new JSONObject(temp);
-            String temp2 = obj.getJSONObject("response").getString("id");
-            String temp3 = obj.getJSONObject("response").getString("nickname");
-            String temp4 = obj.getJSONObject("response").getString("name");
-            System.out.println("@id = " + temp2);
-            System.out.println("@nickname = " + temp3);
-            System.out.println("@name = " + temp4);
-            
-            
-            
-       
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-		
-		
-=======
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("redirect:m_join.do");
-			mav.addObject("test", "class='active'");
 			
 		return mav;
 	}
