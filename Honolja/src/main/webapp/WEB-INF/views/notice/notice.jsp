@@ -109,7 +109,7 @@
 </div>
 
 <div class="btn_write">
- 	<c:if test="${checked eq 'test'}">
+ 	<c:if test="${checked eq 'admin'}">
 	 <input type="button" class="btn btn-primary" value="글 작성" onclick="location.href='notice_insert.do'"> &nbsp;
  	</c:if>
 </div>

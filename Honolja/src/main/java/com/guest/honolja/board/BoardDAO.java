@@ -17,6 +17,11 @@ public class BoardDAO {
 
 
 	//리스트@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	public int dbSelect() {
+		int num=temp.selectOne("board.select");
+		return num;
+	}
+	
 	public List<BoardDTO> dbSelect(int start, int end, String skey, String sval) {
 		BoardDTO dto = new BoardDTO();
 		dto.setStart(start);
@@ -27,11 +32,10 @@ public class BoardDAO {
 		return list;
 	}//End
 	
-	public List<NoticeDTO> db_select() {
-		NoticeDTO dto = new NoticeDTO();
-		List<NoticeDTO> list = temp.selectList("notice.sel", dto);
-		return list;
-	}//select end
+	public List<NoticeDTO> dbsel() {
+		List<NoticeDTO> list2=temp.selectList("notice.sel");
+		return list2;
+	}
 
 	public int dbCount(String skey, String sval) {
 		BoardDTO dto = new BoardDTO();
@@ -52,10 +56,9 @@ public class BoardDAO {
 	}//End
 
 	public void dbDelete(int b_no) {
-		temp.delete("board.del", b_no);
+		temp.delete("board.del3", b_no);
 		temp.delete("board.del2", b_no);
-		
-		
+		temp.delete("board.del", b_no);
 	}//End
 
 	public void dbUpdate(BoardDTO dto) {
@@ -93,7 +96,9 @@ public class BoardDAO {
 	}//End
 
 	public void dbRDelete(BoardDTO dto) {
+		temp.delete("board.Rdelete2", dto);
 		temp.delete("board.Rdelete", dto);
+
 		
 	}//End
 

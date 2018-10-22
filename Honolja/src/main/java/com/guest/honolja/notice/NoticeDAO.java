@@ -23,6 +23,11 @@ public class NoticeDAO {
 		return list;
 	}//select end
 	
+	public List<NoticeDTO> dbsel() {
+		List<NoticeDTO> list2=temp.selectList("notice.sel");
+		 return list2;
+	}
+	
 	public int db_count(String skey, String sval) {
 		NoticeDTO dto = new NoticeDTO();
 		dto.setSkey(skey);
