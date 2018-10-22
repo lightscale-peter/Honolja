@@ -10,7 +10,6 @@
 		 setTimeout("location.href='main.do'", 100); 
 	</script>
 </head>
-
 <body>
 
 	<!-- index.jsp -->
