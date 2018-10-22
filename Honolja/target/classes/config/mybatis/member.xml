@@ -49,6 +49,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update users set u_emailcheck = 'false' where u_id = #{u_id}
 	</update>
 	
+	<update id="emailkey" parameterType="com.guest.honolja.member.MemberDTO">
+		update users set u_emailkey = #{u_emailkey}, u_emailcheck = 'false' where u_id = #{u_id}
+	</update>
+	
 	<update id="emailcheck" parameterType="String">
 		update users set u_emailcheck = 'true' where u_id = #{u_id}
 	</update>

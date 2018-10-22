@@ -1,5 +1,7 @@
 package com.guest.honolja.detail;
 
+import java.util.Date;
+
 public class DetailDTO {
 	private int g_no;
 	private String g_name;
@@ -12,10 +14,24 @@ public class DetailDTO {
 	private String r_name;
 	private String r_content;
 	private String r_price;
+	private int r_min;
+	private int r_people;
 	private String img_url;
 	private String img_url2;
 	private String img_url3;
 	private int rcnt;
+	private int res_no;
+	private String u_id;
+	private int res_price;
+	private char res_ok;
+	private int res_people;
+	private Date res_date;
+	private String check_in;
+	private String check_out;
+	private int resCnt;
+	private String adult;
+	private String child;
+	private String nights;
 
 	public String getG_name() {
 		return g_name;
@@ -105,6 +121,22 @@ public class DetailDTO {
 		this.g_no = g_no;
 	}
 
+	public int getR_min() {
+		return r_min;
+	}
+
+	public void setR_min(int r_min) {
+		this.r_min = r_min;
+	}
+
+	public int getR_people() {
+		return r_people;
+	}
+
+	public void setR_people(int r_people) {
+		this.r_people = r_people;
+	}
+
 	public String getImg_url() {
 		return img_url;
 	}
@@ -135,6 +167,102 @@ public class DetailDTO {
 
 	public void setRcnt(int rcnt) {
 		this.rcnt = rcnt;
+	}
+
+	public int getRes_no() {
+		return res_no;
+	}
+
+	public void setRes_no(int res_no) {
+		this.res_no = res_no;
+	}
+
+	public String getU_id() {
+		return u_id;
+	}
+
+	public void setU_id(String u_id) {
+		this.u_id = u_id;
+	}
+
+	public int getRes_price() {
+		return res_price;
+	}
+
+	public void setRes_price(int res_price) {
+		this.res_price = res_price;
+	}
+
+	public char getRes_ok() {
+		return res_ok;
+	}
+
+	public void setRes_ok(char res_ok) {
+		this.res_ok = res_ok;
+	}
+
+	public int getRes_people() {
+		return res_people;
+	}
+
+	public void setRes_people(int res_people) {
+		this.res_people = res_people;
+	}
+
+	public Date getRes_date() {
+		return res_date;
+	}
+
+	public void setRes_date(Date res_date) {
+		this.res_date = res_date;
+	}
+
+	public String getCheck_in() {
+		return check_in;
+	}
+
+	public void setCheck_in(String check_in) {
+		this.check_in = check_in;
+	}
+
+	public String getCheck_out() {
+		return check_out;
+	}
+
+	public void setCheck_out(String check_out) {
+		this.check_out = check_out;
+	}
+
+	public int getResCnt() {
+		return resCnt;
+	}
+
+	public void setResCnt(int resCnt) {
+		this.resCnt = resCnt;
+	}
+
+	public String getAdult() {
+		return adult;
+	}
+
+	public void setAdult(String adult) {
+		this.adult = adult;
+	}
+
+	public String getChild() {
+		return child;
+	}
+
+	public void setChild(String child) {
+		this.child = child;
+	}
+
+	public String getNights() {
+		return nights;
+	}
+
+	public void setNights(String nights) {
+		this.nights = nights;
 	}
 
 }

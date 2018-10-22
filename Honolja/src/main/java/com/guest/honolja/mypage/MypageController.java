@@ -1,14 +1,16 @@
 package com.guest.honolja.mypage;
 
 import java.util.List;
-
+import java.io.File;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.guest.honolja.board.BoardDTO;
@@ -21,16 +23,18 @@ public class MypageController {
 	@Autowired
 	MypageDAO dao;
 	
+	@Autowired
+	ServletContext application;
+	
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	
-	//¸¶ÀÌÆäÀÌÁö ¸Ş´º¹Ù
+	//ë§ˆì´í˜ì´ì§€ ë©”ë‰´ë°”
 	@RequestMapping("/mypage.do")
 	public String mypage() {
 		return "/mypage/mypage_menu";
 	}//mypage end
 	
-	
-	//³»°¡ ¾´ ±Û
+	//ë‚´ê°€ ì“´ ê¸€
 	@RequestMapping("/mypage_board.do")
 	public ModelAndView mypage_board(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -41,7 +45,7 @@ public class MypageController {
 		return mav;
 	}//end
 	
-	//Âò ¸ñ·Ï
+	//ì°œ ëª©ë¡
 	@RequestMapping("/mypage_like.do")
 	public ModelAndView mypage_like(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -52,7 +56,7 @@ public class MypageController {
 		return mav;
 	}//end
 	
-	//¿¹¾à ÇöÈ²
+	//ì˜ˆì•½ í˜„í™©
 	@RequestMapping("/mypage_rsvt.do")
 	public ModelAndView mypage_rsvt(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -63,7 +67,7 @@ public class MypageController {
 		return mav;
 	}//end
 	
-	//È¸¿øÁ¤º¸
+	//íšŒì›ì •ë³´
 	@RequestMapping("/mypageuser.do")
 	public ModelAndView mypageuser(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -75,25 +79,38 @@ public class MypageController {
 		return mav;
 	}//end
 	
-	//È¸¿ø¼öÁ¤
+
+	//íšŒå ì™ì˜™å ì™ì˜™å ì™ì˜™
 	@RequestMapping("/useredit.do")
 	public ModelAndView useredit(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String u_id = (String)session.getAttribute("checked");
 		MemberDTO mto = dao.useredit(u_id);
 		mav.addObject("mto", mto);
-		mav.setViewName("mypage/useredit");
+		mav.setViewName("/mypage/useredit");
 		return mav;
 	}//end
 	
-	//È¸¿ø¼öÁ¤ ÀúÀå
+	//íšŒå ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™
 	@RequestMapping("/usereditsave.do")
 	public String usereditsave(MemberDTO mto) {
+		  String path=application.getRealPath("/resources/upload");
+		  System.out.println(path);
+		  MultipartFile mf=mto.getUpload_img(); 
+		  String img=mf.getOriginalFilename();
+		  
+		  File file=new File(path, img);
+		  try{
+		    //dto.getUpload_f().transferTo(file);//è‡¾ì‡°â”ï¿½ìŸ»ï¿½ì”¤ ï¿½ë™†ï¿½ì”ªæ¿¡ï¿½ è¹‚ï¿½ï¿½ì†š
+			  FileCopyUtils.copy(mto.getUpload_img().getBytes(), file);
+		  }catch(Exception ex){ }
+		  mto.setU_img(img);		  
 		dao.usereditsave(mto);
-		return "redirect:useredit.do";
+		return "redirect:mypageuser.do";
 	}//end
 	
-	//È¸¿øÅ»Åğ
+
+	//íšŒå ì™ì˜™íƒˆå ì™ì˜™
 	@RequestMapping("/mypageDelete.do")
 	public ModelAndView mypage_delete(HttpSession session) {
 		String u_id = session.getAttribute("checked").toString();
@@ -105,12 +122,12 @@ public class MypageController {
 		return mav;
 	}// end
 	
-	//È¸¿ødelete
+	//íšŒå ì™ì˜™delete
 	@RequestMapping("m_delete.do")
 	public String m_delete(HttpSession session, MemberDTO mto) {
 		mto.setU_id(session.getAttribute("checked").toString());
 		dao.m_delete(mto);
-		session.invalidate(); //¼¼¼Ç»èÁ¦
+		session.invalidate(); //å ì™ì˜™å ì‹¤ì‚¼ì˜™å ì™ì˜™
 		
 		return "redirect:main.do";
 	}//end

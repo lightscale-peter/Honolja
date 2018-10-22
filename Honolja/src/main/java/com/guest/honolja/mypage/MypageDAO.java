@@ -43,25 +43,26 @@ public class MypageDAO {
 		return mto;
 	}//end
 	
-	//È¸¿ø¼öÁ¤
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public MemberDTO useredit(String u_id) {
 		MemberDTO mto = new MemberDTO();
 		mto = temp.selectOne("mypage.useredit", u_id);
 		return mto;
 	}//end
 	
-	//È¸¿ø¼öÁ¤ ÀúÀå
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void usereditsave(MemberDTO mto) {
 		temp.update("mypage.usereditsave", mto);
 	}
+
 	
-	//È¸¿øÅ»Åð
+	//È¸ï¿½ï¿½Å»ï¿½ï¿½
 	public String mypageDelete(String u_id) {
 		String u_pwd = temp.selectOne("mypage.mypagedelete", u_id);
 		return u_pwd;
 	}//end
 	
-	//È¸¿ødelete
+	//È¸ï¿½ï¿½delete
 	public void m_delete(MemberDTO mto) {
 		temp.delete("mypage.m_delete", mto);
 	}//end

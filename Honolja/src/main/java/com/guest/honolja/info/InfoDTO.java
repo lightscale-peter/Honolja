@@ -47,8 +47,24 @@ public class InfoDTO {
     String irr_content;
     Date irr_date; 
     
+    int reply_cnt;
+    
+    String i_youtube;
+    
     
 	
+	public String getI_youtube() {
+		return i_youtube;
+	}
+	public void setI_youtube(String i_youtube) {
+		this.i_youtube = i_youtube;
+	}
+	public int getReply_cnt() {
+		return reply_cnt;
+	}
+	public void setReply_cnt(int reply_cnt) {
+		this.reply_cnt = reply_cnt;
+	}
 	public Date getIrr_date() {
 		return irr_date;
 	}

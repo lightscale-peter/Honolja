@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>[혼놀자]</title>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=lpJuL0fDxe8fMB7Sysgn&submodules=geocoder"></script>
@@ -21,18 +21,9 @@
 	type="text/javascript"></script>
 <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css"
 	rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script src="./resources/js/detail.js"></script>
-<link rel="stylesheet" href="./resources/css/detail.css">
-<script type="text/javascript">
-$(document).ready(function() {
-	var g_no = <c:out value='${g_no}'/>;
-	$("#roominfos").tab('show');
-	roominfo(g_no);
-})
-</script>
-
+<link rel="stylesheet" href="./resources/css/detail.css" />
 </head>
 <body>
 	<c:import url="http://localhost:8080/honolja/header.do">
@@ -62,7 +53,12 @@ $(document).ready(function() {
 		<div class="row justify-content-center">
 			<div id="detail-info" class="col-sm-8">
 				<section>
-					<h2 class="detail-info__title">${info.g_name}</h2>
+					<h2 class="detail-info__title">${info.g_name}
+						<!-- 좋아요 시작 -->
+						<span id="detaillike"> <c:import url="like_button2.jsp"></c:import>
+						</span>
+						<!-- 좋아요 끝 -->
+					</h2>
 					<div class="detail-info__address">
 						<div>${info.g_addr}</div>
 						<div></div>
@@ -85,7 +81,7 @@ $(document).ready(function() {
 									class="icon-staylist icon-staylist-score score10"></i><i
 									class="icon-staylist icon-staylist-score score05"></i></span>
 							</c:when>
-							<c:when test="${4.5 > avg && avg > 4}">
+							<c:when test="${4.5 > avg && avg >= 4}">
 								<span class="score-rap"><i
 									class="icon-staylist icon-staylist-score score10"></i><i
 									class="icon-staylist icon-staylist-score score10"></i><i
@@ -158,16 +154,80 @@ $(document).ready(function() {
 					<div>
 						<ul class="nav nav-tabs nav-justified">
 							<li class="active"><a href="#room-info" data-toggle="tab"
-								onclick="roominfo(${g_no})">객실정보</a></li>
-							<li><a href="#review" data-toggle="tab"
+								href="#room-info">객실정보</a></li>
+							<li><a href="#review" data-toggle="tab" href="#review"
 								onclick="review(${g_no})">후기</a></li>
 						</ul>
 						<div class="tab-content" id="my-tab-content">
 							<div class="tab-pane active" id="room-info">
-								<div id="roominfos"></div>
+								<c:forEach var="list" items="${list}" varStatus="status">
+									<div class="row">
+										<div class="col-sm-7">
+											<div id="${list.r_no}" class="carousel slide"
+												data-ride="carousel" data-interval="false">
+												<div class="carousel-inner">
+													<div class="item active">
+														<img src="${list.img_url}" alt="첫번째 슬라이드" width="500px"
+															height="300px">
+													</div>
+													<div class="item">
+														<img src="${list.img_url2}" alt="두번째 슬라이드" width="500px"
+															height="300px">
+													</div>
+													<div class="item">
+														<img src="${list.img_url3}" alt="세번째 슬라이드" width="500px"
+															height="300px">
+													</div>
+												</div>
+												<a class="left carousel-control" href="#${list.r_no}"
+													data-slide="prev"> <span
+													class="glyphicon glyphicon-chevron-left"></span> <span
+													class="sr-only">Previous</span>
+												</a> <a class="right carousel-control" href="#${list.r_no}"
+													data-slide="next"> <span
+													class="glyphicon glyphicon-chevron-right"></span> <span
+													class="sr-only">Next</span>
+												</a>
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div>
+												<h2>
+													<em>${list.r_name}</em>
+												</h2>
+											</div>
+											<p>
+											<div>${list.r_content}</div>
+											<br>
+											<div align="right">
+												<font color="#FF69B4" size="15px"><fmt:formatNumber
+														value="${list.r_price}" pattern="###,###,###.##" /> </font><i>원</i>
+											</div>
+											<c:choose>
+												<c:when test="${list.res_ok eq res[status.index].res_ok}">
+													<button type="button" class="btn btn-primary btn-block"
+														disabled>예약불가</button>
+												</c:when>
+												<c:when test="${empty sessionScope.checked}">
+													<button type="button" class="btn btn-primary btn-block"
+														onclick="popupWindow('login_popup.do?host=guestdetail.do?g_no=${list.g_no}&adult=${adult}&child=${child}&check_in=${check_in}&check_out=${check_out}&nights=${nights}', 'login', 410, 450)">예약
+														하기</button>
+												</c:when>
+												<c:otherwise>
+													<button type="button" class="btn btn-primary btn-block"
+														onclick="reservation(${list.r_no}, ${nights}, ${g_no})">예약
+														하기</button>
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</div>
+									<hr>
+								</c:forEach>
 							</div>
 							<div class="tab-pane" id="review">
-								<div id="reviews"></div>
+								<div id="reviews">
+									<c:import url="guestReview.jsp"></c:import>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -179,152 +239,149 @@ $(document).ready(function() {
 						<span class="f-left">체크인</span><span class="f-right">체크아웃</span>
 					</div>
 					<div class="DateRangePicker">
-						<div class="container-fluid DateInput">
-							<div class="row">
+						<div class="DateRangePickerInput">
+							<div class="DateInput DateInput--open-down">
 								<div class="col-md-5">
-									<input type="text" name="startDate" id="startDate"
-										value="2018-09-20" />
+									<input type="text" id="check_in" name="check_in"
+										class="datePicker" value="${check_in}"
+										placeholder="YYYY/MM/DD">
 								</div>
 								<div class="col-md-2">
 									<span class="glyphicon glyphicon-arrow-right"
 										aria-hidden="true"></span>
 								</div>
 								<div class="col-md-5">
-									<input type="text" name="endDate" id="endDate"
-										value="2018-09-20" />
+									<input type="text" id="check_out" name="check_out"
+										class="datePicker" value="${check_out}"
+										placeholder="YYYY/MM/DD">
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="DateRangePicker-bottom">
-						<span class="f-right">1박</span>
+						<div class="form-group">
+							<table style="width: 100%;">
+								<tr>
+									<td><label for="usr"
+										style="display: block; align-content: center;"><font
+											color="#fff">성인</font></label> <a
+										onclick="countMinus('adult');progress();" href="#"
+										style="color: #ff777a;"><span
+											class="glyphicon glyphicon-minus"></span></a> &nbsp;&nbsp;<input
+										id="adult" name="adult" type="text" class="form-control"
+										id="usr" style="width: 35px; display: inline;"
+										value="${adult}" readonly="readonly">&nbsp;&nbsp; <a
+										onclick="countPlus('adult');progress();" href="#"
+										style="color: #ff777a;"><span
+											class="glyphicon glyphicon-plus"></span></a></td>
+									<td><label for="usr" style="display: block;"><font
+											color="#fff">아동</font> </label> <a onclick="countMinus('child');"
+										href="#" style="color: #ff777a;"><span
+											class="glyphicon glyphicon-minus"></span></a> &nbsp;&nbsp;<input
+										id="child" name="child" type="text" class="form-control"
+										id="usr" style="width: 35px; display: inline;"
+										value="${child}" readonly="readonly">&nbsp;&nbsp; <a
+										onclick="countPlus('child');" href="#" style="color: #ff777a;"><span
+											class="glyphicon glyphicon-plus"></span></a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="DateRangePicker-bottom">
+							<span class="f-right" id="nights">${nights}박</span>
+						</div>
 					</div>
 				</div>
 				<div id="map" style="width: 400px; height: 400px;" align="center"></div>
 			</div>
 		</div>
-		<script type="text/javascript">
-		$(function() {
-		 $('#startDate').datepicker({ 
-				showOn:"both",
-				buttonImageOnly:true,
-				buttonText:"날짜 선택",
-				format: 'yyyy-mm-dd',
-				numberOfMonths : 1,
-				firstDay : 1,
-				minDate : '0',
-				maxDate: '+2Y',
-				showMonthAfterYear : true,
-				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-					'8월', '9월', '10월', '11월', '12월'],
-				monthNamesShort : ['1월', '2월', '3월', '4월', '5월', '6월',
-					'7월', '8월', '9월', '10월', '11월', '12월'],
-				dayNames : [ '일', '월', '화', '수', '목', '금', '토'],
-				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토'],
-				dayNamesMin : ['일', '월', '화', '수', '목', '금', '토'],
-			}); 
-		 
-			$('#endDate').datepicker({ 
-				showOn:"both",
-				buttonImageOnly:true,
-				buttonText:"날짜 선택",
-				format: 'yyyy-mm-dd',
-				numberOfMonths : 1,
-				firstDay : 1,
-				minDate : '0',
-				maxDate: '+2Y',
-				showMonthAfterYear : true,
-				monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-					'8월', '9월', '10월', '11월', '12월'],
-				monthNamesShort : ['1월', '2월', '3월', '4월', '5월', '6월',
-					'7월', '8월', '9월', '10월', '11월', '12월'],
-				dayNames : [ '일', '월', '화', '수', '목', '금', '토'],
-				dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토'],
-				dayNamesMin : ['일', '월', '화', '수', '목', '금', '토'],
-				onSelect : function(dateStr){
-					var min = $(this).datepicker('getDate');
-					$('#startDate').datepicker('option','minDate', min || '0');
-					datrpicked();
+	</div>
+	<script type="text/javascript">
+ 	var now = new Date();
+	var today = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate();
+	var today1 = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + (now.getDate() + 7);
+	$('#check_in').datepicker({
+		header: true,
+        footer: true,
+        format: 'yyyy/mm/dd',
+        minDate: today,
+        maxDate: function () {
+            return $('#check_out').val();
+        }
+    });
+    $('#check_out').datepicker({
+    	header: true,
+        footer: true,
+        format: 'yyyy/mm/dd',
+        minDate: function () {
+            return $('#check_in').val();
+        },
+        change: function (e) {
+        	alert("변경 되었습니다.");
+        	detail();
+        }
+    });
+    
+    function detail() {
+    	var g_no = <c:out value='${g_no}'/>;
+		var check_in = document.getElementById("check_in").value;
+		var check_out = document.getElementById("check_out").value;
+		var adult = <c:out value='${adult}'/>;
+		var child = <c:out value='${child}'/>;
+		
+		var _in = check_in.substring(8,10);
+		var _out = check_out.substring(8,10);
+		var nights = _out - _in;
+		
+			location.href = 'guestdetail.do?g_no=' + g_no + '&adult='
+			+ adult + '&child=' + child + '&check_in='
+			+ check_in + '&check_out=' + check_out + '&nights='
+			+ nights;
+	}
+
+		var	x=<c:out value='${info.g_position_n}'/>;
+		var	y=<c:out value='${info.g_position_e}'/>;
+			
+		var map = new naver.maps.Map('map', {
+			center : new naver.maps.LatLng(x, y),
+			zoomControl: true,
+			zoomControlOptions: {
+			    style: naver.maps.ZoomControlStyle.SMALL,
+			    position: naver.maps.Position.TOP_RIGHT
 				}
 			});
-		})
 
-					var x = <c:out value='${info.g_position_n}'/>;
-					var y = <c:out value='${info.g_position_e}'/>;
-					var map = new naver.maps.Map('map', {
-						center : new naver.maps.LatLng(x, y),
+		var	marker=new naver.maps.Marker({
+			position :	new naver.maps.LatLng(x, y),
+			map : map
+			});	
+	
+		function countPlus(id){
+			
+			var value = document.getElementById(id).value;		
+			
+			if(value == 9){
+				document.getElementById(id).value = 9;
+			}else{
+				value++;
+				document.getElementById(id).value = value;
+			}
+			
+		}
+		
+		function countMinus(id){
+			
+			var value = document.getElementById(id).value;		
+			
+			if(value == 0){
+				document.getElementById(id).value = 0;
+			}else{
+				value--;
+				document.getElementById(id).value = value;
+			}
+			
+		}; 
+		
+	</script>
 
-						zoomControl: true,
-				        zoomControlOptions: {
-				            style: naver.maps.ZoomControlStyle.SMALL,
-				            position: naver.maps.Position.TOP_RIGHT
-				        }
-
-					});
-
-					var marker = new naver.maps.Marker(
-							{
-								position : new naver.maps.LatLng(x, y),
-								map : map
-							});
-
-					
-
-					/*// 마커 클릭 이벤트 처리 ( 클릭할 경우 infowindow에 등록된 이미지와 이름이 뜸 )
-					naver.maps.Event.addListener(marker, "click", function(e) {
-						if (infowindow.getMap()) {
-							infowindow.close();
-						} else {
-							infowindow.open(map, marker);
-						}
-					});
-					 // 마크 클릭시 인포윈도우 오픈 
-					var infowindow = new naver.maps.InfoWindow(
-							{
-								//띄워줄 이름과 사이트 이미지, 클릭했을경우 이동할 url 주소를 입력해주면 된다.
-								content : '<a href="http://bitcamp.co.kr/index.php?main_page=home"><h4>[비트캠프 서초센터]</h4></a>'
-							}); */
-				</script>
-	</div>
-
-	<!-- Modal -->
-	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog modal-notify modal-info">
-			<div class="modal-content">
-				<div class="modal-header" id="modal_title">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title"></h4>
-				</div>
-				<div class="modal-body" id="modal_body"></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="modal fade" id="reviewDelete" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close" aria-hidden="true">×</button>
-					<h4 class="smaller lighter blue no-margin modal-title">알림</h4>
-				</div>
-				<div class="modal-body">'삭제'버튼을 누르면 해당 게시글이 삭제됩니다. 정말로
-					삭제하시겠습니까?</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" id="modalDelbtn">삭제</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<c:import url="detailModal.jsp"></c:import>
 	<c:import url="http://localhost:8080/honolja/footer.do"></c:import>
 </body>
 </html>

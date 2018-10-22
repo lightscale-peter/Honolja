@@ -89,7 +89,7 @@ public class ReviewController {
 		mav.addObject("re_no", dto.getRe_no());
 		mav.addObject("g_no", dto.getG_no());
 		mav.addObject("answer", answer);
-		mav.setViewName("reviewAnswerView");
+		mav.setViewName("/detail/reviewAnswerView");
 		return mav;
 	}
 
@@ -99,8 +99,6 @@ public class ReviewController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("re_no", dto.getRe_no());
 		mav.addObject("g_no", dto.getG_no());
-		System.out.println("답변 g_no : " + dto.getG_no());
-		System.out.println("답변 re_no : " + dto.getRe_no());
 		mav.setViewName("/detail/reviewAnswerAdd");
 		return mav;
 	}
@@ -110,13 +108,11 @@ public class ReviewController {
 	public ModelAndView guest_answerAdd(ReviewDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		dto.setU_guestname("게스트하우스");
-		System.out.println("앤서 re_no" + dto.getRe_no());
-		System.out.println("앤서 g_no" + dto.getG_no());
 		dao.dbanswerAdd(dto);
-		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
+		ReviewDTO answer = dao.dbanswerView(dto.getRe_no());
 		mav.addObject("g_no", dto.getG_no());
-		mav.addObject("review", review);
-		mav.setViewName("/detail/guestReview");
+		mav.addObject("answer", answer);
+		mav.setViewName("/detail/reviewAnswerView");
 		return mav;
 	}
 
@@ -126,6 +122,7 @@ public class ReviewController {
 		ModelAndView mav = new ModelAndView();
 		dao.dbanswerDel(dto.getRe_no());
 		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
+		mav.addObject("re_no", dto.getRe_no());
 		mav.addObject("g_no", dto.getG_no());
 		mav.addObject("review", review);
 		mav.setViewName("/detail/guestReview");

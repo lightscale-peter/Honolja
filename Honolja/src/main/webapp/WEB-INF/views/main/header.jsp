@@ -8,6 +8,11 @@
 <head>
 
 <meta charset="UTF-8">
+<<<<<<< HEAD
+=======
+<title>Insert title here</title>
+	<link href="./resources/css/header.css" type="text/css" rel="stylesheet"> 
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -15,7 +20,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
       
-    
     <script type="text/javascript">
 		function popupWindow(url, title, w, h) {
 			
@@ -43,7 +47,8 @@
 
 			form.submit();
 		}
-	
+
+
 		function headerNullCheck(id){
 			
 			if(document.getElementById(id).value == ""){
@@ -70,30 +75,30 @@
 					<a class="navbar-brand" href="main.do">Honolja</a>
 				</div>
 				<ul class="nav navbar-nav">
+
 					<li ${param.notice}><a href="notice.do" >공지사항</a></li>
 					<li ${param.group}><a href="board.do" >소모임</a></li>
-					<li ${param.myplace}><a href="guestlist.do?area=my" >내주변</a></li>
-					<li ${param.area}>
-						<a href="guestlocation.do
-							?area=${param.area}
-							&adult=${param.adult}
-							&child=${param.child}
-							&check_in=${param.check_in}
-							&check_out=${param.check_out}
-							&nights=${param.nights}" >지역</a>
+					<li ${param.myplace}>
+						<a href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}
+						&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">내주변
+						</a>
 					</li>
+					<li ${param.area} id = "toggle"><a href="#">지역</a></li>
 					<li ${param.img_board}><a href="img_board.do" >여행 정보</a></li>
-					<li ${param.test}><a href="test.do">TEST</a></li>
+					<%-- <li ${param.test}><a href="test.do">TEST</a></li> --%>
+
 				</ul>
 
   				<!-- 게스트 하우스 검색 -->
   				<form class="navbar-form navbar-left" action="guestlist.do" id = "guestSearch">
+
   					<input type="hidden" name="g_addr"value="${param.g_addr}">
 					<input type="hidden" name="adult"value="${param.adult}">
 					<input type="hidden" name="child"value="${param.child}">
 					<input type="hidden" name="check_in"value="${param.check_in}">
 					<input type="hidden" name="check_out"value="${param.check_out}">
 					<input type="hidden" name="nights"value="${param.nights}">
+
      				<div class="form-group">
      					<div class="col-xs-8">
         					<input class="form-control" id="search" name="keyword" placeholder="게스트 하우스 입력" value="${sval}" size="25">
@@ -114,95 +119,102 @@
 						</ul>
 					</c:when>
 					<c:otherwise>
+<<<<<<< HEAD
 						<ul class="nav navbar-nav navbar-right">
 							<c:if test="${param.u_member == '관리자'}">
 								<li><a href="m_list.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
 							</c:if>
 							<li onclick="popupWindow('chatting.do', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;고객센터</a></li>
 							<li><a href="mypageuser.do"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
+=======
+
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="mypageuser.do?u_id=${param.checked}"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
 			</div>
-		</nav>
+					</nav>
 
 	</div>
-			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id" style="display: none;">
-
+	
+			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id"
+			 style="display: none; background-color:white; border:1px solid #D5D5D5; span-color:red;"> 
 			<div class="layer-search-option layer-area-list">
 			
 			<ul class="area-list">
-
 			
 			<li class="area-item area-item-myfocus" value="서울">
 				<a href="guestlocation.do?g_addr=seoul&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">서울
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">서울
 				</a>
 			</li>
 			<li class="area-item" value="경기">
 				<a href="guestlocation.do?g_addr=kyungki&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">경기
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">경기
 			 	</a>
 			</li>
 			<li class="area-item" value="인천">
 				<a href="guestlocation.do?g_addr=inchun&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">인천
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}" style ="color:black">인천
 				</a>
 			</li>
 			<li class="area-item" value="강원">
 				<a href="guestlocation.do?g_addr=gangwon&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">강원
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">강원
 				</a>
 			</li>
 			<li class="area-item" value="제주">
 				<a href="guestlocation.do?g_addr=jeju&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">제주
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">제주
 				</a>
 			</li>
 			<li class="area-item" value="충남">
 				<a href="guestlocation.do?g_addr=chongnam&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">충남
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">충남
 				</a>
 			</li>
 			<li class="area-item area-item-active" value="충북">
 				<a href="guestlocation.do?g_addr=chongbok&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">충북
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">충북
 				</a>
 			</li>
 			<li class="area-item" value="경남">
 				<a href="guestlocation.do?g_addr=kyungnam&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">경남
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">경남
 				</a>
 			</li>
 			<li class="area-item" value="경북">
 				<a href="guestlocation.do?g_addr=kyungbok&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">경북
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">경북
 				</a>
 			</li>
 			<li class="area-item" value="부산">
 				<a href="guestlocation.do?g_addr=busan&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">부산
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">부산
 				</a>
 			</li>
 			<li class="area-item" value="전남">
 				<a href="guestlocation.do?g_addr=junnam&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">전남
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">전남
 				</a>
 			</li>
 			<li class="area-item" value="전주/전북">
 				<a href="guestlocation.do?g_addr=junju&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">전주/전북
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">전주/전북
 				</a>
 			</li>
-
-
 			</ul>
-			
-			<div class="subarea-cnt">
-			<div class="inner">
-			<ul class="subarea-list row2">
-			</ul></div></div></div></div>
+				<div class="subarea-cnt">
+					<div class="inner">
+						<ul class="subarea-list row2">
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
 			<div class="dimmed" id="id"></div>
 			<script>
 				jQuery('#id').css("display", "none"); 
@@ -214,5 +226,6 @@
 				    } 
 				});  
 			</script>
-</body>
+
+	</body>
 </html>

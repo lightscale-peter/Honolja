@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>mypage_like.jsp</title>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,7 +48,8 @@
 	<div style="height: 100px;"></div>
 	
 	<div>
-  		<c:import url="http://localhost:8080/honolja/mypage.do">
+  		<c:import url="http://localhost:8080/honolja/side_mypage.do">
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		</c:import>
 	</div>
 

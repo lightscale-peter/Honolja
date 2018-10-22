@@ -6,78 +6,71 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Type"
-	content="application/json; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="Content-Type" content="application/json; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-
+    
 <title>[firstlist.jsp]</title>
-
+	
+<link href="./resources/css/slidebtn.css" type="text/css" rel="stylesheet">
+<link href="./resources/css/filter.css" type="text/css" rel="stylesheet">
+<link href="./resources/css/header.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="./resources/css/detail.css" />
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 달력 사용하기  -->
-<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"
-	type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css"
-	rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 <!-- naver MAP API 받아오기 -->
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
-<script>
-
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-Type" content="application/json; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-	<title>[firstlist.jsp]</title>
-	
-	<link href="./resources/css/slidebtn.css" type="text/css" rel="stylesheet">
- 	<link href="./resources/css/filter.css" type="text/css" rel="stylesheet">
- 	<link href="./resources/css/header.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
  	
- 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- 달력 사용하기  -->
-	<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
-    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    
-    <!-- naver MAP API 받아오기 -->
- 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=U7Zqn2z2m6oFf4fS07JV&submodules=geocoder"></script>
- 	
-	<style type="text/css">
- 	a {text-decoration: none;}
-	a:hover{ color:#337ab7; text-decoration: none;}
-	a:link{ color: #212121; text-decoration: none;}
- 	a:visited{color: #212121; text-decoration: none;}
- 	</style>
- 	
- 	<script type="text/javascript">
-	 	var x= new Array();
-		var y= new Array();
-		var name= new Array();
-		var url= new Array();
-		var g_no = new Array();
-		var adult; var child; var check_in; var check_out; var area;
- 	</script>
- 	<script type="text/javascript">
-	//메인 검색 눌 체크
+<style type="text/css">
+a {text-decoration: none;}
+a:hover{ color:#337ab7; text-decoration: none;}
+a:link{ color: #212121; text-decoration: none;}
+a:visited{color: #212121; text-decoration: none;}
+</style>
+<script type="text/javascript">
+	var x= new Array();
+	var y= new Array();
+	var name= new Array();
+	var url= new Array();
+	var g_no = new Array();
+	var adult; var child; var check_in; var check_out; var area; var nights;
+	</script>
+	<script>
+	function like_btn(btn_flag_val, g_no_val, like_id_val){		
+		var u_id_val = "${u_id}";
+		if("${u_id}" != 'none'){
+			$.ajax({
+				"url" : "http://localhost:8080/honolja/guestlike.do",
+				"type" : "get",
+				"data" : {
+							g_no : g_no_val,
+							u_id : u_id_val, 
+							btn_flag : btn_flag_val,
+							like_id : like_id_val
+						},
+				"success" : function(data){			
+					$('#'+ like_id_val).html(data);	
+				}
+			});
+		}else{$(document).ready(function(){
+			$('#alertbox').ready(function(){
+				$("#error").html("로그인 후 가능합니다.");
+				$('#modal').modal("show");
+			});
+		});} 
+	}
+	</script>
+	<script>
+	//메인 검색 null 체크
 	function nights_11(){
 	    var check_in = document.getElementById("startDate").value;
 	    var check_out = document.getElementById("endDate").value;
@@ -144,7 +137,7 @@
 				    	}
 				    
 				    //만약에 체크인 월 < 체크아웃 월 이면,
-				    }else{
+				    }else{ 
 				    	
 				    	//체크아웃 월 - 체크인 월 == 1
 				    	if(out_array[1] - in_array[1] == 1){
@@ -230,43 +223,14 @@
 		}
 		
 	}
-
-		var area;
-		
-		function sendValue(){
-			
-			var url = "guestlist.do";
-			var name = "marong";
-			var value = "dddd"
-
-			var form = document.createElement("form");
-				form.setAttribute("charset", "UTF-8");
-				form.setAttribute("method", "get");
-				form.setAttribute("action", url);
-
-			var hiddenField = document.createElement("input");
-				hiddenField.setAttribute("type", "hidden");
-				hiddenField.setAttribute("name", name);
-				hiddenField.setAttribute("value", value);
-				
-			form.appendChild(hiddenField);
-			document.body.appendChild(form);
-	
-			form.submit();
-		}
-		
-		
-		
-
-	</script>
+</script>
 
 
 </head>
-
 <body id="page-top" style="margin-top:51px;" >
    <c:import url="http://localhost:8080/honolja/header.do">
       <c:param name="checked" value="${checked}"></c:param>
-      <c:param name="host" value="main.do"></c:param>
+      <c:param name="host" value="guestlist.do?area=my&adult=${param.adult}&child=${param.child}&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"></c:param>
       <c:param name="area" value="${param.area}"></c:param>
       <c:param name="adult" value="${param.adult}"></c:param>
       <c:param name="child" value="${param.child}"></c:param>
@@ -298,7 +262,7 @@
     	</div>
     	<div style="position:fixed;margin-left:4%;">
     		<input type="text" aria-label="YYYY/MM/DD" name="check_in"  id="startDate" value="${param.check_in}"
-    		 width="150px" placeholder="YYYY/MM/DD"  style="color:black;" onchange="date1()"/> 
+    		 width="150px" placeholder="today"  style="color:black;" onchange="date1()"/> 
     	</div>
    		<!-- 체크 아웃 날짜 -->
     	<div style="position:fixed; margin-left:13%; "><!--margin-bottom:50%;  -->
@@ -306,7 +270,7 @@
     	</div>
     	<div style="position:fixed; margin-left:16.5%; margin-bottom:80%;">
     		<input type="text" aria-label="YYYY/MM/DD" name="check_out" id="endDate" value="${param.check_out}"
-    		 width="150px" placeholder="YYYY/MM/DD"  style="color:black;" onchange="date2()"/>
+    		 width="150px" placeholder="yyyy/mm/dd"  style="color:black;" onchange="date2()"/>
     	</div>
     	<div style="position:fixed; margin-left:24.5%; "><!-- margin-bottom:50%; -->
     		<img src="https://yaimg.yanolja.com/joy/pw/place/bullet-datepicker-check.svg" >
@@ -315,17 +279,33 @@
     	<div style="position:fixed; margin-left:29.5%; margin-bottom:80%;">
     		<input type="button" class="btn btn-primary" value="날짜변경" size = "5px" style="size:6px;"onclick="nights_11()">
 		</div>
-
     </div>
 </div>
 
 </form>
-
 	<script type="text/javascript">
+	//datepicker 생성 및 날짜 수정시 이벤트
 	$(function() {
-		$("#startDate").datepicker({ format: 'yyyy/mm/dd',minDate: 0}).val();
-		$("#endDate").datepicker({ format: 'yyyy/mm/dd', minDate: 0}).val();
+		var now = new Date();
+		var today = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate();
+		var today1 = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + (now.getDate() + 1);
+		
+		$("#startDate").datepicker({ 
+			header: true,
+	        value: today,
+	        format: 'yyyy/mm/dd',
+	        minDate: today,
+	    });
+		$("#endDate").datepicker({ 
+			header: true,
+	        value:today1,
+	        format: 'yyyy/mm/dd',
+	        minDate: function () {
+	            return  $('#startDate').val(); 
+	        },
+	    }); 
 	});
+	
 	function date1(){
 		var url = "guestlist.do";
 		var name = "check_in";
@@ -345,7 +325,6 @@
 			document.body.appendChild(form);
 	}
 	function date2(){
-		
 		var url = "guestlist.do";
     	var name1 = "check_out";
     	var value1 = $("#endDate").datepicker({ format: 'yyyy/mm/dd'}).val();
@@ -364,93 +343,45 @@
 		document.body.appendChild(form);
 	}
    </script>   
+   <!-- 달력 끝 -->  
 	<br>
-	<div style="padding-top: 40px">
-		<!-- 지도 우측배치로 고정 -->
-		<div style="right: 0; position: fixed; width: 40%; height: 100%;">
-			<div id="map" style="width: 100%; height: 100%; margin-top: 10px;"></div>
-		</div>
-		<!-- 필터 담을것. 기본순/테마/가격대선택/예약가능/.......필터초기화-->
-		<div
-			style="left: 0; width: 50% padding-left: 30px; padding-right: 30px; padding-left: 30px;">
-			<div style="padding-top: 13px; padding-bottom: 12px;">
-				<p>
-					<input type="button" name="basic" value="기본순"> <input
-						type="button" name="basic" value="테마"> <input
-						type="button" name="basic" value="숙소특징"> <input
-						type="button" name="basic" value="가격대선택"> <input
-						type="button" name="basic" value="예약가능">
-					<button type="button" class="filter__refresh-btn f-right">
-						<i class="filter-icon filter-icon__refresh"></i>
-						<!-- react-text: 390 -->
-						<!-- /react-text -->
-						<em>필터 초기화</em>
-					</button>
-			</div>
-			<!-- 필터 끝-->
-
-			<!-- Guest house 목록을 리스트로 뽑아주기 -->
-
-			<table id="ajaxTable" width="60%" height="10%" border="0"
-				cellpadding="1">
-				<c:forEach var="list" items="${list}" varStatus="i">
-					<tr align="left">
-						<td rowspan="5" width="33%" align="center"
-							style="padding-top: 20px; padding-bottom: 30px;"><a
-							href="guestdetail.do?g_no=${list.g_no}&check_in=${param.check_in}&check_out=${param.check_out}">
-								<img src="${list.g_url}" width="90%" height="180px"> <!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
-						</a></td>
-						<!-- image불러올 때 .PNG대소문자 구분함. -->
-						<td style="font-size: 24px; padding-top: 10px;"><a
-							href="guestdetail.do?g_no=${list.g_no}&check_in=${param.check_in}&check_out=${param.check_out}">
-								${list.g_name}</a></td>
-					</tr>
-					<tr>
-						<td>list.rating, reply count</td>
-					</tr>
-					<tr>
-						<td>list.input time, price</td>
-					</tr>
-					<tr>
-						<td>쿠폰 및 테마 공백</td>
-					</tr>
-					<tr>
-						<td style="padding-bottom: 30px;">&nbsp;</td>
-					</tr>
-					<tr>
-						<td colspan="2"><hr color="#D5D5D5" align="center" WIDTH=97%></hr></td>
-					</tr>
-					<script type="text/javascript">
-      			x[${i.index}] = ${list.g_position_n};
-  				y[${i.index}] = ${list.g_position_e}; 
-  				name[${i.index}] = '${list.g_name}';
-  				url[${i.index}] = '${list.g_url}';
-  				area = '${param.area}';
-  			</script>
-				</c:forEach>
-			</table>
-		</div>
-	</div>
-	<script>
-
 	<div style="padding-top:40px; ">
    	<!-- 지도 우측배치로 고정 -->
 		<div style= "right:0; position:fixed;width:40%;height:100%;">	
 			<div id="map" style="width:100%;height:100%;margin-top:10px;"></div>
-			</div>
-		<!-- 지도 끝-->
+		</div>
+	<!-- 지도 끝-->
 		
         <!-- 필터 담을것. 기본순/테마/가격대선택/예약가능/.......필터초기화-->
 	<div style="left:0; width:60%; padding-left: 30px; padding-right:30px;padding-left:30px;">
     	<div style="padding-top: 13px;padding-bottom: 12px;"><p>
      		<button type="button" class="filter__item" name="popoverButton" style="margin-right:27px;"id="firstfilter">
-     			<span class="filter__option" id = "basics">기본순</span>
+     			<span class="filter__option"id="basics">기본순</span>
      			<i style="width: 17px;height: 16px;	background: url(https://yaimg.yanolja.com/joy/pw/search/filter-icon__arrow_bottom.svg) 50%;
    				display: inline-block;overflow: hidden;font-size: 0;line-height: 0;text-indent: -9999px; vertical-align: middle;"></i>
      		</button> 
      		
      		<button type="button" class="filter__item" name="popoverButton"style="margin-right:27px;" id="secondfilter">
-     			<span class="filter__option" id ="priceselect">가격대선택</span>
+				<c:choose>
+  					<c:when test="${low_price=='a'}">
+   						<span class="filter__option">0~20000</span>
+					</c:when>
+					<c:when test="${low_price=='b'}">
+						<span class="filter__option">20000~40000</span>
+					</c:when>
+					<c:when test="${low_price=='c'}">
+						<span class="filter__option">40000~60000</span>
+					</c:when>
+					<c:when test="${low_price=='d'}">
+						<span class="filter__option">60000~80000</span>
+					</c:when>
+					<c:when test="${low_price=='e'}">
+						<span class="filter__option">60000~80000</span>
+					</c:when>
+					<c:otherwise>
+						<span class="filter__option">가격대선택</span>
+					</c:otherwise>
+				</c:choose>   
      			<i style="width: 17px;height: 16px; background: url(https://yaimg.yanolja.com/joy/pw/search/filter-icon__arrow_bottom.svg) 50%;
    				display: inline-block;overflow: hidden;font-size: 0;line-height: 0;text-indent: -9999px; vertical-align: middle;"></i>
      		</button> 
@@ -460,7 +391,6 @@
      			<em>필터 초기화</em>
      		</button>
      	</div>
-<<<<<<< HEAD
     <!-- 해당 필터 클릭 시 이벤트 -->
 	<script>
 	//기본순 필터이벤트
@@ -483,7 +413,7 @@
 		        jQuery('#firstfilt').css("display", "none");
 			}
 		});
-		//필터 초기화
+	//필터 초기화 이벤트
 		$(document).ready(function(){
  			jQuery('#refresh').click(function(){
  				location.href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}"
@@ -492,8 +422,8 @@
  		});
 	</script>
 	<!-- 해당 필터 클릭 시 이벤트 끝-->
-	
-     	<form action="guestlist.do" method="get">
+	<!-- 기본순 필터 -->
+     <form action="guestlist.do" method="get">
      	<input type="hidden" name="g_addr"value="my">
 		<input type="hidden" name="adult"value="${param.adult}">
 		<input type="hidden" name="child"value="${param.child}">
@@ -502,6 +432,7 @@
 		<input type="hidden" name="nights"value="${param.nights}">
 		<input type="hidden" name="sortFilter"value="${param.sortFilter}">
 		<input type="hidden" id ="a" name="a" value="${basic}">
+		
      	<div data-popover-content="true" id="firstfilt" 
      	style="box-sizing: border-box;
      	width:150px;
@@ -539,27 +470,24 @@
  	      		</div>
  	      	</div>
 		</div>
-		</form>
+	</form>
 		<script type="text/javascript">
 		//버튼 span에 지정된 값 가져오기
 		$(document).ready(function(){
-			var span = document.getElementById("basics").value;
 			var basic1 = document.getElementById("a").value;
-			if(basic1=="basic"){$('#basics').html('기본순');}
-			else if(basic1=="like"){$('#basics').html('인기순');}
-			else if(basic1=="reply"){$('#basics').html('댓글 많은 순');}
-			else if(basic1=="priceup"){$('#basics').html('가격 낮은 순');}
-			else if(basic1=="pricedown"){$('#basics').html('가격 높은 순');}
+			if(basic1=="basic"){$('#basics').html('기본순');$('#basic').is(":checked");}
+			else if(basic1=="like"){$('#basics').html('인기순');$('#basic').is(":checked");}
+			else if(basic1=="reply"){$('#basics').html('댓글 많은 순');$('#basic').is(":checked");}
+			else if(basic1=="priceup"){$('#basics').html('가격 낮은 순');$('#basic').is(":checked");}
+			else if(basic1=="pricedown"){$('#basics').html('가격 높은 순');$('#basic').is(":checked");}
 		});
-		
 		//기본순
 		$(document).ready(function(){
-			var check = $('#basic').is(":checked");
 	    	$("#basic").change(function(){
 	        	if($("#basic").is(":checked")){
 	        		location.href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}"
 	        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=basic";
-	    	    }return check;
+	    	    }
 		    });
 		});
 		
@@ -568,7 +496,7 @@
 	    	$("#like").change(function(){
 	        	if($("#like").is(":checked")){
 	        		location.href="guestlist.do?area=my&adult=${param.adult}&child=${param.child}"
-		        		+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=like";
+		        	+"&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}&sortFilter=${param.sortFilter}&basic=like";
 	    	    }
 		    });
 		});
@@ -603,8 +531,8 @@
 		    });
 		});
 		</script>
-		<!-- 가격대 선택 -->
-		<form action="guestlist.do" method="get">
+		<!-- 가격대 선택 필터-->
+		<form id="priceform" action="guestlist.do" method="get">
 		<input type="hidden" name="g_addr"value="my">
 		<input type="hidden" name="adult"value="${param.adult}">
 		<input type="hidden" name="child"value="${param.child}">
@@ -612,7 +540,7 @@
 		<input type="hidden" name="check_out"value="${param.check_out}">
 		<input type="hidden" name="nights"value="${param.nights}">
 		<input type="hidden" name="basic"value="${param.basic}">
-		<input type="hidden" id = "price1" name="price1" value ="${low_price}">
+		<input type="hidden" name="basic"value="${param.btn_flag}">
 		
 		<div id="secondfilt" 
      	style="box-sizing: border-box;
@@ -649,7 +577,7 @@
  	      				<label for="five">80000~100000</label>
  	      			</div>
  	      			<div style="margin-left:60%;">
- 	      				<button type="submit" id ="pricebtn"style = "width:60px;background-color:#ff2d60; color:white;">
+ 	      				<button type="submit" id="pricebtn" style = "width:60px;background-color:#ff2d60; color:white;">
  	      				<em>확인</em>
  	      				</button> 
  	      			</div>
@@ -657,20 +585,6 @@
  	      	</div>
 		</div>	
 		</form>
-		<script>
-		//버튼 span에 지정된 값 가져오기
-		$(document).ready(function(){
-			$('#pricebtn').click(function(){
-			var span = document.getElementById("priceselect").value;
-			var price1 = document.getElementById("price1").value;
-			if(price1=="one"){$('#priceselect').html('0~20000');}
-			else if(price1=="two"){$('#priceselect').html('20000~40000');}
-			else if(price1=="three"){$('#priceselect').html('40000~60000');}
-			else if(price1=="four"){$('#priceselect').html('60000~80000');}
-			else if(price1=="five"){$('#priceselect').html('80000~100000');}
-			});
-		});
-		</script>
     </div>
 		<!-- 필터 끝-->
 		<!-- Guest house 목록을 리스트로 뽑아주기 -->
@@ -678,21 +592,117 @@
     <c:forEach var="list" items="${list}" varStatus="i">
     	<tr align="left" >
     	<td rowspan="5" width="33%" align="center" style="padding-top:20px;padding-bottom:30px;">
-    		<a style="text-decoration: none;"
-    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}"
-    		target="_blank">
+    		<a 
+    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
+    		target="_blank"><!-- style="text-decoration: none;" -->
     		<img src = "${list.g_url}" width="90%" height="180px"></a>
-    		<!--<img src = "resources/images/${list.g_url}.PNG" width="200px" height="120px">-->
     	</td>
-    	<td style="font-size:24px;padding-top:10px;">
-    		<a style="text-decoration: none;"
-    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}"
-    		target="_blank">
+    	<td style="font-size:24px;padding-top:24px;">
+    		<a 
+    		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
+    		target="_blank"><!-- style="text-decoration: none;" -->
     		${list.g_name}</a>
-    		<button type="submit" id="likebtn" class="filter__refresh-btn"style="font-size:16px;"><em>좋아요</em></button>
+    	<!-- 좋아요 시작 -->
+    	<span id="like_${i.index}">
+	    	<c:choose>
+				<c:when test="${list.check_like != 0}">
+					<button type="button" class="btn btn-primary" onclick="like_btn(1,${list.g_no}, 'like_${i.index }');">
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like 좋아요 ${list.islike}
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-default btn-sm" onclick = "like_btn(2,${list.g_no}, 'like_${i.index }');">
+						<span class="glyphicon glyphicon-thumbs-up"></span> Like 좋아요 ${list.islike}
+					</button>
+				</c:otherwise> 
+			</c:choose>
+		</span>
+		<!-- 좋아요 끝 -->
       	</td>
       	</tr>
-      	<tr><td>list.rating, reply count</td></tr>
+      	<tr><td>평점<c:choose>
+							<c:when test="${list.avgs == 5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i></span>
+							</c:when>
+							<c:when test="${5 > list.avgs && list.avgs >= 4.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i></span>
+							</c:when>
+							<c:when test="${4.5 > list.avgs && list.avgs >= 4}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${4 > list.avgs && list.avgs >= 3.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${3.5 > list.avgs && list.avgs >= 3}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${3 > list.avgs && list.avgs >= 2.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${2.5 > list.avgs && list.avgs >= 2}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${2 > list.avgs && list.avgs >= 1.5}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score05"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:when test="${1.5 > list.avgs && list.avgs >= 1}">
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score10"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:when>
+							<c:otherwise>
+								<span class="score-rap"><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i><i
+									class="icon-staylist icon-staylist-score score00"></i></span>
+							</c:otherwise>
+						</c:choose>
+						댓글 ${list.reviewcnt} 좋아요 ${list.islike}</td></tr>
       	<tr>
       		<td>
       			<i style="font-size:18px;font-weight:bold;color:black;">숙박&nbsp;</i>
@@ -701,7 +711,7 @@
       			<i style="font-size:18px;font-weight:bold;color:black;">&nbsp;&nbsp;${list.low_price} 원</i>
       		</td>
       	</tr>
-      	<tr><td>쿠폰 및 테마 공백 </td></tr>
+      	<tr><td><!-- 쿠폰 및 테마 공백  --></td></tr>
       	<tr><td style="padding-bottom:30px;">&nbsp;</td></tr>
       	<tr><td colspan="2"><hr color="#D5D5D5" align="center" width=97%></hr></td></tr>
       	<script>
@@ -714,17 +724,9 @@
 			adult= '${param.adult}';
 			child= '${param.child}'; 
   			area = '${param.area}';
+  			nights= '${param.nights}';
   		</script>
 	</c:forEach>
-	<!-- <script> //좋아요 클릭 이벤트
-		jQuery("#likebtn").click(function(){
-			if(jQuery("#likebtn").class("filter__refresh-btn")){
-				jQuery("#likebtn").css("background-color","black");
-		    } else {  
-		    	//if else 써서 이미지 바꿔주고 동적으로 데이터값 넘겨주기 
-		    } 
-		});
-	</script> -->
     </table>
    	</div>
  <script>
@@ -749,11 +751,12 @@
 	    	map: map,
 	    	position: new naver.maps.LatLng(x[i],y[i]),
 	    });
-	    /* &adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='+check_out+' */
+	   
 	   // 마크 클릭시 인포윈도우 오픈
 	    var infowindow = new naver.maps.InfoWindow({
 	    	content: '<h6>'+name[i]+'</h6><div align="center"><a href="guestdetail.do?g_no='
-	    	+g_no[i]+'&adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='+check_out+'" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
+	    	+g_no[i]+'&adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='
+	    	+check_out+'&nights='+nights+'" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
 	    	 maxWidth: 140,
 	    	    backgroundColor: "#eee",
 	    	    borderColor: "#2db400",
@@ -820,9 +823,6 @@
     for (var i=0, ii=markers.length; i<ii; i++) {
         naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
     };
-
- 	
    </script>
-   
 </body>
 </html>

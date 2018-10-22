@@ -23,7 +23,7 @@ public class MainDAO {
 	public String emailcheck(MemberDTO mto) {
 		String u_emailcheck = temp.selectOne("main.emailcheck", mto);
 		return u_emailcheck;
-	}//end
+	}
 	
 	//Print notice_list in main view
 	public List<MainDTO> dbSelectFixedNotice() {

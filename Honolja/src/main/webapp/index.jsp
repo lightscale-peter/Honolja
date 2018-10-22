@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +7,7 @@
 	<title>[index.jsp]</title>
 
 	<script type="text/javascript">
-		 setTimeout("location.href='main.do'", 500); 
+		 setTimeout("location.href='guestlist.do'", 100); 
 	</script>
 </head>
 <body>

@@ -125,9 +125,16 @@
 	</form>
 	
 	<label style="padding: 10px;">
+<<<<<<< HEAD
 		<span onclick="close_and_move('m_agree.do')"><a href="#"> 회원가입</a></span><br>
 		<span onclick="close_and_move('findID.do')"><a href="#">아이디</a></span>/
 		<span onclick="close_and_move('findPW.do')"><a href="#">비밀번호 찾기</a></span>
+=======
+		<span onclick="close_and_move('find_ID.do')"><a href="#">아이디 찾기</a></span>/
+		<span onclick="close_and_move('address')"><a href="#">비밀번호 재설정 </a></span>/
+		<span onclick="close_and_move('m_join.do')"><a href="#"> 회원가입</a></span>
+		
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	</label>
 	
 	<div class="login-footcont">

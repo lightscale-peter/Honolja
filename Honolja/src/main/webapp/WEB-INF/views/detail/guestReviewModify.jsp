@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>[혼놀자]</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,14 +24,14 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
 
-<link rel="stylesheet" href="./resources/css/detail.css">
+<link rel="stylesheet" href="./resources/css/detail.css" />
 </head>
 <body>
 	<div class="container-fluid">
 		<form id="modifyForm" method="post">
 			<input type="hidden" value="${review.re_no}" name="re_no"> <input
 				type="hidden" value="${review.u_id}" name="u_id"> <input
-				type="hidden" value="${review.i_name}" name="i_name"> <input
+				type="hidden" value="${review.r_name}" name="r_name"> <input
 				type="hidden" value="${review.g_no}" name="g_no">
 			<div class="row">
 				<c:if test="${review.re_img != null}">
@@ -121,14 +122,15 @@
 						</div>
 						<div class="btn-group pull-right">
 							<button type="submit" class="btn btn-info" role="button"
-								onclick="modify(${review.re_no})">확인</button>
+								data-toggle="modal" onclick="modify(${review.re_no})">확인</button>
 							<button type="button" class="btn btn-secondary" role="button"
-								onclick="review(${review.g_no})">취소</button>
+								data-toggle="modal" onclick="review(${review.g_no})">취소</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
+	<c:import url="detailModal.jsp"></c:import>
 </body>
 </html>

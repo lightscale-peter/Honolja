@@ -1,38 +1,19 @@
 package com.guest.honolja.main;
 
 import java.net.HttpURLConnection;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.Buffer;
 import java.security.SecureRandom;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-import java.util.Vector;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.catalina.Server;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
@@ -60,6 +39,11 @@ public class MainController {
 	
 	@Autowired
 	ServletContext application;
+
+	@RequestMapping("/side_mypage.do")
+	public String side_mypage() {
+		return "/main/side_mypage";
+	}
 	
 	@RequestMapping("/main.do")
 	public ModelAndView main_page(HttpServletRequest request, HttpSession session) {
@@ -219,10 +203,12 @@ public class MainController {
 			      System.out.println(e);
 			    }
 			
-		}
-
- 		
+		}//NaverLogin Part END
 		
+		//Get text from DB noticeboard
+		List<MainDTO> notices = dao.dbSelectFixedNotice();
+
+		mav.addObject("notice", notices.get(0).getN_title());
 			
 		return mav;
 	}
@@ -238,9 +224,8 @@ public class MainController {
 		if(request.getParameter("u_pwd") != null) {
 			u_pwd = Integer.parseInt(request.getParameter("u_pwd"));
 		}
-		
-		
 		String host =  request.getParameter("host");
+		int idCheck = 0;
 		
 		HttpSession session = request.getSession();
 		
@@ -287,7 +272,7 @@ public class MainController {
 		}
 		
 		return mav;
-	}//·Î±×ÀÎ ÆË¾÷
+	}
 	
 	@RequestMapping("/naver_login.do")
 	public RedirectView common_naver_login(Model model) {
@@ -371,5 +356,4 @@ public class MainController {
 			
 		return mav;
 	}
-	
 }

@@ -9,7 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select * from(
 		select rownum as rn, i.* from (
-		select * from img_board order by i_no desc) i
+		select i.*, (select count(*) from img_reply where i_no = i.i_no) as reply_cnt from img_board i order by i_no desc
+		) i 
 
 		<if test="skey != null">
 			<if test="skey == 'title'">
@@ -54,11 +55,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			sysdate, 
 			0, 
 			0, 
-			<if test="i_originalFileName != null">
-				#{i_originalFileName}, 
-				#{i_uploadFileName},
-				#{i_fileSize}, 
-			</if>
+			#{i_originalFileName}, 
+			#{i_uploadFileName},
+			#{i_fileSize}, 
+			#{i_youtube},
 			#{u_id} 
 			)
 	</insert>

@@ -15,8 +15,11 @@
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+
 	<resources mapping="/css/**" location="/WEB-INF/views/css/" />
+	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/smarteditor/**" location="/smarteditor/" />
 	<resources mapping="/image/**" location="/WEB-INF/views/image/" />
 
 	<!-- 빈스 임포트 입력 필!!! -->
@@ -24,18 +27,21 @@
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+	</beans:bean> 
 
 
 	<!-- 파일업로드 Commons -->
 	<beans:bean id="multipartResolver"
 	       class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <beans:property name="maxUploadSize" value="5242880" /> <!-- 5MB -->
+        <!-- max size of file in memory (in bytes) -->
+        <beans:property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
 	</beans:bean>
 	
-	
+
 	<!-- 로그인 처리 인터셉터 설정 -->
 	<beans:bean id="HonoljaInterceptor" class="com.guest.honolja.interceptor.HonoljaInterceptor"></beans:bean>
 	<interceptors>
@@ -45,8 +51,6 @@
 			<beans:ref bean="HonoljaInterceptor"/>
 		</interceptor>
 	</interceptors>
-
-	
 	
 	<context:component-scan base-package="com.guest.*" />
 </beans:beans>

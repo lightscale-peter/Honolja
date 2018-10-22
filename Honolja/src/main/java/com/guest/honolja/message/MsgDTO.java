@@ -26,21 +26,23 @@ public class MsgDTO {
 
 	String userid;
 
-	public String getUserid() {
-		return userid;
-	}
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
+	public String getUserid() {return userid;}
+	public void setUserid(String userid) {this.userid = userid;}
 	
 	String m_check;
 
-	public String getM_check() {
-		return m_check;
+	public String getM_check() {return m_check;}
+	public void setM_check(String m_check) {this.m_check = m_check;}
+	
+	String receiver;
+
+	public String getReceiver() {
+		return receiver;
 	}
-	public void setM_check(String m_check) {
-		this.m_check = m_check;
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
 	}
+	
 	
 	
 	
