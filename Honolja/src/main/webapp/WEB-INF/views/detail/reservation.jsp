@@ -157,14 +157,15 @@ img {
 			data : dataForm,
 			success : function(data) {
 				if (data == "success") {
-					alert("예약 되었습니다.");
-					$("#modal_title").html("확인");
-					$("#modal_body").html("예약 되었습니다.");
-					$('#ignismyModal').modal('show');
+					alter("예약 되었습니다.");
 					location.href = 'guestdetail.do?g_no=' + g_no + '&adult='
 							+ adult + '&child=' + child + '&check_in='
 							+ check_in + '&check_out=' + check_out + '&nights='
 							+ nights;
+					$("#modal_title").html("확인");
+					$("#modal_body").html("예약 되었습니다.");
+					$('#ignismyModal').modal('show');
+
 				}
 			},
 			error : function(request, status, error) {

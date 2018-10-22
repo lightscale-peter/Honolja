@@ -51,7 +51,7 @@
 				<td><div class="btn-group pull-right">
 						<button type="submit" class="btn btn-info" role="button"
 							data-toggle="modal"
-							onclick="answerDel(${answer.re_no}, ${answer.a_no})">삭제</button>
+							onclick="answerDel(${answer.re_no}, ${answer.a_no},${g_no})">삭제</button>
 					</div></td>
 			</tr>
 		</table>

@@ -138,6 +138,7 @@ $('.starRev span').click(function(){
 				</div>
 			</c:when>
 			<c:otherwise>
+				<br>
 				<c:forEach var="review" items="${review}">
 					<div class="place-review__item.is-thumbnail"
 						id="reviewModify_${review.re_no}">
@@ -204,29 +205,37 @@ $('.starRev span').click(function(){
 											class="roomtype">${review.r_name}</span><i class="bar"></i><span
 											class="date"><fmt:formatDate value="${review.re_date}"
 												pattern="yyyy-MM-dd" /></span>
-										<div class="btn-group pull-right">
-											<button type="button" class="btn btn-info"
-												data-toggle="modal" onclick="premodify(${review.re_no})">수정</button>
-											<button type="button" class="btn btn-secondary"
-												data-toggle="modal" onclick="remove(${review.re_no})">삭제</button>
-										</div>
+										<c:if test="${u_id == review.u_id}">
+											<div class="btn-group pull-right">
+												<button type="button" class="btn btn-info"
+													data-toggle="modal"
+													onclick="premodify(${review.re_no},${g_no})">수정</button>
+												<button type="button" class="btn btn-secondary"
+													data-toggle="modal"
+													onclick="remove(${review.re_no},${g_no})">삭제</button>
+											</div>
+										</c:if>
 									</div>
 								</div>
 								<br>
 								<c:choose>
-									<c:when test="${review.ansCnt > 0}">
-										<div>
-											<button type="button" class="btn btn-primary"
-												onclick="answerView(${review.re_no})" data-toggle="modal">
-												답변 <span class="badge badge-light">1</span>
-											</button>
-										</div>
+									<c:when test="${param.u_member != '점주' }">
 									</c:when>
 									<c:otherwise>
-										<div>
-											<button type="button" class="btn btn-primary"
-												data-toggle="modal" onclick="answer(${review.re_no})">답변</button>
-										</div>
+										<c:when test="${review.ansCnt > 0}">
+											<div>
+												<button type="button" class="btn btn-primary"
+													onclick="answerView(${review.re_no})" data-toggle="modal">
+													답변 <span class="badge badge-light">1</span>
+												</button>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div>
+												<button type="button" class="btn btn-primary"
+													data-toggle="modal" onclick="answer(${review.re_no})">답변</button>
+											</div>
+										</c:otherwise>
 									</c:otherwise>
 								</c:choose>
 							</div>

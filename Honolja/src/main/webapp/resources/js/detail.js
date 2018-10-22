@@ -55,26 +55,25 @@ function reviewBtn(g_no) {
 	})
 }
 
-function remove(re_no) {
+function remove(re_no, g_no) {
 
 	$.ajax({
 		url : 'reviewDel.do',
 		type : 'post',
 		data : {
 			re_no : re_no,
+			g_no : g_no
 		},
 		success : function(data) {
-			if(data == "true") {
-				$("#modal_title").html("확인");
-				$("#modal_body").html("삭제 되었습니다.");
-				$('#ignismyModal').modal('show');
-				$("reviewModify_" + re_no).remove();
-			}
+			$("#reviews").html(data);
+			$("#modal_title").html("확인");
+			$("#modal_body").html("삭제 되었습니다.");
+			$('#ignismyModal').modal('show');
 		}
 	})
 }
 
-function premodify(re_no) {
+function premodify(re_no, g_no) {
 
 	if (confirm("수정 하시겠습니까??")) {
 
@@ -82,7 +81,8 @@ function premodify(re_no) {
 			url : 'reviewPremod.do',
 			type : 'post',
 			data : {
-				re_no : re_no
+				re_no : re_no,
+				g_no : g_no
 			},
 			success : function(data) {
 				$("#reviewModify_" + re_no).html(data);
@@ -197,22 +197,25 @@ function modifyClose(re_no) {
 	$('#reviewModify_' + re_no).focus();
 }
 
-function answerDel(a_no, re_no) {
+function answerDel(a_no, re_no, g_no) {
 
 	$.ajax({
 		url : 'answerDel.do',
 		type : 'post',
 		data : {
 			a_no : a_no,
-			re_no : re_no
+			re_no : re_no,
+			g_no : g_no
 		},
 		success : function(data) {
-			if(data == "success") {
+				
 				$("#view_" + re_no).hide();
+				$("#reviews").html(data);
+				$('#reviewModify_' + re_no).focus();
 				$("#modal_title").html("확인");
 				$("#modal_body").html("삭제 되었습니다.");
 				$('#ignismyModal').modal('show');
-			}
+
 		},
 		error : function(request, status, error) {
 			alert("code:" + request.status + "\n" + "message:"
