@@ -8,6 +8,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 	<link href="./resources/css/header.css" type="text/css" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -111,98 +112,101 @@
 				<c:choose>
 					<c:when test="${param.checked == '' || param.checked == null}">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="m_join.do"><span class="glyphicon glyphicon-user"></span>&nbsp;회원가입</a></li>
+							<li><a href="m_agree.do"><span class="glyphicon glyphicon-user"></span>&nbsp;회원가입</a></li>
 							<li onclick="popupWindow('login_popup.do?host=${param.host}', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그인</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
 
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="mypageuser.do?u_id=${param.checked}"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
+							<c:if test="${param.u_member == '관리자'}">
+								<li><a href="m_list.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
+							</c:if>
+							<li><a href="mypageuser.do"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
-
 			</div>
-		</nav>
+					</nav>
 
 	</div>
-			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id" style="display: none;">
-
+	
+			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id"
+			 style="display: none; background-color:white; border:1px solid #D5D5D5; span-color:red; "> 
 			<div class="layer-search-option layer-area-list">
 			
 			<ul class="area-list">
-
 			
 			<li class="area-item area-item-myfocus" value="서울">
 				<a href="guestlocation.do?g_addr=seoul&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">서울
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">서울
 				</a>
 			</li>
 			<li class="area-item" value="경기">
 				<a href="guestlocation.do?g_addr=kyungki&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">경기
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">경기
 			 	</a>
 			</li>
 			<li class="area-item" value="인천">
 				<a href="guestlocation.do?g_addr=inchun&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">인천
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}" style ="color:black">인천
 				</a>
 			</li>
 			<li class="area-item" value="강원">
 				<a href="guestlocation.do?g_addr=gangwon&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">강원
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">강원
 				</a>
 			</li>
 			<li class="area-item" value="제주">
 				<a href="guestlocation.do?g_addr=jeju&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">제주
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">제주
 				</a>
 			</li>
 			<li class="area-item" value="충남">
 				<a href="guestlocation.do?g_addr=chongnam&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">충남
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">충남
 				</a>
 			</li>
 			<li class="area-item area-item-active" value="충북">
 				<a href="guestlocation.do?g_addr=chongbok&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">충북
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">충북
 				</a>
 			</li>
 			<li class="area-item" value="경남">
 				<a href="guestlocation.do?g_addr=kyungnam&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">경남
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">경남
 				</a>
 			</li>
 			<li class="area-item" value="경북">
 				<a href="guestlocation.do?g_addr=kyungbok&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">경북
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">경북
 				</a>
 			</li>
 			<li class="area-item" value="부산">
 				<a href="guestlocation.do?g_addr=busan&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">부산
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">부산
 				</a>
 			</li>
 			<li class="area-item" value="전남">
 				<a href="guestlocation.do?g_addr=junnam&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">전남
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">전남
 				</a>
 			</li>
 			<li class="area-item" value="전주/전북">
 				<a href="guestlocation.do?g_addr=junju&adult=${param.adult}&child=${param.child}
-				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}">전주/전북
+				&check_in=${param.check_in}&check_out=${param.check_out}&nights=${param.nights}"style ="color:black">전주/전북
 				</a>
 			</li>
-
-
 			</ul>
-			
-			<div class="subarea-cnt">
-			<div class="inner">
-			<ul class="subarea-list row2">
-			</ul></div></div></div></div>
+				<div class="subarea-cnt">
+					<div class="inner">
+						<ul class="subarea-list row2">
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
 			<div class="dimmed" id="id"></div>
 			<script>
 				jQuery('#id').css("display", "none"); 
@@ -214,5 +218,6 @@
 				    } 
 				});  
 			</script>
-</body>
+
+	</body>
 </html>

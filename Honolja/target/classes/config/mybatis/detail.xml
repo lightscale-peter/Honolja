@@ -11,21 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="roomSelect"
 		resultType="com.guest.honolja.detail.DetailDTO"
 		parameterType="com.guest.honolja.detail.DetailDTO">
-		select
-		g.*, r.*, (select count(*) from review where
-		g_no =
-		r.g_no) as
-		rcnt
-		from
-		guesthouse g inner join
-		roominfo r
-		on
-		g.g_no
-		=
-		r.g_no
-		and
-		r.g_no =
-		#{g_no}
+		select g.*, r.*, (select count(*) from review where
+		g_no = r.g_no) as rcnt from guesthouse g inner join
+		roominfo r on g.g_no = r.g_no and r.g_no = #{g_no}
 	</select>
 	<select id="imageSelect" parameterType="int"
 		resultType="com.guest.honolja.detail.DetailDTO">

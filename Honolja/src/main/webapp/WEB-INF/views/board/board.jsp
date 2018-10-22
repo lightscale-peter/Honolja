@@ -52,13 +52,12 @@
 			
 			<tbody>
 
-			
   
   <c:forEach items="${list}" var="list">
  <tr align="center">
-	<td>[공지]</td>
- 	<td><a href="notice_detail.do?idx=${list.n_no}">${list.n_title}</a></td>
- 	<td><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><font color="black">${list.u_id}</font></a></td>
+	<td><span class="label label-primary">공지</span></td>
+ 	<td><a style="background-color:white; color:#337ab7;" href="notice_detail.do?idx=${list.n_no}">${list.n_title}</a></td>
+ 	<td><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><font color="ㅈ">${list.u_id}</font><span class="glyphicon glyphicon-envelope"></span></a></td>
  	<td><fmt:parseDate value="${list.n_date}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
       <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/></td>
  	<td>${list.n_viewcnt}</td>
@@ -74,7 +73,7 @@
 							<td width="50%"><a href="boarddetail.do?idx=${dto.b_no}"><font color="black">${dto.b_title}</font></a> 
 							<font color="#ff0000">[${dto.cnt}]</font> 
 							<c:if test="${dto.b_originalfilename != null }">	<li class="glyphicon glyphicon-picture"></li></c:if> </td>
-							<td width="10%"><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><font color="black">${dto.u_id}</font></a></td>
+							<td width="10%"><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><font color="black">${dto.u_id}</font><span class="glyphicon glyphicon-envelope"></span></a></td>
 					 		<td width="20%">
       <fmt:formatDate value="${dto.b_date}" pattern="yyyy-MM-dd HH:mm"/></td>
 							<td width="10%">${dto.b_viewcnt}</td>

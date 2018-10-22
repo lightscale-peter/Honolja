@@ -43,7 +43,7 @@
 			<ul>
 				<li class='active has-sub'><b>Writer:</b>
 				<a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))">
-						<span>${dto.u_id}</span>
+						<span>${dto.u_id}</span><span class="glyphicon glyphicon-envelope"></span>
 				</a></li>
 			</ul>
 		</div>

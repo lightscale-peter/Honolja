@@ -17,7 +17,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 달력 사용하기  -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js"
 	type="text/javascript"></script>
 <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css"
@@ -206,12 +205,12 @@
 											</div>
 											<c:choose>
 												<c:when test="${list.res_ok eq res[status.index].res_ok}">
-													<button type="button" class="btn btn-secondary btn-block"
+													<button type="button" class="btn btn-primary btn-block"
 														disabled>예약불가</button>
 												</c:when>
 												<c:when test="${empty sessionScope.checked}">
 													<button type="button" class="btn btn-primary btn-block"
-														onclick="popupWindow('login_popup.do?host=guestdetail.do?g_no=${list.g_no}', 'login', 410, 450)">예약
+														onclick="popupWindow('login_popup.do?host=guestdetail.do?g_no=${list.g_no}&adult=${adult}&child=${child}&check_in=${check_in}&check_out=${check_out}&nights=${nights}', 'login', 410, 450)">예약
 														하기</button>
 												</c:when>
 												<c:otherwise>
@@ -382,51 +381,7 @@
 		
 	</script>
 
-	<div class="container">
-		<div class="row">
-			<div class="modal fade" id="ignismyModal" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="">
-								<span>×</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="thank-you-pop">
-								<img
-									src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png"
-									alt="">
-								<h1 id="modal_title"></h1>
-								<p id="modal_body"></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal -->
-	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog modal-notify modal-info">
-			<div class="modal-content">
-				<div class="modal-header1" id="modal_title">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-					</button>
-					<h4 class="modal-title1"></h4>
-				</div>
-				<div class="modal-body1"></div>
-				<div class="modal-footer1">
-					<button type="button" class="btn btn-primary pull-right"
-						data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<c:import url="detailModal.jsp"></c:import>
 	<c:import url="http://localhost:8080/honolja/footer.do"></c:import>
 </body>
 </html>

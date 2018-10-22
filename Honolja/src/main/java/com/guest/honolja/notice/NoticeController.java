@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +32,11 @@ public class NoticeController {
 	}//
 	
 	@RequestMapping("/notice.do")
-	public ModelAndView notice_view(HttpServletRequest request, NoticeDTO dto) { //select +
+	public ModelAndView notice_view(HttpServletRequest request, NoticeDTO dto , HttpSession session) { //select +
 		ModelAndView mav = new ModelAndView();
+		
+		String u_id = (String)session.getAttribute("checked");
+		String u_member = dao.db_selectM(u_id);
 		
 		int pageNUM = 1; //Ntotal 
 		int start=1, end=1, temp=1, startpage=1, endpage=1, pagecount=1; //pagecount 
@@ -70,6 +74,7 @@ public class NoticeController {
 		if (endpage>pagecount) {endpage=pagecount;}
 		
 		List<NoticeDTO> list = dao.db_select(start, end, skey, sval);
+		mav.addObject("u_member", u_member);
 		mav.addObject("dto", list);
 		mav.addObject("cnt", cnt);
 		mav.addObject("reversecnt", reversecnt);
@@ -87,24 +92,27 @@ public class NoticeController {
 	@RequestMapping(value="/notice_insert.do", method=RequestMethod.POST)
 	public String notice_insert(NoticeDTO dto) { 
 		dto.setN_viewcnt(0);
-		dto.setU_id("test");
-		
+		dto.setU_id("admin");
 		
 		if(dto.getN_fix() == null) {
 			dto.setN_fix("N");
 		}
 		
 		dao.db_insert(dto);
-		
 		return "redirect:/notice.do";
 	}//insert end 
 	
 	@RequestMapping("/notice_detail.do")
-	public ModelAndView notice_detail(HttpServletRequest request) {
+	public ModelAndView notice_detail(HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		String u_id = (String)session.getAttribute("checked");
+		String u_member = dao.db_selectM(u_id);
+		
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		NoticeDTO dto = dao.db_detail(idx);
 		mav.addObject("dto", dto);
+		mav.addObject("u_member", u_member);
 		dto.setN_viewcnt(dto.getN_viewcnt()+1);
 		dao.db_cnt(dto);
 		
@@ -131,7 +139,7 @@ public class NoticeController {
 	
 	@RequestMapping("/notice_edit.do")
 	public String notice_edit(NoticeDTO dto) {
-		dto.setU_id("test");
+		dto.setU_id("admin");
 		if(dto.getN_fix() == null) {
 			dto.setN_fix("N");
 		}

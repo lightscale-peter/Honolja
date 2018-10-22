@@ -60,6 +60,8 @@
 </c:if>
 
 
+
+
 	<c:import url="http://localhost:8080/honolja/header.do">
 		<c:param name="checked" value="${checked}" />
 		<c:param name="host" value="main.do" />

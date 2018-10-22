@@ -7,9 +7,10 @@
 	<title>[index.jsp]</title>
 
 	<script type="text/javascript">
-		 setTimeout("location.href='board.do'", 100); 
+		 setTimeout("location.href='main.do'", 100); 
 	</script>
 </head>
+
 <body>
 	<!-- index.jsp -->
 	<div align="center">

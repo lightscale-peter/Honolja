@@ -176,24 +176,17 @@ public class ListController {
 	
 	@RequestMapping("guestlike.do")
 	public ModelAndView guest_like_btn(HttpServletRequest request) {	
-		
+		ModelAndView mav = new ModelAndView( );
 		int g_no = 0;
 		if(request.getParameter("g_no") != null) {
 			g_no = Integer.parseInt(request.getParameter("g_no"));
 		}
-		
 		String u_id = request.getParameter("u_id");	
-		
 		int btn_flag = 0;
 		if(request.getParameter("btn_flag") != null) {
 			btn_flag = Integer.parseInt(request.getParameter("btn_flag"));
 		}
-		
 		String like_id = request.getParameter("like_id");	
-		System.out.println("g_no : " + g_no);
-		System.out.println("u_id : " + u_id);
-		System.out.println("btn_flag : " + btn_flag);
-		
 		ListDTO dto = new ListDTO();
 			dto.setG_no(g_no);
 			dto.setU_id(u_id);
@@ -207,13 +200,10 @@ public class ListController {
 			System.out.println("delete 성공!!");
 			btn_flag = 2;
 		}
-		
-		ModelAndView mav = new ModelAndView( );
 			mav.addObject("g_no", g_no);
 			mav.addObject("like_id", like_id);
 			mav.addObject("btn_flag", btn_flag);
 			mav.setViewName("/firstlist/like_button");
-			
 		return mav;
 	}
 	

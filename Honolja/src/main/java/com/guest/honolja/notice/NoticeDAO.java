@@ -67,5 +67,9 @@ public class NoticeDAO {
 		temp.update("notice.edit", dto);
 	}//공지글 수정기능
 	
+	public String db_selectM(String u_id) {
+		String u_member = temp.selectOne("notice.selectM", u_id);
+		return u_member;
+	}
 
 }//DAO end

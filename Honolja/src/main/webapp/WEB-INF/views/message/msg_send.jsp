@@ -31,7 +31,6 @@
 			return;
 		}//내용 체크
 		
-		//userid 를 param.
 		var msg = $("#myform").serialize();
 		
 		$.ajax({
@@ -55,6 +54,8 @@
 </head>
 <body>
 
+<p>
+
 <div class="container">
 	<form method="post" name="myform" id="myform" onsubmit="check(); return false;">
 	<div class="form-group" style="margin: 0 auto; width:70%;">
@@ -75,7 +76,7 @@
 	<div class="form-group" style="margin: 0 auto; width:70%;">
 		<label for="m_content">Content: </label>
 		<textarea class="form-control" rows="14" name="m_content" id="m_content"></textarea>
-	</div>
+	</div> <p> <br>
 	
 	<div align="center">
 		<input type="submit" class="btn" value="보내기">

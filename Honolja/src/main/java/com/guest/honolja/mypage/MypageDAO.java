@@ -17,26 +17,35 @@ public class MypageDAO {
 	@Autowired
 	SqlSessionTemplate temp;
 	
-	//ȸ������
-	public MemberDTO mypageselect(String u_id) {
-		MemberDTO mto = new MemberDTO();
-		mto = temp.selectOne("mypage.mypageselect", u_id);
-		return mto;
-	}//end
-	
+	//���� �� ��
 	public List<BoardDTO> mypage_board(String u_id){
 		List<BoardDTO> listB = temp.selectList("mypage.mypage_board", u_id);
 		return listB;
 	}//end
 	
+	
+	//�� ���
 	public List<ListDTO> mypage_like(String u_id){
 		List<ListDTO> listL = temp.selectList("mypage.mypage_like", u_id);
 		return listL;
 	}//end
 	
+	//���� ��Ȳ
 	public List<ReservationDTO> mypage_rsvt(String u_id){
 		List<ReservationDTO> listRS = temp.selectList("mypage.mypage_rsvt", u_id);
 		return listRS;
+	}//end
+	
+
+	public void rsvt_cancel(int data) {
+		temp.delete("mypage.rsvt_cancel", data);
+	}
+
+	//ȸ������
+	public MemberDTO mypageselect(String u_id) {
+		MemberDTO mto = new MemberDTO();
+		mto = temp.selectOne("mypage.mypageselect", u_id);
+		return mto;
 	}//end
 	
 	//ȸ������

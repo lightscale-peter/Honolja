@@ -16,7 +16,7 @@
 	    var files = fileInput.files;
 	    for (var i = 0; i < files.length; i++) {           
 	        var file = files[i];
-	        var imageType = /image.*/;     
+	        var imageType = /image.*/;
 	        if (!file.type.match(imageType)) {
 	            alert("이미지 파일만 가능합니다.");
 	            return;
@@ -45,63 +45,64 @@
 		
 	}
 	
-	 </script>
-	 <style type="text/css">
+</script>
+
+<style type="text/css">
 	
-.img-circle {
-	border-radius: 50%;
-	width: 150px;
-	height: 150px;
- }
+	.img-circle {
+		border-radius: 50%;
+		width: 150px;
+		height: 150px;
+ 	}
 
-#upload_img {  
-  display: none;
-}
+	#upload_img {  
+  		display: none;
+	}
 
-.txt_name {
+	.txt_name {
 		font-size: 10pt;
 		font-weight: bold;
-}
+	}
 </style>
 
 <script type="text/javascript">
-function eventOccur(evEle, evType){
-	 if (evEle.fireEvent) {
-		 evEle.fireEvent('on' + evType);
-	 } else {
-		 var mouseEvent = document.createEvent('MouseEvents');
-		 mouseEvent.initEvent(evType, true, false);
-		 var transCheck = evEle.dispatchEvent(mouseEvent);
-			 if (!transCheck) {
-				 console.log("클릭 이벤트 발생 실패!");
-			 }
-		 }
+	function eventOccur(evEle, evType){
+		if (evEle.fireEvent) {
+			evEle.fireEvent('on' + evType);
+		} else {
+			var mouseEvent = document.createEvent('MouseEvents');
+			mouseEvent.initEvent(evType, true, false);
+			var transCheck = evEle.dispatchEvent(mouseEvent);
+
+			if (!transCheck) {
+				console.log("클릭 발생 실패");
+			}
+		}
 	}
 
 	function check(){
-	 eventOccur(document.getElementById('upload_img'),'click');
+		eventOccur(document.getElementById('upload_img'),'click');
 	}
-
 </script>
 
 </head>
 <body>
 
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">개인정보 수정</h4>
-        </div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">개인정보 수정</h4>
+	</div>
         
-<div class="modal-body" id="member"><p>
+	<div class="modal-body" id="member"><p>
 
 	<form action="usereditsave.do" enctype="multipart/form-data" method="post" name="myform" onsubmit="pwd_check(); return false;">
 
-        <button type="button" class="btn btn-default btn-sm" id="replace" onclick="check();">
-          <span class="glyphicon glyphicon-picture"></span> Picture
+		<button type="button" class="btn btn-default btn-sm" id="replace" onclick="check();">
+			<span class="glyphicon glyphicon-picture"></span> Picture
         </button>
  	
 	<div align="center">
-		<input type="file" id="upload_img" name="upload_img" accept="image/*"  onchange="showImg(this)"><p>
+		<input type="file" id="upload_img" name="upload_img" accept="image/*" onchange="showImg(this)"><p>
 		<img id="thumb" src="./image/${mto.u_img}" class="img-circle">
 	</div> <p>
 
@@ -135,7 +136,8 @@ function eventOccur(evEle, evType){
 		<input type="submit" class="btn btn-default btn-md" style="height:40px;" value="수정하기">
 	</div>
 	</form>
-</div>
+	
+	</div>
 
 </body>
 </html>
