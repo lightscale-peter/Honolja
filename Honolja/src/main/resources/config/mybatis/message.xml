@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <insert id="msgSend" parameterType="msg">
   insert into message(
-  		m_no, m_title, m_content, m_id, m_date, u_id, m_check, m_send, m_receive
-  			) values (message_seq.nextval, #{m_title}, #{m_content}, #{m_id}, sysdate, #{u_id}, 'false', 'true', 'true')
+  	m_no, m_title, m_content, m_id, m_date, u_id, m_check, m_send, m_receive
+  	 ) values (message_seq.nextval, #{m_title}, #{m_content}, #{m_id}, sysdate, #{u_id}, 'false', 'true', 'true')
  </insert>
 
 

@@ -44,7 +44,7 @@ public class MsgController {
 		
 		if ( login == null || login == "") {
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('로그인이 필요한 서비스입니다.'); location.href='main.do';</script>");
+			out.println("<script>alert('로그인이 필요한 서비스입니다.'); location.href='login_popup.do';</script>");
 			out.flush();
 		}
 		
@@ -157,10 +157,10 @@ public class MsgController {
 		
 		for (int ck_no : n_ck) {
 			dao.db_deleteS(ck_no);
-		}//end
+		}
 		
 		return "redirect:/msg_boxS.do?userid="+dto.getUserid();
-	}//보낸 메세지 삭제 (hide)  
+	}//보낸 메세지 삭제
 	
 	
 	@RequestMapping(value="/msg_deleteR.do", method=RequestMethod.POST)
@@ -170,10 +170,10 @@ public class MsgController {
 		
 		for (int ck_no : n_ck) {
 			dao.db_deleteR(ck_no);
-		}//end
+		}
 		
 		return "redirect:/msg_boxR.do?userid="+dto.getUserid();
-	}//받은 메세지 삭제 (hide)
+	}//받은 메세지 삭제
 	
 	@RequestMapping("/msg_cancel.do")
 	public String msg_cancel(HttpServletRequest request) throws Exception {

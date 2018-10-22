@@ -7,10 +7,12 @@
 	<title>[index.jsp]</title>
 
 	<script type="text/javascript">
-		 setTimeout("location.href='main.do'", 500); 
+		 setTimeout("location.href='main.do'", 100); 
 	</script>
 </head>
+
 <body>
+
 	<!-- index.jsp -->
 	<div align="center">
 		<font size=7 color=blue family="Comic Sans MS">

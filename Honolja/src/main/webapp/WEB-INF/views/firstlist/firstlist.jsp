@@ -292,25 +292,17 @@ a:visited{color: #212121; text-decoration: none;}
 		
 		$("#startDate").datepicker({ 
 			header: true,
-	        //footer: true,
 	        value: today,
 	        format: 'yyyy/mm/dd',
 	        minDate: today,
-	       /*  maxDate: function () {
-	            return $('#endDate').val();
-	        } */
 	    });
 		$("#endDate").datepicker({ 
 			header: true,
-	        //footer: true,
 	        value:today1,
 	        format: 'yyyy/mm/dd',
 	        minDate: function () {
 	            return  $('#startDate').val(); 
 	        },
-	        /* change: function (e) {
-	        	//alert("ㅁㄴㅇ");
-	        } */
 	    }); 
 	});
 	
@@ -763,7 +755,8 @@ a:visited{color: #212121; text-decoration: none;}
 	   // 마크 클릭시 인포윈도우 오픈
 	    var infowindow = new naver.maps.InfoWindow({
 	    	content: '<h6>'+name[i]+'</h6><div align="center"><a href="guestdetail.do?g_no='
-	    	+g_no[i]+'&adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='+check_out+'&nights='+nights+'" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
+	    	+g_no[i]+'&adult='+adult+'&child='+child+'&check_in='+check_in+'&check_out='
+	    	+check_out+'&nights='+nights+'" target="_blank"><img src="'+url[i]+'"width="120px" height="120px"></a></div>',
 	    	 maxWidth: 140,
 	    	    backgroundColor: "#eee",
 	    	    borderColor: "#2db400",

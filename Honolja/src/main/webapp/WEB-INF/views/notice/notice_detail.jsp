@@ -7,26 +7,20 @@
 <html>
 <head>
 <title>[notice_detail.jsp]</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
-  	 <link href="css/user_menu.css" rel="stylesheet" type="text/css">
-  	 <link href="css/styles.css" rel="stylesheet" type="text/css">
-  	 
-  	 <style type="text/css">
-  	 
-  	 td { 
-    padding: 10px;
-	}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
 	
-	table { 
-    border-spacing: 10px;
-    border-collapse: separate;
-	}
-  	 </style>
+		#con {
+			padding-top: 50px;
+			padding-left: 20px;
+		}
+
+	</style>
   	 
 </head>
 
@@ -55,26 +49,37 @@
 <br>
 
 <div class="container">
-<table border="2" align="center" class="table table-bordered" style="width: 70%">
- <tr> 
-  <td><b>Title:</b> ${dto.n_title}</td>
-  <td style="color: grey" align="center">
-  	<fmt:parseDate value="${dto.n_date}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
-      <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/></td>
- </tr>
+	<table border="2" align="center" class="table table-bordered" style="width: 70%">
+		<tr> 
+			<td><b>Title:</b> ${dto.n_title}</td>
+			<td style="color: grey" align="center">
+				<fmt:parseDate value="${dto.n_date}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
+				<fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/></td>
+		</tr>
  
- <tr>
-	<td colspan="2"><b>Writer:</b> 
-
-<div id='cssmenu'>
-<ul>
-   <li class='active has-sub'><a href='#'><span>${dto.u_id}</span></a>
-      <ul>
-         <li class='has-sub'><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><span>쪽지 보내기</span></a></li>
-      </ul>
-   </li>
-</ul>
+ 		<tr>
+			<td colspan="2"><b>Writer:</b> ${dto.u_id} <a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))">
+				<span class="glyphicon glyphicon-envelope"></span></a>
+			</td>
+		</tr>
+ 
+		<%pageContext.setAttribute("newLineChar", "\n");%>
+		<tr height="700">
+			<td colspan="2" id="con">${fn:replace(dto.n_content, newLineChar, "<br/>")}</td>
+		</tr>
+ 
+		<tr align="right">
+			<td colspan="2">
+				<input type="button" class="btn btn-primary" value="목록으로" onclick="location.href='notice.do'"> &nbsp;&nbsp;
+					<c:if test="${u_member eq '관리자'}">
+				<input type="button" class="btn btn-primary" value="수정" onclick="location.href='notice_preEdit.do?idx=${dto.n_no}'"> &nbsp;&nbsp;
+				<input type="button" class="btn btn-primary" value="삭제" onclick="delete_check(); return false;"> &nbsp;&nbsp;
+					</c:if>
+			</td>
+		</tr> 
+	</table>
 </div>
+<<<<<<< HEAD
 	
 	</td>
  </tr>
@@ -87,7 +92,7 @@
  <tr align="right">
   <td colspan="2">
    <input type="button" class="btn btn-primary" value="목록으로" onclick="location.href='notice.do'"> &nbsp;&nbsp;
-    <c:if test="${checked eq 'test'}">
+    <c:if test="${checked eq 'admin'}">
       <input type="button" class="btn btn-primary" value="수정" onclick="location.href='notice_preEdit.do?idx=${dto.n_no}'"> &nbsp;&nbsp;
       <input type="button" class="btn btn-primary" value="삭제" onclick="delete_check(); return false;"> &nbsp;&nbsp;
    </c:if>
@@ -97,6 +102,8 @@
 </table>
 </div>
 
+=======
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
 </body>
 </html>

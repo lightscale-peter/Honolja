@@ -123,6 +123,7 @@
 				});
 			</script>
 		</c:when>
+		
 		<c:otherwise>
 			<div class="container" style="margin-top: 80px;">
 				<h2>리뷰 게시판</h2>

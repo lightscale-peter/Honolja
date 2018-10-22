@@ -9,6 +9,15 @@ public class BoardDTO {
 	private int b_no;
 	private int br_no;
 	private int brr_no;
+	private int temp;
+
+	public int getTemp() {
+		return temp;
+	}
+
+	public void setTemp(int temp) {
+		this.temp = temp;
+	}
 
 	private String b_title;
 	private String b_content;

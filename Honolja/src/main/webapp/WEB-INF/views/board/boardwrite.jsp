@@ -6,55 +6,20 @@
 <html lang="en">
 <head>
 <title>글쓰기</title>
+
+<script type="text/javascript" src="./resources/ckeditor/ckeditor.js"></script>
+
   <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <!--  Modal -->
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/lib/bootstrap.min.css">
-  <script src="/lib/jquery-1.12.2.min.js"></script>
-  <script src="/lib/bootstrap.min.js"></script>
-  
  
-</head>
-<body>
-  <h2><a href="board.do">게시판</a></h2>
-
-
-
-<div class="container">
-  <h2>게시글</h2>
-  <form action="boardinsert.do" name="myform" method="post"  enctype="multipart/form-data" id="fileform" onsubmit="check(); return false;">
-   <div class="form-group">
-   <label for="usr" >제목:</label>
-   <input type="text" name="b_title"  class="form-control" id="usr" placeholder="제목을 입력하세요." value="123">    ${dto.b_no}
-
-<br> <label for="comment" >Comment:</label>
-<textarea name="b_content"  class="form-control" rows="10" id="comment" placeholder="내용을 입력하세요.">123</textarea>
-</div> 
-    <div id="fileDiv">
-    <p>
-<input class="multi" type="file" name="b_uploadfilename2"  multiple="multiple">
-   <a href="#this" name="delete" class="btn">삭제</a>
-  </p>
-      <a href="#this" id="add" class="btn">파일 추가하기</a>
-        <a href="#this" id="list" class="btn">목록으로</a>
-      <br><br><br><br><br>
-      <input type="submit" class="btn btn-default" value="확인">
-        </div>
-
-      </form>
-</div>
-    
-    
-    <script type="text/javascript">
+ 	<script type="text/javascript">
 	  function check( ){
 		  var title=myform.b_title.value;
-		  var content=myform.b_content.value;
+		  var content=CKEDITOR.instances.b_content.getData();
 		 
 			if (title == "" || title == null) {
 				alert("제목을 입력해주세요.");  
@@ -68,11 +33,66 @@
 			}
 			document.myform.submit(); 
 	  }
+	  
+	  
 	  </script>
-  
- 
- 
- 
- 
+	  
+</head>
+
+
+
+<body id="page-top" style="margin-top:51px;" >
+
+
+
+<c:if test="${dto.u_id == null}">
+<script type="text/javascript">
+	if(confirm("로그인이 필요합니다.로그인 하시겠습니까?")==true) {
+		//popupWindow('login_popup.do?host=boardwrite.do', 'login', 410, 450);
+		
+		window.open('login_popup.do?host=boardwrite.do', 'login', "width=410, Height=450, top=200,left=750");
+		//location.href = "login_popup.do?host=main.do";
+	}else {
+	location.href = "board.do";
+	}
+	
+	</script>
+</c:if>
+
+
+
+
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}" />
+		<c:param name="host" value="main.do" />
+	</c:import>
+
+<c:if test="${dto.u_id != null}">
+
+	<div class="container">
+		<div id="content-categories">
+			<h3>  <a href="board.do">새 글쓰기</a></h3>
+		</div>
+	
+		<form action="boardinsert.do" name="myform" method="post" enctype="multipart/form-data" id="fileform" onsubmit="check(); return false;">
+				<label for="usr">제목 :</label> 
+				<input type="text" name="b_title" class="form-control" id="usr" placeholder="제목을 입력하세요."> 
+				<br>
+				 <label for="comment">내용:</label>
+				<textarea name="b_content" class="form-control" rows="10" id="b_content" placeholder="내용을 입력하세요." class="ckeditor"></textarea>
+					<script type="text/javascript">
+    					CKEDITOR.replace('b_content', {height: 400});
+					</script>					
+			<div id="fileDiv">
+				  <span style="float: right"> 
+				  <input type="button" onclick="location.href='board.do'" value="목록으로"  class="btn btn-primary"> 
+				  	<input type="submit" class="btn btn-primary" value="확인"> </span>
+				첨부파일 :	<input class="multi" type="file" name="b_uploadfilename2" multiple="multiple"> 
+			</div>
+		</form>
+	</div>
+</c:if>
+
+
 </body>
 </html> 
