@@ -12,8 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	
+
 <style type="text/css">
 	 
 	.ff {
@@ -32,29 +31,11 @@
 	}
 
 	table.ta td {
-    	width: 350px;
     	padding: 10px;
     	border-bottom: 1px solid #ccc;
 	}
-	 
-</style>
-
-<script type="text/javascript">
-
-	function cancel_check(resno){
-		
-		
-		var msg = confirm("예약을 취소하시겠습니까?");
-		
-		if ( msg == true ){
-			alert("게스트하우스 예약이 취소되었습니다.");
-			location.href='rsvt_cancel.do?idx='+resno;
-		}
-		
-	}//삭제 확인
-
-</script>
 	
+</style>
 	
 </head>
 <body>
@@ -71,6 +52,31 @@
 		</c:import>
 	</div>
 
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">예약 취소 확인</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        
+        <div class="modal-body">
+          	예약을 취소하시겠습니까?
+          	<input type="hidden" id="myModalvalue" value="">
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">아니오</button>
+          <button type="button" id="cancel_check" class="btn btn-primary"  >예</button>
+        </div>
+
+      </div>
+      
+    </div>
+</div>
 
 <div align="center">
 
@@ -81,18 +87,19 @@
 	<c:forEach var="listRS" items="${listRS}">
 		<tr>
 			<td rowspan="7"><img src="${listRS.img_url}"></td>
-			<td><a href="guestdetail.do?g_no=${listRS.g_no}">${listRS.r_name}</a>
-				<input type="hidden" value="${listRS.res_no}" name="resno">
+			<td width="120px">방 이름</td>
+			<td width="280px" align="right"><a href="guestdetail.do?g_no=${listRS.g_no}">${listRS.r_name}</a>
+				<input type="hidden" value="${listRS.r_no}" name="resno">
 			</td>
 			
 		</tr>
-		<tr><td>${listRS.u_id}</td></tr>
-		<tr><td>${listRS.res_price} 원</td></tr>
-		<tr><td>${listRS.res_people} 명</td></tr>
-		<tr><td>
+		<tr><td>예약자명</td><td align="right">${listRS.u_id}</td></tr>
+		<tr><td>가격</td><td align="right">${listRS.res_price} 원</td></tr>
+		<tr><td>예약 인원</td><td align="right">${listRS.res_people} 명</td></tr>
+		<tr><td>예약 날짜</td><td align="right">
 			<fmt:formatDate value="${listRS.res_date}" pattern="yyyy-MM-dd"/>
 		</td></tr>
-		<tr><td>
+		<tr><td>숙박 기간</td><td align="right">
 		
 		<fmt:parseDate value="${listRS.check_in}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
       <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd"/> ~ 
@@ -100,7 +107,26 @@
       <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd"/>
 		
 		</td></tr>
-		<tr><td><input type="button" class="btn btn-primary" value="예약 취소" onclick="cancel_check(${listRS.res_no}); return false;"></td></tr>
+		<tr><td colspan="2">
+			<input type="button" data-toggle="modal" data-src="${listRS.r_no}" 
+				data-target="#myModal" class="btn btn-primary btn_modal" value="예약 취소">
+			</td>
+		</tr>
+			
+<script type="text/javascript">
+	$(function(){
+		$(".btn_modal").on("click", function() {
+			var a = $(this).attr("data-src");
+			$("#myModalvalue").val(a);
+		});
+		
+		$("#cancel_check").on("click", function() {
+			var cancel = $("#myModalvalue").val();
+			location.href='rsvt_cancel.do?idx=' + cancel;
+		});
+	});
+</script>
+
 	</c:forEach>
 	</table>
 </form>

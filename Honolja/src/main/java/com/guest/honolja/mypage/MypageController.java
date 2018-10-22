@@ -70,6 +70,7 @@ public class MypageController {
 	@RequestMapping("/rsvt_cancel.do")
 	public String rsvt_cancel(HttpServletRequest request) {
 		int idx = Integer.parseInt(request.getParameter("idx"));
+		System.out.println("idx = " + idx);
 		dao.rsvt_cancel(idx);
 		return "redirect:/mypage_rsvt.do";
 	};

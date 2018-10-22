@@ -8,11 +8,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAll"
 		resultType="com.guest.honolja.board.BoardDTO"
 		parameterType="com.guest.honolja.board.BoardDTO">
-		select * from (
+<!-- 		select * from (
 		select rownum rn,b_no,b_title,b_content,b_date,b_viewcnt,b_member,u_id from
 		board
 		where ${skey} like '%' || #{sval} || '%' order by b_no desc
-		) where rn between #{start} and #{end}
+		) where rn between #{start} and #{end} -->
+		
+		SELECT *FROM (
+			SELECT ROWNUM rn, b.* FROM (
+   				SELECT *FROM ( 
+   					select b.*,(
+					select count(*) from boardreply r where r.b_no=b.b_no)
+				as cnt from board b 
+				)
+ 	    	board WHERE ${skey} LIKE  '%' || #{sval} || '%' ORDER BY b_no DESC 
+ 	    	)
+ 	    	b
+  	    ) WHERE rn BETWEEN #{start} AND #{end}
+		
 	</select>
 	<!-- 전체 개수 조회 -->
 	<select id="countAll" resultType="int">
@@ -20,28 +33,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ${skey} like '%' || #{sval} || '%'
 	</select>
 	
+	<!-- 댓글,대댓글 개수조회 Inner join--> 
+			<select id="sel" parameterType="com.guest.honolja.notice.NoticeDTO" resultType="com.guest.honolja.notice.NoticeDTO">
+	select * from (
+		 select rownum rn, n_no, n_title, n_content, n_date, n_viewcnt, u_id, n_fix from noticeboard
+		) where rn between 1 and 3
+	</select>
+	
+	
 	<insert id="insert">
 		insert into board values (
 		board_seq.nextval, #{b_title}, #{b_content}, sysdate, 4, 0,
-		#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , 'hb')
+		#{b_originalfilename}, #{b_uploadfilename}, #{b_filesize} , #{u_id})
 	</insert>
 
 	<select id="detail"
 		parameterType="int" resultType="com.guest.honolja.board.BoardDTO" >
-		select *from board where b_no=#{b_no}
+		select *from board where b_no=#{b_no} 
 	</select>
 	<!-- 게시글 지우기 -->
 	<delete id="del" parameterType="int">
-		delete from boardreply where b_no=#{b_no}
+		delete from board where b_no=#{b_no}
 	</delete>
 	<!-- 댓글 지우기 -->
 	<delete id="del2" parameterType="int">
-		delete from board where b_no=#{b_no}
+		delete from boardreply where b_no=#{b_no}
 	</delete>
 
 	<update id="edit"
 		parameterType="com.guest.honolja.board.BoardDTO">
-		update board set b_title=#{b_title} , b_content=#{b_content} where
+		update board set b_title=#{b_title} , b_content=#{b_content} , 
+		b_originalfilename=#{b_originalfilename}, b_uploadfilename=#{b_uploadfilename}
+		 where
 		b_no=#{b_no}
 	</update>
 	<!-- 조회수 +1 -->
@@ -52,23 +75,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--댓글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
 	<select id="Rselect"
 		resultType="com.guest.honolja.board.BoardDTO" parameterType="int">
-		select *from boardreply where b_no=#{b_no} order by br_no desc
+		select *from boardreply where b_no=#{b_no} order by br_no asc
 	</select>
-	<!-- 댓글 카운트 -->
+	<!-- 댓글, 대댓글 카운트 -->
 	<select id="Rcount" 
-		parameterType="int" resultType="int" >
-		select count(*) as rcnt from boardreply where b_no=#{b_no}
+	parameterType="int" resultType="int">
+	SELECT (
+	SELECT COUNT(*) FROM boardreply where b_no=#{b_no}) 
+	+ (
+	SELECT COUNT(*) FROM boardrreply where b_no=#{b_no})
+	as rcnt FROM DUAL
 	</select>
-
+	
 	<select id="Rdetail"
 		parameterType="int" resultType="com.guest.honolja.board.BoardDTO" >
-		select *from boardreply where br_no=#{br_no}
+		select *from boardreply where br_no=#{br_no} 
 	</select>
 
 	<insert id="Rinsert"
 		parameterType="com.guest.honolja.board.BoardDTO">
 		insert into boardreply values (
-		boardreply_seq.nextval, #{br_content}, sysdate, #{b_no}, 'hb' )
+		boardreply_seq.nextval, #{br_content}, sysdate, #{b_no}, #{u_id} )
 	</insert>
 
 	<update id="Rupdate"
@@ -80,22 +107,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="Rdelete" parameterType="int">
 		delete from boardreply where br_no=#{br_no}
 	</delete>
+	
+	<delete id="Rdelete2" parameterType="int">
+		delete from boardrreply where br_no=#{br_no}
+	</delete>
 
          <!--대댓글@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 	<select id="RRselect" 
 		parameterType="int" resultType="com.guest.honolja.board.BoardDTO" >
-		select *from boardrreply where br_no=#{br_no}
+		select *from boardrreply where br_no=#{br_no} order by brr_no asc
+	</select>
+	
+		<select id="RRdetail"
+		parameterType="int" resultType="com.guest.honolja.board.BoardDTO" >
+		select *from boardrreply where brr_no=#{brr_no} 
 	</select>
 
 	<insert id="RRinsert"
 		parameterType="com.guest.honolja.board.BoardDTO">
 		insert into boardrreply values
-		(boardrreply_seq.nextval, #{brr_content}, sysdate, #{br_no}, 'hb', 1)
+		(boardrreply_seq.nextval, #{brr_content}, sysdate, #{br_no}, #{u_id}, 0, #{b_no} )
 	</insert> 
+	
+		<update id="RRupdate"
+		parameterType="com.guest.honolja.board.BoardDTO">
+		update boardrreply set
+		brr_content = #{brr_content} where brr_no = #{brr_no}
+	</update>
 
 	<delete id="RRdelete" parameterType="int">
 		delete from boardrreply where brr_no=#{brr_no}
 	</delete>
+	
 	
 	
 </mapper>

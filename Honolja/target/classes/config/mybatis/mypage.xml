@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="usereditsave" parameterType="com.guest.honolja.member.MemberDTO">
 		update users set
-			u_pwd = #{u_pwd}, u_name = #{u_name}, u_phn = #{u_phn}, u_img = #{u_img}
+			u_pwd = #{u_pwd}, u_name = #{u_name}, u_phn = #{u_phn}, u_img = #{u_img}, u_email = #{u_email}
 				where u_id = #{u_id} 
 	</update>
 
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<delete id="rsvt_cancel" parameterType="int">
-		delete from reservation where res_no = #{res_no}
+		delete from reservation where r_no = #{r_no}
 	</delete>
 	
 </mapper>

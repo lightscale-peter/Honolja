@@ -15,7 +15,7 @@
 	 <style type="text/css">
 	 
 	.ff {
-		position: absolute;
+		position: relative;
 		bottom: 0;
 		width: 100%;
 	}
@@ -38,7 +38,6 @@
 	 
 	 </style>
 </head>
-
 
 	<c:import url="http://localhost:8080/honolja/header.do">
 		<c:param name="checked" value="${checked}"></c:param>
@@ -73,17 +72,12 @@
 
 </div>
 
+<div style="height: 100px;"></div>
+
+
 	<div class="ff">
 		<c:import url="http://localhost:8080/honolja/footer.do" />
 	</div>
-
-
-
-<body>
-
-
-
-
 
 </body>
 </html>

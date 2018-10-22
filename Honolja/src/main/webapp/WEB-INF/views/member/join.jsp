@@ -73,7 +73,7 @@
 		height: 20px;
 		width: 20px;
 		position: absolute;
-		content: '✔';
+		content: '?';
 		font-size: 15px;
 		text-align: center;
 		line-height: 20px;
@@ -101,6 +101,23 @@
 		border-color: #dadada;
 		padding: 7px 13px 10px;
 	}
+		
+	.img-circle {
+		border-radius: 50%;
+		width: 150px;
+		height: 150px;
+ 	}
+ 	
+ 	#upload_img {
+ 		display: none;
+ 	}
+ 	
+	#u_member, #u_gender {
+		margin: -25px 0 0 0; 
+		vertical-align:middle;
+	}
+	
+	
 </style>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -113,24 +130,17 @@
 	
 	//radio버튼
 	function radioCheck(v, id, id2, id3) {
+		var guestname = document.getElementById(id);
+		var guestjuso = document.getElementById(id2);
+		var guestphn = document.getElementById(id3);
 		if (v == "점주") {
-			document.getElementById(id).style.display = ""; //보여줌
-			document.getElementById(id2).style.display = "";
-			document.getElementById(id3).style.display = "";
-			var u_guestname = document.getElementById("u_guestname").value;
-			var uguestname = document.getElementById("uguestname");
-			var u_guestnum = document.getElementById("u_guestnum").value;
-			var uguestnum = document.getElementById("uguestnum");
-			if(u_guestname == "" || u_guestname == null){
-				uguestname.innerHTML = "<font color='red'>필수 정보입니다.</font>";
-			}else if(u_guestnum == "" || u_guestnum == null){
-				uguestnum.innerHTML = "<font color='red'>필수 정보입니다.</font>";
-			}
-			
+			guestname.style.display = ""; //보여줌
+			guestjuso.style.display = "";
+			guestphn.style.display = "";
 		} else {
-			document.getElementById(id).style.display = "none"; //숨김
-			document.getElementById(id2).style.display = "none";
-			document.getElementById(id3).style.display = "none";
+			guestname.style.display = "none"; //숨김
+			guestjuso.style.display = "none";
+			guestphn.style.display = "none";
 		}
 	}//radioCheck end
 	
@@ -232,7 +242,6 @@
 			uemail.innerHTML = "<font color='red'>필수 정보입니다.</font>";
 		}else{
 			uemail.innerHTML = "";
-			var emailcheck = /^([\S]{2,16})@([a-zA-Z]{2,10})\.([a-zA-Z]{2,10})$/;
 			if(emailcheck.test(u_email)){
 				uemail.innerHTML = "";	
 			}else{
@@ -373,6 +382,26 @@
 			return;
 		}//end
 		
+		//게스트하우스 이름 체크
+		function uguestnameCheck(){
+			var u_guestname = document.getElementById("u_guestname").value;
+			var uguestname = document.getElementById("uguestname");
+			
+			if(u_guestname == "" || u_guestname == null){
+				uguestname.innerHTML = "<font color='red'>필수 정보입니다.</font>";
+			}
+		}//end
+		
+		//게스트하우스 연락처 체크
+		function uguestnumCheck(){
+			var u_guestnum = document.getElementById("u_guestnum").value;
+			var uguestnum = document.getElementById("uguestnum");
+			
+			if(u_guestnum == "" || u_guestnum == null){
+				uguestnum.innerHTML = "<font color='red'>필수 정보입니다.</font>";
+			}
+		}//end
+		
 		
 		//점주 null체크
 		var u_member = myform.u_member.value;
@@ -406,8 +435,51 @@
 			alert("아이디 중복체크를 해주세요");
 			return;
 		}
+		alert("인증 메일이 발송되었습니다");
 		myform.submit();
 	}//insertCheck end
+	
+	function showImg(fileInput) {
+	    var files = fileInput.files;
+	    for (var i = 0; i < files.length; i++) {           
+	        var file = files[i];
+	        var imageType = /image.*/;     
+	        if (!file.type.match(imageType)) {
+	            alert("이미지 파일만 가능합니다.");
+	            return;
+	        }           
+	        var img=document.getElementById("thumb");            
+	        img.file = file;    
+	        var reader = new FileReader();
+	        reader.onload = (function(aImg) { 
+	            return function(e) { 
+	                aImg.src = e.target.result; 
+	            }; 
+	        })(img);
+	        reader.readAsDataURL(file);
+	    }    
+	}//이미지 썸네일 보여주기
+	
+	function eventOccur(evEle, evType){
+		if (evEle.fireEvent){
+			evEle.fireEvent('on' + evType);
+		} else {
+			var mouseEvent = document.createEvent('MouseEvents');
+			mouseEvent.initEvent(evType, true, false);
+			var transCheck = evEle.dispatchEvent(mouseEvent);
+			
+			if(!transCheck){
+			console.log("클릭 이벤트 발생 실패");
+			}
+		}
+		
+	}//이미지 업로드 버튼 클릭 이벤트
+	
+	function check(){
+		eventOccur(document.getElementById('upload_img'),'click');
+	}//클릭 이벤트
+	
+	
 </script>
 </head>
 <body id="page-top" style="margin-top:51px;">
@@ -427,30 +499,46 @@
 	
 	<div class="joinform">
 		<form action="m_insert.do" method="post" name="myform" onsubmit="insertCheck(); return false;" enctype="multipart/form-data">
-					<span>구분</span> <p>
-						<input type="radio" class="option-input radio" name="u_member" id="u_member" checked="checked" style="display:inline-flex;"
-							onclick="radioCheck(this.value,'name','juso','num');" value="일반회원" /> 
-						<span>일반회원</span>					
-						<input type="radio" class="option-input radio" name="u_member" id="u_member" style="display:inline-flex;"
-							onclick="radioCheck(this.value,'name','juso','num');" value="점주" />
-						<span>점주</span>
+				
+			<label>구분</label>
+					<div>
+						<input type="radio" class="option-input radio" name="u_member" id="u_member" checked="checked" style="display:inline-flex;"	onclick="radioCheck(this.value,'name','juso','num');" value="일반회원" /> 
+						일반회원			
+						<input type="radio" class="option-input radio" name="u_member" id="u_member" style="display:inline-flex;" onclick="radioCheck(this.value,'name','juso','num');" value="점주" />
+						점주
+					</div> <p> <br>
+				
+			<div style="float: left;">	
 				<div>
-					<span class="txt_name">아이디</span>
-					<input type="text" class="form-control" name="u_id" id="u_id" onkeyup="idCheck();" />
+					<label>아이디</label>
+					<input type="text" class="form-control" name="u_id" id="u_id" onkeyup="idCheck();"/>
 					<label id="uid"></label>
 				</div>
 				<div>
-					<span class="txt_name">비밀번호</span>
+					<label>비밀번호</label>
 					<input type="password" class="form-control" name="u_pwd" id="u_pwd" />
 					<label id="pwd"> </label>
+					
 				</div>
 				<div>
-					<span class="txt_name">비밀번호확인</span>
+					<label>비밀번호확인</label>
 					<input type="password" class="form-control" id="u_pwd2"onkeyup="pwdCheck();" />
 					<label id="pwd2"> </label>
 				</div>
+			</div>
+			
+			<div style="margin-left: 65%; margin-top: 5%;">
+			<input type="file" id="upload_img" name="upload_img" accept="image/*" onchange="showImg(this)"><p>
+					<img id="thumb" src="./image/default.png" class="img-circle">	<p>
+					
+					<button type="button" class="btn btn-default btn-sm" id="replace" onclick="check();" style="margin-left: 35px;">
+						<span class="glyphicon glyphicon-picture"></span> Picture
+					</button>	
+			
+			</div> <br> <p>
+		
 				<div>
-					<span class="txt_name">이름</span>
+					<label>이름</label>
 					<input type="text" class="form-control" name="u_name" id="u_name" onkeyup="nameCheck();"/>
 					<label id="uname"> </label>
 				</div>
@@ -461,7 +549,7 @@
 							<select class="form-control" id="month" name="month" style="margin-left:20px; margin-right:20px;" onkeyup="birthCheck();">
 									<option selected>월</option>
 									<c:forEach var="i" begin="0" end="${12-1}">
-										<c:set var="month" value="${12-i}" />
+										<c:set var="month" value="${12-i}"/>
 										<option value="${month}">${month}</option>
 									</c:forEach>
 							</select>
@@ -470,50 +558,48 @@
 						<label id="ubirth"></label>
 				</div>
 				<div>
-					<span class="txt_name">휴대전화</span>
+					<label>휴대전화</label>
 					<input type="text" class="form-control" name="u_phn" id="u_phn" placeholder="'-' 없이 입력하세요" onkeyup="phnCheck();">
 					<label id="uphn"> </label>
 				</div>
 				<div>
-					<span>성별</span> <p>	 
+					<label>성별</label><p>
 						<input type="radio" class="option-input radio" style="display:inline-flex;" name="u_gender" id="u_gender" value="남자" onkeyup="ugenderCheck();">
 						<span>남자</span>
 						<input type="radio" class="option-input radio" style="display:inline-flex;" name="u_gender" id="u_gender" value="여자">
 						<span>여자</span>
-						<label id="ugender"></label> <p>
-				</div>
+						<label id="ugender"></label>
+				</div><br>
+				
 				<div>
-					<span class="txt_name">본인 확인 이메일</span>
+					<label>본인 확인 이메일</label>
 					<input type="text" class="form-control" name="u_email"id="u_email" onkeyup="uemailCheck();">
 					<label id="uemail"> </label>
 				</div>
-				<div>
-					<input type="file" name="upload_img" />
-				</div>
+
 				<div id="name" style="display: none">
-					<span class="txt_name">게스트하우스 이름</span>
-					<input type="text" class="form-control" style="border: 0;" id="u_guestname" name="u_guestname">
+					<label>게스트하우스 이름</label>
+					<input type="text" class="form-control" id="u_guestname" name="u_guestname" onkeyup="uguestnameCheck();">
 					<label id="uguestname"></label>
 				</div>
 				<div id="juso" style="display: none"> 
-					<span class="txt_name">게스트하우스 주소</span><br>
+					<label>게스트하우스 주소</label>
 						<input type="text" class="form-control" id="u_postcode" name="u_postcode" readonly>
                         <input type="button" onclick="DaumPostcode()" value="우편번호"><br>
-                        <input type="text" class="form-control" id="u_guestjuso" name="u_guestjuso" readonly  style="margin-top: 10px;"><br>
-                        <input type="text" class="form-control" id="u_guestjuso1" name="u_guestjuso1"   style="margin-top: 10px;" placeholder="상세주소 입력하세요">
-				</div>
+                        <input type="text" class="form-control" id="u_guestjuso" name="u_guestjuso" readonly style="margin-top: 10px;"><br>
+                        <input type="text" class="form-control" id="u_guestjuso1" name="u_guestjuso1"  style="margin-top: 10px;" placeholder="상세주소 입력하세요">
+				</div><p><br>
+				
 				<div id="num" style="display: none"> 					
-					<span class="txt_name">게스스트하우스 연락처 </span> 
-					<input type="text" class="form-control" id="u_guestnum" name="u_guestnum" placeholder="'-' 없이 입력하세요">
+					<label>게스트하우스 연락처 </label>
+					<input type="text" class="form-control" id="u_guestnum" name="u_guestnum" placeholder="'-' 없이 입력하세요" onkeyup="uguestnumCheck();">
 					<label id="uguestnum"></label>
 				</div>
 				<div>
-					<input type="submit" class="btn btn-primary btn-md" style="height: 50px; width: 100%; margin-top: 20px;" value="가입하기">
+					<input type="submit" class="btn btn-primary btn-md" style="height: 50px; width: 100%; margin-top: 20px; font-size: 12pt; font-weight: bold;" value="가입하기">
 				</div>
 		</form>
 	</div>
-
-	<a href="m_list.do">[list]</a>
 
 </body>
 </html>

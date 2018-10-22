@@ -71,7 +71,7 @@
 		<tr align="right">
 			<td colspan="2">
 				<input type="button" class="btn btn-primary" value="목록으로" onclick="location.href='notice.do'"> &nbsp;&nbsp;
-					<c:if test="${checked eq 'admin'}">
+					<c:if test="${u_member eq '관리자'}">
 				<input type="button" class="btn btn-primary" value="수정" onclick="location.href='notice_preEdit.do?idx=${dto.n_no}'"> &nbsp;&nbsp;
 				<input type="button" class="btn btn-primary" value="삭제" onclick="delete_check(); return false;"> &nbsp;&nbsp;
 					</c:if>

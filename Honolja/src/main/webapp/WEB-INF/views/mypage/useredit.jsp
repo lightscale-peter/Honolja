@@ -16,7 +16,7 @@
 	    var files = fileInput.files;
 	    for (var i = 0; i < files.length; i++) {           
 	        var file = files[i];
-	        var imageType = /image.*/;     
+	        var imageType = /image.*/;
 	        if (!file.type.match(imageType)) {
 	            alert("이미지 파일만 가능합니다.");
 	            return;
@@ -45,23 +45,25 @@
 		
 	}
 	
-	 </script>
-	 <style type="text/css">
+</script>
+
+<style type="text/css">
 	
-.img-circle {
-	border-radius: 50%;
-	width: 150px;
-	height: 150px;
- }
+	.img-circle {
+		border-radius: 50%;
+		width: 150px;
+		height: 150px;
+ 	}
 
-#upload_img {  
-  display: none;
-}
+	#upload_img {  
+  		display: none;
+	}
 
-.txt_name {
+	.txt_name {
 		font-size: 10pt;
 		font-weight: bold;
-}
+	}
+	
 </style>
 
 <script type="text/javascript">

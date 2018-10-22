@@ -36,6 +36,10 @@ public class NoticeDTO {
 	public String getSval() {return sval;}
 	public void setSval(String sval) {this.sval = sval;}
 	
-
+	String u_member;
+	public String getU_member() {return u_member;}
+	public void setU_member(String u_member) {this.u_member = u_member;}
+	
+	
 	
 }//end
