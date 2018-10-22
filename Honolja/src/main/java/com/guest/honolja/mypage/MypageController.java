@@ -1,12 +1,16 @@
 package com.guest.honolja.mypage;
 
+import java.util.List;
 import java.io.File;
+<<<<<<< HEAD
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+=======
+import javax.servlet.ServletContext;
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,41 +35,46 @@ public class MypageController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	
+	//마이페이지 메뉴바
 	@RequestMapping("/mypage.do")
 	public String mypage() {
 		return "/mypage/mypage_menu";
 	}//mypage end
 	
+	//내가 쓴 글
 	@RequestMapping("/mypage_board.do")
 	public ModelAndView mypage_board(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String u_id = session.getAttribute("checked").toString();
+		String u_id = (String)session.getAttribute("checked");
 		List<BoardDTO> listB = dao.mypage_board(u_id);
 		mav.addObject("listB", listB);
 		mav.setViewName("/mypage/mypage_board");
 		return mav;
-	}//내가 쓴 글
+	}//end
 	
+	//찜 목록
 	@RequestMapping("/mypage_like.do")
 	public ModelAndView mypage_like(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String u_id = session.getAttribute("checked").toString();
+		String u_id = (String)session.getAttribute("checked");
 		List<ListDTO> listL = dao.mypage_like(u_id);
 		mav.addObject("listL", listL);
 		mav.setViewName("/mypage/mypage_like");
 		return mav;
-	}//찜
+	}//end
 	
+	//예약 현황
 	@RequestMapping("/mypage_rsvt.do")
 	public ModelAndView mypage_rsvt(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String u_id = session.getAttribute("checked").toString();
+		String u_id = (String)session.getAttribute("checked");
 		List<ReservationDTO> listRS = dao.mypage_rsvt(u_id);
 		mav.addObject("listRS", listRS);
 		mav.setViewName("/mypage/mypage_rsvt");
 		return mav;
-	}//예약
+	}//end
 	
+<<<<<<< HEAD
 
 	@RequestMapping("/rsvt_cancel.do")
 	public String rsvt_cancel(HttpServletRequest request) {
@@ -76,6 +85,9 @@ public class MypageController {
 	};
 	
 	//ȸ������
+=======
+	//회원정보
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	@RequestMapping("/mypageuser.do")
 	public ModelAndView mypageuser(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -88,7 +100,7 @@ public class MypageController {
 	}//end
 	
 
-	//ȸ������
+	//회占쏙옙占쏙옙占쏙옙
 	@RequestMapping("/useredit.do")
 	public ModelAndView useredit(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -99,6 +111,10 @@ public class MypageController {
 		return mav;
 	}//end
 	
+<<<<<<< HEAD
+=======
+	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	@RequestMapping("/usereditsave.do")
 	public String usereditsave(MemberDTO mto) {
 		  String path=application.getRealPath("/resources/upload");
@@ -108,6 +124,10 @@ public class MypageController {
 		  
 		  File file=new File(path, img);
 		  try{
+<<<<<<< HEAD
+=======
+		    //dto.getUpload_f().transferTo(file);//臾쇰━�쟻�씤 �뙆�씪濡� 蹂��솚
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			  FileCopyUtils.copy(mto.getUpload_img().getBytes(), file);
 		  }catch(Exception ex){ }
 		  mto.setU_img(img);		  
@@ -115,7 +135,12 @@ public class MypageController {
 		return "redirect:mypageuser.do";
 	}//end
 	
+<<<<<<< HEAD
 
+=======
+
+	//회占쏙옙탈占쏙옙
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	@RequestMapping("/mypageDelete.do")
 	public ModelAndView mypage_delete(HttpSession session) {
 		String u_id = session.getAttribute("checked").toString();
@@ -127,12 +152,12 @@ public class MypageController {
 		return mav;
 	}// end
 	
-	//ȸ��delete
+	//회占쏙옙delete
 	@RequestMapping("m_delete.do")
 	public String m_delete(HttpSession session, MemberDTO mto) {
 		mto.setU_id(session.getAttribute("checked").toString());
 		dao.m_delete(mto);
-		session.invalidate(); //���ǻ���
+		session.invalidate(); //占쏙옙占실삼옙占쏙옙
 		
 		return "redirect:main.do";
 	}//end

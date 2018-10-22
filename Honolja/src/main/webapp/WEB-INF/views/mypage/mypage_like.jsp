@@ -48,6 +48,7 @@
 	
 	<div>
   		<c:import url="http://localhost:8080/honolja/side_mypage.do">
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		</c:import>
 	</div>
 

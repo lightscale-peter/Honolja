@@ -63,7 +63,7 @@
 	<div style="height: 100px;"></div>
 	
 	<div>
-  		<c:import url="http://localhost:8080/honolja/side_mypage.do">
+  		<c:import url="http://localhost:8080/honolja/mypage.do">
 		</c:import>
 	</div>
 

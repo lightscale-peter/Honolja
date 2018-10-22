@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 <style type="text/css">
 	*{
 		font-size: 10pt;
@@ -101,6 +101,7 @@
 		border-color: #dadada;
 		padding: 7px 13px 10px;
 	}
+<<<<<<< HEAD
 		
 	.img-circle {
 		border-radius: 50%;
@@ -117,12 +118,30 @@
 		vertical-align:middle;
 	}
 	
+=======
+			
+	.img-circle {
+		border-radius: 50%;
+		width: 150px;
+		height: 150px;
+ 	}
+ 	
+ 	#upload_img {
+ 		display: none;
+ 	}
+ 	
+	#u_member, #u_gender {
+		margin: -25px 0 0 0; 
+		vertical-align:middle;
+	}
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	
 </style>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script type="text/javascript">
 
@@ -346,8 +365,9 @@
 		
 		if (u_id == "" || u_id == null) {
 			document.getElementById("u_id").focus();
+			$("#testmodal").modal("show");
 			uid.innerHTML = "<font color='red'>필수 정보입니다.</font>"
-			return;
+			return false;
 		} else if (u_pwd == "" || u_pwd == null) {
 			document.getElementById("u_pwd").focus();
 			pwd.innerHTML = "<font color='red'>필수 정보입니다.</font>"
@@ -596,10 +616,37 @@
 					<label id="uguestnum"></label>
 				</div>
 				<div>
+<<<<<<< HEAD
 					<input type="submit" class="btn btn-primary btn-md" style="height: 50px; width: 100%; margin-top: 20px; font-size: 12pt; font-weight: bold;" value="가입하기">
+=======
+					<input type="submit" class="btn btn-primary btn-md" style="height: 50px; width: 100%;  font-size: 12pt; font-weight: bold;" value="가입하기">
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 				</div>
 		</form>
 	</div>
+<<<<<<< HEAD
+=======
+	
+	<div class="modal" id="testmodal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Modal body text goes here.</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
 </body>
 </html>

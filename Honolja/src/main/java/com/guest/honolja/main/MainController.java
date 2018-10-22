@@ -1,37 +1,23 @@
 package com.guest.honolja.main;
 
 import java.net.HttpURLConnection;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.Buffer;
 import java.security.SecureRandom;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-import java.util.Vector;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
@@ -66,9 +50,12 @@ public class MainController {
 	}
 	
 	@RequestMapping("/main.do")
-	public ModelAndView main_page(HttpServletRequest request) {
+	public ModelAndView main_page(HttpServletRequest request, HttpSession session) {
+		String uid = (String)session.getAttribute("checked");
+		String u_member = dao.membercheck(uid);
 		
 		ModelAndView mav = new ModelAndView();
+			mav.addObject("u_member", u_member);
 			mav.setViewName("/main/main");
 		
 		
@@ -172,37 +159,45 @@ public class MainController {
 			              obj = new JSONObject(temp);
 			              
 			              String u_id = obj.getJSONObject("response").getString("id");
-			              String u_img = obj.getJSONObject("response").getString("profile_image");
+			              String u_img = "";
 			              String u_gender = obj.getJSONObject("response").getString("gender");
 			              String u_email = obj.getJSONObject("response").getString("email");
 			              String u_name = obj.getJSONObject("response").getString("name");
 			              String u_birth = obj.getJSONObject("response").getString("birthday");
+			              	
+			              if(u_gender.equals("³²ÀÚ")) {
+			            	  u_img = "boy.jpg";  
+			              }else {
+			            	  u_img = "girl.jpg";
+			              }
        
 			              //progress, if Id is not in users table
 			              if(dao.dbSelectIdCheck(u_id) == 0) {
-
-			              MainDTO dto = new MainDTO();
-			              	dto.setU_id(u_id);
-			              	dto.setU_img(u_img);
-			              	dto.setU_gender(u_gender);
-			              	dto.setU_email(u_email);
-			              	dto.setU_name(u_name);
-			              	dto.setU_birth(u_birth);
+			            	  session.setAttribute("checked", u_id);
+			            	  
+			            	  MainDTO dto = new MainDTO();
+				              	dto.setU_id(u_id);
+				              	dto.setU_img(u_img);
+				              	dto.setU_gender(u_gender);
+				              	dto.setU_email(u_email);
+				              	dto.setU_name(u_name);
+				              	dto.setU_birth(u_birth);
 			              	  	
-			              dao.dbInsertUsersInfo(dto);
-			              System.out.println("users Info insert success!!");
+				              dao.dbInsertUsersInfo(dto);
+				              System.out.println("users Info insert success!!");
 			              
-//			              System.out.println("u_id " + u_id);
-//			              System.out.println("u_img " + u_img);
-//			              System.out.println("u_gender " + u_gender);
-//			              System.out.println("u_email " + u_email);
-//			              System.out.println("u_name " + u_name);
-//			              System.out.println("u_birth " + u_birth);
-			              
-			              mav.addObject("u_id", u_id);
-			              	
+				              System.out.println("u_id " + u_id);
+				              System.out.println("u_img " + u_img);
+				              System.out.println("u_gender " + u_gender);
+				              System.out.println("u_email " + u_email);
+				              System.out.println("u_name " + u_name);
+				              System.out.println("u_birth " + u_birth);
+				              
+				              mav.addObject("u_id", u_id);
+				              	
 			              }else {
 			            	  System.out.println("user Id already exist!!");
+			            	  session.setAttribute("checked", u_id);
 			              }
 			          } catch (Exception e) {
 			              System.out.println(e);
@@ -233,13 +228,8 @@ public class MainController {
 		if(request.getParameter("u_pwd") != null) {
 			u_pwd = Integer.parseInt(request.getParameter("u_pwd"));
 		}
-		
-		
 		String host =  request.getParameter("host");
-
-		
 		int idCheck = 0;
-
 		
 		HttpSession session = request.getSession();
 		
@@ -306,6 +296,7 @@ public class MainController {
 	    apiURL += "&client_id=" + clientId;
 	    apiURL += "&redirect_uri=" + redirectURI;
 	    apiURL += "&state=" + state;
+	    System.out.println("apiURL =  " + apiURL);
 	    
 	    model.addAttribute("checked", state);
 	    //session.setAttribute("state", state);
@@ -319,10 +310,8 @@ public class MainController {
 	
 	@RequestMapping("/header.do")
 	public ModelAndView common_header() {
-
 		ModelAndView mav = new ModelAndView();
 			mav.setViewName("/main/header");
-
 		return mav;		
 	}
 	
@@ -371,18 +360,4 @@ public class MainController {
 			
 		return mav;
 	}
-	
-	
-	@RequestMapping("/test.do")
-	public ModelAndView main_test(HttpServletRequest request) {
-		
-		
-
-		ModelAndView mav = new ModelAndView();
-			mav.setViewName("redirect:m_join.do");
-			mav.addObject("test", "class='active'");
-			
-		return mav;
-	}
-	
 }

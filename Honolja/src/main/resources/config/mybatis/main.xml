@@ -25,5 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectIdCheck" parameterType="String" resultType="int">
 		select count(*) from users where u_id like '%' || #{u_id} || '%'
 	</select>
-
+	
+	<select id="membercheck" parameterType="String" resultType="String">
+		select u_member from users where u_id = #{u_id}
+	</select>
 </mapper>

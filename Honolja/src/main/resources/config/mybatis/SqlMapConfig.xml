@@ -39,6 +39,7 @@
 		<mapper resource="config/mybatis/firstList.xml" />
 		<mapper resource="config/mybatis/detail.xml" />
 		<mapper resource="config/mybatis/review.xml" />
+		<mapper resource="config/mybatis/boardreply.xml"/>
 		<mapper resource="config/mybatis/notice.xml" />
 		<mapper resource="config/mybatis/message.xml" />
 		<mapper resource="config/mybatis/reservation.xml" />

@@ -51,6 +51,7 @@
 			</thead>
 			
 			<tbody>
+<<<<<<< HEAD
 			 <c:forEach items="${dto}" var="list">
  <tr align="center">
 	<td>${reversecnt=reversecnt-1}</td>
@@ -61,15 +62,38 @@
  	<td>${list.n_viewcnt}</td>
  </tr>
  </c:forEach>
+=======
+
+			
+  
+  <c:forEach items="${list}" var="list">
+ <tr align="center">
+	<td>[공지]</td>
+ 	<td><a href="notice_detail.do?idx=${list.n_no}">${list.n_title}</a></td>
+ 	<td><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><font color="black">${list.u_id}</font></a></td>
+ 	<td><fmt:parseDate value="${list.n_date}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
+      <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/></td>
+ 	<td>${list.n_viewcnt}</td>
+ </tr>
+ </c:forEach>
+			
+			
+			<tbody>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 				<c:forEach var="dto" items="${LB}" varStatus="status">
 				
 						<tr align="center">
 							<td width="10%">${(Gtotal-status.index)-((pageNUM-1) * 7)}</td>
+<<<<<<< HEAD
 							<td width="50%"><a href="boarddetail.do?idx=${dto.b_no}">${dto.b_title}</a> 
+=======
+							<td width="50%"><a href="boarddetail.do?idx=${dto.b_no}"><font color="black">${dto.b_title}</font></a> 
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 							<font color="#ff0000">[${dto.cnt}]</font> 
-							<c:if test="${dto.b_originalfilename != null }"><i class="glyphicon glyphicon-picture"></i> </c:if> </td> 
-							<td width="10%">${dto.u_id}</td>
-							<td width="20%"> ${dto.b_date} </td>
+							<c:if test="${dto.b_originalfilename != null }">	<li class="glyphicon glyphicon-picture"></li></c:if> </td>
+							<td width="10%"><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><font color="black">${dto.u_id}</font></a></td>
+					 		<td width="20%">
+      <fmt:formatDate value="${dto.b_date}" pattern="yyyy-MM-dd HH:mm"/></td>
 							<td width="10%">${dto.b_viewcnt}</td>
 						</tr>
 				</c:forEach>
@@ -120,11 +144,20 @@
 					</td>
 				</tr>
 			</table>
-		</div>
 			
+<<<<<<< HEAD
 		<div class="foot" style="position:absolute; bottom:00%; width:100% margin-top:51px;">
 			<c:import url="http://localhost:8080/honolja/footer.do" /> 
+=======
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		</div>
 	
+<<<<<<< HEAD
+=======
+<div class="foot" style="position:absolute; bottom:0%; width:100%; ">
+	<c:import url="http://localhost:8080/honolja/footer.do"/>
+</div>
+	
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </body>
 </html>

@@ -462,6 +462,7 @@
 		<c:param name="checked" value="${checked}"></c:param>
 		<c:param name="access_token" value="${access_token}"></c:param>
 		<c:param name="host" value="main.do"></c:param>
+		<c:param name="u_member" value="${u_member}" />
 	</c:import>
 	
 	<!-- Modal(== alert) 기능 구현 시 필요 -->

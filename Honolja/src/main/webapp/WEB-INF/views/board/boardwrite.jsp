@@ -19,7 +19,7 @@
  	<script type="text/javascript">
 	  function check( ){
 		  var title=myform.b_title.value;
-		  var content=myform.b_content.value;
+		  var content=CKEDITOR.instances.b_content.getData();
 		 
 			if (title == "" || title == null) {
 				alert("제목을 입력해주세요.");  
@@ -35,10 +35,9 @@
 	  }
 	  </script>
 	  
-
-	  
 </head>
 <body id="page-top" style="margin-top:51px;" >
+
 	<c:import url="http://localhost:8080/honolja/header.do">
 		<c:param name="checked" value="${checked}" />
 		<c:param name="host" value="main.do" />
@@ -46,7 +45,7 @@
 
 	<div class="container">
 		<div id="content-categories">
-			<h3> <font color=blue></font>새 글쓰기</h3>
+			<h3>  <a href="board.do">새 글쓰기</a></h3>
 		</div>
 	
 		<form action="boardinsert.do" name="myform" method="post" enctype="multipart/form-data" id="fileform" onsubmit="check(); return false;">
@@ -56,18 +55,18 @@
 				 <label for="comment">내용:</label>
 				<textarea name="b_content" class="form-control" rows="10" id="b_content" placeholder="내용을 입력하세요." class="ckeditor"></textarea>
 					<script type="text/javascript">
-    					CKEDITOR.replace('b_content', {height: 500});
+    					CKEDITOR.replace('b_content', {height: 400});
 					</script>					
 			<div id="fileDiv">
-				  <span style="float: right"> 	<input type="submit" class="btn btn-primary" value="확인"> </span>
+				  <span style="float: right"> 
+				  <input type="button" onclick="location.href='board.do'" value="목록으로"  class="btn btn-primary"> 
+				  	<input type="submit" class="btn btn-primary" value="확인"> </span>
 				첨부파일 :	<input class="multi" type="file" name="b_uploadfilename2" multiple="multiple"> 
 			</div>
 		</form>
 	</div>
 
-<div class="foot" style="position:absolute; bottom:0; width:100%">
-<c:import url="http://localhost:8080/honolja/footer.do" />
-</div>
+
 
 </body>
 </html> 

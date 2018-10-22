@@ -16,7 +16,7 @@
  	<script type="text/javascript">
 	  function check( ){
 		  var title=myform.b_title.value;
-		  var content=myform.b_content.value;
+		  var content=CKEDITOR.instances.b_content.getData();
 		 
 			if (title == "" || title == null) {
 				alert("제목을 입력해주세요.");  
@@ -30,6 +30,7 @@
 			}
 			document.myform.submit(); 
 	  }
+	  
 	  </script>
 	  
 </head>
@@ -45,18 +46,21 @@
 			onsubmit="check(); return false;">
 			<div class="form-group">
 				<label for="usr">제목 :</label> 
-				<input type="text" name="b_title" class="form-control" id="usr" placeholder="제목을 입력하세요." value="${dto.b_title}">
+				<input type="text" name="b_title" class="form-control" id="b_title" placeholder="제목을 입력하세요." value="${dto.b_title}">
 				<br> <label for="comment">내용:</label>
-				<textarea name="b_content" class="form-control" rows="10" id="b_content" placeholder="내용을 입력하세요." class="ckeditor">${dto.b_content}</textarea>
+				<textarea name="b_content" class="form-control" rows="10" id="b_content" placeholder="내용을 입력하세요." class="ckeditor" >${dto.b_content} </textarea>
 					<script type="text/javascript">
-    					CKEDITOR.replace('b_content', {height: 500});
+					CKEDITOR.replace('b_content', {height: 400});
 					</script>	
 			</div>
 			<div id="fileDiv">
 				<p>
 					<input class="multi" type="file" name="b_uploadfilename2" multiple="multiple">
 				</p>
-				<span style="float: right"> <input type="submit" class="btn btn-primary" value="확인"> </span>
+				<span style="float: right">
+				  <input type="button" onclick="location.href='board.do'" value="목록으로"  class="btn btn-primary"> 
+				 <input type="submit" class="btn btn-primary" value="확인"> 
+				 </span>
 			<c:if test="${dto.b_originalfilename  != null }">
 				<img src='${pageContext.request.contextPath}/resources/bupload/${img}' width=100 height=100 border=0> <br> ${dto.b_originalfilename}
 			</c:if>
@@ -67,32 +71,10 @@
 		</form>
 	</div>
 
-<<<<<<< HEAD
 		 <br> 
 		<p>
 		
-<div class="foot" style="position:absolute; bottom:0; width:100%">
-	<c:import url="http://localhost:8080/honolja/footer.do" />
-</div>
-=======
-</script>
-<body>
-  <h2><a href="board.do">게시판</a></h2>
-<label>제목</label>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
-<<<<<<< HEAD
-=======
-    <form action="boardupdate.do" method="post"  >
-  <input type="hidden" name="u_id" value="${dto.u_id}">  회원님 아이디:  ${dto.u_id} <br>
-   <input type="hidden" name="b_no" value="${dto.b_no}"> 
-   <input type="text"  name="b_title" value="${dto.b_title}">
-       <p>
-  
-        <textarea name="b_content" style="width: 700px; height: 400px;">${dto.b_content}</textarea>
-        <input type="submit" value="수정" />
-    </form>
- <!--   <a href="board.do">board.jsp</a> -->
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
+
 </body>
 </html>
