@@ -607,7 +607,7 @@ a:visited {color: #212121;text-decoration: none;}
     		href="guestdetail.do?g_no=${list.g_no}&adult=${param.adult}&child=${param.child}&check_in=${check_in}&check_out=${check_out}&nights=${param.nights}"
     		target="_blank"><!-- style="text-decoration: none;" -->
 
-    		${list.g_name}${list.avgs}</a>
+    		${list.g_name}</a>
     	<!-- 좋아요 시작 -->
     	<span id="like_${i.index}">
 	    	<c:choose>

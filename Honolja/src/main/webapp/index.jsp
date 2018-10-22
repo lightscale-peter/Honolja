@@ -11,6 +11,7 @@
 	</script>
 </head>
 <body>
+
 	<!-- index.jsp -->
 	<div align="center">
 		<font size=7 color=blue family="Comic Sans MS">
