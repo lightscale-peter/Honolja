@@ -24,7 +24,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="./resources/js/detail.js"></script>
 
-<link rel="stylesheet" href="./resources/css/detail.css"/>
+<link rel="stylesheet" href="./resources/css/detail.css" />
 </head>
 <body>
 	<div class="container-fluid">
@@ -122,14 +122,15 @@
 						</div>
 						<div class="btn-group pull-right">
 							<button type="submit" class="btn btn-info" role="button"
-								onclick="modify(${review.re_no})">확인</button>
+								data-toggle="modal" onclick="modify(${review.re_no})">확인</button>
 							<button type="button" class="btn btn-secondary" role="button"
-								onclick="review(${review.g_no})">취소</button>
+								data-toggle="modal" onclick="review(${review.g_no})">취소</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
+	<c:import url="detailModal.jsp"></c:import>
 </body>
 </html>

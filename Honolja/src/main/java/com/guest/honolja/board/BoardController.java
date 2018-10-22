@@ -1,7 +1,6 @@
 package com.guest.honolja.board;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.guest.honolja.notice.NoticeDAO;
 import com.guest.honolja.notice.NoticeDTO;
 
 @Controller
@@ -26,6 +26,9 @@ public class BoardController {
 	@Autowired
 	@Inject
 	BoardDAO dao;
+
+	@Autowired
+	NoticeDAO dao2;
 	
 	@Autowired
 	ServletContext application;
@@ -51,11 +54,12 @@ public class BoardController {
 		if(pnum==null || pnum=="") {pnum="1";} //비어있으면1p
 		else{pageNUM=Integer.parseInt(pnum);}
 
-		start=((pageNUM-1)*10)+1; //if(5 -> 41
-		end=pageNUM*10;              //~50
-		temp=(pageNUM-1)%10;    //if 5 == temp===4
+		start=((pageNUM-1)*7)+1; //if(5 -> 41
+		end=pageNUM*7;              //~50
+		temp=(pageNUM-1)%7;    //if 5 == temp===4
 		startpage=pageNUM-temp;    //1페이지
-		endpage=startpage+9;         //10페이지
+		endpage=startpage+6;         //10페이지
+		
 		
 		int Gtotal=dao.dbCount(skey,sval);//카운트-전체값
 
@@ -65,9 +69,17 @@ public class BoardController {
 		if(endpage>pagecount) {endpage=pagecount;}
 		
 		List<BoardDTO> LB=dao.dbSelect(start,end,skey,sval);
-		List<NoticeDTO> list = dao.db_select();
 		
-		mav.addObject("list",list);
+		System.out.println(start);
+		System.out.println(end);
+		System.out.println(skey);
+		System.out.println(sval);
+		
+		List<NoticeDTO> nto=dao2.dbsel();
+		System.out.println("test");
+		//List<NoticeDTO> nto=dao.dbsel();
+		
+		mav.addObject("list",nto);
 		mav.addObject("pagecount",pagecount);
 		mav.addObject("LB",LB);
 		mav.addObject("Gtotal", Gtotal);
@@ -82,8 +94,14 @@ public class BoardController {
 	}//board_list end
 
 	@RequestMapping("/boardwrite.do") //게시글 작성 JSP
-	public String board_write() {
-		return "/board/boardwrite";
+	public ModelAndView board_write(HttpSession session) {
+		ModelAndView mav=new ModelAndView();
+		BoardDTO dto=new BoardDTO();
+		String u_id = (String)session.getAttribute("checked");
+		dto.setU_id(u_id);
+		mav.addObject("dto",dto);
+		mav.setViewName("/board/boardwrite");
+		return mav;
 	}
 	
 	@RequestMapping("/boardinsert.do")	//게시글 Insert
@@ -103,7 +121,9 @@ public class BoardController {
 		} catch (Exception e) {e.printStackTrace(); }
 		dto.setB_originalfilename(img);
 		dao.dbInsert(dto);
-		return "redirect:/board.do";
+		int num=dao.dbSelect();
+		System.out.println("zzzzzzzzzzz"+ num);
+		return "redirect:/boarddetail.do?idx=" +num;
 	}//board_insert end
 	
 	@RequestMapping("/boarddetail.do")	//게시글 상세정보

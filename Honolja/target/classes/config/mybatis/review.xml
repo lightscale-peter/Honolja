@@ -9,15 +9,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			r.hobby_idx from hobby h inner join hobby_reply r on h.hobby_idx = r.hobby_idx 
 			and r.hobby_idx = #{h.hobby_idx} order by rrn -->
 		<!-- select * from review where g_no = #{g_no} order by re_no desc -->
-		select * from review where g_no = #{g_no} order by re_no desc
-
+		select r.*,(select count(*) from answer where re_no =
+		r.re_no)
+		as
+		ansCnt
+		from review r where
+		r.g_no
+		=
+		#{g_no}
 	</select>
 
 	<select id="answerView" parameterType="int"
 		resultType="com.guest.honolja.review.ReviewDTO">
-		<!-- select r.re_no, r.re_title, r.re_content, r.re_score, r.re_date, r.i_name, 
-			r.re_img, r.u_id, r.g_no, a.a_no, a.u_guestname, a.a_content, a.a_date, a.re_no 
-			from review r inner join answer a on r.re_no = a.re_no and r.g_no = #{g_no} -->
 		select * from answer where re_no = #{re_no}
 	</select>
 
@@ -71,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<delete id="answerDel" parameterType="int">
 		delete from answer where
-		a_no =
+		re_no =
 		#{re_no}
 	</delete>
 </mapper>

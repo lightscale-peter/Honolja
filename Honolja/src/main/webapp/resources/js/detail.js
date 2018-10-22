@@ -10,7 +10,6 @@ function review(g_no) {
 			g_no : g_no
 		},
 		success : function(data) { // 서버에 대한 정상응답이 오면 실행, callback
-			$("#review").tab("show");
 			$("#reviews").html(data);
 		},
 		error : function(request, status, error) {
@@ -26,14 +25,14 @@ function reviewBtn(g_no) {
 			|| $.trim($("#re_content").val()) == null) {
 		$(".modal-title1").html("확인");
 		$(".modal-body1").html("댓글 내용을 입력해 주세요.");
-		$("#messageModal").modal("show");
+		$("#myModal").modal('show');
 		return false;
 	}
 
 	if ($("re_score").val() == null && $("re_score").val() == "") {
 		$(".modal-title1").html("확인");
 		$(".modal-body1").html("별점을 선택해 주세요.");
-		$("#messageModal").modal("show");
+		$("#myModal").modal('show');
 		return false;
 	}
 
@@ -44,11 +43,10 @@ function reviewBtn(g_no) {
 		type : 'post',
 		data : dataForm,
 		success : function(data) { // 서버에 대한 정상응답이 오면 실행, callback
+			$("#reviews").html(data);
 			$("#modal_title").html("확인");
 			$("#modal_body").html("저장 되었습니다.");
-			$("#ignismyModal").modal("show");
-			$("#review").tab("show");
-			$("#reviews").html(data);
+			$('#ignismyModal').modal('show');
 		},
 		error : function(request, status, error) {
 			alert("code:" + request.status + "\n" + "message:"
@@ -57,27 +55,25 @@ function reviewBtn(g_no) {
 	})
 }
 
-function remove(re_no) {
+function remove(re_no, g_no) {
 
 	$.ajax({
 		url : 'reviewDel.do',
 		type : 'post',
 		data : {
 			re_no : re_no,
+			g_no : g_no
 		},
 		success : function(data) {
-			if(data == "true") {
-				$("#modal_title").html("확인");
-				$("#modal_body").html("삭제 되었습니다.");
-				$("#ignismyModal").modal("show");
-				$("#review").tab("show");
-				$("reviewModify_" + re_no).hide();
-			}
+			$("#reviews").html(data);
+			$("#modal_title").html("확인");
+			$("#modal_body").html("삭제 되었습니다.");
+			$('#ignismyModal').modal('show');
 		}
 	})
 }
 
-function premodify(re_no) {
+function premodify(re_no, g_no) {
 
 	if (confirm("수정 하시겠습니까??")) {
 
@@ -85,7 +81,8 @@ function premodify(re_no) {
 			url : 'reviewPremod.do',
 			type : 'post',
 			data : {
-				re_no : re_no
+				re_no : re_no,
+				g_no : g_no
 			},
 			success : function(data) {
 				$("#reviewModify_" + re_no).html(data);
@@ -110,8 +107,7 @@ function modify(re_no) {
 		success : function(data) {
 			$("#modal_title").html("확인");
 			$("#modal_body").html("저장 되었습니다.");
-			$("#ignismyModal").modal("show");
-			$("#review").tab("show");
+			$('#ignismyModal').modal('show');
 			$("#reviews").html(data);
 			$("#reviewModify_"+ re_no).focus();
 		},
@@ -162,7 +158,7 @@ function answerAdd(re_no) {
 			$("#view_" + re_no).focus();
 			$("#modal_title").html("확인");
 			$("#modal_body").html("저장 되었습니다.");
-			$("#ignismyModal").modal("show");
+			$('#ignismyModal').modal('show');
 		},
 		error : function(request, status, error) {
 			alert("code:" + request.status + "\n" + "message:"
@@ -201,22 +197,25 @@ function modifyClose(re_no) {
 	$('#reviewModify_' + re_no).focus();
 }
 
-function answerDel(a_no, re_no) {
+function answerDel(a_no, re_no, g_no) {
 
 	$.ajax({
 		url : 'answerDel.do',
 		type : 'post',
 		data : {
 			a_no : a_no,
-			re_no : re_no
+			re_no : re_no,
+			g_no : g_no
 		},
 		success : function(data) {
-			if(data == "true") {
+				
 				$("#view_" + re_no).hide();
+				$("#reviews").html(data);
+				$('#reviewModify_' + re_no).focus();
 				$("#modal_title").html("확인");
 				$("#modal_body").html("삭제 되었습니다.");
-				$("#ignismyModal").modal("show");
-			}
+				$('#ignismyModal').modal('show');
+
 		},
 		error : function(request, status, error) {
 			alert("code:" + request.status + "\n" + "message:"
@@ -256,7 +255,9 @@ function reservation(r_no, nights, g_no) {
 			if(data == 'true') {
 				location.href = 'reservationPre.do?r_no=' + r_no +'&adult=' + adult + '&child=' + child + '&check_in=' + check_in + '&check_out=' + check_out + '&nights=' + nights;
 			} else {
-				alert("수용인원이 초과되었습니다.");
+				$("#modal_title").html("확인");
+				$("#modal_body").html("인원초과 되었습니다.");
+				$('#ignismyModal').modal('show');
 			}
 		},
 		error : function(request, status, error) {

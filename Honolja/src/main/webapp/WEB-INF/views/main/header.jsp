@@ -8,6 +8,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 	<link href="./resources/css/header.css" type="text/css" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -111,26 +112,28 @@
 				<c:choose>
 					<c:when test="${param.checked == '' || param.checked == null}">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="m_join.do"><span class="glyphicon glyphicon-user"></span>&nbsp;회원가입</a></li>
+							<li><a href="m_agree.do"><span class="glyphicon glyphicon-user"></span>&nbsp;회원가입</a></li>
 							<li onclick="popupWindow('login_popup.do?host=${param.host}', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그인</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
 
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="mypageuser.do?u_id=${param.checked}"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
+							<c:if test="${param.u_member == '관리자'}">
+								<li><a href="m_list.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
+							</c:if>
+							<li><a href="mypageuser.do"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>
 					</c:otherwise>
 				</c:choose>
-
 			</div>
 					</nav>
 
 	</div>
 	
 			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id"
-			 style="display: none; background-color:white; border:1px solid #D5D5D5; span-color:red;"> 
+			 style="display: none; background-color:white; border:1px solid #D5D5D5; span-color:red; "> 
 			<div class="layer-search-option layer-area-list">
 			
 			<ul class="area-list">

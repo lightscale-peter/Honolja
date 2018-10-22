@@ -1,9 +1,11 @@
 package com.guest.honolja.mypage;
 
-import java.io.File;
 import java.util.List;
+import java.io.File;
+
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -30,42 +32,56 @@ public class MypageController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	
+	//마이페이지 메뉴바
 	@RequestMapping("/mypage.do")
 	public String mypage() {
 		return "/mypage/mypage_menu";
 	}//mypage end
 	
+	//내가 쓴 글
 	@RequestMapping("/mypage_board.do")
 	public ModelAndView mypage_board(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String u_id = session.getAttribute("checked").toString();
+		String u_id = (String)session.getAttribute("checked");
 		List<BoardDTO> listB = dao.mypage_board(u_id);
 		mav.addObject("listB", listB);
 		mav.setViewName("/mypage/mypage_board");
 		return mav;
-	}//내가 쓴 글
+	}//end
 	
+	//찜 목록
 	@RequestMapping("/mypage_like.do")
 	public ModelAndView mypage_like(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String u_id = session.getAttribute("checked").toString();
+		String u_id = (String)session.getAttribute("checked");
 		List<ListDTO> listL = dao.mypage_like(u_id);
 		mav.addObject("listL", listL);
 		mav.setViewName("/mypage/mypage_like");
 		return mav;
-	}//찜
+	}//end
 	
+	//예약 현황
 	@RequestMapping("/mypage_rsvt.do")
 	public ModelAndView mypage_rsvt(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String u_id = session.getAttribute("checked").toString();
+		String u_id = (String)session.getAttribute("checked");
 		List<ReservationDTO> listRS = dao.mypage_rsvt(u_id);
 		mav.addObject("listRS", listRS);
 		mav.setViewName("/mypage/mypage_rsvt");
 		return mav;
-	}//예약
+	}//end
 	
-	//ȸ������
+	@RequestMapping("/rsvt_cancel.do")
+	public String rsvt_cancel(HttpServletRequest request) {
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		System.out.println("idx = " + idx);
+		dao.rsvt_cancel(idx);
+		return "redirect:/mypage_rsvt.do";
+	};
+	
+
+	//회원정보
+
 	@RequestMapping("/mypageuser.do")
 	public ModelAndView mypageuser(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -77,8 +93,6 @@ public class MypageController {
 		return mav;
 	}//end
 	
-
-	//ȸ������
 	@RequestMapping("/useredit.do")
 	public ModelAndView useredit(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -89,7 +103,7 @@ public class MypageController {
 		return mav;
 	}//end
 	
-	//ȸ������ ����
+	
 	@RequestMapping("/usereditsave.do")
 	public String usereditsave(MemberDTO mto) {
 		  String path=application.getRealPath("/resources/upload");
@@ -99,7 +113,6 @@ public class MypageController {
 		  
 		  File file=new File(path, img);
 		  try{
-		    //dto.getUpload_f().transferTo(file);//물리적인 파일로 변환
 			  FileCopyUtils.copy(mto.getUpload_img().getBytes(), file);
 		  }catch(Exception ex){ }
 		  mto.setU_img(img);		  
@@ -107,8 +120,6 @@ public class MypageController {
 		return "redirect:mypageuser.do";
 	}//end
 	
-
-	//ȸ��Ż��
 	@RequestMapping("/mypageDelete.do")
 	public ModelAndView mypage_delete(HttpSession session) {
 		String u_id = session.getAttribute("checked").toString();
@@ -120,12 +131,11 @@ public class MypageController {
 		return mav;
 	}// end
 	
-	//ȸ��delete
 	@RequestMapping("m_delete.do")
 	public String m_delete(HttpSession session, MemberDTO mto) {
 		mto.setU_id(session.getAttribute("checked").toString());
 		dao.m_delete(mto);
-		session.invalidate(); //���ǻ���
+		session.invalidate(); //占쏙옙占실삼옙占쏙옙
 		
 		return "redirect:main.do";
 	}//end

@@ -37,8 +37,20 @@
 	
 	<div class="container">
 		<h2> <a href="board.do">자유게시판</a> </h2>
+
+
+		<div id='cssmenu'>
+			<ul>
+				<li class='active has-sub'><b>Writer:</b>
+				<a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))">
+						<span>${dto.u_id}</span><span class="glyphicon glyphicon-envelope"></span>
+				</a></li>
+			</ul>
+		</div>
+
 		<form>
 			<div class="form-group">
+			
 				<label for="usr">제목:</label>
 				 <input type="text" class="form-control" id="usr" readonly="readonly" value="${dto.b_title}"> <br>
 				  <label for="comment">내용:</label>
@@ -52,6 +64,8 @@
 							<script type="text/javascript">
     							CKEDITOR.replace('b_content', {height: 400});
 							</script>	
+	
+							
 			</div>
 		</form>
 		  <span style="float: right"> 
@@ -65,8 +79,11 @@
 		
 		<c:import url="/boardreply.do" />
 	</div>
-
-
+	
+<div style="height: 150px"></div>
+		<div class="foot" style="position:relative; bottom:0%; width:100%">
+			<c:import url="http://localhost:8080/honolja/footer.do" /> 
+		</div>
 
 
 

@@ -1,6 +1,11 @@
 <<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+=======
+<<<<<<< HEAD
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,26 +49,20 @@
 	 	 bottom: 0;
 	 	 width: 100%;
 	 }
-
-	table, td, th {    
-		border: 0;
-		text-align: center;
-	}
-
-	table {
-		border-collapse: collapse;
-		width: 100%;
-	}
-	
-	td {
-		height: 100px;
-	}
-
 	 
 </style>
 
 </head>
+<<<<<<< HEAD
+<body id="page-top" style="margin-top:51px;">
+	<c:import url="http://localhost:8080/honolja/header.do">
+		<c:param name="checked" value="${checked}"></c:param>
+		<c:param name="host" value="main.do"></c:param>
+	</c:import>
+	<jsp:include page="mypage_menu.jsp" />
+=======
 <body>
+>>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
 	<c:import url="http://localhost:8080/honolja/header.do">
 		<c:param name="checked" value="${checked}"></c:param>
@@ -77,22 +76,21 @@
 		</c:import>
 	</div>
 
-<div class="container">
+<div align="center">
 	<form name="myform" action="m_delete.do" onsubmit="deleteCheck(); return false;">
-		<table>
-			<tr>
-				<td>
-					비밀번호 :
-					<input type="password" id="u_pwd" name="u_pwd">
-					<input type="hidden" id="u_pwd2" value="${u_pwd}">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="submit" class="btn" value="회원탈퇴">
-				</td>
-			</tr>
-		</table>
+
+	<div style="width: 100px; float: left; margin-left: 40%; font-size: 16pt; font-weight: bold;">비밀번호 </div>
+	
+	<div style="width: 200px; float: left;">
+		<input type="password" id="u_pwd" name="u_pwd" class="form-control">
+		<input type="hidden" id="u_pwd2" value="${u_pwd}">
+	</div>
+	
+	<div style="height: 70px;"></div>
+	
+	<div>
+		<input type="submit" class="btn" value="회원탈퇴">
+	</div>
 		
 	</form>
 </div>

@@ -47,10 +47,14 @@ public class ReviewController {
 
 	@RequestMapping("/reviewDel.do")
 	@ResponseBody
-	public String guest_reviewDel(ReviewDTO dto) {
-		String result = "true";
+	public ModelAndView guest_reviewDel(ReviewDTO dto) {
+		ModelAndView mav = new ModelAndView();
 		dao.dbreviewDel(dto.getRe_no());
-		return result;
+		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
+		mav.addObject("g_no", dto.getG_no());
+		mav.addObject("review", review);
+		mav.setViewName("/detail/guestReview");
+		return mav;
 	}
 
 	@RequestMapping("/reviewPremod.do")
@@ -114,9 +118,14 @@ public class ReviewController {
 
 	@RequestMapping("/answerDel.do")
 	@ResponseBody
-	public String guest_answerDel(ReviewDTO dto) {
-		String result = "true";
+	public ModelAndView guest_answerDel(ReviewDTO dto) {
+		ModelAndView mav = new ModelAndView();
 		dao.dbanswerDel(dto.getRe_no());
-		return result;
+		List<ReviewDTO> review = dao.dbreviewSelect(dto.getG_no());
+		mav.addObject("re_no", dto.getRe_no());
+		mav.addObject("g_no", dto.getG_no());
+		mav.addObject("review", review);
+		mav.setViewName("/detail/guestReview");
+		return mav;
 	}
 }

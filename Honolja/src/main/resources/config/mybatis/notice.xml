@@ -13,15 +13,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectNAll" parameterType="com.guest.honolja.notice.NoticeDTO" resultType="com.guest.honolja.notice.NoticeDTO">
 		select * from ( 
 		 select rownum rn, n_no, n_title, n_content, n_date, n_viewcnt, u_id, n_fix from ( 
-		  select * from noticeboard where ${skey} like '%' || #{sval} || '%'  order by n_date desc 
+		  select * from noticeboard where ${skey} like '%' || #{sval} || '%'  order by n_fix desc, n_date desc 
 		 ) 
 		) where rn between #{start} and #{end}
 	</select>
 	
-		<select id="sel" parameterType="com.guest.honolja.notice.NoticeDTO" resultType="com.guest.honolja.notice.NoticeDTO">
+	<!-- //규광 -->
+		<select id="sel" resultType="com.guest.honolja.notice.NoticeDTO">
 	select * from (
 		 select rownum rn, n_no, n_title, n_content, n_date, n_viewcnt, u_id, n_fix from noticeboard
-		) where rn between 1 and 3
+		) where rn between 1 and 3 
 	</select>
 	
 	<select id="selectCnt" parameterType="com.guest.honolja.notice.NoticeDTO" resultType="int">
@@ -54,5 +55,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="edit" parameterType="com.guest.honolja.notice.NoticeDTO">
 	 update noticeboard set n_title=#{n_title}, n_content=#{n_content} where n_no = #{n_no}
 	</update>
+	
+	<select id="selectM" parameterType="String" resultType="String">
+	 select u_member from users where u_id = #{u_id}
+	</select>
 
 </mapper>

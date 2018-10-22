@@ -34,6 +34,7 @@ function rcheck() {
 		},
 		success : function(data) {
 			$("#note-title1_" + br_no ).hide();
+			$("#note-title2_" + br_no ).hide();
 		},
 		error : function(request, status, error) {
 			alert("code:" + request.status + "\n" + "message:"

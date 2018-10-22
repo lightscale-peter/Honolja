@@ -51,25 +51,31 @@
 			</thead>
 			
 			<tbody>
-			 <c:forEach items="${dto}" var="list">
+
+  
+  <c:forEach items="${list}" var="list">
  <tr align="center">
-	<td>${reversecnt=reversecnt-1}</td>
- 	<td><a href="notice_detail.do?idx=${list.n_no}">${list.n_title}</a></td>
- 	<td>${list.u_id}</td>
+	<td><span class="label label-primary">공지</span></td>
+ 	<td><a style="background-color:white; color:#337ab7;" href="notice_detail.do?idx=${list.n_no}">${list.n_title}</a></td>
+ 	<td><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><font color="ㅈ">${list.u_id}</font><span class="glyphicon glyphicon-envelope"></span></a></td>
  	<td><fmt:parseDate value="${list.n_date}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
       <fmt:formatDate value="${dateFmt}" pattern="yyyy-MM-dd HH:mm"/></td>
  	<td>${list.n_viewcnt}</td>
  </tr>
  </c:forEach>
+			
+			
+			<tbody>
 				<c:forEach var="dto" items="${LB}" varStatus="status">
 				
 						<tr align="center">
 							<td width="10%">${(Gtotal-status.index)-((pageNUM-1) * 7)}</td>
-							<td width="50%"><a href="boarddetail.do?idx=${dto.b_no}">${dto.b_title}</a> 
+							<td width="50%"><a href="boarddetail.do?idx=${dto.b_no}"><font color="black">${dto.b_title}</font></a> 
 							<font color="#ff0000">[${dto.cnt}]</font> 
-							<c:if test="${dto.b_originalfilename != null }"><i class="glyphicon glyphicon-picture"></i> </c:if> </td> 
-							<td width="10%">${dto.u_id}</td>
-							<td width="20%"> ${dto.b_date} </td>
+							<c:if test="${dto.b_originalfilename != null }">	<li class="glyphicon glyphicon-picture"></li></c:if> </td>
+							<td width="10%"><a href="javascript:void(window.open('msg_send.do?userid=${checked}&receiver=${dto.u_id}', 'text', 'width=440, height=650, top=100, left=100'))"><font color="black">${dto.u_id}</font><span class="glyphicon glyphicon-envelope"></span></a></td>
+					 		<td width="20%">
+      <fmt:formatDate value="${dto.b_date}" pattern="yyyy-MM-dd HH:mm"/></td>
 							<td width="10%">${dto.b_viewcnt}</td>
 						</tr>
 				</c:forEach>
@@ -120,11 +126,12 @@
 					</td>
 				</tr>
 			</table>
-		</div>
 			
-		<div class="foot" style="position:absolute; bottom:00%; width:100% margin-top:51px;">
-			<c:import url="http://localhost:8080/honolja/footer.do" /> 
 		</div>
+	
+<div class="foot" style="position:absolute; bottom:0%; width:100%; ">
+	<c:import url="http://localhost:8080/honolja/footer.do"/>
+</div>
 	
 </body>
 </html>

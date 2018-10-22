@@ -33,15 +33,41 @@
 			}
 			document.myform.submit(); 
 	  }
+	  
+	  
 	  </script>
 	  
 </head>
+
+
+
 <body id="page-top" style="margin-top:51px;" >
+
+
+
+<c:if test="${dto.u_id == null}">
+<script type="text/javascript">
+	if(confirm("로그인이 필요합니다.로그인 하시겠습니까?")==true) {
+		//popupWindow('login_popup.do?host=boardwrite.do', 'login', 410, 450);
+		
+		window.open('login_popup.do?host=boardwrite.do', 'login', "width=410, Height=450, top=200,left=750");
+		//location.href = "login_popup.do?host=main.do";
+	}else {
+	location.href = "board.do";
+	}
+	
+	</script>
+</c:if>
+
+
+
 
 	<c:import url="http://localhost:8080/honolja/header.do">
 		<c:param name="checked" value="${checked}" />
 		<c:param name="host" value="main.do" />
 	</c:import>
+
+<c:if test="${dto.u_id != null}">
 
 	<div class="container">
 		<div id="content-categories">
@@ -65,7 +91,7 @@
 			</div>
 		</form>
 	</div>
-
+</c:if>
 
 
 </body>

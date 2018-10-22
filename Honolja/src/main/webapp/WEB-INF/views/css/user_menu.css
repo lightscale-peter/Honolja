@@ -18,8 +18,8 @@
 		}
 		
 		ul li:hover > ul {
-  visibility: visible;
-}
+ 			visibility: visible;
+		}
 		
 		.dropdown-content a {
 			color: black;

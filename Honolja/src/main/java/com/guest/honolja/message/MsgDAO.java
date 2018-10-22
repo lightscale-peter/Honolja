@@ -39,7 +39,7 @@ public class MsgDAO {
 	public int db_msgcheck(String u_id) {
 		int cnt = temp.selectOne("message.msgselect", u_id);
 		return cnt;
-	}//�븞 �씫�� 履쎌� �닔
+	}
 	
 	public void db_deleteS(int data) {
 		temp.update("message.msgDeleteS", data);

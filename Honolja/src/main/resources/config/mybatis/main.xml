@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectFixedNotice" resultType="main">
-		select rownum rn, n_title, n_fix from noticeboard where n_fix = 'true'	
+		select rownum rn, n_title, n_fix from noticeboard where n_fix = 'Y'	
 	</select>
 	
 	<insert id="insertUsersInfo">
@@ -25,5 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectIdCheck" parameterType="String" resultType="int">
 		select count(*) from users where u_id like '%' || #{u_id} || '%'
 	</select>
-
+	
+	<select id="membercheck" parameterType="String" resultType="String">
+		select u_member from users where u_id = #{u_id}
+	</select>
 </mapper>

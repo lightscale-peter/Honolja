@@ -23,6 +23,11 @@ public class NoticeDAO {
 		return list;
 	}//select end
 	
+	public List<NoticeDTO> dbsel() {
+		List<NoticeDTO> list2=temp.selectList("notice.sel");
+		 return list2;
+	}
+	
 	public int db_count(String skey, String sval) {
 		NoticeDTO dto = new NoticeDTO();
 		dto.setSkey(skey);
@@ -62,5 +67,9 @@ public class NoticeDAO {
 		temp.update("notice.edit", dto);
 	}//공지글 수정기능
 	
+	public String db_selectM(String u_id) {
+		String u_member = temp.selectOne("notice.selectM", u_id);
+		return u_member;
+	}
 
 }//DAO end
