@@ -2,15 +2,12 @@ package com.guest.honolja.mypage;
 
 import java.util.List;
 import java.io.File;
-<<<<<<< HEAD
-import java.util.List;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-=======
-import javax.servlet.ServletContext;
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,8 +71,6 @@ public class MypageController {
 		return mav;
 	}//end
 	
-<<<<<<< HEAD
-
 	@RequestMapping("/rsvt_cancel.do")
 	public String rsvt_cancel(HttpServletRequest request) {
 		int idx = Integer.parseInt(request.getParameter("idx"));
@@ -84,10 +79,9 @@ public class MypageController {
 		return "redirect:/mypage_rsvt.do";
 	};
 	
-	//ȸ������
-=======
+
 	//회원정보
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
+
 	@RequestMapping("/mypageuser.do")
 	public ModelAndView mypageuser(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -99,8 +93,6 @@ public class MypageController {
 		return mav;
 	}//end
 	
-
-	//회占쏙옙占쏙옙占쏙옙
 	@RequestMapping("/useredit.do")
 	public ModelAndView useredit(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -111,10 +103,7 @@ public class MypageController {
 		return mav;
 	}//end
 	
-<<<<<<< HEAD
-=======
-	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
+	
 	@RequestMapping("/usereditsave.do")
 	public String usereditsave(MemberDTO mto) {
 		  String path=application.getRealPath("/resources/upload");
@@ -124,10 +113,6 @@ public class MypageController {
 		  
 		  File file=new File(path, img);
 		  try{
-<<<<<<< HEAD
-=======
-		    //dto.getUpload_f().transferTo(file);//臾쇰━�쟻�씤 �뙆�씪濡� 蹂��솚
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 			  FileCopyUtils.copy(mto.getUpload_img().getBytes(), file);
 		  }catch(Exception ex){ }
 		  mto.setU_img(img);		  
@@ -135,12 +120,6 @@ public class MypageController {
 		return "redirect:mypageuser.do";
 	}//end
 	
-<<<<<<< HEAD
-
-=======
-
-	//회占쏙옙탈占쏙옙
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	@RequestMapping("/mypageDelete.do")
 	public ModelAndView mypage_delete(HttpSession session) {
 		String u_id = session.getAttribute("checked").toString();
@@ -152,7 +131,6 @@ public class MypageController {
 		return mav;
 	}// end
 	
-	//회占쏙옙delete
 	@RequestMapping("m_delete.do")
 	public String m_delete(HttpSession session, MemberDTO mto) {
 		mto.setU_id(session.getAttribute("checked").toString());

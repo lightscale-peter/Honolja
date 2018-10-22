@@ -159,7 +159,7 @@
 					}
 				};
 				
-				xhr.open("GET", "http://localhost:8080/honolja/main_notice.do", true);
+				xhr.open("GET", "http://localhost:8080/honolja/main_notice.do", 'Y');
 				xhr.send();
 				
 		}		

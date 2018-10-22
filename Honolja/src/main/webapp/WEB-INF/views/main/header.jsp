@@ -8,11 +8,9 @@
 <head>
 
 <meta charset="UTF-8">
-<<<<<<< HEAD
-=======
+
 <title>Insert title here</title>
 	<link href="./resources/css/header.css" type="text/css" rel="stylesheet"> 
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -119,18 +117,12 @@
 						</ul>
 					</c:when>
 					<c:otherwise>
-<<<<<<< HEAD
+
 						<ul class="nav navbar-nav navbar-right">
 							<c:if test="${param.u_member == '관리자'}">
 								<li><a href="m_list.do"><span class="glyphicon glyphicon-user">&nbsp;회원관리</span></a></li>
 							</c:if>
-							<li onclick="popupWindow('chatting.do', 'login', 410, 450)"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;고객센터</a></li>
 							<li><a href="mypageuser.do"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
-=======
-
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="mypageuser.do?u_id=${param.checked}"><span class="glyphicon glyphicon-user"></span>&nbsp;마이페이지</a></li>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 							<li onclick="location.href = 'logout.do?host=${param.host}'"><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그아웃</a></li>
 						</ul>
 					</c:otherwise>
@@ -141,7 +133,7 @@
 	</div>
 	
 			<div class="popover-content popover-gnb-submenu animate-bounce-down" data-popover-content="true" id="id"
-			 style="display: none; background-color:white; border:1px solid #D5D5D5; span-color:red;"> 
+			 style="display: none; background-color:white; border:1px solid #D5D5D5; span-color:red; "> 
 			<div class="layer-search-option layer-area-list">
 			
 			<ul class="area-list">

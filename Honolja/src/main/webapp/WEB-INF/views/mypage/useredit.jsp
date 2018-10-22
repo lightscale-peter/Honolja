@@ -16,10 +16,6 @@
 	    var files = fileInput.files;
 	    for (var i = 0; i < files.length; i++) {           
 	        var file = files[i];
-<<<<<<< HEAD
-	        var imageType = /image.*/;
-=======
-<<<<<<< HEAD
 	        var imageType = /image.*/;
 	        if (!file.type.match(imageType)) {
 	            alert("이미지 파일만 가능합니다.");
@@ -64,87 +60,12 @@
 	}
 
 	.txt_name {
-=======
-	        var imageType = /image.*/;     
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
-	        if (!file.type.match(imageType)) {
-	            alert("이미지 파일만 가능합니다.");
-	            return;
-	        }           
-	        var img=document.getElementById("thumb");            
-	        img.file = file;    
-	        var reader = new FileReader();
-	        reader.onload = (function(aImg) { 
-	            return function(e) { 
-	                aImg.src = e.target.result; 
-	            }; 
-	        })(img);
-	        reader.readAsDataURL(file);
-	    }    
-	}
-	
-	function pwd_check(){
-		var pch = myform.u_pwd.value;
-		
-		if ( pch == null || pch == ""){
-			alert("수정 사항 반영을 위해 비밀번호를 입력해주세요.");
-			return;
-		}
-		
-		myform.submit();
-		
-	}
-	
-</script>
-
-<style type="text/css">
-	
-	.img-circle {
-		border-radius: 50%;
-		width: 150px;
-		height: 150px;
- 	}
-
-	#upload_img {  
-  		display: none;
-	}
-
-<<<<<<< HEAD
-	.txt_name {
-=======
-.txt_name {
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 		font-size: 10pt;
 		font-weight: bold;
-<<<<<<< HEAD
 	}
-	
-=======
-<<<<<<< HEAD
-	}
-=======
-}
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </style>
 
 <script type="text/javascript">
-<<<<<<< HEAD
-	function eventOccur(evEle, evType){
-		if (evEle.fireEvent) {
-			evEle.fireEvent('on' + evType);
-		} else {
-			var mouseEvent = document.createEvent('MouseEvents');
-			mouseEvent.initEvent(evType, true, false);
-			var transCheck = evEle.dispatchEvent(mouseEvent);
-
-			if (!transCheck) {
-				console.log("클릭 발생 실패");
-			}
-		}
-=======
-<<<<<<< HEAD
 	function eventOccur(evEle, evType){
 		if (evEle.fireEvent) {
 			evEle.fireEvent('on' + evType);
@@ -162,50 +83,15 @@
 	function check(){
 		eventOccur(document.getElementById('upload_img'),'click');
 	}
-=======
-function eventOccur(evEle, evType){
-	 if (evEle.fireEvent) {
-		 evEle.fireEvent('on' + evType);
-	 } else {
-		 var mouseEvent = document.createEvent('MouseEvents');
-		 mouseEvent.initEvent(evType, true, false);
-		 var transCheck = evEle.dispatchEvent(mouseEvent);
-			 if (!transCheck) {
-				 console.log("클릭 이벤트 발생 실패!");
-			 }
-		 }
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
-	}
-
-	function check(){
-		eventOccur(document.getElementById('upload_img'),'click');
-	}
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 </script>
 
 </head>
 <body>
 
-<<<<<<< HEAD
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">&times;</button>
 			<h4 class="modal-title">개인정보 수정</h4>
 	</div>
-=======
-<<<<<<< HEAD
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 class="modal-title">개인정보 수정</h4>
-=======
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">개인정보 수정</h4>
-        </div>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
         
 	<div class="modal-body" id="member"><p>
 
@@ -248,62 +134,10 @@ function eventOccur(evEle, evType){
 				
 	<div align="center">
 		<input type="submit" class="btn btn-default btn-md" style="height:40px;" value="수정하기">
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
-	</div>
-<<<<<<< HEAD
-        
-	<div class="modal-body" id="member"><p>
-
-	<form action="usereditsave.do" enctype="multipart/form-data" method="post" name="myform" onsubmit="pwd_check(); return false;">
-
-		<button type="button" class="btn btn-default btn-sm" id="replace" onclick="check();">
-			<span class="glyphicon glyphicon-picture"></span> Picture
-        </button>
- 	
-	<div align="center">
-		<input type="file" id="upload_img" name="upload_img" accept="image/*" onchange="showImg(this)"><p>
-		<img id="thumb" src="./image/${mto.u_img}" class="img-circle">
-	</div> <p>
-
-	<input type="hidden" name="u_id" id="u_id" value="${mto.u_id}">
-										
-	<div>
-		<span class="txt_name">이름</span>
-		<input type="text" class="form-control" name="u_name" id="u_name" value="${mto.u_name}">
-		<label id="uname"> </label>
-	</div> <p>
-				
-	<div>
-		<span class="txt_name">비밀번호</span>
-		<input type="password" class="form-control" name="u_pwd" id="u_pwd" >
-		<label id="pwd"> </label>
-	</div> <p>
-				
-	<div>
-		<span class="txt_name">휴대전화</span>
-		<input type="text" class="form-control" name="u_phn" id="u_phn" value="${mto.u_phn}" placeholder="'-' 없이 입력하세요">
-		<label id="uphn"> </label>
-	</div> <p>
-				
-	<div>
-		<span class="txt_name">이메일</span>
-		<input type="text" class="form-control" name="u_email" id="u_email" value="${mto.u_email}">
-		<label id="umail"> </label>
-	</div> <p> <br>
-				
-	<div align="center">
-		<input type="submit" class="btn btn-default btn-md" style="height:40px; font-weight:bold;" value="수정하기">
 	</div>
 	</form>
 	
 	</div>
-<<<<<<< HEAD
-=======
-=======
-	</form>
-</div>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
 </body>
 </html>

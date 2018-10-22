@@ -14,10 +14,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +26,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.util.WebUtils;
 
 import com.guest.honolja.member.MemberDTO;
-
-
 
 @Controller
 public class MainController {
@@ -165,7 +159,7 @@ public class MainController {
 			              String u_name = obj.getJSONObject("response").getString("name");
 			              String u_birth = obj.getJSONObject("response").getString("birthday");
 			              	
-			              if(u_gender.equals("³²ÀÚ")) {
+			              if(u_gender.equals("ï¿½ï¿½ï¿½ï¿½")) {
 			            	  u_img = "boy.jpg";  
 			              }else {
 			            	  u_img = "girl.jpg";

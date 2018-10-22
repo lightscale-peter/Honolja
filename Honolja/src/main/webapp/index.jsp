@@ -7,13 +7,10 @@
 	<title>[index.jsp]</title>
 
 	<script type="text/javascript">
-<<<<<<< HEAD
 		 setTimeout("location.href='main.do'", 100); 
-=======
-		 setTimeout("location.href='guestlist.do'", 100); 
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	</script>
 </head>
+
 <body>
 	<!-- index.jsp -->
 	<div align="center">

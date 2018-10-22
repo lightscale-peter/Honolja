@@ -47,7 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from users where u_id = #{u_id} and u_pwd = #{u_pwd}
 	</delete>
 	
-	<select id="mypage_board" parameterType="String" resultType="com.guest.honolja.board.BoardDTO">
+	 
+<!-- 	<select id="mypage_board" parameterType="String" resultType="com.guest.honolja.board.BoardDTO">
 		select * from board where u_id = #{u_id}
 	</select>
 	
@@ -63,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			from roominfo inner join reservation 
 				on roominfo.r_no = reservation.r_no 
 					where u_id = #{u_id}
-	</select>
+	</select> -->
 	
 	<delete id="rsvt_cancel" parameterType="int">
 		delete from reservation where r_no = #{r_no}
