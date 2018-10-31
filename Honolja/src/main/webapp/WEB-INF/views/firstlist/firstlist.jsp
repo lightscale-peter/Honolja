@@ -294,15 +294,15 @@ a:visited{color: #212121; text-decoration: none;}
 			header: true,
 	        value: today,
 	        format: 'yyyy/mm/dd',
-	        minDate: today,
+	        minDate: today
 	    });
 		$("#endDate").datepicker({ 
 			header: true,
-	        value:today1,
+	        value: today1,
 	        format: 'yyyy/mm/dd',
 	        minDate: function () {
 	            return  $('#startDate').val(); 
-	        },
+	        }
 	    }); 
 	});
 	
@@ -444,7 +444,6 @@ a:visited{color: #212121; text-decoration: none;}
     	padding: 20px;
     	clear: both;
     	display:none;">
-    	
  	    	<div>
  	      		<div>
  	      			<div>
@@ -720,7 +719,8 @@ a:visited{color: #212121; text-decoration: none;}
   			name[${i.index}] = '${list.g_name}';
   			url[${i.index}] = '${list.g_url}';
 			g_no[${i.index}] = ${list.g_no};
-			check_in = '${check_in}'; check_out = '${check_out}';
+			check_in = '${check_in}'; 
+			check_out = '${check_out}';
 			adult= '${param.adult}';
 			child= '${param.child}'; 
   			area = '${param.area}';

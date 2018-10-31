@@ -726,7 +726,8 @@ a:visited {color: #212121;text-decoration: none;}
   			name[${i.index}] = '${list.g_name}';
   			url[${i.index}] = '${list.g_url}';
 			g_no[${i.index}] = ${list.g_no};
-			check_in = '${check_in}'; check_out = '${check_out}';
+			check_in = '${check_in}';
+			check_out = '${check_out}';
 			adult= '${param.adult}';
 			child= '${param.child}'; 
   			area = '${param.area}';
