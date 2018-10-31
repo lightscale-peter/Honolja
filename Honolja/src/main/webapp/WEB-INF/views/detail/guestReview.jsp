@@ -30,12 +30,12 @@
 <script src="./resources/js/detail.js"></script>
 <link rel="stylesheet" href="./resources/css/detail.css" />
 <script type="text/javascript">
-$('.starRev span').click(function(){
+/* $('.starRev span').click(function(){
 	  $(this).parent().children('span').removeClass('on');
 	  $(this).addClass('on').prevAll('span').addClass('on');
 	  return false;
-	});
-
+	}); */
+	
 </script>
 <style type="text/css">
 .starR {
@@ -52,6 +52,15 @@ $('.starRev span').click(function(){
 
 .starR.on {
 	background-position: 0 0;
+}
+
+.star-rating {
+	line-height: 32px;
+	font-size: 1.25em;
+}
+
+.star-rating .fa-star {
+	color: yellow;
 }
 </style>
 </head>
@@ -110,11 +119,53 @@ $('.starRev span').click(function(){
 							</select>
 						</div>
 						<div class="form-group col-md-3">
-							<div class="starRev">
-								<span class="starR on" id="star1">1</span> <span class="starR"
-									id="star1">2</span> <span class="starR" id="star1">3</span> <span
-									class="starR" id="star1">4</span> <span class="starR"
-									id="star1">5</span>
+							<!-- <div class="starRev">
+								<span class="starR on" id="star1" data-value="1">1</span> <span
+									class="starR" id="star1" data-value="2">2</span> <span
+									class="starR" id="star1" data-value="3">3</span> <span
+									class="starR" id="star1" data-value="4">4</span> <span
+									class="starR" id="star1" data-value="5">5</span>
+							</div> -->
+							<div class="container">
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="star-rating">
+											<span class="fa fa-star-o" data-rating="1"></span> <span
+												class="fa fa-star-o" data-rating="2"></span> <span
+												class="fa fa-star-o" data-rating="3"></span> <span
+												class="fa fa-star-o" data-rating="4"></span> <span
+												class="fa fa-star-o" data-rating="5"></span> <input
+												type="hidden" name="whatever1" class="rating-value"
+												value="2.56">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="star-rating">
+											<span class="fa fa-star-o" data-rating="1"></span> <span
+												class="fa fa-star-o" data-rating="2"></span> <span
+												class="fa fa-star-o" data-rating="3"></span> <span
+												class="fa fa-star-o" data-rating="4"></span> <span
+												class="fa fa-star-o" data-rating="5"></span> <input
+												type="hidden" name="whatever2" class="rating-value"
+												value="1.9">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="star-rating">
+											<span class="fa fa-star-o" data-rating="1"></span> <span
+												class="fa fa-star-o" data-rating="2"></span> <span
+												class="fa fa-star-o" data-rating="3"></span> <span
+												class="fa fa-star-o" data-rating="4"></span> <span
+												class="fa fa-star-o" data-rating="5"></span> <input
+												type="hidden" name="whatever3" class="rating-value"
+												value="4.1">
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="form-group col-md-3">
@@ -248,5 +299,28 @@ $('.starRev span').click(function(){
 		</c:choose>
 	</div>
 	<c:import url="detailModal.jsp"></c:import>
+	<script type="text/javascript">
+	var $star_rating = $('.star-rating .fa');
+
+	var SetRatingStar = function() {
+	  return $star_rating.each(function() {
+	    if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+	      return $(this).removeClass('fa-star-o').addClass('fa-star');
+	    } else {
+	      return $(this).removeClass('fa-star').addClass('fa-star-o');
+	    }
+	  });
+	};
+
+	$star_rating.on('click', function() {
+	  $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+	  return SetRatingStar();
+	});
+
+	SetRatingStar();
+	$(document).ready(function() {
+
+	});
+	</script>
 </body>
 </html>
