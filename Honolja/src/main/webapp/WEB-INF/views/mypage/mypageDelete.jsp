@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
-=======
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,16 +47,8 @@
 </style>
 
 </head>
-<<<<<<< HEAD
-<body id="page-top" style="margin-top:51px;">
-	<c:import url="http://localhost:8080/honolja/header.do">
-		<c:param name="checked" value="${checked}"></c:param>
-		<c:param name="host" value="main.do"></c:param>
-	</c:import>
-	<jsp:include page="mypage_menu.jsp" />
-=======
+
 <body>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 
 	<c:import url="http://localhost:8080/honolja/header.do">
 		<c:param name="checked" value="${checked}"></c:param>

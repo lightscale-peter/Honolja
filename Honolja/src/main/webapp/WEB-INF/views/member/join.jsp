@@ -101,24 +101,6 @@
 		border-color: #dadada;
 		padding: 7px 13px 10px;
 	}
-<<<<<<< HEAD
-		
-	.img-circle {
-		border-radius: 50%;
-		width: 150px;
-		height: 150px;
- 	}
- 	
- 	#upload_img {
- 		display: none;
- 	}
- 	
-	#u_member, #u_gender {
-		margin: -25px 0 0 0; 
-		vertical-align:middle;
-	}
-	
-=======
 			
 	.img-circle {
 		border-radius: 50%;
@@ -134,7 +116,6 @@
 		margin: -25px 0 0 0; 
 		vertical-align:middle;
 	}
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 	
 </style>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -616,37 +597,11 @@
 					<label id="uguestnum"></label>
 				</div>
 				<div>
-<<<<<<< HEAD
 					<input type="submit" class="btn btn-primary btn-md" style="height: 50px; width: 100%; margin-top: 20px; font-size: 12pt; font-weight: bold;" value="가입하기">
-=======
-					<input type="submit" class="btn btn-primary btn-md" style="height: 50px; width: 100%;  font-size: 12pt; font-weight: bold;" value="가입하기">
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
 				</div>
 		</form>
 	</div>
-<<<<<<< HEAD
-=======
 	
-	<div class="modal" id="testmodal" tabindex="-1" role="dialog">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">Modal title</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        <p>Modal body text goes here.</p>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
->>>>>>> branch 'master' of https://github.com/duracelldog/Honolja
-
+	<div style="height: 100px;"></div>
 </body>
 </html>
