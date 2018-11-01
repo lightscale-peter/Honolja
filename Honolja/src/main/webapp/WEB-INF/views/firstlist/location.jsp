@@ -302,7 +302,7 @@ a:visited {color: #212121;text-decoration: none;}
 		$("#startDate").datepicker({ 
 			header: true,
 	        //footer: true,
-	        value: today,
+	        //value: today,
 	        format: 'yyyy/mm/dd',
 	        minDate: today,
 	       /*  maxDate: function () {
@@ -312,7 +312,7 @@ a:visited {color: #212121;text-decoration: none;}
 		$("#endDate").datepicker({ 
 			header: true,
 	        //footer: true,
-	        value:today1,
+	       // value:today1,
 	        format: 'yyyy/mm/dd',
 	        minDate: function () {
 	            return  $('#startDate').val(); 

@@ -262,7 +262,7 @@ a:visited{color: #212121; text-decoration: none;}
     	</div>
     	<div style="position:fixed;margin-left:4%;">
     		<input type="text" aria-label="YYYY/MM/DD" name="check_in"  id="startDate" value="${param.check_in}"
-    		 width="150px" placeholder="today"  style="color:black;" onchange="date1()"/> 
+    		 width="150px" placeholder="날짜 미정"  style="color:black;" onchange="date1()"/> 
     	</div>
    		<!-- 체크 아웃 날짜 -->
     	<div style="position:fixed; margin-left:13%; "><!--margin-bottom:50%;  -->
@@ -270,7 +270,7 @@ a:visited{color: #212121; text-decoration: none;}
     	</div>
     	<div style="position:fixed; margin-left:16.5%; margin-bottom:80%;">
     		<input type="text" aria-label="YYYY/MM/DD" name="check_out" id="endDate" value="${param.check_out}"
-    		 width="150px" placeholder="yyyy/mm/dd"  style="color:black;" onchange="date2()"/>
+    		 width="150px" placeholder="날짜 미정"  style="color:black;" onchange="date2()"/>
     	</div>
     	<div style="position:fixed; margin-left:24.5%; "><!-- margin-bottom:50%; -->
     		<img src="https://yaimg.yanolja.com/joy/pw/place/bullet-datepicker-check.svg" >
@@ -292,13 +292,13 @@ a:visited{color: #212121; text-decoration: none;}
 		
 		$("#startDate").datepicker({ 
 			header: true,
-	        value: today,
+	        //value: ,
 	        format: 'yyyy/mm/dd',
 	        minDate: today
 	    });
 		$("#endDate").datepicker({ 
 			header: true,
-	        value: today1,
+	        //value: today1,
 	        format: 'yyyy/mm/dd',
 	        minDate: function () {
 	            return  $('#startDate').val(); 
